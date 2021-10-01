@@ -1,15 +1,11 @@
-package com.epam.types;
+package com.epam.command;
 
 public enum TypeCommand {
     LOGIN {
-        {
-            this.command = new LoginCommand();
-        }
+        { this.command = new LoginCommand(); }
     },
     LOGOUT {
-        {
-            this.command = new LogoutCommand();
-        }
+        { this.command = new LogoutCommand(); }
     };
     AbstractCommand command;
 

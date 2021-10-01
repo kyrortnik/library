@@ -1,4 +1,4 @@
-package com.epam.types;
+package com.epam.command;
 
 import javax.servlet.http.HttpServletRequest;
 
