@@ -16,7 +16,7 @@
 
 
     <build>
-        <finalName>dao</finalName>
+        <finalName>repository</finalName>
     </build>
 
     <dependencies>

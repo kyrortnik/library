@@ -3,7 +3,7 @@ package entity;
 
 public class Product {
 
-    private long id;
+    private Long id;
     private String title;
     private String author;
     private boolean isReserved;
@@ -11,29 +11,29 @@ public class Product {
     public Product() {
     }
 
-    public Product(long id, String title) {
+    public Product(Long id, String title) {
         this.id = id;
         this.title = title;
     }
 
-    public Product(long id, String title, String author) {
+    public Product(Long id, String title, String author) {
         this.id = id;
         this.title = title;
         this.author = author;
     }
 
-    public Product(long id, String title, String author, boolean isReserved) {
+    public Product(Long id, String title, String author, boolean isReserved) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.isReserved = isReserved;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -68,16 +68,17 @@ public class Product {
 
         Product that = (Product) o;
 
-        if (id != that.id) return false;
+        if (!id.equals(that.id)) return false;
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
         return author != null ? author.equals(that.author) : that.author == null;
     }
 
     @Override
     public int hashCode() {
-        int result = (int)id;
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (author != null ? author.hashCode() : 0);
+        result = 31 * result + (isReserved ? 1 : 0);
         return result;
     }
 
