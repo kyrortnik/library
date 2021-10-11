@@ -18,7 +18,7 @@ public class PropertyInitializer {
     }
 
     public void loadProperties() {
-        try(InputStream inputStream = DataBaseConfig.class.getClassLoader().getResourceAsStream(DATABASE_CONFIG_PATH)) {
+        try(InputStream inputStream = PropertyInitializer.class.getClassLoader().getResourceAsStream(DATABASE_CONFIG_PATH)) {
             properties = new Properties();
             properties.load(inputStream);
         } catch (IOException e) {

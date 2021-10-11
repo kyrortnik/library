@@ -1,5 +1,7 @@
 package repository;
 
+import exception.DAOException;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -10,46 +12,49 @@ public class ConnectionPoolImpl implements ConnectionPool {
 
    private final ArrayList<Connection> availableConnections;
    private final ArrayList<Connection> takenConnections = new ArrayList<>();
+   private static boolean driverIsLoaded = false;
+   
    private static final int INITIAL_POOL_SIZE = 10;
    private static final int MAX_POOL_SIZE = 20;
    private static final int MAX_TIMEOUT = 5;
-    private final String url;
-    private final String username;
-    private final String password;
+
+   private final String DRIVER;
+   private final String URL;
+
+   private final String USERNAME;
+   private final String PASSWORD;
 
 
 
-    public static ConnectionPoolImpl create(String url,String username,String password) throws SQLException {
+    public ConnectionPoolImpl(PropertyInitializer propertyInitializer)   {
 
-        ArrayList<Connection> connectionPool = new ArrayList<>(INITIAL_POOL_SIZE);
-        for (int i = 0;i < INITIAL_POOL_SIZE;i++){
-            connectionPool.add(createConnection(url,username,password));
+        availableConnections = new ArrayList<>(INITIAL_POOL_SIZE);
+
+        this.DRIVER = propertyInitializer.getProperty("database.driver");
+        this.URL = propertyInitializer.getProperty("database.url");
+        this.USERNAME = propertyInitializer.getProperty("database.username");
+        this.PASSWORD = propertyInitializer.getProperty("database.password");
+
+
+        try{
+            loadJdbcDriver();
+            for (int i = 0;i < INITIAL_POOL_SIZE;i++){
+                availableConnections.add(DriverManager.getConnection(URL,USERNAME,PASSWORD));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
         }
 
-        return new ConnectionPoolImpl(url,username,password,connectionPool);
-
 
     }
 
-
-    private ConnectionPoolImpl(String url,String username,String password, ArrayList<Connection> availableConnections) {
-         this.url = url;
-         this.username = username;
-         this.password = password;
-         this.availableConnections = availableConnections;
-    }
-
-
-    private static Connection createConnection(String url,String user,String password) throws SQLException {
-        return DriverManager.getConnection(url, user, password);
-    }
 
     @Override
     public Connection getConnection() throws SQLException {
 
         if (availableConnections.isEmpty()) {
             if (takenConnections.size() < MAX_POOL_SIZE) {
-                availableConnections.add(createConnection(url, username, password));
+                availableConnections.add(DriverManager.getConnection(URL, USERNAME, PASSWORD));
             } else {
                 throw new RuntimeException("Maximum pool size reached, no available connections!");
             }
@@ -58,7 +63,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
         Connection connection = availableConnections.remove(availableConnections.size() - 1);
 
         if(!connection.isValid(MAX_TIMEOUT)){
-            connection = createConnection(url, username, password);
+            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         }
 
         takenConnections.add(connection);
@@ -71,5 +76,20 @@ public class ConnectionPoolImpl implements ConnectionPool {
         return takenConnections.remove(connection);
     }
 
+  /*  private Connection createConnection(String url,String user,String password) throws SQLException {
+        return DriverManager.getConnection(url, user, password);
+    }*/
+
+
+    private void loadJdbcDriver() {
+        if (!driverIsLoaded) {
+            try {
+                Class.forName(DRIVER);
+                driverIsLoaded = true;
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }
