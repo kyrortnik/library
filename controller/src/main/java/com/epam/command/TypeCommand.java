@@ -6,6 +6,10 @@ public enum TypeCommand {
     },
     LOGOUT {
         { this.command = new LogoutCommand(); }
+    },
+
+    REGISTRATION {
+        {this.command = new RegistrationCommand();}
     };
     AbstractCommand command;
 

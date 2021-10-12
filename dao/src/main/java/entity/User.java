@@ -1,8 +1,8 @@
 package entity;
 
-public class User {
+public class User extends Entity {
 
-    private long id;
+
     private  String login;
     private  String password;
     private  String role;
@@ -10,26 +10,18 @@ public class User {
     public User(){}
 
     public User(long id){
-        this.id = id;
+        super(id);
     }
     public User(long id,String login,String password){
-        this.id = id;
+        super(id);
         this.login = login;
         this.password = password;
     }
     public User(long id,String login,String password,String role){
-        this.id = id;
+       super(id);
         this.login = login;
         this.password = password;
         this.role = role;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getLogin() {
@@ -56,31 +48,32 @@ public class User {
         this.role = role;
     }
 
-    public int hashCode(){
-        int result = (int)id;
-        result = result * 31 + (login != null ? login.hashCode() : 0);
-        result = result * 31 + (password != null ? password.hashCode() : 0);
-        result = result * 31 + (role != null ? role.hashCode() : 0);
-        return result;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
 
+        User user = (User) o;
+
+        if (login != null ? !login.equals(user.login) : user.login != null) return false;
+        if (password != null ? !password.equals(user.password) : user.password != null) return false;
+        return role != null ? role.equals(user.role) : user.role == null;
     }
 
-    public boolean equals(Object o){
-        if (this == o) return true;
-        if (o == null || this.getClass() != o.getClass()) return false;
-        User that = (User) o;
-        if (id != that.id) return false;
-       if (login != null ? !login.equals(that.login) : that.login != null) return false;
-       if (password != null ? !password.equals(that.password) : that.password != null) return false;
-       return  role != null ? role.equals(that.role) : that.role == null;
-
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (login != null ? login.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (role != null ? role.hashCode() : 0);
+        return result;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", login='" + login + '\'' +
+                "login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
                 '}';

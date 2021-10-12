@@ -2,5 +2,5 @@ package repository;
 
 import entity.User;
 
-public interface UserDAO extends DAO<User>{
+public interface UserDAO extends AbstractDAO<User> {
 }

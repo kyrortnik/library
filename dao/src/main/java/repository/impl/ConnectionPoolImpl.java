@@ -1,10 +1,10 @@
-package repository;
+package repository.impl;
 
 import exception.DAOException;
+import repository.ConnectionPool;
+import repository.PropertyInitializer;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 
@@ -25,11 +25,9 @@ public class ConnectionPoolImpl implements ConnectionPool {
    private final String PASSWORD;
 
 
-
     public ConnectionPoolImpl(PropertyInitializer propertyInitializer)   {
 
         availableConnections = new ArrayList<>(INITIAL_POOL_SIZE);
-
         this.DRIVER = propertyInitializer.getProperty("database.driver");
         this.URL = propertyInitializer.getProperty("database.url");
         this.USERNAME = propertyInitializer.getProperty("database.username");
@@ -44,7 +42,6 @@ public class ConnectionPoolImpl implements ConnectionPool {
         }catch (SQLException e){
             e.printStackTrace();
         }
-
 
     }
 
