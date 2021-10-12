@@ -28,5 +28,19 @@
         <fmt:message key="local.login" bundle="${rb}" var = "var"/>
         <input type="submit" value="${var}"/>
         </form><hr/>
+
+        <form name = "registrationForm" method="POST" action="frontController">
+        <input type="hidden" name = "command" value="registration" />
+        Registration form:<br/>
+        <br/>Login<br/>
+        <input type = "text" name = "login" value=""/>
+        <br/>Password<br/>
+        <input type ="text" name = "password" value=""/>
+        <br/>Password again<br/>
+        <input type ="text" name = "secondPassword" value=""/>
+        <br/>
+         <input type="submit" value="registration"/>
+        </form>
+
     </body>
 </html>

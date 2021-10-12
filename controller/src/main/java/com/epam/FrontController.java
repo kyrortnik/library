@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-public class FrontController extends HttpServlet {
 
+public class FrontController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -45,6 +45,8 @@ public class FrontController extends HttpServlet {
                     MessageManager.getProperty("message.nullpage"));
             resp.sendRedirect(req.getContextPath() + page);
         }
+
+
 
 
 
