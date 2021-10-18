@@ -13,7 +13,7 @@ public class UserDAOImpl implements UserDAO {
 
     private static final String FIND_USER_QUERY = "SELECT * FROM users WHERE login = ? AND password = ?";
     private static final String FIND_USER_BY_ID = "SELECT * FROM users WHERE id = ? ";
-    private static final String SAVE_USER = "INSERT INTO users VALUES ( ?, ?, ?, ?) ";
+    private static final String SAVE_USER = "INSERT INTO users VALUES (DEFAULT, ?, ?, ?) ";
     private static final String DELETE_USER = "DELETE FROM users WHERE id = ?";
     private static final String UPDATE_USER = "UPDATE users SET  WHERE id = ? ";
     private static final String GET_ALL_USERS = "SELECT * FROM users";
@@ -81,22 +81,21 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public boolean saveEntity(User element) {
+    public boolean saveEntity(User user) {
         Connection connection = null;
         PreparedStatement statement = null;
 
         try {
-            int result = 0;
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(SAVE_USER);
-            statement.setLong(1,element.getId());
-            statement.setString(2, element.getLogin());
-            statement.setString(3, element.getPassword());
-            statement.setString(4, element.getRole());
-            result = statement.executeUpdate();
-            return (result != 0);
+//            statement.setLong(1,element.getId());
+            statement.setString(1, user.getLogin());
+            statement.setString(2, user.getPassword());
+            statement.setString(3, user.getRole());
+
+            return (statement.executeUpdate() != 0);
         } catch (SQLException e) {
-            throw new DAOException("error while saving entity");
+            throw new DAOException("error while saving user");
         } finally {
             if (statement != null) {
                 try {

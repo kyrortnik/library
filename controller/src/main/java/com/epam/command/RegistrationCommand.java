@@ -29,6 +29,7 @@ public class RegistrationCommand implements AbstractCommand{
         User user = new User(1,login,pass,"user");
 
         if (userService.registrate(user)){
+            request.setAttribute("user",login);
             page = ConfigurationManager.getProperty("path.page.main");
 
         }else {

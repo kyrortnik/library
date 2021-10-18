@@ -7,7 +7,22 @@
     <h3>Welcome</h3>
     <hr/>
     ${user}, hello!
+    <br/>
+    To logout click ling below
     <hr/>
     <a href="frontController?command=logout">Logout</a>
-    </body><
+    </body>
+
+    <body name = "referenceBody">
+
+    <a href="">Books Catalogue</a>
+    <br/>
+    <a href="">Orders Catalogue </a>
+    <br/>
+    <a href="">User cabinet  </a>
+    <br/>
+    <a href="">Logout </a>
+
+
+    </body>
 </html>

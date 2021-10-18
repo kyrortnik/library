@@ -2,6 +2,7 @@ package repository.impl;
 
 import exception.DAOException;
 import repository.ConnectionPool;
+import repository.DataBaseInit;
 import repository.PropertyInitializer;
 
 import java.sql.*;
@@ -13,6 +14,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
    private final ArrayList<Connection> availableConnections;
    private final ArrayList<Connection> takenConnections = new ArrayList<>();
    private static boolean driverIsLoaded = false;
+   DataBaseInit dataBaseInit;
    
    private static final int INITIAL_POOL_SIZE = 10;
    private static final int MAX_POOL_SIZE = 20;
@@ -26,6 +28,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
 
 
     public ConnectionPoolImpl(PropertyInitializer propertyInitializer)   {
+
 
         availableConnections = new ArrayList<>(INITIAL_POOL_SIZE);
         this.DRIVER = propertyInitializer.getProperty("database.driver");
