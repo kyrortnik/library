@@ -12,6 +12,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean registrate(User user) {
-        return userDAO.saveEntity(user);
+        return userDAO.save(user);
     }
 }
