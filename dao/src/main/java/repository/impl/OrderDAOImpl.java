@@ -81,10 +81,11 @@ public class OrderDAOImpl implements OrderDAO {
         try{
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(GET_ALL_ORDERS);
+            resultSet = statement.executeQuery();
 
             long orderId;
             long productId;
-            long userId;
+            long userId ;
             Order order;
             while(resultSet.next()){
                 orderId = resultSet.getLong(1);
@@ -93,7 +94,9 @@ public class OrderDAOImpl implements OrderDAO {
                 order = new Order(orderId,productId,userId);
                 orders.add(order);
             }
-            return orders;
+                return orders;
+
+
         }catch (SQLException e){
          throw new DAOException("unable to get All orders",e);
         }finally {

@@ -13,6 +13,13 @@ public enum TypeCommand {
     },
     SHOW_USERS {
         {this.command = new ShowUsersCommand();}
+    },
+
+    SHOW_PRODUCTS{
+        {this.command = new ShowProductsCommand();}
+    },
+    SHOW_ORDERS{
+        {this.command = new ShowOrdersCommand();}
     };
 
     public AbstractCommand getCurrentCommand() {

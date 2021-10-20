@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BookDAOImpl implements BookDAO {
@@ -20,6 +21,7 @@ public class BookDAOImpl implements BookDAO {
     private static final String SAVE_BOOK = "INSERT INTO books VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?) ";
     private static final String DELETE_BOOK = "DELETE FROM books WHERE title = ? AND author = ? AND publisher = ?";
     private static final String UPDATE_BOOK = "UPDATE books SET author = ?, is_reserved = ?, publishyear = ?, publisher = ?, genre = ?, pages = ?, is_hard = ? WHERE id = ? ";
+    private static final String GET_ALL_BOOKS = "SELECT * FROM products";
 
 
     PropertyInitializer propertyInitializer = new PropertyInitializer();
@@ -101,7 +103,48 @@ public class BookDAOImpl implements BookDAO {
 
     @Override
     public List<Book> getAll() {
-        return null;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        ArrayList<Book> books = new ArrayList<>();
+        try{
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(GET_ALL_BOOKS);
+            resultSet = statement.executeQuery();
+           /* Book book;*/
+            long id;
+            String title;
+            String author;
+            boolean isReserved;
+            int publishYear;
+            String publisher;
+            String genre;
+            int numberOfPages;
+            boolean isHardCover;
+            while(resultSet.next()){
+                id = resultSet.getLong(1);
+                title =resultSet.getString(2);
+                author = resultSet.getString(3);
+                isReserved = resultSet.getBoolean(4);
+                publishYear = resultSet.getInt(5);
+                publisher = resultSet.getString(6);
+                genre = resultSet.getString(7);
+                numberOfPages = resultSet.getInt(8);
+                isHardCover = resultSet.getBoolean(9);
+                Book book = new Book(
+                        id,title,author,publishYear,publisher,isReserved,genre,numberOfPages,isHardCover
+                );
+                books.add(book);
+            }
+            return books;
+        }catch (SQLException e){
+            throw new DAOException("unable to get all books",e);
+        }
+        finally {
+            closeResultSet(resultSet);
+            closeStatement(statement);
+            connectionPool.releaseConnection(connection);
+        }
     }
 
     /*@Override

@@ -108,7 +108,7 @@ public class UserDAOImpl implements UserDAO {
 
             return (statement.executeUpdate() != 0);
         } catch (SQLException e) {
-            throw new DAOException("error while saving user");
+            throw new DAOException("error while saving user",e);
         } finally {
             closeStatement(statement);
             connectionPool.releaseConnection(connection);
