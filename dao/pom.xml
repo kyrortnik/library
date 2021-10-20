@@ -16,7 +16,7 @@
 
 
     <build>
-        <finalName>repository</finalName>
+        <finalName>com.epam.repository</finalName>
     </build>
 
     <dependencies>

@@ -1,11 +1,9 @@
 package com.epam.command;
 
 import com.epam.ConfigurationManager;
-import entity.Book;
-import entity.User;
-import services.BookService;
-import services.OrderService;
-import services.ServiceFactory;
+import com.epam.entity.Book;
+import com.epam.BookService;
+import com.epam.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

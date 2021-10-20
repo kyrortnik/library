@@ -1,12 +1,7 @@
 package com.epam.command;
 
-import entity.Order;
-import services.OrderService;
-import services.ServiceFactory;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 public class CreateOrderCommand implements AbstractCommand {
     @Override

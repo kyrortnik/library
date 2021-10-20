@@ -1,14 +1,12 @@
 package com.epam.command;
 
 import com.epam.ConfigurationManager;
-import entity.User;
-import services.ServiceFactory;
-import services.UserService;
+import com.epam.entity.User;
+import com.epam.ServiceFactory;
+import com.epam.UserService;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class ShowUsersCommand implements AbstractCommand{

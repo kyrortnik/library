@@ -2,9 +2,9 @@ package com.epam.command;
 
 import com.epam.ConfigurationManager;
 import com.epam.MessageManager;
-import entity.User;
-import services.ServiceFactory;
-import services.UserService;
+import com.epam.entity.User;
+import com.epam.ServiceFactory;
+import com.epam.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

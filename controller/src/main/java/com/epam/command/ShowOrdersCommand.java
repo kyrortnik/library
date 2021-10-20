@@ -1,14 +1,13 @@
 package com.epam.command;
 
 import com.epam.ConfigurationManager;
-import entity.Order;
-import services.OrderService;
-import services.ServiceFactory;
+import com.epam.entity.Order;
+import com.epam.OrderService;
+import com.epam.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class ShowOrdersCommand implements AbstractCommand{
