@@ -27,6 +27,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
 
     public ConnectionPoolImpl(PropertyInitializer propertyInitializer)   {
 
+
         availableConnections = new ArrayList<>(INITIAL_POOL_SIZE);
         this.DRIVER = propertyInitializer.getProperty("database.driver");
         this.URL = propertyInitializer.getProperty("database.url");

@@ -2,36 +2,38 @@ package entity;
 
 public class Order extends Entity {
 
-    private Product product;
-    private UserDTO userDTO;
+    private Long productId;
+    private Long userId;
 
-    public Order() {
+    public Order(){
+
     }
+
 
     public Order(Long id) {
         super(id);
     }
 
-    public Order(Long id, Product product,UserDTO userDTO) {
+   public Order(Long id,Long productId,Long userId){
         super(id);
-        this.product = product;
-        this.userDTO = userDTO;
+        this.productId = productId;
+        this.userId = userId;
+   }
+
+    public Long getProductId() {
+        return productId;
     }
 
-    public Product getProduct() {
-        return product;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public Long getUserId() {
+        return userId;
     }
 
-    public UserDTO getUserDTO() {
-        return userDTO;
-    }
-
-    public void setUserDTO(UserDTO userDTO) {
-        this.userDTO = userDTO;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     @Override
@@ -42,23 +44,23 @@ public class Order extends Entity {
 
         Order order = (Order) o;
 
-        if (product != null ? !product.equals(order.product) : order.product != null) return false;
-        return userDTO != null ? userDTO.equals(order.userDTO) : order.userDTO == null;
+        if (productId != null ? !productId.equals(order.productId) : order.productId != null) return false;
+        return userId != null ? userId.equals(order.userId) : order.userId == null;
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (product != null ? product.hashCode() : 0);
-        result = 31 * result + (userDTO != null ? userDTO.hashCode() : 0);
+        result = 31 * result + (productId != null ? productId.hashCode() : 0);
+        result = 31 * result + (userId != null ? userId.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         return "Order{" +
-                "product=" + product +
-                ", userDTO=" + userDTO +
+                "productId=" + productId +
+                ", userId=" + userId +
                 '}';
     }
 }

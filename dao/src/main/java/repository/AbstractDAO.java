@@ -9,17 +9,17 @@ import java.util.List;
 
 public interface AbstractDAO<T> {
 
-    T getEntity(T element);
+    T get(T t);
 
-    T getEntityById(Long id);
+    T getById(Long id);
 
     List<T> getAll();
 
-    boolean saveEntity(T element);
+    boolean save(T t);
 
-    boolean deleteEntity(T element);
+    boolean delete(T t);
 
-    boolean updateEntity(T element);
+    boolean update(T t);
 
 
 }

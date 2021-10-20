@@ -1,6 +1,6 @@
 package entity;
 
-public class UserDTO {
+public class UserDTO extends Entity{
 
     private  String login;
     private  String role;
@@ -11,6 +11,13 @@ public class UserDTO {
         this.login = login;
         this.role = role;
     }
+
+    public UserDTO(User user) {
+        super(user.getId());
+        this.login = user.getLogin();
+        this.role = user.getRole();
+    }
+
 
     public String getLogin() {
         return login;
@@ -32,16 +39,18 @@ public class UserDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
 
-        UserDTO that = (UserDTO) o;
+        UserDTO userDTO = (UserDTO) o;
 
-        if (login != null ? !login.equals(that.login) : that.login != null) return false;
-        return role != null ? role.equals(that.role) : that.role == null;
+        if (login != null ? !login.equals(userDTO.login) : userDTO.login != null) return false;
+        return role != null ? role.equals(userDTO.role) : userDTO.role == null;
     }
 
     @Override
     public int hashCode() {
-        int result = login != null ? login.hashCode() : 0;
+        int result = super.hashCode();
+        result = 31 * result + (login != null ? login.hashCode() : 0);
         result = 31 * result + (role != null ? role.hashCode() : 0);
         return result;
     }
