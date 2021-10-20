@@ -5,14 +5,17 @@ public class Order extends Entity {
     private Long productId;
     private Long userId;
 
-    public Order() {
+    public Order(){
+
     }
+
 
     public Order(Long id) {
         super(id);
     }
 
-   public Order(Long productId,Long userId){
+   public Order(Long id,Long productId,Long userId){
+        super(id);
         this.productId = productId;
         this.userId = userId;
    }

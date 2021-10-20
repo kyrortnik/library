@@ -13,15 +13,20 @@
     <a href="frontController?command=logout">Logout</a>
     </body>
 
-    <body name = "referenceBody">
 
-    <a href="">Books Catalogue</a>
-    <br/>
-    <a href="">Orders Catalogue </a>
-    <br/>
-    <a href="">User cabinet  </a>
-    <br/>
-    <a href="">Logout </a>
+    <body>
+    <form name = "usersForm" method = "POST" action="frontController">
+    <input type="hidden" name="command" value="show_users" />
+    <input type="submit" value="Show users"/>
+
+    </form>
+<!--    <a href="/jsp/productsCatalogue.jsp">Books Catalogue</a>-->
+<!--    <br/>-->
+<!--    <a href="/jsp/ordersCatalogue.jsp">Orders Catalogue </a>-->
+<!--    <br/>-->
+<!--    <a href="/jsp/ordersCatalogue.jsp">Users Catalogue </a>-->
+<!--    <br/>-->
+
 
 
     </body>

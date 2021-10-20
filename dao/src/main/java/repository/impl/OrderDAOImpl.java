@@ -1,5 +1,6 @@
 package repository.impl;
 
+
 import entity.Order;
 import exception.DAOException;
 import repository.ConnectionPool;
@@ -7,14 +8,16 @@ import repository.OrderDAO;
 import repository.PropertyInitializer;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDAOImpl implements OrderDAO {
 
     private static final String FIND_ORDER = "SELECT * FROM orders WHERE order_id = ?";
-    private static final String SAVE_ORDER = "INSERT INTO orders VALUES (?, ?) ";
+    private static final String SAVE_ORDER = "INSERT INTO orders VALUES (DEFAULT, ?, ?) ";
     private static final String DELETE_ORDER = "DELETE FROM orders WHERE order_id = ?";
     private static final String UPDATE_ORDER = "UPDATE orders SET user_id = ?, product_id = ? WHERE order_id = ? ";
+    private static final String GET_ALL_ORDERS = "SELECT * FROM orders";
 
 
     PropertyInitializer propertyInitializer = new PropertyInitializer();
@@ -65,18 +68,92 @@ public class OrderDAOImpl implements OrderDAO {
     }*/
 
     @Override
+    public Order getById(Long id) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<Order> getAll() {
+        ArrayList<Order> orders = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try{
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(GET_ALL_ORDERS);
+
+            long orderId;
+            long productId;
+            long userId;
+            Order order;
+            while(resultSet.next()){
+                orderId = resultSet.getLong(1);
+                productId = resultSet.getLong(2);
+                userId = resultSet.getLong(3);
+                order = new Order(orderId,productId,userId);
+                orders.add(order);
+            }
+            return orders;
+        }catch (SQLException e){
+         throw new DAOException("unable to get All orders",e);
+        }finally {
+            closeResultSet(resultSet);
+            closeStatement(statement);
+            connectionPool.releaseConnection(connection);
+        }
+    }
+
+    @Override
     public boolean save(Order order) {
-        return false;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try{
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SAVE_ORDER);
+            statement.setLong(1,order.getProductId());
+            statement.setLong(2,order.getUserId());
+            return (statement.executeUpdate() != 0);
+        }catch (SQLException e){
+            throw  new DAOException("couldn't save order",e);
+        }finally {
+            closeStatement(statement);
+            connectionPool.releaseConnection(connection);
+        }
     }
 
     @Override
     public boolean delete(Order order) {
-        return false;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try{
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(DELETE_ORDER);
+            statement.setLong(1,order.getId());
+            return (statement.executeUpdate() != 0);
+        }catch (SQLException e){
+            throw new DAOException("unable to delete order",e);
+        }finally {
+            closeStatement(statement);
+            connectionPool.releaseConnection(connection);
+        }
     }
 
     @Override
     public boolean update(Order order) {
-        return false;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try{
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(UPDATE_ORDER);
+            statement.setLong(1,order.getProductId());
+            statement.setLong(2,order.getUserId());
+            return (statement.executeUpdate() != 0) ;
+        }catch (SQLException e){
+            throw new DAOException("unable to update order",e);
+        }finally {
+            closeStatement(statement);
+            connectionPool.releaseConnection(connection);
+        }
     }
 
 

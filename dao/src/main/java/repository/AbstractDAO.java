@@ -13,7 +13,7 @@ public interface AbstractDAO<T> {
 
     T getById(Long id);
 
-//    List<T> getAll();
+    List<T> getAll();
 
     boolean save(T t);
 

@@ -99,6 +99,11 @@ public class BookDAOImpl implements BookDAO {
         }
     }
 
+    @Override
+    public List<Book> getAll() {
+        return null;
+    }
+
     /*@Override
     public List<Book> getAll() {
         return null;

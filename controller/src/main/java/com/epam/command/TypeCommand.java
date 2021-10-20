@@ -10,10 +10,14 @@ public enum TypeCommand {
 
     REGISTRATION {
         {this.command = new RegistrationCommand();}
+    },
+    SHOW_USERS {
+        {this.command = new ShowUsersCommand();}
     };
-    AbstractCommand command;
 
     public AbstractCommand getCurrentCommand() {
         return command;
     }
+
+    AbstractCommand command;
 }

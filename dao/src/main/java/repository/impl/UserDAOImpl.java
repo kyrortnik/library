@@ -1,13 +1,14 @@
 package repository.impl;
 
 import entity.User;
-import entity.UserDTO;
 import exception.DAOException;
 import repository.ConnectionPool;
 import repository.PropertyInitializer;
 import repository.UserDAO;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
 
@@ -17,7 +18,7 @@ public class UserDAOImpl implements UserDAO {
     private static final String DELETE_USER = "DELETE FROM users WHERE login = ?";
     private static final String UPDATE_USER = "UPDATE users SET login = ?, password = ? WHERE id = ? ";
     private static final String CHANGE_USER_PASSWORD = "UPDATE users SET password = ? WHERE password = ?";
-//    private static final String GET_ALL_USERS = "SELECT * FROM users";
+    private static final String GET_ALL_USERS = "SELECT * FROM users";
 
     PropertyInitializer propertyInitializer = new PropertyInitializer();
     protected ConnectionPool connectionPool = new ConnectionPoolImpl(propertyInitializer);
@@ -192,6 +193,42 @@ public class UserDAOImpl implements UserDAO {
 
 
 
+
+        @Override
+    public List<User> getAll() {
+        ArrayList<User> users = new ArrayList<User>();
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(GET_ALL_USERS);
+            resultSet = statement.executeQuery();
+            int id;
+            String login;
+            String password;
+            String role;
+            User user;
+            while (resultSet.next()){
+                id = resultSet.getInt(1);
+                login = resultSet.getString(2);
+                password = resultSet.getString(3);
+                role = resultSet.getString(4);
+                user = new User(id,login,password,role);
+                users.add(user);
+            }
+            return users;
+        }catch (SQLException e){
+            throw new DAOException("unable to get all users",e);
+        }finally {
+            closeResultSet(resultSet);
+            closeStatement(statement);
+            connectionPool.releaseConnection(connection);
+        }
+
+    }
+
+
     private void closeResultSet( ResultSet resultSet) {
         try{
 
@@ -211,11 +248,5 @@ public class UserDAOImpl implements UserDAO {
             e.printStackTrace();
         }
     }
-
-
-    //    @Override
-//    public List<User> getAll() {
-//        return null;
-//    }
 
 }

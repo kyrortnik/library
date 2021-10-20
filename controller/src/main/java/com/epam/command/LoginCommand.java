@@ -5,6 +5,7 @@ import com.epam.validator.LoginLogic;
 import com.epam.MessageManager;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class LoginCommand implements AbstractCommand {
 
@@ -15,7 +16,7 @@ public class LoginCommand implements AbstractCommand {
     public LoginCommand() { }
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         String page;
 // извлечение из запроса логина и пароля
         String login = request.getParameter(PARAM_NAME_LOGIN);

@@ -7,6 +7,7 @@ import services.ServiceFactory;
 import services.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class RegistrationCommand implements AbstractCommand{
 
@@ -20,7 +21,7 @@ public class RegistrationCommand implements AbstractCommand{
 
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         String page;
         String login = request.getParameter(PARAM_NAME_LOGIN);
@@ -28,7 +29,7 @@ public class RegistrationCommand implements AbstractCommand{
         String pass2 = request.getParameter(PARAM_NAME_SECOND_PASSWORD);
         User user = new User(1,login,pass,"user");
 
-        if (userService.registrate(user)){
+        if (userService.registration(user)){
             request.setAttribute("user",login);
             page = ConfigurationManager.getProperty("path.page.main");
 

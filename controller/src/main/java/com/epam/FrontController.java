@@ -30,7 +30,7 @@ public class FrontController extends HttpServlet {
         AbstractCommand command;
         CommandFactory client = new CommandFactory();
         command = client.defineCommand(req);
-        page = command.execute(req);
+        page = command.execute(req,resp);
        
 
         if (page != null) {

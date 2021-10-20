@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class CreateOrderCommand implements AbstractCommand {
+    @Override
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
+        return null;
+    }
 
    /* private ServiceFactory serviceFactory = ServiceFactory.getInstance();
 
