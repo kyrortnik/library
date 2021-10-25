@@ -15,11 +15,15 @@ public enum TypeCommand {
         {this.command = new ShowUsersCommand();}
     },
 
-    SHOW_PRODUCTS{
+    SHOWPRODUCTS {
         {this.command = new ShowProductsCommand();}
     },
     SHOW_ORDERS{
         {this.command = new ShowOrdersCommand();}
+    },
+
+    PRODUCTINFO{
+        {this.command = new ProductInfoCommand();}
     };
 
     public AbstractCommand getCurrentCommand() {

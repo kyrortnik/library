@@ -5,8 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 
 public class CreateOrderCommand implements AbstractCommand {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
-        return null;
+    public void execute(HttpServletRequest request, HttpServletResponse response) {
+//        return null;
     }
 
    /* private ServiceFactory serviceFactory = ServiceFactory.getInstance();

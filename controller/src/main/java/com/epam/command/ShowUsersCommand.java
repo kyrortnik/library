@@ -1,12 +1,14 @@
 package com.epam.command;
 
 import com.epam.ConfigurationManager;
+import com.epam.command.exception.ControllerException;
 import com.epam.entity.User;
 import com.epam.ServiceFactory;
 import com.epam.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ShowUsersCommand implements AbstractCommand{
@@ -16,13 +18,18 @@ public class ShowUsersCommand implements AbstractCommand{
 
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException{
 
-        String page;
+//        String page;
             ArrayList<User> users = (ArrayList<User>)userService.getUsers();
-            request.setAttribute("users",users);
-            page = ConfigurationManager.getProperty("path.page.users");
-            return page;
+            try{
+                request.setAttribute("users",users);
+                response.sendRedirect(ConfigurationManager.getProperty("path.page.users"));
+            }catch (IOException e){
+                throw new ControllerException(e);
+            }
+
+//            return page;
 
     }
 }

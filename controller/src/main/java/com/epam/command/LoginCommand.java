@@ -2,13 +2,15 @@ package com.epam.command;
 
 import com.epam.ConfigurationManager;
 import com.epam.MessageManager;
+import com.epam.command.exception.ControllerException;
 import com.epam.entity.User;
 import com.epam.ServiceFactory;
 import com.epam.UserService;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import java.io.IOException;
 
 
 public class LoginCommand implements AbstractCommand {
@@ -26,23 +28,31 @@ public class LoginCommand implements AbstractCommand {
     public LoginCommand() { }
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page;
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException{
+//        String page;
 // извлечение из запроса логина и пароля
         String login = request.getParameter(PARAM_NAME_LOGIN);
         String pass = request.getParameter(PARAM_NAME_PASSWORD);
+        /*TODO create user with real id*/
         User user = new User(7,login,pass,"user");
 // проверка логина и пароля
-        if (userService.findUserByLogin(user)) {
-            request.setAttribute("user", user.getLogin());
+        try{
+            if (userService.findUserByLogin(user)) {
+                request.setAttribute("user", user.getLogin());
+                request.getRequestDispatcher(ConfigurationManager.getProperty("path.page.main")).forward(request,response);
 // определение пути к main.jsp
-            page = ConfigurationManager.getProperty("path.page.main");
+//            page = ConfigurationManager.getProperty("path.page.main");
 
-        } else {
-            request.setAttribute("errorLoginPassMessage",
-                    MessageManager.getProperty("message.loginerror"));
-            page = ConfigurationManager.getProperty("path.page.login");
+            } else {
+                request.setAttribute("errorLoginPassMessage",
+                        MessageManager.getProperty("message.loginerror"));
+                request.getRequestDispatcher(ConfigurationManager.getProperty("path.page.login")).forward(request,response);
+//            page = ConfigurationManager.getProperty("path.page.login");
+            }
+//        return page;
+        }catch (IOException | ServletException e){
+            throw new ControllerException(e);
         }
-        return page;
+
     }
 }

@@ -11,8 +11,9 @@ public class BaseCommand implements AbstractCommand {
     }
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page = ConfigurationManager.getProperty("path.page.login");
-        return page;
+    public void execute(HttpServletRequest request, HttpServletResponse response) {
+//        request.getRequestDispatcher("/jsp/login.jsp").forward(request,response);
+       /* String page = ConfigurationManager.getProperty("path.page.login");
+        return page;*/
     }
 }

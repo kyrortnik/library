@@ -15,6 +15,9 @@ public interface UserService {
 
     boolean updateUser(User user);
 
+
+    /*TODO change to (Long id)*/
+
     boolean deleteUser(User user);
 
     boolean findUserByLogin(User user);
