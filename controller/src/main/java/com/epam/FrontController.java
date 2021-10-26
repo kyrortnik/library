@@ -5,6 +5,7 @@ import com.epam.command.exception.ControllerException;
 import com.epam.command.factory.CommandFactory;
 
 
+import javax.servlet.Servlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +23,7 @@ public class FrontController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)  {
         processRequest(request,response);
     }
+
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response)  {
         AbstractCommand command;

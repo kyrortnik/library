@@ -10,7 +10,6 @@
     <style>
         table, th, td {
             border: 1px solid #000;
-            border-collapse: collapse;
         }
     </style>
 
@@ -18,19 +17,33 @@
 <form>
 
     <table>
+        <thead>
         <tr>
+            <th></th>
+            <th>ID</th>
             <th>Title</th>
             <th>Author</th>
             <th>Publisher</th>
             <th></th>
         </tr>
-        <c:forEach var="product" items="${requestScope.products}">
+        </thead>
+        <c:forEach items="${requestScope.products}" var="product" >
             <tr>
+                <td>${product.id}</td>
                 <td>${product.title}</td>
                 <td>${product.author}</td>
                 <td>${product.publisher}</td>
+
+                <td>
+                    <form  method="POST" action="frontController" >
+                        <input type="hidden" name="command" value="productInfo" />
+                        <input type="hidden" name="id" value="${product.id}" />
+                        <button type="submit" >Product info</button><br/>
+                    </form>
+                </td>
             </tr>
         </c:forEach>
+
     </table>
 
 

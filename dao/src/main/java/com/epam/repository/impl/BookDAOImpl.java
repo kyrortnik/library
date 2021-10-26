@@ -16,11 +16,11 @@ import java.util.List;
 public class BookDAOImpl implements BookDAO {
 
 
-    private static final String FIND_BOOK_QUERY = "SELECT * FROM books WHERE title = ? AND author = ? AND publish_year = ?";
-    private static final String FIND_BOOK_BY_ID = "SELECT * FROM books WHERE id = ? ";
-    private static final String SAVE_BOOK = "INSERT INTO books VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?) ";
-    private static final String DELETE_BOOK = "DELETE FROM books WHERE title = ? AND author = ? AND publisher = ?";
-    private static final String UPDATE_BOOK = "UPDATE books SET author = ?, is_reserved = ?, publishyear = ?, publisher = ?, genre = ?, pages = ?, is_hard = ? WHERE id = ? ";
+    private static final String FIND_BOOK_QUERY = "SELECT * FROM products WHERE title = ? AND author = ? AND publish_year = ?";
+    private static final String FIND_BOOK_BY_ID = "SELECT * FROM products WHERE product_id = ? ";
+    private static final String SAVE_BOOK = "INSERT INTO products VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?) ";
+    private static final String DELETE_BOOK = "DELETE FROM products WHERE title = ? AND author = ? AND publisher = ?";
+    private static final String UPDATE_BOOK = "UPDATE products SET author = ?, is_reserved = ?, publishyear = ?, publisher = ?, genre = ?, pages = ?, is_hard = ? WHERE id = ? ";
     private static final String GET_ALL_BOOKS = "SELECT * FROM products";
 
 
@@ -49,12 +49,13 @@ public class BookDAOImpl implements BookDAO {
             while (resultSet.next()){
                 book.setId(resultSet.getLong(1));
                 book.setTitle(resultSet.getString(2));
-                book.setReserved(resultSet.getBoolean(3));
-                book.setPublishingYear(resultSet.getInt(4));
-                book.setPublisher(resultSet.getString(5));
-                book.setGenre(resultSet.getString(6));
-                book.setNumberOfPages(resultSet.getInt(7));
-                book.setHardCover(resultSet.getBoolean(8));
+                book.setAuthor(resultSet.getString(3));
+                book.setReserved(resultSet.getBoolean(4));
+                book.setPublishingYear(resultSet.getInt(5));
+                book.setPublisher(resultSet.getString(6));
+                book.setGenre(resultSet.getString(7));
+                book.setNumberOfPages(resultSet.getInt(8));
+                book.setHardCover(resultSet.getBoolean(9));
             }if (book.getTitle() != null){
                 return book;
             }throw  new DAOException("unable to find book");
@@ -83,12 +84,13 @@ public class BookDAOImpl implements BookDAO {
             while (resultSet.next()){
                 book.setId(resultSet.getLong(1));
                 book.setTitle(resultSet.getString(2));
-                book.setReserved(resultSet.getBoolean(3));
-                book.setPublishingYear(resultSet.getInt(4));
-                book.setPublisher(resultSet.getString(5));
-                book.setGenre(resultSet.getString(6));
-                book.setNumberOfPages(resultSet.getInt(7));
-                book.setHardCover(resultSet.getBoolean(8));
+                book.setAuthor(resultSet.getString(3));
+                book.setReserved(resultSet.getBoolean(4));
+                book.setPublishingYear(resultSet.getInt(5));
+                book.setPublisher(resultSet.getString(6));
+                book.setGenre(resultSet.getString(7));
+                book.setNumberOfPages(resultSet.getInt(8));
+                book.setHardCover(resultSet.getBoolean(9));
             }if (book.getTitle() != null){
                 return book;
             }throw  new DAOException("unable to find book");

@@ -24,6 +24,9 @@ public enum TypeCommand {
 
     PRODUCTINFO{
         {this.command = new ProductInfoCommand();}
+    },
+    ADDTOORDER{
+        {this.command = new AddToOrderCommand();}
     };
 
     public AbstractCommand getCurrentCommand() {
