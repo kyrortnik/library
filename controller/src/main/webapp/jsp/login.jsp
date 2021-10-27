@@ -36,9 +36,9 @@
         <input type = "text" name = "login" value=""/>
         <br/>Password<br/>
         <input type ="text" name = "password" value=""/>
-        <br/>Password again<br/>
+       <!-- <br/>Password again<br/>
         <input type ="text" name = "secondPassword" value=""/>
-        <br/>
+        <br/>-->
          <input type="submit" value="registration"/>
         </form>
 

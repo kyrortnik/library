@@ -7,6 +7,7 @@ import com.epam.entity.User;
 import com.epam.ServiceFactory;
 import com.epam.UserService;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -25,23 +26,23 @@ public class RegistrationCommand implements AbstractCommand{
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
 
-        String page;
+//        String page;
         String login = request.getParameter(PARAM_NAME_LOGIN);
         String pass = request.getParameter(PARAM_NAME_PASSWORD);
-        String pass2 = request.getParameter(PARAM_NAME_SECOND_PASSWORD);
-        User user = new User(1,login,pass,"user");
+//        String pass2 = request.getParameter(PARAM_NAME_SECOND_PASSWORD);
+        User user = new User(login,pass,"user");
 
         try {
             if (userService.registration(user)){
                 request.setAttribute("user",login);
-                response.sendRedirect("/jsp/main.jsp");
+                request.getRequestDispatcher(ConfigurationManager.getProperty("path.page.main")).forward(request,response);
 
             }else {
                 /*request.setAttribute("errorLoginPassMessage",
                         MessageManager.getProperty("message.loginerror"));
                 page = ConfigurationManager.getProperty("path.page.login");*/
             }
-        }catch (IOException e){
+        }catch (IOException | ServletException e){
             throw new ControllerException(e);
         }
 

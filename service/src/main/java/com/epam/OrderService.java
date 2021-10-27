@@ -2,9 +2,12 @@ package com.epam;
 
 import com.epam.entity.Order;
 
+import java.rmi.ServerException;
 import java.util.List;
 
 public interface OrderService {
+
+    boolean save(Order order) throws ServerException;
 
     boolean create(Order order);
 

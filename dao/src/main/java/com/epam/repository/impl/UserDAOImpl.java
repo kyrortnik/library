@@ -23,7 +23,7 @@ public class UserDAOImpl implements UserDAO {
     PropertyInitializer propertyInitializer = new PropertyInitializer();
     protected ConnectionPool connectionPool = new ConnectionPoolImpl(propertyInitializer);
 
-    public UserDAOImpl(ConnectionPool connectionPool) {
+    public UserDAOImpl() {
        // this.connectionPool = connectionPool;
     }
 
@@ -241,7 +241,7 @@ public class UserDAOImpl implements UserDAO {
             statement.setString(1,user.getLogin());
             resultSet = statement.executeQuery();
             if (resultSet.next()){
-                pass = resultSet.getString(2);
+                pass = resultSet.getString(3);
                 if (user.getPassword().equals(pass)){
                     flag = true;
                 }

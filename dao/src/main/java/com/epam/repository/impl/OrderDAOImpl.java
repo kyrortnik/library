@@ -24,7 +24,7 @@ public class OrderDAOImpl implements OrderDAO {
     protected ConnectionPool connectionPool = new ConnectionPoolImpl(propertyInitializer);
 
 
-    public OrderDAOImpl(ConnectionPool connectionPool) {
+    public OrderDAOImpl() {
     }
 
     @Override
@@ -40,9 +40,9 @@ public class OrderDAOImpl implements OrderDAO {
             resultSet = statement.executeQuery();
             while (resultSet.next()){
                 order.setId(resultSet.getLong(1));
-                order.setProductId(resultSet.getLong(2));
+                order.setProductIds(resultSet.getString(2));
                 order.setUserId(resultSet.getLong(3));
-            }if (order.getProductId() != 0 && order.getUserId() != 0){
+            }if (!order.getProductIds().equals("") && order.getUserId() != 0){
                 return order;
             }
             throw  new DAOException("unable to get the order");
@@ -84,14 +84,14 @@ public class OrderDAOImpl implements OrderDAO {
             resultSet = statement.executeQuery();
 
             long orderId;
-            long productId;
+            String productIds;
             long userId ;
             Order order;
             while(resultSet.next()){
                 orderId = resultSet.getLong(1);
-                productId = resultSet.getLong(2);
+                productIds = resultSet.getString(2);
                 userId = resultSet.getLong(3);
-                order = new Order(orderId,productId,userId);
+                order = new Order(orderId,productIds,userId);
                 orders.add(order);
             }
                 return orders;
@@ -113,7 +113,7 @@ public class OrderDAOImpl implements OrderDAO {
         try{
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(SAVE_ORDER);
-            statement.setLong(1,order.getProductId());
+            statement.setString(1,order.getProductIds());
             statement.setLong(2,order.getUserId());
             return (statement.executeUpdate() != 0);
         }catch (SQLException e){
@@ -148,7 +148,7 @@ public class OrderDAOImpl implements OrderDAO {
         try{
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(UPDATE_ORDER);
-            statement.setLong(1,order.getProductId());
+            statement.setString(1,order.getProductIds());
             statement.setLong(2,order.getUserId());
             return (statement.executeUpdate() != 0) ;
         }catch (SQLException e){

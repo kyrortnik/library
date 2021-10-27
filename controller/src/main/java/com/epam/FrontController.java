@@ -5,7 +5,6 @@ import com.epam.command.exception.ControllerException;
 import com.epam.command.factory.CommandFactory;
 
 
-import javax.servlet.Servlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

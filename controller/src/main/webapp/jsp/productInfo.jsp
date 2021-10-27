@@ -36,9 +36,14 @@
                                 <td>${requestScope.product.publisher}</td>
                                 <td>
                                     <form action="frontController" method="post">
-                                        <input type="hidden" name="command" value="addToOrder" />
+                                        <input type="hidden" name="command" value="createReserve" />
                                         <input type="hidden" name="id" value="${requestScope.product.id}" />
-                                        <input type="submit" name="order" value="Order" /><br/>
+                                        <input type="submit" name="order" value="Add to Order list" /><br/>
+                                        <br/>
+                                        ${errorNoCreateOrder}
+                                        <br/>
+                                        ${productAddedToOrder}
+                                        <br/>
                                     </form>
                                 </td>
                             </tr>

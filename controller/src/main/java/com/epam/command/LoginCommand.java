@@ -20,8 +20,8 @@ public class LoginCommand implements AbstractCommand {
     private static final String PARAM_NAME_LOGIN = "login";
     private static final String PARAM_NAME_PASSWORD = "password";
 
-    private ServiceFactory serviceFactory = ServiceFactory.getInstance();
-    private UserService userService = serviceFactory.createUserService();
+    private final ServiceFactory serviceFactory = ServiceFactory.getInstance();
+    private final UserService userService = serviceFactory.createUserService();
 
 
 
@@ -29,25 +29,22 @@ public class LoginCommand implements AbstractCommand {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException{
-//        String page;
-// извлечение из запроса логина и пароля
+
         String login = request.getParameter(PARAM_NAME_LOGIN);
         String pass = request.getParameter(PARAM_NAME_PASSWORD);
-        /*TODO create user with real id*/
-        User user = new User(7,login,pass,"user");
-// проверка логина и пароля
+        User user = new User(login,pass,"user");
+
         try{
             if (userService.findUserByLogin(user)) {
-                request.setAttribute("user", user.getLogin());
+                request.getSession().setAttribute("user", user.getLogin());
+                request.getSession().setAttribute("role",user.getRole());
                 request.getRequestDispatcher(ConfigurationManager.getProperty("path.page.main")).forward(request,response);
-// определение пути к main.jsp
-//            page = ConfigurationManager.getProperty("path.page.main");
 
             } else {
                 request.setAttribute("errorLoginPassMessage",
                         MessageManager.getProperty("message.loginerror"));
                 request.getRequestDispatcher(ConfigurationManager.getProperty("path.page.login")).forward(request,response);
-//            page = ConfigurationManager.getProperty("path.page.login");
+
             }
 //        return page;
         }catch (IOException | ServletException e){

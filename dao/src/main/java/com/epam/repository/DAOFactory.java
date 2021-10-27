@@ -1,10 +1,7 @@
 package com.epam.repository;
 
 
-import com.epam.repository.impl.BookDAOImpl;
-import com.epam.repository.impl.ConnectionPoolImpl;
-import com.epam.repository.impl.OrderDAOImpl;
-import com.epam.repository.impl.UserDAOImpl;
+import com.epam.repository.impl.*;
 
 
 public class DAOFactory {
@@ -16,11 +13,13 @@ public class DAOFactory {
     private final BookDAO bookDAO;
     private final UserDAO userDAO;
     private final OrderDAO orderDAO;
+    private final ReserveDAO reserveDAO;
 
     private DAOFactory(){
-        bookDAO = new BookDAOImpl(connectionPool);
-        userDAO = new UserDAOImpl(connectionPool);
-        orderDAO = new OrderDAOImpl(connectionPool);
+        bookDAO = new BookDAOImpl();
+        userDAO = new UserDAOImpl();
+        orderDAO = new OrderDAOImpl();
+        reserveDAO = new ReserveDAOImpl();
 
     }
 
@@ -35,6 +34,8 @@ public class DAOFactory {
     public OrderDAO createOrderDAO(){
         return orderDAO;
     }
+
+    public ReserveDAO createReserveDAO(){ return reserveDAO;}
 
     public static DAOFactory getInstance(){
         return INSTANCE;

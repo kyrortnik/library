@@ -28,6 +28,12 @@
         <input type = "submit" value ="show products testing">
     </form>
 
+    <form name = "showOrderList" method="POST" action ="frontController">
+        <input type="hidden" name = "command" value="showReserves" />
+        <input type ="submit" value="Go to Reserved products"/>
+
+    </form>
+
 
 
     </body>

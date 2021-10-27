@@ -27,6 +27,15 @@ public enum TypeCommand {
     },
     ADDTOORDER{
         {this.command = new AddToOrderCommand();}
+    },
+    CREATEORDER{
+        {this.command = new CreateOrderCommand();}
+    },
+    CREATERESERVE{
+        {this.command = new CreateReserveCommand();}
+    },
+    SHOWRESERVES{
+        {this.command = new ShowReservesCommand();}
     };
 
     public AbstractCommand getCurrentCommand() {

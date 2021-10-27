@@ -28,7 +28,7 @@ public class BookDAOImpl implements BookDAO {
     protected ConnectionPool connectionPool = new ConnectionPoolImpl(propertyInitializer);
 
 
-    public BookDAOImpl(ConnectionPool connectionPool) {
+    public BookDAOImpl() {
     }
 
 
@@ -155,9 +155,9 @@ public class BookDAOImpl implements BookDAO {
     }
 */
 
-    /** need to add check on whether book already exists*/
+    /*TODO need to add check on whether book already exists*/
     @Override
-    public boolean save(Book book) {
+    public boolean save(Book book) throws DAOException {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
