@@ -22,9 +22,8 @@ public class ShowReservesCommand implements AbstractCommand{
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
 
-//        Long userId = request.getSession().getAttribute("id");
-        try{
-            Long userId = 1L;
+       Long userId = (Long)request.getSession().getAttribute("id");
+            try{
 
             List<Reserve> reserves = reserveService.getReservesForUser(userId);
             List<Book> books = bookService.findBooksByIds(reserves);

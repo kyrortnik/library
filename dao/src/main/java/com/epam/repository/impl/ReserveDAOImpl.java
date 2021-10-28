@@ -6,6 +6,7 @@ import com.epam.repository.ConnectionPool;
 import com.epam.repository.PropertyInitializer;
 import com.epam.repository.ReserveDAO;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,6 +20,7 @@ public class ReserveDAOImpl implements ReserveDAO {
     private static final String SAVE_RESERVE = "INSERT INTO reserves VALUES (DEFAULT,?,?)";
     private static final String FIND_RESERVES_FOR_USER = " SELECT * FROM reserves WHERE user_id = ?";
     private static final String FIND_RESERVES_BY_USER_AND_PRODUCT = " SELECT * FROM reserves WHERE user_id = ? AND product_id = ?";
+    private static final String DELETE_RESERVE_BY_USER_ID = " DELETE FROM reserves WHERE user_id = ?";
 
     PropertyInitializer propertyInitializer = new PropertyInitializer();
     protected ConnectionPool connectionPool = new ConnectionPoolImpl(propertyInitializer);
@@ -134,6 +136,28 @@ public class ReserveDAOImpl implements ReserveDAO {
             connectionPool.releaseConnection(connection);
         }
 
+    }
+
+    @Override
+    public boolean deleteByUserId(Long userId) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try{
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(DELETE_RESERVE_BY_USER_ID);
+            statement.setLong(1,userId);
+            int numberOfUpdates = statement.executeUpdate();
+            if (numberOfUpdates > 0){
+                return true;
+            }else {
+                return false;
+            }
+        }catch (SQLException e){
+            throw new DAOException(e);
+        }finally {
+            closeStatement(statement);
+            connectionPool.releaseConnection(connection);
+        }
     }
 
     private void closeResultSet(ResultSet resultSet) {

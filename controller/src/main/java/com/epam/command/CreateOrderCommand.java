@@ -43,7 +43,11 @@ public class CreateOrderCommand implements AbstractCommand {
            Order order = new Order(productIds,userId);
 
             if (orderService.save(order)){
-                request.setAttribute("productAddedToOrder","Products ordered! Visit library to get them");
+                if(reserveService.deleteReservesByUserId(userId)){
+                    request.setAttribute("productAddedToOrder","Products ordered! Visit library to get them");
+                }else{
+                    request.setAttribute("errorNoCreateOrder","Products are not ordered!Unable to delete user reserves");
+                }
 
             }else{
                 request.setAttribute("errorNoCreateOrder","Products are not ordered!!");

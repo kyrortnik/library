@@ -10,6 +10,13 @@
     <c:if test="${requestScope.products != '[]'}">
 
         <table>
+            <tr style="text-align: center;">
+                <td><c:out value="${title}"/></td>
+                <td><c:out value="${author}"/></td>
+                <td><c:out value="${genre}"/></td>
+                <td><c:out value="${publisher}"/></td>
+                <td><c:out value="${pages}"/></td>
+            </tr>
             <tr>
                 <th>Title</th>
                 <th>Author</th>

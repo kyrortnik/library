@@ -30,10 +30,14 @@ public class ReserveServiceImpl implements ReserveService {
         }
     }
 
-
+    @Override
+    public boolean deleteReservesByUserId(Long userId) {
+        return reserveDAO.deleteByUserId(userId);
+    }
 
     @Override
     public List<Reserve> getReservesForUser(Long userId) {
         return reserveDAO.getReservesForUser(userId);
     }
+
 }

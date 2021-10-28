@@ -18,7 +18,7 @@ public class ShowOrdersCommand implements AbstractCommand{
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException{
-//        String page;
+
         ArrayList<Order> orders =(ArrayList<Order>)serviceFactory.getAll();
         try{
             request.setAttribute("orders",orders);

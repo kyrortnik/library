@@ -192,6 +192,45 @@ public class OrderDAOImpl implements OrderDAO {
         }
     }
 
+    @Override
+    public Order getByUserId(Long userId) throws DAOException{
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        Order temp = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(FIND_BY_USED_ID);
+            statement.setLong(1,userId);
+            resultSet = statement.executeQuery();
+            if(resultSet.next()){
+                temp = new Order(
+                        resultSet.getLong(1),
+                        resultSet.getString(2),
+                        resultSet.getLong(3)
+                );
+            }else{
+                temp =  new Order();
+
+            }
+            return temp;
+        }catch (SQLException e){
+            throw new DAOException(e);
+        }finally {
+            closeResultSet(resultSet);
+            closeStatement(statement);
+            connectionPool.releaseConnection(connection);
+        }
+    }
+
+    @Override
+    public boolean deleteBbyUserId(Long userId) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        return true;
+    }
+
     private void closeResultSet(ResultSet resultSet) {
         try{
 

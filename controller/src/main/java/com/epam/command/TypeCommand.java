@@ -36,6 +36,9 @@ public enum TypeCommand {
     },
     SHOWRESERVES{
         {this.command = new ShowReservesCommand();}
+    },
+    ORDERINFO{
+        {this.command = new OrderInfoCommand();}
     };
 
     public AbstractCommand getCurrentCommand() {

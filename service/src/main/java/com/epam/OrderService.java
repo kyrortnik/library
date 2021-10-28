@@ -19,6 +19,8 @@ public interface OrderService {
 
     Order getByUserId(Order order);
 
+    Order getByUserId(Long userId);
+
 
 
 

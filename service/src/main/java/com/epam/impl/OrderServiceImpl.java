@@ -41,6 +41,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Order getByUserId(Long userId) {
+        return orderDAO.getByUserId(userId);
+    }
+
+    @Override
     public boolean save(Order order) throws ServiceException {
         try{
             Order temp = orderDAO.getByUserId(order);
@@ -53,6 +58,7 @@ public class OrderServiceImpl implements OrderService {
         }catch (DAOException e){
             throw new ServiceException(e);
         }
+
 
 
     }

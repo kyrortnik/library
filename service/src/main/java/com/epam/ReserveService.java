@@ -12,4 +12,7 @@ public interface ReserveService {
 
     List<Reserve> getReservesForUser(Long userId);
 
+
+    boolean deleteReservesByUserId(Long userId);
+
 }
