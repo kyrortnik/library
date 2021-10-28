@@ -18,6 +18,8 @@ public class ReserveDAOImpl implements ReserveDAO {
 
     private static final String SAVE_RESERVE = "INSERT INTO reserves VALUES (DEFAULT,?,?)";
     private static final String FIND_RESERVES_FOR_USER = " SELECT * FROM reserves WHERE user_id = ?";
+    private static final String FIND_RESERVES_BY_USER_AND_PRODUCT = " SELECT * FROM reserves WHERE user_id = ? AND product_id = ?";
+
     PropertyInitializer propertyInitializer = new PropertyInitializer();
     protected ConnectionPool connectionPool = new ConnectionPoolImpl(propertyInitializer);
 
@@ -37,6 +39,8 @@ public class ReserveDAOImpl implements ReserveDAO {
         return null;
     }
 
+
+
     @Override
     public List<Reserve> getAll() {
         return null;
@@ -49,8 +53,8 @@ public class ReserveDAOImpl implements ReserveDAO {
         try{
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(SAVE_RESERVE);
-            statement.setLong(1,reserve.getProductId());
-            statement.setLong(2,reserve.getUserId());
+            statement.setLong(1,reserve.getUserId());
+            statement.setLong(2,reserve.getProductId());
             return (statement.executeUpdate() != 0);
         }catch (SQLException e){
             throw  new DAOException("couldn't save reserve",e);
@@ -70,6 +74,34 @@ public class ReserveDAOImpl implements ReserveDAO {
         return false;
     }
 
+    @Override
+    public Reserve getByUserAndProductId(Reserve reserve) throws DAOException{
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        Reserve temp = new Reserve();
+        try{
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(FIND_RESERVES_BY_USER_AND_PRODUCT);
+            statement.setLong(1,reserve.getUserId());
+            statement.setLong(2,reserve.getProductId());
+            resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                temp = new Reserve(
+                        resultSet.getLong(2),
+                        resultSet.getLong(3)
+                );
+            }
+            return temp;
+        }catch (SQLException e){
+            throw new DAOException(e);
+        }finally {
+            closeResultSet(resultSet);
+            closeStatement(statement);
+            connectionPool.releaseConnection(connection);
+        }
+
+    }
 
     @Override
     public List<Reserve> getReservesForUser(Long userId) {

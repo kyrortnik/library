@@ -16,9 +16,6 @@
     <c:if test="${requestScope.product != ''}">
 
 
-<!--        <h3><c:out value="${info}"/></h3>-->
-
-
                         <table  >
                             <tr style="text-align: center;">
                                 <td><c:out value="${title}"/></td>
@@ -37,7 +34,7 @@
                                 <td>
                                     <form action="frontController" method="post">
                                         <input type="hidden" name="command" value="createReserve" />
-                                        <input type="hidden" name="id" value="${requestScope.product.id}" />
+                                        <input type="hidden" name="productId" value="${requestScope.product.id}" />
                                         <input type="submit" name="order" value="Add to Order list" /><br/>
                                         <br/>
                                         ${errorNoCreateOrder}

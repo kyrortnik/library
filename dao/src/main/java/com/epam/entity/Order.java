@@ -15,6 +15,11 @@ public class Order extends Entity {
         super(id);
     }
 
+    public Order(String productIds, Long userId){
+        this.productIds = productIds;
+        this.userId = userId;
+    }
+
    public Order(Long id, String productIds, Long userId){
         super(id);
         this.productIds = productIds;

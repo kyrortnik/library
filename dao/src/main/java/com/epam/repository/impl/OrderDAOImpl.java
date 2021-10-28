@@ -6,6 +6,7 @@ import com.epam.exception.DAOException;
 import com.epam.repository.ConnectionPool;
 import com.epam.repository.OrderDAO;
 import com.epam.repository.PropertyInitializer;
+import com.sun.org.apache.xpath.internal.operations.Or;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.List;
 public class OrderDAOImpl implements OrderDAO {
 
     private static final String FIND_ORDER = "SELECT * FROM orders WHERE order_id = ?";
+    private static final String FIND_BY_USED_ID = "SELECT * FROM orders WHERE user_id = ?";
     private static final String SAVE_ORDER = "INSERT INTO orders VALUES (DEFAULT, ?, ?) ";
     private static final String DELETE_ORDER = "DELETE FROM orders WHERE order_id = ?";
     private static final String UPDATE_ORDER = "UPDATE orders SET user_id = ?, product_id = ? WHERE order_id = ? ";
@@ -159,8 +161,38 @@ public class OrderDAOImpl implements OrderDAO {
         }
     }
 
+    @Override
+    public Order getByUserId(Order order) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        Order temp = null;
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(FIND_BY_USED_ID);
+            statement.setLong(1,order.getUserId());
+            resultSet = statement.executeQuery();
+            if(resultSet.next()){
+                temp = new Order(
+                        resultSet.getLong(1),
+                        resultSet.getString(2),
+                        resultSet.getLong(3)
+                );
+            }else{
+                temp =  new Order();
 
-    private void closeResultSet( ResultSet resultSet) {
+            }
+            return temp;
+        }catch (SQLException e){
+            throw new DAOException(e);
+        }finally {
+            closeResultSet(resultSet);
+            closeStatement(statement);
+            connectionPool.releaseConnection(connection);
+        }
+    }
+
+    private void closeResultSet(ResultSet resultSet) {
         try{
 
             if (resultSet != null){

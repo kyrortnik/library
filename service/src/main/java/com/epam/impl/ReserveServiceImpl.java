@@ -18,11 +18,19 @@ public class ReserveServiceImpl implements ReserveService {
     @Override
     public boolean save(Reserve reserve) throws ServiceException {
         try{
-            return reserveDAO.save(reserve);
+            Reserve temp = reserveDAO.getByUserAndProductId(reserve);
+            if (!reserve.equals(temp)){
+                return reserveDAO.save(reserve);
+            }else {
+                return false;
+            }
+
         }catch (DAOException e){
             throw new ServiceException(e);
         }
     }
+
+
 
     @Override
     public List<Reserve> getReservesForUser(Long userId) {

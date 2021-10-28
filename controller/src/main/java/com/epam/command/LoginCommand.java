@@ -6,6 +6,7 @@ import com.epam.command.exception.ControllerException;
 import com.epam.entity.User;
 import com.epam.ServiceFactory;
 import com.epam.UserService;
+import com.epam.entity.UserDTO;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -35,18 +36,19 @@ public class LoginCommand implements AbstractCommand {
         User user = new User(login,pass,"user");
 
         try{
-            if (userService.findUserByLogin(user)) {
-                request.getSession().setAttribute("user", user.getLogin());
-                request.getSession().setAttribute("role",user.getRole());
-                request.getRequestDispatcher(ConfigurationManager.getProperty("path.page.main")).forward(request,response);
 
-            } else {
+            UserDTO userDTO = userService.logination(user);
+            if (userDTO != null){
+                request.getSession().setAttribute("user", userDTO.getLogin());
+                request.getSession().setAttribute("role",userDTO.getRole());
+                request.getSession().setAttribute("id",userDTO.getId());
+                request.getRequestDispatcher(ConfigurationManager.getProperty("path.page.main")).forward(request,response);
+            }else{
                 request.setAttribute("errorLoginPassMessage",
                         MessageManager.getProperty("message.loginerror"));
                 request.getRequestDispatcher(ConfigurationManager.getProperty("path.page.login")).forward(request,response);
-
             }
-//        return page;
+
         }catch (IOException | ServletException e){
             throw new ControllerException(e);
         }

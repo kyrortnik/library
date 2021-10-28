@@ -36,13 +36,24 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Order getByUserId(Order order) {
+        return orderDAO.getByUserId(order);
+    }
+
+    @Override
     public boolean save(Order order) throws ServiceException {
         try{
-            order.setStatus("new");
-            return orderDAO.save(order);
+            Order temp = orderDAO.getByUserId(order);
+            if (temp.getUserId() != order.getUserId()){
+                return orderDAO.save(order);
+            }else {
+                return false;
+            }
+
         }catch (DAOException e){
             throw new ServiceException(e);
         }
+
 
     }
 }

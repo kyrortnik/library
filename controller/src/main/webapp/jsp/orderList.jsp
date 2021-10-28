@@ -10,16 +10,13 @@
     <c:if test="${requestScope.products != '[]'}">
 
         <table>
-            <thead>
             <tr>
-                <th></th>
                 <th>Title</th>
                 <th>Author</th>
                 <th>Publisher</th>
                 <th>Publishing Year</th>
                 <th></th>
             </tr>
-            <thead>
 
             <c:forEach items="${requestScope.products}" var="product">
                 <tr>
@@ -36,7 +33,7 @@
     </c:if>
 
 
-    <form action="FrontController" method="post">
+    <form action="frontController" method="post">
         <div >
             <input  type="hidden" name="command" value="createOrder"/>
             <input  type="submit" name="finishOrder" value="Order products"/>

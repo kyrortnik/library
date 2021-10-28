@@ -17,6 +17,8 @@ public interface OrderService {
 
     List<Order> getAll();
 
+    Order getByUserId(Order order);
+
 
 
 

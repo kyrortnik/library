@@ -1,16 +1,16 @@
 package com.epam.command;
 
-import com.epam.ConfigurationManager;
 import com.epam.ReserveService;
 import com.epam.ServiceFactory;
+import com.epam.UserService;
 import com.epam.command.exception.ControllerException;
-import com.epam.entity.Order;
 import com.epam.entity.Reserve;
 import com.epam.exception.ServiceException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class CreateReserveCommand implements AbstractCommand{
@@ -21,9 +21,8 @@ public class CreateReserveCommand implements AbstractCommand{
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
 
         try{
-//            long userId = (Long)request.getSession().getAttribute("id");
-            long userId = 1L;
-            long productId = 2L;
+           Long userId = (Long)request.getSession().getAttribute("id");
+           Long productId = Long.valueOf(request.getParameter("productId"));
 
 
             Reserve reserve = new Reserve(userId,productId);
@@ -31,7 +30,7 @@ public class CreateReserveCommand implements AbstractCommand{
                 request.setAttribute("productAddedToOrder","Product successfully added to Order list");
 
             }else{
-                request.setAttribute("errorNoCreateOrder","Order is not added to Order list!");
+                request.setAttribute("errorNoCreateOrder","Order is not added to Order list! Such order already exists.");
 
             }
             request.getRequestDispatcher("/jsp/productInfo.jsp").forward(request,response);

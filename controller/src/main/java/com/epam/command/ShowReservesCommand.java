@@ -24,7 +24,7 @@ public class ShowReservesCommand implements AbstractCommand{
 
 //        Long userId = request.getSession().getAttribute("id");
         try{
-            Long userId = 2L;
+            Long userId = 1L;
 
             List<Reserve> reserves = reserveService.getReservesForUser(userId);
             List<Book> books = bookService.findBooksByIds(reserves);
