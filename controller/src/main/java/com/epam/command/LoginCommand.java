@@ -1,15 +1,17 @@
 package com.epam.command;
 
 import com.epam.ConfigurationManager;
-import com.epam.validator.LoginLogic;
 import com.epam.MessageManager;
-import entity.User;
-import services.ServiceFactory;
-import services.UserService;
+import com.epam.command.exception.ControllerException;
+import com.epam.entity.User;
+import com.epam.ServiceFactory;
+import com.epam.UserService;
+import com.epam.entity.UserDTO;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import java.io.IOException;
 
 
 public class LoginCommand implements AbstractCommand {
@@ -19,31 +21,37 @@ public class LoginCommand implements AbstractCommand {
     private static final String PARAM_NAME_LOGIN = "login";
     private static final String PARAM_NAME_PASSWORD = "password";
 
-    private ServiceFactory serviceFactory = ServiceFactory.getInstance();
-    private UserService userService = serviceFactory.createUserService();
+    private final ServiceFactory serviceFactory = ServiceFactory.getInstance();
+    private final UserService userService = serviceFactory.createUserService();
 
 
 
     public LoginCommand() { }
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page;
-// извлечение из запроса логина и пароля
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException{
+
         String login = request.getParameter(PARAM_NAME_LOGIN);
         String pass = request.getParameter(PARAM_NAME_PASSWORD);
-        User user = new User(5,login,pass,"user");
-// проверка логина и пароля
-        if (/*userValidation*/ true) {
-            request.setAttribute("user", user.getLogin());
-// определение пути к main.jsp
-            page = ConfigurationManager.getProperty("path.page.main");
+        User user = new User(login,pass,"user");
 
-        } else {
-            request.setAttribute("errorLoginPassMessage",
-                    MessageManager.getProperty("message.loginerror"));
-            page = ConfigurationManager.getProperty("path.page.login");
+        try{
+
+            UserDTO userDTO = userService.logination(user);
+            if (userDTO != null){
+                request.getSession().setAttribute("user", userDTO.getLogin());
+                request.getSession().setAttribute("role",userDTO.getRole());
+                request.getSession().setAttribute("id",userDTO.getId());
+                request.getRequestDispatcher(ConfigurationManager.getProperty("path.page.main")).forward(request,response);
+            }else{
+                request.setAttribute("errorLoginPassMessage",
+                        MessageManager.getProperty("message.loginerror"));
+                request.getRequestDispatcher(ConfigurationManager.getProperty("path.page.login")).forward(request,response);
+            }
+
+        }catch (IOException | ServletException e){
+            throw new ControllerException(e);
         }
-        return page;
+
     }
 }

@@ -15,11 +15,27 @@ public enum TypeCommand {
         {this.command = new ShowUsersCommand();}
     },
 
-    SHOW_PRODUCTS{
+    SHOWPRODUCTS {
         {this.command = new ShowProductsCommand();}
     },
     SHOW_ORDERS{
         {this.command = new ShowOrdersCommand();}
+    },
+
+    PRODUCTINFO{
+        {this.command = new ProductInfoCommand();}
+    },
+    ADDTOORDER{
+        {this.command = new AddToOrderCommand();}
+    },
+    CREATEORDER{
+        {this.command = new CreateOrderCommand();}
+    },
+    CREATERESERVE{
+        {this.command = new CreateReserveCommand();}
+    },
+    SHOWRESERVES{
+        {this.command = new ShowReservesCommand();}
     };
 
     public AbstractCommand getCurrentCommand() {

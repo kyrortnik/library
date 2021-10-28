@@ -1,14 +1,15 @@
 package com.epam.command;
 
 import com.epam.ConfigurationManager;
-import entity.Order;
-import services.OrderService;
-import services.ServiceFactory;
+import com.epam.command.exception.ControllerException;
+import com.epam.entity.Order;
+import com.epam.OrderService;
+import com.epam.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class ShowOrdersCommand implements AbstractCommand{
@@ -16,12 +17,17 @@ public class ShowOrdersCommand implements AbstractCommand{
     private OrderService serviceFactory = ServiceFactory.getInstance().createOrderService();
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page;
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException{
+//        String page;
         ArrayList<Order> orders =(ArrayList<Order>)serviceFactory.getAll();
-        request.setAttribute("orders",orders);
-        page = ConfigurationManager.getProperty("path.page.orders");
-        return page;
+        try{
+            request.setAttribute("orders",orders);
+            response.sendRedirect(ConfigurationManager.getProperty("path.page.orders"));
+        }catch (IOException e){
+            throw new ControllerException(e);
+        }
+
+//        return page;
 
     }
 }

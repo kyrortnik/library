@@ -1,50 +1,42 @@
 package com.epam;
 
 import com.epam.command.AbstractCommand;
+import com.epam.command.exception.ControllerException;
 import com.epam.command.factory.CommandFactory;
 
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 
 
 public class FrontController extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-       processRequest(req,resp);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)  {
+       processRequest(request,response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        processRequest(req,resp);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)  {
+        processRequest(request,response);
     }
 
-    private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String page;
+
+    private void processRequest(HttpServletRequest request, HttpServletResponse response)  {
         AbstractCommand command;
-        CommandFactory client = new CommandFactory();
-        command = client.defineCommand(req);
-        page = command.execute(req,resp);
+        CommandFactory commandFactory = new CommandFactory();
+        command = commandFactory.defineCommand(request);
+        try{
+             command.execute(request,response);
+            }
+        catch (ControllerException e){
+            e.printStackTrace();
+        }
+
        
 
-        if (page != null) {
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
-// вызов страницы ответа на запрос
-            dispatcher.forward(req, resp);
-
-        } else {
-// установка страницы c cообщением об ошибке
-            page = ConfigurationManager.getProperty("path.page.index");
-            req.getSession().setAttribute("nullPage",
-                    MessageManager.getProperty("message.nullpage"));
-            resp.sendRedirect(req.getContextPath() + page);
-        }
 
 
 
