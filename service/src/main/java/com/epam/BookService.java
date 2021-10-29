@@ -1,22 +1,26 @@
 package com.epam;
 
 import com.epam.entity.Book;
+import com.epam.entity.BookRow;
+import com.epam.entity.Page;
 import com.epam.entity.Reserve;
 
 import java.util.List;
 
 public interface BookService {
 
-    Book findById(Long id);
+    BookRow findById(Long id);
 
-    boolean create(Book book);
+    boolean create(BookRow bookRow);
 
-    boolean update(Book book);
+    boolean update(BookRow bookRow);
 
-    boolean delete(Book book);
+    boolean delete(BookRow bookRow);
 
-    List<Book> getAll();
+//    List<BookRow> getAll();
 
-    List<Book> findBooksByIds(List<Reserve> reserves);
+    Page<Book> getAll(Page<Book> pageRequest);
+
+    List<BookRow> findBooksByIds(List<Reserve> reserves);
 
 }

@@ -25,12 +25,12 @@
                 <th></th>
             </tr>
 
-            <c:forEach items="${requestScope.products}" var="product">
+            <c:forEach items="${requestScope.products}" var="productRow">
                 <tr>
-                <td><c:out value="${product.title}"/></td>
-                <td><c:out value="${product.author}"/></td>
-                <td><c:out value="${product.publisher}"/></td>
-                <td><c:out value="${product.publishingYear}"/></td>
+                <td><c:out value="${productRow.title}"/></td>
+                <td><c:out value="${productRow.author}"/></td>
+                <td><c:out value="${productRow.publisher}"/></td>
+                <td><c:out value="${productRow.publishingYear}"/></td>
                 </tr>
             </c:forEach>
 

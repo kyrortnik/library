@@ -4,7 +4,7 @@ import com.epam.BookService;
 import com.epam.ReserveService;
 import com.epam.ServiceFactory;
 import com.epam.command.exception.ControllerException;
-import com.epam.entity.Book;
+import com.epam.entity.BookRow;
 import com.epam.entity.Reserve;
 
 import javax.servlet.ServletException;
@@ -26,8 +26,8 @@ public class ShowReservesCommand implements AbstractCommand{
             try{
 
             List<Reserve> reserves = reserveService.getReservesForUser(userId);
-            List<Book> books = bookService.findBooksByIds(reserves);
-            request.setAttribute("products",books);
+            List<BookRow> bookRows = bookService.findBooksByIds(reserves);
+            request.setAttribute("products", bookRows);
             request.getRequestDispatcher("/jsp/orderList.jsp").forward(request,response);
         }catch (IOException | ServletException e){
             throw new ControllerException(e);

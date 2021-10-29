@@ -4,7 +4,7 @@ import com.epam.BookService;
 import com.epam.ConfigurationManager;
 import com.epam.ServiceFactory;
 import com.epam.command.exception.ControllerException;
-import com.epam.entity.Product;
+import com.epam.entity.ProductRow;
 import com.epam.exception.ServiceException;
 
 import javax.servlet.ServletException;
@@ -24,16 +24,16 @@ public class ProductInfoCommand implements AbstractCommand {
 //        String page;
 
         try {
-            Product product  = bookService.findById(Long.parseLong(request.getParameter("id")));
+            ProductRow productRow = bookService.findById(Long.parseLong(request.getParameter("id")));
 
-            if(product != null){
-                request.setAttribute("product", product);
+            if(productRow != null){
+                request.setAttribute("product", productRow);
             } else {
                 request.setAttribute("noSuchProduct", "No such product was found");
             }
 
 //            request.setAttribute("message", request.getParameter(MESSAGE));
-           request.getRequestDispatcher(ConfigurationManager.getProperty("path.page.productInfo")).forward(request,response);
+           request.getRequestDispatcher("/jsp/productInfo.jsp").forward(request,response);
 
         } catch (ServiceException | IOException | ServletException e) {
             throw new ControllerException(e);

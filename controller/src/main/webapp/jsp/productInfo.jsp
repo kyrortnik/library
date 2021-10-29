@@ -8,12 +8,12 @@
         </title>
     </head>
     <body>
-    <c:if test="${requestScope.product == ''}">
+    <c:if test="${requestScope.productRow == ''}">
        <h3><c:out value="${noSuchProduct}"/></h3>
     </c:if>
 
 
-    <c:if test="${requestScope.product != ''}">
+    <c:if test="${requestScope.productRow != ''}">
 
 
                         <table  >
@@ -27,14 +27,14 @@
 
                             <tbody>
                             <tr style="text-align: center">
-                                <td>${requestScope.product.title}</td>
-                                <td>${requestScope.product.author}</td>
-                                <td>${requestScope.product.genre}</td>
-                                <td>${requestScope.product.publisher}</td>
+                                <td>${requestScope.productRow.title}</td>
+                                <td>${requestScope.productRow.author}</td>
+                                <td>${requestScope.productRow.genre}</td>
+                                <td>${requestScope.productRow.publisher}</td>
                                 <td>
                                     <form action="frontController" method="post">
                                         <input type="hidden" name="command" value="createReserve" />
-                                        <input type="hidden" name="productId" value="${requestScope.product.id}" />
+                                        <input type="hidden" name="productId" value="${requestScope.productRow.id}" />
                                         <input type="submit" name="order" value="Add to Order list" /><br/>
                                         <br/>
                                         ${errorNoCreateOrder}

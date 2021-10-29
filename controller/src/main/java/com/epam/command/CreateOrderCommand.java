@@ -8,9 +8,14 @@ import com.epam.entity.Order;
 import com.epam.entity.Reserve;
 import com.epam.exception.ServiceException;
 import com.sun.org.apache.xpath.internal.operations.Or;
+import org.apache.taglibs.standard.lang.jstl.test.PageContextImpl;
 
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,8 +44,8 @@ public class CreateOrderCommand implements AbstractCommand {
            }
            String productIds = builder.toString().trim();
 
-
            Order order = new Order(productIds,userId);
+
 
             if (orderService.save(order)){
                 if(reserveService.deleteReservesByUserId(userId)){

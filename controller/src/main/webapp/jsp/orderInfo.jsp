@@ -9,7 +9,7 @@
 
 <body>
 
-<c:if test="${requestScope.order == ''}">
+<c:if test="${requestScope.order == null}">
     <h3><c:out value="${noOrderCreated}"/></h3>
 </c:if>
 

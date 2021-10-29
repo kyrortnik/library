@@ -27,17 +27,17 @@
             <th></th>
         </tr>
         </thead>
-        <c:forEach items="${requestScope.products}" var="product" >
+        <c:forEach items="${requestScope.products}" var="productRow" >
             <tr>
-                <td>${product.id}</td>
-                <td>${product.title}</td>
-                <td>${product.author}</td>
-                <td>${product.publisher}</td>
+                <td>${productRow.id}</td>
+                <td>${productRow.title}</td>
+                <td>${productRow.author}</td>
+                <td>${productRow.publisher}</td>
 
                 <td>
                     <form  method="POST" action="frontController" >
                         <input type="hidden" name="command" value="productInfo" />
-                        <input type="hidden" name="id" value="${product.id}" />
+                        <input type="hidden" name="id" value="${productRow.id}" />
                         <button type="submit" >Product info</button><br/>
                     </form>
                 </td>
@@ -50,18 +50,18 @@
 
 
 
-<!--<c:forEach items="${requestScope.products}" var="product">
+<!--<c:forEach items="${requestScope.products}" var="productRow">
     <tr>
         <td>
            &lt;!&ndash; <form action="frontController" method="POST">
                 <input type="hidden" name="command" value="productInfo" />
-                <input type="hidden" name="id" value="${product.id}" />
+                <input type="hidden" name="id" value="${productRow.id}" />
                 <button type="submit">${info}</button><br/>
             </form>&ndash;&gt;
         </td>
-        <td>${product}</td>
-&lt;!&ndash;        <td>${product.author}</td>&ndash;&gt;
-&lt;!&ndash;        <td>${product.publisher}</td>&ndash;&gt;
+        <td>${productRow}</td>
+&lt;!&ndash;        <td>${productRow.author}</td>&ndash;&gt;
+&lt;!&ndash;        <td>${productRow.publisher}</td>&ndash;&gt;
 
     </tr>
 </c:forEach>-->
