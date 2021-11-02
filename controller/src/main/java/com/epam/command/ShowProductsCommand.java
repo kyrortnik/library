@@ -12,22 +12,26 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Objects;
 
 public class ShowProductsCommand implements AbstractCommand{
 
     private BookService bookService = ServiceFactory.getInstance().createBookService();
 
-    private static int PAGE_LIMIT = 10;
+    private static int PAGE_LIMIT = 5;
 
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException{
 //        String page;
         try{
-//           String currentPageParam = request.getParameter("currentPage");
-           String currentPageParam = "2";
+           String currentPageParam = request.getParameter("currentPage");
+            if (Objects.isNull(currentPageParam)) {
+                currentPageParam = "1";
+            }
+//           String currentPageParam = "2";
 //            if(/*validation on null/empty*/){
-//            currentPage = "1";
+//            currentPage = "1";authType = null
 //            }
 //            String currentLimitParam = request.getParameter("pageLimit");
 //            if(/*validation on null/empty*/){

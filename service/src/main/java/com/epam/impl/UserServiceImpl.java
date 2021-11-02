@@ -19,8 +19,14 @@ public class UserServiceImpl implements UserService {
     private static final UserDAO userDAO = DAOFactory.getInstance().createUserDAO();
 
     @Override
-    public boolean registration(User user) {
-        return userDAO.save(user);
+    public boolean registration(User user,String password2) {
+        boolean equals = user.getPassword().equals(password2);
+        try{
+            return equals && userDAO.save(user);
+        }catch (DAOException e){
+            throw new ServiceException(e);
+        }
+
     }
 
     @Override

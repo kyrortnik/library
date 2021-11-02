@@ -1,21 +1,21 @@
 package com.epam.entity;
 
-public class Reserve extends Entity{
+public class ReserveRow extends Entity{
 
     private Long userId;
     private Long productId;
 
-    public Reserve() {
+    public ReserveRow() {
     }
 
-    public Reserve(Long id){
+    public ReserveRow(Long id){
         super(id);
     }
-    public Reserve(Long userId,Long productId){
+    public ReserveRow(Long userId,Long productId){
         this.userId = userId;
         this.productId = productId;
     }
-    public Reserve(Long id,Long userId,Long productId){
+    public ReserveRow(Long id,Long userId,Long productId){
         super(id);
         this.userId = userId;
         this.productId = productId;
@@ -43,7 +43,7 @@ public class Reserve extends Entity{
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
 
-        Reserve reserve = (Reserve) o;
+        ReserveRow reserve = (ReserveRow) o;
 
         if (userId != null ? !userId.equals(reserve.userId) : reserve.userId != null) return false;
         return productId != null ? productId.equals(reserve.productId) : reserve.productId == null;

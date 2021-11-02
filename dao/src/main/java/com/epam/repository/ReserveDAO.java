@@ -1,14 +1,14 @@
 package com.epam.repository;
 
-import com.epam.entity.Reserve;
+import com.epam.entity.ReserveRow;
 
 import java.util.List;
 
-public interface ReserveDAO extends AbstractDAO<Reserve>{
+public interface ReserveDAO extends AbstractDAO<ReserveRow>{
 
-    List<Reserve> getReservesForUser(Long userId);
+    List<ReserveRow> getReservesForUser(Long userId);
 
-    Reserve getByUserAndProductId(Reserve reserve);
+    ReserveRow getByUserAndProductId(ReserveRow reserve);
 
     boolean deleteByUserId(Long userId);
 }

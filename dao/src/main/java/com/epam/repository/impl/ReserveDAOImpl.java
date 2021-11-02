@@ -1,6 +1,6 @@
 package com.epam.repository.impl;
 
-import com.epam.entity.Reserve;
+import com.epam.entity.ReserveRow;
 import com.epam.exception.DAOException;
 import com.epam.repository.ConnectionPool;
 import com.epam.repository.PropertyInitializer;
@@ -32,24 +32,24 @@ public class ReserveDAOImpl implements ReserveDAO {
     /*TODO provide implementation*/
 
     @Override
-    public Reserve get(Reserve reserve) throws DAOException {
+    public ReserveRow get(ReserveRow reserve) throws DAOException {
         return null;
     }
 
     @Override
-    public Reserve getById(Long id) {
+    public ReserveRow getById(Long id) {
         return null;
     }
 
 
 
     @Override
-    public List<Reserve> getAll() {
+    public List<ReserveRow> getAll() {
         return null;
     }
 
     @Override
-    public boolean save(Reserve reserve) throws DAOException{
+    public boolean save(ReserveRow reserve) throws DAOException{
         Connection connection = null;
         PreparedStatement statement = null;
         try{
@@ -67,21 +67,21 @@ public class ReserveDAOImpl implements ReserveDAO {
     }
 
     @Override
-    public boolean delete(Reserve reserve) {
+    public boolean delete(ReserveRow reserve) {
         return false;
     }
 
     @Override
-    public boolean update(Reserve reserve) {
+    public boolean update(ReserveRow reserve) {
         return false;
     }
 
     @Override
-    public Reserve getByUserAndProductId(Reserve reserve) throws DAOException{
+    public ReserveRow getByUserAndProductId(ReserveRow reserve) throws DAOException{
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        Reserve temp = new Reserve();
+        ReserveRow temp = new ReserveRow();
         try{
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(FIND_RESERVES_BY_USER_AND_PRODUCT);
@@ -89,7 +89,7 @@ public class ReserveDAOImpl implements ReserveDAO {
             statement.setLong(2,reserve.getProductId());
             resultSet = statement.executeQuery();
             while (resultSet.next()){
-                temp = new Reserve(
+                temp = new ReserveRow(
                         resultSet.getLong(2),
                         resultSet.getLong(3)
                 );
@@ -106,21 +106,21 @@ public class ReserveDAOImpl implements ReserveDAO {
     }
 
     @Override
-    public List<Reserve> getReservesForUser(Long userId) {
+    public List<ReserveRow> getReservesForUser(Long userId) {
 
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        ArrayList<Reserve> reserves = new ArrayList<>();
+        ArrayList<ReserveRow> reserves = new ArrayList<>();
         try{
 
-            Reserve reserve;
+            ReserveRow reserve;
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(FIND_RESERVES_FOR_USER);
             statement.setLong(1,userId);
             resultSet = statement.executeQuery();
             while (resultSet.next()){
-                reserve = new Reserve(
+                reserve = new ReserveRow(
                         resultSet.getLong(1),
                         resultSet.getLong(2),
                         resultSet.getLong(3)

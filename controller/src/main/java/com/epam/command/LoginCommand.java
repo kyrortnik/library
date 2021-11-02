@@ -42,11 +42,10 @@ public class LoginCommand implements AbstractCommand {
                 request.getSession().setAttribute("user", userDTO.getLogin());
                 request.getSession().setAttribute("role",userDTO.getRole());
                 request.getSession().setAttribute("id",userDTO.getId());
-                request.getRequestDispatcher(ConfigurationManager.getProperty("path.page.main")).forward(request,response);
+                request.getRequestDispatcher("/jsp/main.jsp").forward(request,response);
             }else{
-                request.setAttribute("errorLoginPassMessage",
-                        MessageManager.getProperty("message.loginerror"));
-                request.getRequestDispatcher(ConfigurationManager.getProperty("path.page.login")).forward(request,response);
+//                request.setAttribute("errorLoginPassMessage", "Error while logining");
+//                request.getRequestDispatcher("/jsp/main.jsp").forward(request,response);
             }
 
         }catch (IOException | ServletException e){

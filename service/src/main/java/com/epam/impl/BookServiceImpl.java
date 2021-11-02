@@ -42,15 +42,19 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookRow> findBooksByIds(List<Reserve> reserves) throws ServiceException {
+    public Page<Book> findBooksByIds(List<Reserve> reserves) throws ServiceException {
         try{
             List<BookRow> bookRows = new ArrayList<>();
+            Pageable<BookRow> bookRowPageable = new Pageable<>();
             BookRow bookRow;
             for (Reserve reserve : reserves){
                 bookRow = bookDAO.getById(reserve.getProductId());
                 bookRows.add(bookRow);
             }
-            return bookRows;
+            bookRowPageable.setElements(bookRows);
+//            bookRowPageable = bookDAO.findPageByFilter(bookRowPageable);
+
+            return convertToServicePage(bookRowPageable);
         }catch (DAOException e){
             throw new ServiceException(e);
         }
@@ -76,15 +80,15 @@ public class BookServiceImpl implements BookService {
     }
 
 
-    private Page<Book> convertToServicePage(Pageable<BookRow> productRowsPageable) {
+    private Page<Book> convertToServicePage(Pageable<BookRow> bookRowPageable) {
         Page<Book> page = new Page<>();
-       page.setPageNumber(productRowsPageable.getPageNumber());
-        page.setLimit(productRowsPageable.getLimit());
-        page.setTotalElements(productRowsPageable.getTotalElements());
-        page.setElements(convertToBooks(productRowsPageable.getElements()));
-        page.setFilter(convertToBook(productRowsPageable.getFilter()));
-        page.setSortBy(productRowsPageable.getSortBy());
-        page.setDirection(productRowsPageable.getDirection());
+       page.setPageNumber(bookRowPageable.getPageNumber());
+        page.setLimit(bookRowPageable.getLimit());
+        page.setTotalElements(bookRowPageable.getTotalElements());
+        page.setElements(convertToBooks(bookRowPageable.getElements()));
+        page.setFilter(convertToBook(bookRowPageable.getFilter()));
+        page.setSortBy(bookRowPageable.getSortBy());
+        page.setDirection(bookRowPageable.getDirection());
         return page;
     }
 
@@ -119,33 +123,33 @@ public class BookServiceImpl implements BookService {
         pageable.setPageNumber(pageableRequest.getPageNumber());
         pageable.setLimit(pageableRequest.getLimit());
         pageable.setTotalElements(pageableRequest.getTotalElements());
-        pageable.setElements(convertToProductRows(pageableRequest.getElements()));
-        pageable.setFilter(convertToProductRow(pageableRequest.getFilter()));
+        pageable.setElements(convertToBookRows(pageableRequest.getElements()));
+        pageable.setFilter(convertToBookRow(pageableRequest.getFilter()));
         pageable.setSortBy(pageableRequest.getSortBy());
         pageable.setDirection(pageableRequest.getDirection());
         return pageable;
     }
 
 
-    private List<BookRow> convertToProductRows( List<Book> elements) {
+    private List<BookRow> convertToBookRows(List<Book> elements) {
         final List<BookRow> list = new ArrayList<>();
         for (Book book : elements) {
-            list.add(convertToProductRow(book));
+            list.add(convertToBookRow(book));
         }
         return list;
     }
 
 
-    private BookRow convertToProductRow( Book bookRow) {
-        BookRow productRow = null;
-        if (Objects.nonNull(bookRow)) {
-            productRow = new BookRow();
-            productRow.setId(bookRow.getId());
-            productRow.setTitle(bookRow.getTitle());
-            productRow.setAuthor(bookRow.getAuthor());
-            productRow.setPublisher(bookRow.getPublisher());
+    private BookRow convertToBookRow(Book book) {
+        BookRow row = null;
+        if (Objects.nonNull(book)) {
+            row = new BookRow();
+            row.setId(book.getId());
+            row.setTitle(book.getTitle());
+            row.setAuthor(book.getAuthor());
+            row.setPublisher(book.getPublisher());
         }
-        return productRow;
+        return row;
     }
 
 

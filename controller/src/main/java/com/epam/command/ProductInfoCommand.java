@@ -24,10 +24,10 @@ public class ProductInfoCommand implements AbstractCommand {
 //        String page;
 
         try {
-            ProductRow productRow = bookService.findById(Long.parseLong(request.getParameter("id")));
+            ProductRow product = bookService.findById(Long.parseLong(request.getParameter("id")));
 
-            if(productRow != null){
-                request.setAttribute("product", productRow);
+            if(product != null){
+                request.setAttribute("product", product);
             } else {
                 request.setAttribute("noSuchProduct", "No such product was found");
             }

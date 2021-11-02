@@ -1,7 +1,6 @@
 package com.epam;
 
-import com.epam.entity.Reserve;
-import com.epam.entity.User;
+import com.epam.entity.*;
 import com.epam.exception.ServiceException;
 
 import java.util.List;
@@ -14,5 +13,8 @@ public interface ReserveService {
 
 
     boolean deleteReservesByUserId(Long userId);
+
+
+
 
 }

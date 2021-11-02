@@ -9,4 +9,6 @@ public interface UserDAO extends AbstractDAO<User> {
  //   UserDTO findUserByLogin(String login);
 
     boolean findUserByLogin(User user);
+
+    boolean registration(User user,String password2);
 }

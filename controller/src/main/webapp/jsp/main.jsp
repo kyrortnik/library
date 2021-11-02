@@ -6,11 +6,11 @@
     </head>
     <body>
     <h3>Welcome</h3>
-    <hr/>
+<!--    <hr/>
     ${user}, hello!
     <br/>
     To logout click link below
-    <hr/>
+    <hr/>-->
 <!--    <a href="frontController?command=logout">Logout</a>-->
 
     <c:if test="${sessionScope.role != null}">
@@ -26,13 +26,7 @@
     <br/>
     <a href ="/jsp/manageOrders.jsp"> Manage orders</a>
 
-
-
-
-   <!-- <form name="testForm" method="POST" action="frontController">
-        <input type="hidden" name="command" value="showProducts" />
-        <input type = "submit" value ="show products testing">
-    </form>-->
+<!-----------SHOW PRODUCTS ------------------------->
     <div>
     <form id="showProducts" method="GET" action="frontController">
     <input type="hidden" name="command" value="showProducts"/>
@@ -54,7 +48,7 @@
                     <c:forEach items="${requestScope.pageable.elements}" var="productRow">
                         <tr>
                             <td>
-                                <form  method="POST" action="frontController" >
+                                <form  method="GET" action="frontController" >
                                     <input type="hidden" name="command" value="productInfo" />
                                     <input type="hidden" name="id" value="${productRow.id}" />
                                     <button type="submit" >Product info</button><br/>
@@ -64,10 +58,16 @@
                             <td>${productRow.author}</td>
                             <td>${productRow.publisher}</td>
                             <td>${productRow.publishingYear}</td>
-
-
                             <td>
-                                <button type="button">Add To Basket Button</button><br/>
+                               <!-- <form method = "POST" action="frontController">
+                                    <input type = "hidden" name ="command" value ="createReserve"/>
+                                    <input type = "hidden" name="productId" value="${productRow.id}"/>
+                                    <input type="submit" value ="Reserve this Book">
+                                    <br/>
+                                    ${message}
+                                    <br/>
+                                </form>-->
+
                             </td>
                         </tr>
                     </c:forEach>
@@ -89,11 +89,86 @@
                 </div>
             </div>
 
-    <form name = "showReserveList" method="POST" action ="frontController">
-        <input type="hidden" name = "command" value="showReserves" />
-        <input type ="submit" value="Go to Reserved products"/>
+        <!-----------SHOW RESERVES ------------------------->
 
+    <div>
+    <form id ="showReserves" method="GET" action ="frontController">
+        <input type="hidden" name = "command" value="showReserves" />
+        <button form ="showReserves" type ="submit">Show Reserved Products</button>
     </form>
+        </div>
+        <div>
+            <table>
+                <thead>
+                <tr>
+                    <td></td>
+                    <td><h4><c:out value="title"/></h4></td>
+                    <td><h4><c:out value="author"/></h4></td>
+                    <td><h4><c:out value="publisher"/></h4></td>
+                    <td><h4><c:out value="publishing Year"/></h4></td>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                <c:forEach items="${requestScope.pageableReserves.elements}" var="reserveRow">
+                    <c:if test="${not empty requestScope.pageableReserves.elements}">
+                    <tr>
+                        <td>
+                           <!-- <form  method="GET" action="frontController" >
+                                <input type="hidden" name="command" value="productInfo" />
+                                <input type="hidden" name="id" value="${reserveRow.id}" />
+                                <button type="submit" >Product info</button><br/>
+                            </form>-->
+                        </td>
+                        <td>${reserveRow.title}</td>
+                        <td>${reserveRow.author}</td>
+                        <td>${reserveRow.publisher}</td>
+                        <td>${reserveRow.publishingYear}</td>
+                     <!--   <td>
+                             <form method = "POST" action="frontController">
+                                 <input type = "hidden" name ="command" value ="createReserve"/>
+                                 <input type = "hidden" name="productId" value="${reserveRow.id}"/>
+                                 <input type="submit" value ="Reserve this Book">
+                                 <br/>
+                                 ${message}
+                                 <br/>
+                             </form>
+
+                        </td>-->
+                    </tr>
+                    </c:if>
+                    <c:if test ="${empty requestScope.pageableReserves.elements}">
+
+                            <h3>No reserves for you yet.</h3>
+
+                    </c:if>
+                </c:forEach>
+
+                </tbody>
+            </table>
+            <div style="margin-left: center">
+                <c:forEach begin="1" end="${Math.ceil(pageableReserves.totalElements / pageableReserves.limit)}" var="i">
+                    <c:if test="${i == pageableReserves.pageNumber}">
+                            <span>
+                                <button style="color:red" form="showReserves" type="submit" name="currentPageReserve" value="${i}">${i}</button>
+                            </span>
+                    </c:if>
+                    <c:if test="${i != pageableReserves.pageNumber}">
+                            <span>
+                                <button form="showReserves" type="submit" name="currentPageReserve" value="${i}">${i}</button>
+                            </span>
+                    </c:if>
+                </c:forEach>
+            </div>
+        </div>
+
+
+
+<!-------------END OF RESERVES---------------->
+
+
+
 
     <form name ="showOrderInfo" method="POST" action ="frontController">
         <input type = "hidden" name ="command" value="orderInfo"/>

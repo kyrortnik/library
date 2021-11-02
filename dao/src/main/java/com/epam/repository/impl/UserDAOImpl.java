@@ -117,6 +117,10 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
+    @Override
+    public boolean registration(User user, String password2) {
+        return false;
+    }
 
     @Override
     public boolean delete(User user) {

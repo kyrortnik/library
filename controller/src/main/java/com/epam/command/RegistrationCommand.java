@@ -29,18 +29,21 @@ public class RegistrationCommand implements AbstractCommand{
 //        String page;
         String login = request.getParameter(PARAM_NAME_LOGIN);
         String pass = request.getParameter(PARAM_NAME_PASSWORD);
-//        String pass2 = request.getParameter(PARAM_NAME_SECOND_PASSWORD);
-        User user = new User(login,pass,"user");
+//        String role = String.valueOf(request.getSession().getAttribute("role"));
+        String role = "user";
+        String pass2 = request.getParameter(PARAM_NAME_SECOND_PASSWORD);
+        User user = new User(login,pass,role);
 
         try {
-            if (userService.registration(user)){
-                request.setAttribute("user",login);
-                request.getRequestDispatcher(ConfigurationManager.getProperty("path.page.main")).forward(request,response);
+            if (userService.registration(user,pass2)){
+//                request.setAttribute("user",login);
+                request.getSession().setAttribute("role",role);
+               request.getRequestDispatcher("/jsp/main.jsp").forward(request,response);
 
             }else {
-                /*request.setAttribute("errorLoginPassMessage",
-                        MessageManager.getProperty("message.loginerror"));
-                page = ConfigurationManager.getProperty("path.page.login");*/
+                String message = "Didn't registrate. Try again";
+                request.setAttribute("message",message);
+                request.getRequestDispatcher("/jsp/login.jsp").forward(request,response);
             }
         }catch (IOException | ServletException e){
             throw new ControllerException(e);

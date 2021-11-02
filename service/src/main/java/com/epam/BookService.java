@@ -21,6 +21,6 @@ public interface BookService {
 
     Page<Book> getAll(Page<Book> pageRequest);
 
-    List<BookRow> findBooksByIds(List<Reserve> reserves);
+    Page<Book> findBooksByIds(List<Reserve> reserves);
 
 }

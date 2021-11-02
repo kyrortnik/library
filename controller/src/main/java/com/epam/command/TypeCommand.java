@@ -39,6 +39,9 @@ public enum TypeCommand {
     },
     ORDERINFO{
         {this.command = new OrderInfoCommand();}
+    },
+    GOTOPAGE{
+        {this.command = new GoToPageCommand();}
     };
 
     public AbstractCommand getCurrentCommand() {

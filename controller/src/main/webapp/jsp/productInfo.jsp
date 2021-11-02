@@ -8,13 +8,12 @@
         </title>
     </head>
     <body>
-    <c:if test="${requestScope.productRow == ''}">
+    <c:if test="${empty requestScope.product }">
        <h3><c:out value="${noSuchProduct}"/></h3>
     </c:if>
 
-
-    <c:if test="${requestScope.productRow != ''}">
-
+    <c:if test="${not empty requestScope.product }">
+        <div>
 
                         <table  >
                             <tr style="text-align: center;">
@@ -27,21 +26,32 @@
 
                             <tbody>
                             <tr style="text-align: center">
-                                <td>${requestScope.productRow.title}</td>
-                                <td>${requestScope.productRow.author}</td>
-                                <td>${requestScope.productRow.genre}</td>
-                                <td>${requestScope.productRow.publisher}</td>
+                                <td>${requestScope.product.id}</td>
+                                <td>${requestScope.product.author}</td>
+                                <td>${requestScope.product.genre}</td>
+                                <td>${requestScope.product.publisher}</td>
                                 <td>
-                                    <form action="frontController" method="post">
+                                   <!-- <form action="frontController" method="post">
                                         <input type="hidden" name="command" value="createReserve" />
-                                        <input type="hidden" name="productId" value="${requestScope.productRow.id}" />
+                                        <input type="hidden" name="productId" value="${requestScope.product.id}" />
                                         <input type="submit" name="order" value="Add to Order list" /><br/>
                                         <br/>
                                         ${errorNoCreateOrder}
                                         <br/>
                                         ${productAddedToOrder}
                                         <br/>
-                                    </form>
+                                    </form>-->
+                                     <form method = "POST" action="frontController">
+                                   <input type = "hidden" name ="command" value ="createReserve"/>
+                                   <input type = "hidden" name="productId" value="${requestScope.product.id}"/>
+                                   <input type="submit" value ="Reserve this Book">
+                                   <br/>
+                                   ${message}
+                                   <br/>
+                               </form>
+
+
+
                                 </td>
                             </tr>
                             </tbody>
@@ -49,9 +59,6 @@
 
                             </tr>
                         </table>
-                    </div>
-                </div>
-            </div>
         </div>
     </c:if>
 
