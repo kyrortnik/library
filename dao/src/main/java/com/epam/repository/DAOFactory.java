@@ -8,7 +8,7 @@ public class DAOFactory {
 
     private static final DAOFactory INSTANCE = new DAOFactory();
     private static final PropertyInitializer propertyInitializer = new PropertyInitializer();
-    private static final ConnectionPool connectionPool = new ConnectionPoolImpl(propertyInitializer);
+//    private static final ConnectionPool connectionPool = new ConnectionPoolImpl(propertyInitializer);
 
     private final BookDAO bookDAO;
     private final UserDAO userDAO;

@@ -1,9 +1,9 @@
 package com.epam.command;
 
 import com.epam.BookService;
-import com.epam.ConfigurationManager;
 import com.epam.ServiceFactory;
 import com.epam.command.exception.ControllerException;
+import com.epam.entity.Book;
 import com.epam.entity.ProductRow;
 import com.epam.exception.ServiceException;
 
@@ -24,10 +24,10 @@ public class ProductInfoCommand implements AbstractCommand {
 //        String page;
 
         try {
-            ProductRow product = bookService.findById(Long.parseLong(request.getParameter("id")));
+            Book book = bookService.findById(Long.parseLong(request.getParameter("id")));
 
-            if(product != null){
-                request.setAttribute("product", product);
+            if(book != null){
+                request.setAttribute("book", book);
             } else {
                 request.setAttribute("noSuchProduct", "No such product was found");
             }

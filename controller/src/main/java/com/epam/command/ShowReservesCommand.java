@@ -5,7 +5,6 @@ import com.epam.ReserveService;
 import com.epam.ServiceFactory;
 import com.epam.command.exception.ControllerException;
 import com.epam.entity.Book;
-import com.epam.entity.BookRow;
 import com.epam.entity.Page;
 import com.epam.entity.Reserve;
 
@@ -15,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+
+import static com.epam.command.util.ControllerConstants.*;
 
 public class ShowReservesCommand implements AbstractCommand{
 
@@ -44,11 +45,15 @@ public class ShowReservesCommand implements AbstractCommand{
 
                 List<Reserve> reservesForUser = reserveService.getReservesForUser(userId);
                 pageableReserves = bookService.findBooksByIds(reservesForUser);
+                if (pageableReserves.getElements().isEmpty()){
+                request.setAttribute("reservesMessage","No reserves for you yet.");
+                }
                 pageableReserves.setPageNumber(currentPage);
                 pageableReserves.setLimit(currentLimit);
 
+                request.setAttribute("pageableReserves", pageableReserves);
 
-                request.setAttribute("pageableReserves",pageableReserves);
+
 
 
           /*  List<Reserve> reserves = reserveService.getReservesForUser(userId);

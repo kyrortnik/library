@@ -26,8 +26,7 @@ public class FrontController extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response)  {
         AbstractCommand command;
-        CommandFactory commandFactory = new CommandFactory();
-        command = commandFactory.defineCommand(request);
+        command = CommandFactory.getInstance().defineCommand(request);
         try{
              command.execute(request,response);
             }

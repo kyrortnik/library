@@ -1,9 +1,8 @@
 package com.epam.command;
 
-import com.epam.ConfigurationManager;
+
 import com.epam.command.exception.ControllerException;
 import com.epam.entity.Book;
-import com.epam.entity.BookRow;
 import com.epam.BookService;
 import com.epam.ServiceFactory;
 import com.epam.entity.Page;
@@ -14,12 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Objects;
 
+import static com.epam.command.util.ControllerConstants.*;
+
 public class ShowProductsCommand implements AbstractCommand{
 
     private BookService bookService = ServiceFactory.getInstance().createBookService();
-
-    private static int PAGE_LIMIT = 5;
-
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException{
@@ -40,7 +38,7 @@ public class ShowProductsCommand implements AbstractCommand{
 
             int currentPage = Integer.parseInt(currentPageParam);
 //
-            int currentLimit = PAGE_LIMIT;
+            int currentLimit = MAX_ROWS;
 
  /*           ArrayList<Book> products =(ArrayList<Book>) bookService.getAll();
             request.setAttribute("products",products);*/

@@ -8,4 +8,5 @@ import javax.servlet.http.HttpServletResponse;
 public interface AbstractCommand {
 
     void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException;
+
 }

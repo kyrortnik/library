@@ -1,6 +1,6 @@
 package com.epam.command;
 
-import com.epam.ConfigurationManager;
+
 import com.epam.command.exception.ControllerException;
 import com.epam.entity.Order;
 import com.epam.OrderService;
@@ -22,7 +22,7 @@ public class ShowOrdersCommand implements AbstractCommand{
         ArrayList<Order> orders =(ArrayList<Order>)serviceFactory.getAll();
         try{
             request.setAttribute("orders",orders);
-            response.sendRedirect(ConfigurationManager.getProperty("path.page.orders"));
+            response.sendRedirect("/jsp/orders.jsp");
         }catch (IOException e){
             throw new ControllerException(e);
         }

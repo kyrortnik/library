@@ -1,15 +1,12 @@
 package com.epam;
 
-import com.epam.entity.Book;
-import com.epam.entity.BookRow;
-import com.epam.entity.Page;
-import com.epam.entity.Reserve;
+import com.epam.entity.*;
 
 import java.util.List;
 
 public interface BookService {
 
-    BookRow findById(Long id);
+    Book findById(Long id);
 
     boolean create(BookRow bookRow);
 
@@ -22,5 +19,7 @@ public interface BookService {
     Page<Book> getAll(Page<Book> pageRequest);
 
     Page<Book> findBooksByIds(List<Reserve> reserves);
+
+    List<Book> findBooksByOrder(Order order);
 
 }

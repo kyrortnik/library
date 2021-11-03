@@ -7,10 +7,9 @@ import com.epam.command.exception.ControllerException;
 import com.epam.entity.Reserve;
 import com.epam.exception.ServiceException;
 
-import javax.servlet.ServletException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class CreateReserveCommand implements AbstractCommand{

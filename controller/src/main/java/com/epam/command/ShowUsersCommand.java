@@ -1,6 +1,5 @@
 package com.epam.command;
 
-import com.epam.ConfigurationManager;
 import com.epam.command.exception.ControllerException;
 import com.epam.entity.User;
 import com.epam.ServiceFactory;
@@ -24,7 +23,7 @@ public class ShowUsersCommand implements AbstractCommand{
             ArrayList<User> users = (ArrayList<User>)userService.getUsers();
             try{
                 request.setAttribute("users",users);
-                response.sendRedirect(ConfigurationManager.getProperty("path.page.users"));
+                response.sendRedirect("/jsp/users.jsp");
             }catch (IOException e){
                 throw new ControllerException(e);
             }

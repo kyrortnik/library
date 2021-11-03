@@ -1,7 +1,5 @@
 package com.epam.command;
 
-import com.epam.ConfigurationManager;
-import com.epam.MessageManager;
 import com.epam.command.exception.ControllerException;
 import com.epam.entity.User;
 import com.epam.ServiceFactory;

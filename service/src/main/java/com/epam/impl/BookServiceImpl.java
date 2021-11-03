@@ -37,8 +37,8 @@ public class BookServiceImpl implements BookService {
     }*/
 
     @Override
-    public BookRow findById(Long id) {
-        return bookDAO.getById(id);
+    public Book findById(Long id) {
+        return convertToBook(bookDAO.getById(id));
     }
 
     @Override
@@ -101,18 +101,27 @@ public class BookServiceImpl implements BookService {
     }
 
     private Book convertToBook(final BookRow row) {
-        long id;
+       /* long id;
         String title;
         String author;
-        int publishYear;
-        Book book = null;
+        int publishYear;*/
+        Book book = new Book();
         if (Objects.nonNull(row)) {
 
-            id = row.getId();
+            book.setId(row.getId());
+            book.setAuthor(row.getAuthor());
+            book.setTitle(row.getTitle());
+            book.setPublishingYear(row.getPublishingYear());
+            book.setPublisher(row.getPublisher());
+            book.setGenre(row.getGenre());
+            book.setHardCover(row.isHardCover());
+            book.setReserved(row.isReserved());
+            book.setNumberOfPages(row.getNumberOfPages());
+           /* id = row.getId();
             title = row.getTitle();
            author = row.getAuthor();
            publishYear = row.getPublishingYear();
-            book = new Book(id,title,author, publishYear);
+            book = new Book(id,title,author, publishYear);*/
         }
         return book;
     }
@@ -152,6 +161,22 @@ public class BookServiceImpl implements BookService {
         return row;
     }
 
+    @Override
+    public List<Book> findBooksByOrder(Order order) {
+        List<Book> booksFromOrder = new ArrayList<>();
+        if (order.getId() != null){
+            String[] idsString = order.getProductIds().split(" ");
+            Long[] idsLong = new Long[idsString.length];
+            for (int i = 0;i<idsString.length;i++){
+                idsLong[i] = Long.valueOf(idsString[i]);
+            }
 
+            for (Long id : idsLong){
+                booksFromOrder.add(findById(id));
+                return booksFromOrder;
+            }
+        }
+        return booksFromOrder;
 
+    }
 }

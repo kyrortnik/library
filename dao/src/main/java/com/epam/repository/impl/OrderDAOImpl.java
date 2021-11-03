@@ -6,7 +6,7 @@ import com.epam.exception.DAOException;
 import com.epam.repository.ConnectionPool;
 import com.epam.repository.OrderDAO;
 import com.epam.repository.PropertyInitializer;
-import com.sun.org.apache.xpath.internal.operations.Or;
+
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -197,23 +197,24 @@ public class OrderDAOImpl implements OrderDAO {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        Order temp = null;
+
         try {
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(FIND_BY_USED_ID);
             statement.setLong(1,userId);
             resultSet = statement.executeQuery();
+            Order foundOrder = new Order();
             if(resultSet.next()){
-                temp = new Order(
-                        resultSet.getLong(1),
-                        resultSet.getString(2),
-                        resultSet.getLong(3)
-                );
-            }else{
-                temp =  new Order();
+                foundOrder.setId(resultSet.getLong(1));
+                foundOrder.setProductIds(resultSet.getString(2));
+                foundOrder.setUserId(resultSet.getLong(3));
 
             }
-            return temp;
+            else{
+                return foundOrder;
+
+            }
+            return foundOrder;
         }catch (SQLException e){
             throw new DAOException(e);
         }finally {
