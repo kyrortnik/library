@@ -164,7 +164,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Book> findBooksByOrder(Order order) {
         List<Book> booksFromOrder = new ArrayList<>();
-        if (order.getId() != null){
+        if (order.getId() != null && order.getId() != 0){
             String[] idsString = order.getProductIds().split(" ");
             Long[] idsLong = new Long[idsString.length];
             for (int i = 0;i<idsString.length;i++){
@@ -173,8 +173,8 @@ public class BookServiceImpl implements BookService {
 
             for (Long id : idsLong){
                 booksFromOrder.add(findById(id));
-                return booksFromOrder;
             }
+            return booksFromOrder;
         }
         return booksFromOrder;
 

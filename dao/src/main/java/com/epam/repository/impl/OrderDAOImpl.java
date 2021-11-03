@@ -150,8 +150,9 @@ public class OrderDAOImpl implements OrderDAO {
         try{
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(UPDATE_ORDER);
-            statement.setString(1,order.getProductIds());
-            statement.setLong(2,order.getUserId());
+            statement.setLong(1,order.getUserId());
+            statement.setString(2,order.getProductIds());
+            statement.setLong(3,order.getId());
             return (statement.executeUpdate() != 0) ;
         }catch (SQLException e){
             throw new DAOException("unable to update order",e);
@@ -197,22 +198,19 @@ public class OrderDAOImpl implements OrderDAO {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
+        Order foundOrder = new Order(0L,"",0L);
 
         try {
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(FIND_BY_USED_ID);
             statement.setLong(1,userId);
             resultSet = statement.executeQuery();
-            Order foundOrder = new Order();
+
             if(resultSet.next()){
                 foundOrder.setId(resultSet.getLong(1));
                 foundOrder.setProductIds(resultSet.getString(2));
                 foundOrder.setUserId(resultSet.getLong(3));
-
-            }
-            else{
                 return foundOrder;
-
             }
             return foundOrder;
         }catch (SQLException e){
@@ -223,6 +221,8 @@ public class OrderDAOImpl implements OrderDAO {
             connectionPool.releaseConnection(connection);
         }
     }
+
+
 
     @Override
     public boolean deleteBbyUserId(Long userId) {

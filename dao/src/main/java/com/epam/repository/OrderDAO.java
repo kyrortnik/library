@@ -10,5 +10,6 @@ public interface OrderDAO extends AbstractDAO<Order> {
 
     boolean deleteBbyUserId(Long userId);
 
-
+    @Override
+    boolean update(Order order);
 }

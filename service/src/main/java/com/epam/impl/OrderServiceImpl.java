@@ -46,10 +46,23 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public boolean relationExists(Order order,String bookId) {
+
+        boolean relationExists = false;
+        String[] books = order.getProductIds().split(" ");
+        for (String book : books) {
+            if (book.equals(bookId)) {
+                relationExists = true;
+            }
+        }
+        return relationExists;
+    }
+
+    @Override
     public boolean save(Order order) throws ServiceException {
         try{
-            Order temp = orderDAO.getByUserId(order);
-            if (temp.getUserId() != order.getUserId()){
+            Order foundOrder = orderDAO.getByUserId(order);
+            if (!foundOrder.getUserId().equals(order.getUserId())){
                 return orderDAO.save(order);
             }else {
                 return false;

@@ -13,18 +13,19 @@
     <hr/>-->
 <!--    <a href="frontController?command=logout">Logout</a>-->
 
+    <h3>${message}</h3>
     <c:if test="${sessionScope.role != null}">
     <form name="logoutForm" method="POST" action="frontController">
         <input type="hidden" name="command" value="logout" />
         <input type = "submit" value ="logout">
     </form>
 
-    <br/>
+   <!-- <br/>
     <a href ="/jsp/manageUsers.jsp"> Manage users </a>
     <br/>
     <a href ="/jsp/manageProducts.jsp"> Manage products</a>
     <br/>
-    <a href ="/jsp/manageOrders.jsp"> Manage orders</a>
+    <a href ="/jsp/manageOrders.jsp"> Manage orders</a>-->
 
 <!-----------SHOW PRODUCTS ------------------------->
     <div>
@@ -115,6 +116,14 @@
                     <c:if test="${not empty requestScope.pageableReserves.elements}">
                     <tr>
                         <td>
+                            <form method="POST" action ="frontController">
+                                <input type ="hidden" name="command" value="addToOrder"/>
+                                <input type ="hidden" name="bookId" value="${reserveRow.id}"/>
+                                <button type="submit">Add to Order List</button>
+                            </form>
+
+                        </td>
+                        <td>
                            <!-- <form  method="GET" action="frontController" >
                                 <input type="hidden" name="command" value="productInfo" />
                                 <input type="hidden" name="id" value="${reserveRow.id}" />
@@ -169,7 +178,7 @@
 
         <form id ="showOrderInfo" method="GET" action ="frontController">
         <input type = "hidden" name ="command" value="orderInfo"/>
-         <button form ="showOrderInfo" type="submit">Go to Products ordered</button>
+         <button form ="showOrderInfo" type="submit">Go to Order List</button>
         </form>
 
         </div>

@@ -18,7 +18,8 @@ public class ReserveDAOImpl implements ReserveDAO {
 
 
     private static final String SAVE_RESERVE = "INSERT INTO reserves VALUES (DEFAULT,?,?)";
-    private static final String FIND_RESERVES_FOR_USER = " SELECT * FROM reserves WHERE user_id = ?";
+//    private static final String FIND_RESERVES_FOR_USER = " SELECT * FROM reserves WHERE user_id = ?";
+    private static final String FIND_RESERVES_FOR_USER ="SELECT reserve_id, reserves.user_id, reserves.product_id from reserves FULL JOIN orders ON reserves.user_id = orders.user_id WHERE reserves.user_id = ? AND order_id IS NULL";
     private static final String FIND_RESERVES_BY_USER_AND_PRODUCT = " SELECT * FROM reserves WHERE user_id = ? AND product_id = ?";
     private static final String DELETE_RESERVE_BY_USER_ID = " DELETE FROM reserves WHERE user_id = ?";
 

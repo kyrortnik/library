@@ -21,29 +21,25 @@ public class CreateReserveCommand implements AbstractCommand{
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException{
 
 
-        try{
-           Long userId = (Long)request.getSession().getAttribute("id");
-           Long productId = Long.valueOf(request.getParameter("productId"));
-            String lastCommand;
-
-
-            Reserve reserve = new Reserve(userId,productId);
-            if (reserveService.save(reserve)){
-                request.setAttribute("message","Product successfully added to Order list");
-                 lastCommand = "frontController?command=goToPage&address=productInfo.jsp";
-                } else {
-                request.setAttribute("message","Product is not added to Reserve list! Order for you already exists.");
-                    lastCommand = "frontController?command=goToPage&address=productInfo.jsp";
-                }
-            response.sendRedirect(lastCommand);
-            }/*else{
+        try {
+            Long userId = (Long) request.getSession().getAttribute("id");
+            Long productId = Long.valueOf(request.getParameter("bookId"));
+            String pageForRedirect;
+            Reserve reserve = new Reserve(userId, productId);
+            if (reserveService.save(reserve)) {
+                request.setAttribute("message", "Product successfully added to Order list");
+                pageForRedirect = "frontController?command=goToPage&address=main.jsp";
+            } else {
+                request.setAttribute("message", "Product is not added to Reserve list! Order for you already exists.");
+                pageForRedirect = "frontController?command=goToPage&address=productInfo.jsp";
+            }
+            response.sendRedirect(pageForRedirect);
+            /*else{
                 request.setAttribute("errorNoCreateOrder","Order is not added to Order list! Such order already exists.");
 
             }*/
-//            request.getRequestDispatcher("/jsp/main.jsp").forward(request,response);
 
-
-         catch (ServiceException | IOException /*| ServletException*/ e) {
+        }catch (ServiceException | IOException /*| ServletException*/ e) {
             throw new ControllerException(e);
         }
         }

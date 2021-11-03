@@ -1,13 +1,14 @@
 package com.epam;
 
 import com.epam.entity.Order;
+import com.epam.exception.ServiceException;
 
 import java.rmi.ServerException;
 import java.util.List;
 
 public interface OrderService {
 
-    boolean save(Order order) throws ServerException;
+    boolean save(Order order) throws ServiceException;
 
     boolean create(Order order);
 
@@ -20,6 +21,8 @@ public interface OrderService {
     Order getByUserId(Order order);
 
     Order getByUserId(Long userId);
+
+    boolean relationExists(Order order, String bookId);
 
 
 

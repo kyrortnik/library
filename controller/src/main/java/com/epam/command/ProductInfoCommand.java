@@ -4,7 +4,6 @@ import com.epam.BookService;
 import com.epam.ServiceFactory;
 import com.epam.command.exception.ControllerException;
 import com.epam.entity.Book;
-import com.epam.entity.ProductRow;
 import com.epam.exception.ServiceException;
 
 import javax.servlet.ServletException;
