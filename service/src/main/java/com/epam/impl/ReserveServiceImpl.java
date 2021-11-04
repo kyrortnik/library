@@ -8,6 +8,10 @@ import com.epam.repository.DAOFactory;
 import com.epam.repository.OrderDAO;
 import com.epam.repository.ReserveDAO;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -80,6 +84,34 @@ public class ReserveServiceImpl implements ReserveService {
         page.setDirection(reserveRowPageable.getDirection());
         return page;
     }
+
+    @Override
+    public boolean productExistsInOrder(Reserve reserve) {
+        Long userId = reserve.getUserId();
+        Long productId = reserve.getProductId();
+        ReserveRow foundRow;
+        foundRow = convertToReserveRow(reserve);
+         return reserveDAO.orderForReserveExists(foundRow);
+
+    }
+
+
+    public boolean reserveForUserExists(Reserve reserve) {
+        boolean flag;
+       ReserveRow reserveRow = convertToReserveRow(reserve);
+       ReserveRow foundRow =  reserveDAO.get(reserveRow);
+       if (reserveRow.getUserId().equals(foundRow.getUserId())
+               && reserveRow.getProductId().equals(foundRow.getProductId())){
+           flag = true;
+       }else
+           flag = false;
+
+       return flag;
+    }
+
+
+
+
 
     private List<Reserve> convertToReserves(List<ReserveRow> reserveRows){
         ArrayList<Reserve> reserves = new ArrayList<>();

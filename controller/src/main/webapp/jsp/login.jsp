@@ -24,7 +24,6 @@
         ${wrongAction}
         <br/>
         ${nullPage}
-        <br/>
         <fmt:message key="local.login" bundle="${rb}" var = "var"/>
         <input type="submit" value="${var}"/>
         </form><hr/>
@@ -40,10 +39,31 @@
         <input type ="text" name = "secondPassword" value=""/>
         <br/>
         <br/>
-         ${message}
+            <c:if test="requestScope.message eq 'registrationFail'">
+                <a>Registration failed</a>
+            </c:if>
          <br/>
          <input type="submit" value="registration"/>
         </form>
+
+
+
+        <c:if test="${requestScope.message == 'noSuchUser'}">
+            <div>
+                <h3>No Such User exists</h3>
+            </div>
+        </c:if>
+
+
+        <c:if test="${requestScope.message == 'registrationFail'}">
+            <div>
+                <h3>Failed registration</h3>
+            </div>
+        </c:if>
+
+
+
+
 
     </body>
 </html>

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class CreateOrderCommand implements AbstractCommand {
 
@@ -22,15 +23,18 @@ public class CreateOrderCommand implements AbstractCommand {
     private OrderService orderService = serviceFactory.createOrderService();
     private ReserveService reserveService = serviceFactory.createReserveService();
 
+    private static final Logger log = Logger.getLogger(AddToOrderCommand.class.getName());
+
 
 
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
 
+        log.info("Start in CreateOrderCommand");
+
         try {
            long userId = (Long) request.getSession().getAttribute("id");
-
            List<Reserve> reserveList = reserveService.getReservesForUser(userId);
            StringBuilder builder = new StringBuilder();
            for (Reserve reserve : reserveList){
@@ -39,6 +43,7 @@ public class CreateOrderCommand implements AbstractCommand {
            String productIds = builder.toString().trim();
 
            Order order = new Order(productIds,userId);
+           String pageForRedirect = "frontController?command=goToPage&address=main.jsp";
 
 
             if (orderService.save(order)){
@@ -49,11 +54,19 @@ public class CreateOrderCommand implements AbstractCommand {
                 }
 
             }else{
-                request.setAttribute("errorNoCreateOrder","Products are not ordered!!");
-            }
-            request.getRequestDispatcher("/jsp/productInfo.jsp").forward(request,response);
 
-        } catch (ServiceException | IOException | ServletException e) {
+                if (orderService.update(order)){
+                    reserveService.deleteReservesByUserId(userId);
+                    request.setAttribute("productAddedToOrder","Products ordered! Visit library to get them");
+                }else {
+                    request.setAttribute("errorNoCreateOrder","Products are not ordered!Unable to delete user reserves");
+                }
+               // request.setAttribute("errorNoCreateOrder","Products are not ordered!!");
+            }
+//            request.getRequestDispatcher("/jsp/productInfo.jsp").forward(request,response);
+            response.sendRedirect(pageForRedirect);
+
+        } catch (ServiceException | IOException  e) {
             throw new ControllerException(e);
         }
     }

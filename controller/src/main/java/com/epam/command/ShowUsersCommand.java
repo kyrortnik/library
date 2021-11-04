@@ -9,15 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 public class ShowUsersCommand implements AbstractCommand{
 
     private ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private UserService userService = serviceFactory.createUserService();
+    private static final Logger log = Logger.getLogger(AddToOrderCommand.class.getName());
 
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException{
+
+        log.info("Start in ShowUsersCommand");
+
 
 //        String page;
             ArrayList<User> users = (ArrayList<User>)userService.getUsers();

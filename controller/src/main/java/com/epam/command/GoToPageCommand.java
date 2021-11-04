@@ -6,13 +6,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import static com.epam.command.util.ControllerConstants.*;
 
 public class GoToPageCommand implements AbstractCommand{
 
+    private static final Logger log = Logger.getLogger(AddToOrderCommand.class.getName());
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
+        log.info("Start in GoToPageCommand");
         try {
             String goToPage = "/index.jsp".equals(request.getParameter(ADDRESS)) ? "/index.jsp" :
                     "/jsp/" + request.getParameter(ADDRESS);

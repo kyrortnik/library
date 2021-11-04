@@ -12,8 +12,9 @@ import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
 
-    private static final String FIND_USER_QUERY = "SELECT * FROM users WHERE login = ?";
+    private static final String FIND_USER_QUERY = "SELECT * FROM users WHERE login = ? AND password = ?";
     private static final String FIND_USER_BY_ID = "SELECT * FROM users WHERE id = ? ";
+    private static final String FIND_USER_BY_LOGIN_QUERY = "SELECT * FROM shop.users WHERE login = ?";
     private static final String SAVE_USER = "INSERT INTO users VALUES (DEFAULT, ?, ?, ?) ";
     private static final String DELETE_USER = "DELETE FROM users WHERE login = ?";
     private static final String UPDATE_USER = "UPDATE users SET login = ?, password = ? WHERE id = ? ";
@@ -37,7 +38,7 @@ public class UserDAOImpl implements UserDAO {
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(FIND_USER_QUERY);
             statement.setString(1,user.getLogin());
-           // statement.setString(2,user.getPassword());
+            statement.setString(2,user.getPassword());
             resultSet = statement.executeQuery();
             user = new User();
             while (resultSet.next()){
@@ -48,8 +49,10 @@ public class UserDAOImpl implements UserDAO {
             }
             if (user.getLogin() != null){
                 return user;
+            }else{
+                return null;
             }
-            throw new DAOException("login is empty,no such user");
+//            throw new DAOException("login is empty,no such user");
         }catch (SQLException e ){
             throw new DAOException("No user with such login",e);
         }
@@ -83,7 +86,8 @@ public class UserDAOImpl implements UserDAO {
             if (user.getLogin() != null){
                 return user;
             }
-            throw new DAOException("login is empty,no such user");
+            return null;
+//            throw new DAOException("login is empty,no such user");
         }catch (SQLException e){
             throw new DAOException("no user with such login",e);
         }finally {
@@ -142,9 +146,9 @@ public class UserDAOImpl implements UserDAO {
     }
 
 /**
-* Should I add check on whether user which I want to update exists?
+* Should I add check on whether user which I want to update exists? - added
 * */
-    @Override
+  /*  @Override
     public boolean update(User user) {
         Connection connection = null;
         PreparedStatement statement = null;
@@ -154,14 +158,60 @@ public class UserDAOImpl implements UserDAO {
             statement.setString(1,user.getLogin());
             statement.setString(2,user.getPassword());
             statement.setLong(3,user.getId());
-            return (statement.executeUpdate() != 0);
+            return (statement.executeUpdate() > 0);
         }catch (SQLException e){
             throw new DAOException("unable to update user",e);
         }finally {
             closeStatement(statement);
             connectionPool.releaseConnection(connection);
         }
+    }*/
+
+    public boolean update(User user) throws DAOException {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            int result = 0;
+            connection = connectionPool.getConnection();
+            connection.setAutoCommit(false);
+            statement = connection.prepareStatement(FIND_USER_BY_LOGIN_QUERY);
+            statement.setString(1, user.getLogin());
+            resultSet = statement.executeQuery();
+            User userCheck = new User();
+            while (resultSet.next()) {
+                userCheck.setId(resultSet.getLong(1));
+                userCheck.setLogin(resultSet.getString(2));
+                userCheck.setRole(resultSet.getString(4));
+            }
+
+            if(userCheck.getId() == 0 || user.getId() == userCheck.getId()) {
+                statement = connection.prepareStatement(UPDATE_USER);
+                statement.setString(1, user.getLogin());
+                statement.setString(2, user.getPassword());
+                statement.setLong(3, user.getId());
+                result = statement.executeUpdate();
+            }
+            connection.commit();
+            return (result > 0);
+        } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                throw new DAOException("Error during rollback", ex);
+            }
+            throw new DAOException("Error in DAO method", e);
+        } finally {
+            closeResultSet(resultSet);
+            closeStatement(statement);
+            connectionPool.releaseConnection(connection);
+        }
     }
+
+
+/**
+* No yet implemented
+* */
 
 
     @Override
@@ -182,26 +232,10 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
-    /** Do I need this when in find(User user) I search by login already?*/
-   /* @Override
-    public UserDTO findUserByLogin(String login) {
-       Connection connection = null;
-       PreparedStatement statement = null;
-       ResultSet resultSet = null;
-       try{
-           connection = connectionPool.getConnection();
-           statement = connection.prepareStatement()
-       }
-        return null;
-    }*/
 
-
-
-
-
-        @Override
+    @Override
     public List<User> getAll() {
-        ArrayList<User> users = new ArrayList<User>();
+        ArrayList<User> users = new ArrayList<>();
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -209,17 +243,12 @@ public class UserDAOImpl implements UserDAO {
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(GET_ALL_USERS);
             resultSet = statement.executeQuery();
-            int id;
-            String login;
-            String password;
-            String role;
-            User user;
+            User user = new User();
             while (resultSet.next()){
-                id = resultSet.getInt(1);
-                login = resultSet.getString(2);
-                password = resultSet.getString(3);
-                role = resultSet.getString(4);
-                user = new User(id,login,password,role);
+                user.setId(resultSet.getLong(1));
+                user.setLogin(resultSet.getString(2));
+                user.setPassword(resultSet.getString(3));
+                user.setRole(resultSet.getString(4));
                 users.add(user);
             }
             return users;
@@ -232,6 +261,14 @@ public class UserDAOImpl implements UserDAO {
         }
 
     }
+
+
+    /**
+    * Do I need this method?
+    *
+    * */
+
+
 
     @Override
     public boolean findUserByLogin(User user) {

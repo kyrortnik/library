@@ -115,14 +115,14 @@
                 <c:forEach items="${requestScope.pageableReserves.elements}" var="reserveRow">
                     <c:if test="${not empty requestScope.pageableReserves.elements}">
                     <tr>
-                        <td>
+                       <!-- <td>
                             <form method="POST" action ="frontController">
                                 <input type ="hidden" name="command" value="addToOrder"/>
                                 <input type ="hidden" name="bookId" value="${reserveRow.id}"/>
                                 <button type="submit">Add to Order List</button>
                             </form>
 
-                        </td>
+                        </td>-->
                         <td>
                            <!-- <form  method="GET" action="frontController" >
                                 <input type="hidden" name="command" value="productInfo" />
@@ -156,6 +156,12 @@
 
                 </tbody>
             </table>
+            <div>
+                <form method="POST" action="frontController">
+                    <input type="hidden" name="command" value="createOrder"/>
+                    <input type="submit" value="Create Order for Reserved books">
+                </form>
+            </div>
             <div style="margin-left: center">
                 <c:forEach begin="1" end="${Math.ceil(pageableReserves.totalElements / pageableReserves.limit)}" var="i">
                     <c:if test="${i == pageableReserves.pageNumber}">

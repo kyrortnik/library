@@ -6,12 +6,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 public class LogoutCommand implements AbstractCommand {
    // Receiver receiver;
-
-    public LogoutCommand() {
-    }
+   private static final Logger log = Logger.getLogger(AddToOrderCommand.class.getName());
 
 
     @Override
@@ -19,6 +18,7 @@ public class LogoutCommand implements AbstractCommand {
 
 //        String page = ConfigurationManager.getProperty("path.page.index");
         try{
+            log.info("Start in Logout command");
             request.getSession().invalidate();
             request.getRequestDispatcher("/index.jsp").forward(request,response);
         }catch (IOException | ServletException e ){

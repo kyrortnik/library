@@ -6,6 +6,8 @@ import com.epam.exception.DAOException;
 import com.epam.repository.ConnectionPool;
 import com.epam.repository.OrderDAO;
 import com.epam.repository.PropertyInitializer;
+import com.epam.repository.ReserveDAO;
+import com.sun.org.apache.xpath.internal.operations.Or;
 
 
 import java.sql.*;
@@ -14,11 +16,12 @@ import java.util.List;
 
 public class OrderDAOImpl implements OrderDAO {
 
-    private static final String FIND_ORDER = "SELECT * FROM orders WHERE order_id = ?";
+    private static final String FIND_ORDER = "SELECT * FROM orders WHERE user_id = ?";
+    private static final String FIND_ORDER_BY_USER_AND_PRODUCT = "SELECT * FROM orders WHERE user_id = ? AND product_id LIKE %?%";
     private static final String FIND_BY_USED_ID = "SELECT * FROM orders WHERE user_id = ?";
     private static final String SAVE_ORDER = "INSERT INTO orders VALUES (DEFAULT, ?, ?) ";
     private static final String DELETE_ORDER = "DELETE FROM orders WHERE order_id = ?";
-    private static final String UPDATE_ORDER = "UPDATE orders SET user_id = ?, product_id = ? WHERE order_id = ? ";
+    private static final String UPDATE_ORDER = "UPDATE orders SET product_id = ? WHERE user_id = ? ";
     private static final String GET_ALL_ORDERS = "SELECT * FROM orders";
 
 
@@ -38,7 +41,7 @@ public class OrderDAOImpl implements OrderDAO {
         try{
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(FIND_ORDER);
-            statement.setLong(1,order.getId());
+            statement.setLong(1,order.getUserId());
             resultSet = statement.executeQuery();
             while (resultSet.next()){
                 order.setId(resultSet.getLong(1));
@@ -145,14 +148,17 @@ public class OrderDAOImpl implements OrderDAO {
 
     @Override
     public boolean update(Order order) {
+        String orderToAdd = order.getProductIds();
         Connection connection = null;
         PreparedStatement statement = null;
+        Order orderToUpdate = get(order);
+        String newProducts = orderToUpdate.getProductIds() +" "+ orderToAdd;
         try{
+
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(UPDATE_ORDER);
-            statement.setLong(1,order.getUserId());
-            statement.setString(2,order.getProductIds());
-            statement.setLong(3,order.getId());
+            statement.setString(1,newProducts);
+            statement.setLong(2,order.getUserId());
             return (statement.executeUpdate() != 0) ;
         }catch (SQLException e){
             throw new DAOException("unable to update order",e);
@@ -167,23 +173,20 @@ public class OrderDAOImpl implements OrderDAO {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        Order temp = null;
+        Order foundOrder = new Order();
         try {
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(FIND_BY_USED_ID);
             statement.setLong(1,order.getUserId());
             resultSet = statement.executeQuery();
             if(resultSet.next()){
-                temp = new Order(
+                foundOrder = new Order(
                         resultSet.getLong(1),
                         resultSet.getString(2),
                         resultSet.getLong(3)
                 );
-            }else{
-                temp =  new Order();
-
             }
-            return temp;
+            return foundOrder;
         }catch (SQLException e){
             throw new DAOException(e);
         }finally {
@@ -221,6 +224,7 @@ public class OrderDAOImpl implements OrderDAO {
             connectionPool.releaseConnection(connection);
         }
     }
+
 
 
 

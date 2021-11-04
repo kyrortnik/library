@@ -10,12 +10,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 public class ProductInfoCommand implements AbstractCommand {
 
     private static final String MESSAGE = "message";
     private ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private BookService bookService = serviceFactory.createBookService();
+    private static final Logger log = Logger.getLogger(AddToOrderCommand.class.getName());
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
@@ -23,6 +25,7 @@ public class ProductInfoCommand implements AbstractCommand {
 //        String page;
 
         try {
+            log.info("Start in ProductInfoCommand");
             Book book = bookService.findById(Long.parseLong(request.getParameter("id")));
 
             if(book != null){

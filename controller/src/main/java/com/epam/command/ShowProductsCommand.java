@@ -12,16 +12,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 import static com.epam.command.util.ControllerConstants.*;
 
 public class ShowProductsCommand implements AbstractCommand{
 
     private BookService bookService = ServiceFactory.getInstance().createBookService();
+    private static final Logger log = Logger.getLogger(AddToOrderCommand.class.getName());
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException{
 //        String page;
+        log.info("Start in ShowProductsCommand");
         try{
            String currentPageParam = request.getParameter("currentPage");
             if (Objects.isNull(currentPageParam)) {

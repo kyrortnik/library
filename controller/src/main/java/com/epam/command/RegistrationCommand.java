@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 public class RegistrationCommand implements AbstractCommand{
 
@@ -19,13 +20,15 @@ public class RegistrationCommand implements AbstractCommand{
 
     private ServiceFactory factory = ServiceFactory.getInstance();
     private UserService userService = factory.createUserService();
+    private static final Logger log = Logger.getLogger(AddToOrderCommand.class.getName());
 
 
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
 
-//        String page;
+        log.info("Start in RegistrationCommand");
+        String addressForRedirect;
         String login = request.getParameter(PARAM_NAME_LOGIN);
         String pass = request.getParameter(PARAM_NAME_PASSWORD);
 //        String role = String.valueOf(request.getSession().getAttribute("role"));
@@ -37,18 +40,21 @@ public class RegistrationCommand implements AbstractCommand{
             if (userService.registration(user,pass2)){
 //                request.setAttribute("user",login);
                 request.getSession().setAttribute("role",role);
-               request.getRequestDispatcher("/jsp/main.jsp").forward(request,response);
+                addressForRedirect = "frontController?command=goToPage&address=main.jsp";
+//               request.getRequestDispatcher("/jsp/main.jsp").forward(request,response);
+               user = userService.get(user);
+               request.getSession().setAttribute("id",user.getId());
 
             }else {
-                String message = "Didn't registrate. Try again";
-                request.setAttribute("message",message);
-                request.getRequestDispatcher("/jsp/login.jsp").forward(request,response);
+
+//                request.getRequestDispatcher("/jsp/login.jsp").forward(request,response);
+                addressForRedirect = "frontController?command=goToPage&address=login.jsp&message=registrationFail";
             }
-        }catch (IOException | ServletException e){
+            response.sendRedirect(addressForRedirect);
+        }catch (IOException  e){
             throw new ControllerException(e);
         }
 
-        // second password needed for validation - two passwords should be equal
 
 
 //        return page;

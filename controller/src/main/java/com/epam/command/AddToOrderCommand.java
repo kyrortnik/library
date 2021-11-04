@@ -9,15 +9,20 @@ import com.epam.exception.ServiceException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 
 public class AddToOrderCommand implements AbstractCommand{
+
+    private static final Logger log = Logger.getLogger(AddToOrderCommand.class.getName());
 
     private OrderService orderService = ServiceFactory.getInstance().createOrderService();
 
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
+
+        log.info("Start in AddToOrderCommand");
 
         Long userId = (Long)request.getSession().getAttribute("id");
         String bookId = request.getParameter("bookId");

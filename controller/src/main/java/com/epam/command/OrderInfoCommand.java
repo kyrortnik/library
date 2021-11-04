@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 import static com.epam.command.util.ControllerConstants.*;
 
@@ -23,11 +24,16 @@ public class OrderInfoCommand implements AbstractCommand{
     private OrderService orderService = ServiceFactory.getInstance().createOrderService();
     private BookService bookService = ServiceFactory.getInstance().createBookService();
 
+    private static final Logger log = Logger.getLogger(AddToOrderCommand.class.getName());
+
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
 
+
+
         try{
+            log.info("Start in OrderInfoCommand");
             Long userId = (Long)request.getSession().getAttribute("id");
             Order order = orderService.getByUserId(userId);
 

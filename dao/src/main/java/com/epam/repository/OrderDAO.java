@@ -12,4 +12,6 @@ public interface OrderDAO extends AbstractDAO<Order> {
 
     @Override
     boolean update(Order order);
+
+//    Order getByUserIdAndProductId(Long userId,Long productId);
 }

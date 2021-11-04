@@ -2,7 +2,6 @@ package com.epam.repository.impl;
 
 import com.epam.entity.BookRow;
 import com.epam.entity.Pageable;
-import com.epam.entity.ProductRow;
 import com.epam.exception.DAOException;
 import com.epam.repository.BookDAO;
 import com.epam.repository.ConnectionPool;
@@ -27,7 +26,7 @@ public class BookDAOImpl implements BookDAO {
     private static final String UPDATE_BOOK = "UPDATE products SET author = ?, is_reserved = ?, publishyear = ?, publisher = ?, genre = ?, pages = ?, is_hard = ? WHERE id = ? ";
     private static final String GET_ALL_BOOKS = "SELECT * FROM products";
 
-    private static final String COUNT_ALL_FILTERED_SORTED = "SELECT count(product_id) FROM products";
+    private static final String COUNT_ALL = "SELECT count(product_id) FROM products";
     private static final String FIND_PAGE_FILTERED_SORTED = "SELECT * FROM products p ORDER BY p.%s %s LIMIT ? OFFSET ?;";
 
 
@@ -276,7 +275,7 @@ public class BookDAOImpl implements BookDAO {
         ResultSet resultSet2 = null;
         try {
             connection = connectionPool.getConnection();
-            preparedStatement1 = getPreparedStatement(COUNT_ALL_FILTERED_SORTED, connection, parameters1);
+            preparedStatement1 = getPreparedStatement(COUNT_ALL, connection, parameters1);
             final String findPageOrderedQuery =
                     String.format(FIND_PAGE_FILTERED_SORTED, daoProductPageable.getSortBy(), daoProductPageable.getDirection());
             preparedStatement2 = getPreparedStatement(findPageOrderedQuery, connection, parameters2);
@@ -327,23 +326,23 @@ public class BookDAOImpl implements BookDAO {
 
 
 
-    protected PreparedStatement getPreparedStatement(final String query, final Connection connection,
-                                                     final List<Object> parameters) throws SQLException {
+    protected PreparedStatement getPreparedStatement(String query, Connection connection,
+                                                      List<Object> parameters) throws SQLException {
         final PreparedStatement preparedStatement = connection.prepareStatement(query);
         setPreparedStatementParameters(preparedStatement, parameters);
         return preparedStatement;
     }
 
-    protected void setPreparedStatementParameters(final PreparedStatement preparedStatement,
-                                                  final List<Object> parameters) throws SQLException {
+    protected void setPreparedStatementParameters( PreparedStatement preparedStatement,
+                                                   List<Object> parameters) throws SQLException {
         for (int i = 0, queryParameterIndex = 1; i < parameters.size(); i++, queryParameterIndex++) {
             final Object parameter = parameters.get(i);
             setPreparedStatementParameter(preparedStatement, queryParameterIndex, parameter);
         }
     }
 
-    protected void setPreparedStatementParameter(final PreparedStatement preparedStatement,
-                                                 final int queryParameterIndex, final Object parameter) throws SQLException {
+    protected void setPreparedStatementParameter( PreparedStatement preparedStatement,
+                                                  int queryParameterIndex,  Object parameter) throws SQLException {
         if (Long.class == parameter.getClass()) {
             preparedStatement.setLong(queryParameterIndex, (Long) parameter);
         } else if (Integer.class == parameter.getClass()){

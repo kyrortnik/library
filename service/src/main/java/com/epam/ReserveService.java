@@ -14,6 +14,8 @@ public interface ReserveService {
 
     boolean deleteReservesByUserId(Long userId);
 
+    boolean productExistsInOrder(Reserve reserve);
+
 
 
 

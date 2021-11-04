@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 import static com.epam.command.util.ControllerConstants.*;
 
@@ -21,12 +22,14 @@ public class ShowReservesCommand implements AbstractCommand{
 
     private ReserveService reserveService = ServiceFactory.getInstance().createReserveService();
     private BookService bookService = ServiceFactory.getInstance().createBookService();
+    private static final Logger log = Logger.getLogger(AddToOrderCommand.class.getName());
 
     private static int PAGE_LIMIT = 2;
 
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
+        log.info("Start in ShowReservesCommand");
 
        Long userId = (Long)request.getSession().getAttribute("id");
             try{

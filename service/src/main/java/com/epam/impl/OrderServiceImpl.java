@@ -9,6 +9,7 @@ import com.epam.OrderService;
 
 import java.rmi.ServerException;
 import java.util.List;
+import java.util.Objects;
 
 public class OrderServiceImpl implements OrderService {
 
@@ -62,7 +63,7 @@ public class OrderServiceImpl implements OrderService {
     public boolean save(Order order) throws ServiceException {
         try{
             Order foundOrder = orderDAO.getByUserId(order);
-            if (!foundOrder.getUserId().equals(order.getUserId())){
+            if (Objects.isNull(foundOrder.getUserId())){
                 return orderDAO.save(order);
             }else {
                 return false;

@@ -18,22 +18,46 @@ public class ReserveDAOImpl implements ReserveDAO {
 
 
     private static final String SAVE_RESERVE = "INSERT INTO reserves VALUES (DEFAULT,?,?)";
-//    private static final String FIND_RESERVES_FOR_USER = " SELECT * FROM reserves WHERE user_id = ?";
-    private static final String FIND_RESERVES_FOR_USER ="SELECT reserve_id, reserves.user_id, reserves.product_id from reserves FULL JOIN orders ON reserves.user_id = orders.user_id WHERE reserves.user_id = ? AND order_id IS NULL";
-    private static final String FIND_RESERVES_BY_USER_AND_PRODUCT = " SELECT * FROM reserves WHERE user_id = ? AND product_id = ?";
+    private static final String FIND_RESERVES_FOR_USER = " SELECT * FROM reserves WHERE user_id = ?";
+//    private static final String FIND_RESERVES_FOR_USER ="SELECT reserve_id, reserves.user_id, reserves.product_id from reserves FULL JOIN orders ON reserves.user_id = orders.user_id WHERE reserves.user_id = ? AND order_id IS NULL";
+    private static final String FIND_RESERVE_IN_ORDER = " SELECT * FROM reserves WHERE user_id = ? AND product_id = ?";
+    private static final String FIND_ORDER_FOR_RESERVE = "SELECT reserve_id, reserves.product_id,reserves.user_id, orders.product_id,orders.user_id from reserves full join orders on reserves.user_id = orders.user_id where orders.user_id = ? and orders.product_id  LIKE ?";
     private static final String DELETE_RESERVE_BY_USER_ID = " DELETE FROM reserves WHERE user_id = ?";
 
     PropertyInitializer propertyInitializer = new PropertyInitializer();
     protected ConnectionPool connectionPool = new ConnectionPoolImpl(propertyInitializer);
 
-    public ReserveDAOImpl(){
-
-    }
 
     /*TODO provide implementation*/
 
     @Override
     public ReserveRow get(ReserveRow reserve) throws DAOException {
+     /*   Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        ReserveRow foundRow = new ReserveRow();
+        Long userId = reserve.getUserId();
+        Long productId = reserve.getProductId();
+
+        try{
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(FIND_RESERVE_IN_ORDER);
+            statement.setLong(1,userId);
+            statement.setString(2,String.valueOf(productId));
+            resultSet = statement.executeQuery();
+            while(resultSet.next()){
+                foundOrder.setId(resultSet.getLong(1));
+                foundOrder.setProductIds(resultSet.getString(2));
+                foundOrder.setUserId(resultSet.getLong(3));
+            }
+            return foundOrder;
+        }catch (SQLException e){
+            throw new DAOException(e);
+        }finally {
+            closeResultSet(resultSet);
+            closeStatement(statement);
+            connectionPool.releaseConnection(connection);
+        }*/
         return null;
     }
 
@@ -47,6 +71,29 @@ public class ReserveDAOImpl implements ReserveDAO {
     @Override
     public List<ReserveRow> getAll() {
         return null;
+    }
+
+    @Override
+    public boolean orderForReserveExists(ReserveRow reserveRow) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        String parameterForLike = "%" + String.valueOf(reserveRow.getProductId()) + "%";
+        try{
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(FIND_ORDER_FOR_RESERVE);
+            statement.setLong(1,reserveRow.getUserId());
+            statement.setString(2,parameterForLike);
+            if (statement.executeUpdate() > 0){
+                return  true;
+            }else
+                return false;
+        }catch (SQLException e){
+            throw new DAOException(e);
+        }finally {
+            closeStatement(statement);
+            connectionPool.releaseConnection(connection);
+        }
+
     }
 
     @Override
@@ -82,20 +129,20 @@ public class ReserveDAOImpl implements ReserveDAO {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        ReserveRow temp = new ReserveRow();
+        ReserveRow foundReserveRow = new ReserveRow();
         try{
             connection = connectionPool.getConnection();
-            statement = connection.prepareStatement(FIND_RESERVES_BY_USER_AND_PRODUCT);
+            statement = connection.prepareStatement(FIND_RESERVE_IN_ORDER);
             statement.setLong(1,reserve.getUserId());
             statement.setLong(2,reserve.getProductId());
             resultSet = statement.executeQuery();
             while (resultSet.next()){
-                temp = new ReserveRow(
+                foundReserveRow = new ReserveRow(
                         resultSet.getLong(2),
                         resultSet.getLong(3)
                 );
             }
-            return temp;
+            return foundReserveRow;
         }catch (SQLException e){
             throw new DAOException(e);
         }finally {

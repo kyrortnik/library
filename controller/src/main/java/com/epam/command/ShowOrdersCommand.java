@@ -10,14 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 
 public class ShowOrdersCommand implements AbstractCommand{
 
     private OrderService serviceFactory = ServiceFactory.getInstance().createOrderService();
+    private static final Logger log = Logger.getLogger(AddToOrderCommand.class.getName());
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException{
+
+        log.info("Start in ShowOrdersCommand");
 
         ArrayList<Order> orders =(ArrayList<Order>)serviceFactory.getAll();
         try{

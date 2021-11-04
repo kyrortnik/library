@@ -2,9 +2,9 @@ package com.epam.entity;
 
 public class Entity {
 
-    private Long id;
+    private long id;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
@@ -15,7 +15,7 @@ public class Entity {
     public Entity() {
     }
 
-    public Entity(Long id) {
+    public Entity(long id) {
         this.id = id;
     }
 
@@ -26,12 +26,12 @@ public class Entity {
 
         Entity entity = (Entity) o;
 
-        return id != null ? id.equals(entity.id) : entity.id == null;
+        return id == entity.id;
     }
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+        return (int) (id ^ (id >>> 32));
     }
 
     @Override

@@ -11,4 +11,8 @@ public interface ReserveDAO extends AbstractDAO<ReserveRow>{
     ReserveRow getByUserAndProductId(ReserveRow reserve);
 
     boolean deleteByUserId(Long userId);
+
+    boolean orderForReserveExists(ReserveRow reserveRow);
+
+
 }
