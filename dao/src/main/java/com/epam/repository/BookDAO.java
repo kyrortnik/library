@@ -8,4 +8,6 @@ public interface BookDAO extends AbstractDAO<BookRow> {
 
      Pageable<BookRow> findPageByFilter(Pageable<BookRow> daoProductPageable) throws DAOException;
 
+//     Pageable<BookRow> findPageByParameter(Pageable<BookRow> daoProductPageable,Object whereParameter) throws DAOException;
+
 }

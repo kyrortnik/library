@@ -16,6 +16,10 @@ public interface ReserveService {
 
     boolean productExistsInOrder(Reserve reserve);
 
+    int countReservesForUser(long userId);
+
+    List<Reserve> findReservationsByUserId(long userId,int row);
+
 
 
 

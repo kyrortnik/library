@@ -39,7 +39,7 @@ public class ReserveServiceImpl implements ReserveService {
 
     private ReserveRow convertToReserveRow(Reserve reserve) {
         ReserveRow row = null;
-        if (Objects.nonNull(reserve)) {
+        if (Objects.nonNull(reserve.getUserId())) {
             row = new ReserveRow();
             row.setId(reserve.getId());
             row.setProductId(reserve.getProductId());
@@ -50,7 +50,7 @@ public class ReserveServiceImpl implements ReserveService {
 
     private Reserve convertToReserve(ReserveRow reserveRow){
         Reserve reserve = null;
-        if (Objects.nonNull(reserveRow)){
+        if (Objects.nonNull(reserveRow.getUserId())){
             reserve = new Reserve();
             reserve.setId(reserveRow.getId());
             reserve.setProductId(reserveRow.getProductId());
@@ -72,6 +72,10 @@ public class ReserveServiceImpl implements ReserveService {
     }
 
 
+    @Override
+    public int countReservesForUser(long userId) {
+        return reserveDAO.countReservesForUser(userId);
+    }
 
     private Page<Reserve> convertToServicePage(Pageable<ReserveRow> reserveRowPageable) {
         Page<Reserve> page = new Page<>();
@@ -95,6 +99,11 @@ public class ReserveServiceImpl implements ReserveService {
 
     }
 
+
+    @Override
+    public List<Reserve> findReservationsByUserId(long userId, int row) {
+        return  convertToReserves(reserveDAO.findReservationsByUserId(userId,row));
+    }
 
     public boolean reserveForUserExists(Reserve reserve) {
         boolean flag;

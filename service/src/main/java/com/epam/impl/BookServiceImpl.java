@@ -42,7 +42,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Page<Book> findBooksByIds(List<Reserve> reserves) throws ServiceException {
+    public List<Book> findBooksByIds(List<Reserve> reserves) throws ServiceException {
         try{
             List<BookRow> bookRows = new ArrayList<>();
             Pageable<BookRow> bookRowPageable = new Pageable<>();
@@ -51,15 +51,15 @@ public class BookServiceImpl implements BookService {
                 bookRow = bookDAO.getById(reserve.getProductId());
                 bookRows.add(bookRow);
             }
-            bookRowPageable.setElements(bookRows);
-//            bookRowPageable = bookDAO.findPageByFilter(bookRowPageable);
+//            bookRowPageable.setElements(bookRows);
 
-            return convertToServicePage(bookRowPageable);
+            return convertToBooks(bookRows);
         }catch (DAOException e){
             throw new ServiceException(e);
         }
 
     }
+
 
     @Override
     public Page<Book> getAll(Page<Book> pageableRequest) {
@@ -68,15 +68,39 @@ public class BookServiceImpl implements BookService {
             // ...
 
             // prepare data
-             Pageable<BookRow> daoProductPageable = convertToPageableBook(pageableRequest);
+            Pageable<BookRow> daoProductPageable = convertToPageableBook(pageableRequest);
             // process data
-             Pageable<BookRow> productRowsPageable = bookDAO.findPageByFilter(daoProductPageable);
+            Pageable<BookRow> productRowsPageable = bookDAO.findPageByFilter(daoProductPageable);
 
             // return
             return convertToServicePage(productRowsPageable);
         } catch ( DAOException e) {
             throw new ServiceException(e);
         }
+    }
+
+
+
+    /*@Override
+    public Page<Book> getAll(Page<Book> pageableRequest) {
+        try {
+            // validation
+            // ...
+
+            // prepare data
+            // process data
+
+            // return
+            return getPageByFilter(pageableRequest);
+        } catch ( DAOException e) {
+            throw new ServiceException(e);
+        }
+    }*/
+
+    public Page<Book> getPageByFilter(Page<Book> daoProductPageable) {
+
+        Pageable<BookRow> rowPageable = convertToPageableBook(daoProductPageable);
+        return convertToServicePage(bookDAO.findPageByFilter(rowPageable));
     }
 
 
@@ -164,7 +188,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Book> findBooksByOrder(Order order) {
         List<Book> booksFromOrder = new ArrayList<>();
-        if (order.getId() != null && order.getId() != 0){
+        if (order.getId() != 0 && order.getId() != 0){
             String[] idsString = order.getProductIds().split(" ");
             Long[] idsLong = new Long[idsString.length];
             for (int i = 0;i<idsString.length;i++){

@@ -14,5 +14,10 @@ public interface ReserveDAO extends AbstractDAO<ReserveRow>{
 
     boolean orderForReserveExists(ReserveRow reserveRow);
 
+    int countReservesForUser(long userId);
+
+
+    List<ReserveRow> findReservationsByUserId(long userId, int row);
+
 
 }

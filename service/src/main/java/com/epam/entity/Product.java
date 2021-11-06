@@ -2,7 +2,7 @@ package com.epam.entity;
 
 public class Product {
 
-    private Long id;
+    private long id;
     private String title;
     private String author;
     private boolean isReserved;
@@ -10,18 +10,18 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long id, String title) {
+    public Product(long id, String title) {
         this.id = id;
         this.title = title;
     }
 
-    public Product(Long id, String title, String author) {
+    public Product(long id, String title, String author) {
         this.id = id;
         this.title = title;
         this.author = author;
     }
 
-    public Product(Long id, String title, String author, boolean isReserved) {
+    public Product(long id, String title, String author, boolean isReserved) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -29,11 +29,11 @@ public class Product {
     }
 
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -68,15 +68,15 @@ public class Product {
 
         Product product = (Product) o;
 
+        if (id != product.id) return false;
         if (isReserved != product.isReserved) return false;
-        if (id != null ? !id.equals(product.id) : product.id != null) return false;
         if (title != null ? !title.equals(product.title) : product.title != null) return false;
         return author != null ? author.equals(product.author) : product.author == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
+        int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (author != null ? author.hashCode() : 0);
         result = 31 * result + (isReserved ? 1 : 0);

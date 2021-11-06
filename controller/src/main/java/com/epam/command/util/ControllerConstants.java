@@ -17,7 +17,7 @@ public class ControllerConstants {
     public static final String MESSAGE = "message";
 //    public static final String SUCCESS = "success";
 
-    public static final int MAX_ROWS = 10;
+    public static final int MAX_ROWS = 5;
 
 
 }

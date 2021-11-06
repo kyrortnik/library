@@ -92,7 +92,7 @@
 
         <!-----------SHOW RESERVES ------------------------->
 
-    <div>
+  <!--  <div>
     <form id ="showReserves" method="GET" action ="frontController">
         <input type="hidden" name = "command" value="showReserves" />
         <button form ="showReserves" type ="submit">Show Reserved Products</button>
@@ -115,26 +115,26 @@
                 <c:forEach items="${requestScope.pageableReserves.elements}" var="reserveRow">
                     <c:if test="${not empty requestScope.pageableReserves.elements}">
                     <tr>
-                       <!-- <td>
+                       &lt;!&ndash; <td>
                             <form method="POST" action ="frontController">
                                 <input type ="hidden" name="command" value="addToOrder"/>
                                 <input type ="hidden" name="bookId" value="${reserveRow.id}"/>
                                 <button type="submit">Add to Order List</button>
                             </form>
 
-                        </td>-->
+                        </td>&ndash;&gt;
                         <td>
-                           <!-- <form  method="GET" action="frontController" >
+                           &lt;!&ndash; <form  method="GET" action="frontController" >
                                 <input type="hidden" name="command" value="productInfo" />
                                 <input type="hidden" name="id" value="${reserveRow.id}" />
                                 <button type="submit" >Product info</button><br/>
-                            </form>-->
+                            </form>&ndash;&gt;
                         </td>
                         <td>${reserveRow.title}</td>
                         <td>${reserveRow.author}</td>
                         <td>${reserveRow.publisher}</td>
                         <td>${reserveRow.publishingYear}</td>
-                     <!--   <td>
+                     &lt;!&ndash;   <td>
                              <form method = "POST" action="frontController">
                                  <input type = "hidden" name ="command" value ="createReserve"/>
                                  <input type = "hidden" name="productId" value="${reserveRow.id}"/>
@@ -144,7 +144,7 @@
                                  <br/>
                              </form>
 
-                        </td>-->
+                        </td>&ndash;&gt;
                     </tr>
                     </c:if>
                 </c:forEach>
@@ -172,6 +172,65 @@
                     <c:if test="${i != pageableReserves.pageNumber}">
                             <span>
                                 <button form="showReserves" type="submit" name="currentPageReserve" value="${i}">${i}</button>
+                            </span>
+                    </c:if>
+                </c:forEach>
+            </div>
+        </div>
+-->
+
+        <div>
+            <form id ="showReserves" method="GET" action ="frontController">
+                <input type="hidden" name = "command" value="showReserves" />
+                <button form ="showReserves" type ="submit">Show Reserved Products</button>
+            </form>
+        </div>
+        <div>
+            <table>
+                <thead>
+                <tr>
+                    <td></td>
+                    <td><h4><c:out value="title"/></h4></td>
+                    <td><h4><c:out value="author"/></h4></td>
+                    <td><h4><c:out value="publisher"/></h4></td>
+                    <td><h4><c:out value="publishing Year"/></h4></td>
+                </tr>
+                </thead>
+
+                <tbody>
+                <c:forEach items="${requestScope.pageableReserves.elements}" var="reserveRow">
+                    <tr>
+                        <td>
+                        </td>
+                        <td>${reserveRow.title}</td>
+                        <td>${reserveRow.author}</td>
+                        <td>${reserveRow.publisher}</td>
+                        <td>${reserveRow.publishingYear}</td>
+                    </tr>
+                </c:forEach>
+ <!--               <c:if test ="${empty requestScope.pageableReserves.elements}">
+
+                <h3>${reservesMessage}</h3>
+
+                </c:if>-->
+                </tbody>
+            </table>
+            <div>
+                <form method="POST" action="frontController">
+                    <input type="hidden" name="command" value="createOrder"/>
+                    <input type="submit" value="Create Order for Reserved books">
+                </form>
+            </div>
+            <div style="margin-left: center">
+                <c:forEach begin="1" end="${Math.ceil(pageableReserves.totalElements / pageableReserves.limit)}" var="j">
+                    <c:if test="${j == pageableReserves.pageNumber}">
+                            <span>
+                                <button style="color:red" form="showReserves" type="submit" name="currentPageReserve" value="${j}">${j}</button>
+                            </span>
+                    </c:if>
+                    <c:if test="${j != pageableReserves.pageNumber}">
+                            <span>
+                                <button form="showReserves" type="submit" name="currentPageReserve" value="${j}">${j}</button>
                             </span>
                     </c:if>
                 </c:forEach>

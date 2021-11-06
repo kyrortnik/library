@@ -41,14 +41,13 @@ public class ShowProductsCommand implements AbstractCommand{
 
             int currentPage = Integer.parseInt(currentPageParam);
 //
-            int currentLimit = MAX_ROWS;
 
  /*           ArrayList<Book> products =(ArrayList<Book>) bookService.getAll();
             request.setAttribute("products",products);*/
 
             Page<Book> pageableRequest = new Page<>();
             pageableRequest.setPageNumber(currentPage);
-            pageableRequest.setLimit(currentLimit);
+            pageableRequest.setLimit(MAX_ROWS);
 
              Page<Book> pageable = bookService.getAll(pageableRequest);
 

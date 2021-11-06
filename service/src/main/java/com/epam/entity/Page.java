@@ -6,15 +6,22 @@ import java.util.List;
 public class Page<T> {
 
 
+    private static final int MAX_ROWS = 5;
     private int pageNumber;
     private long totalElements;
     private int limit;
+    private int offset;
     private List<T> elements = new ArrayList<>();
     private T filter;
     private String sortBy = "author";
     private String direction = "ASC";
 
     public Page() {}
+
+    public Page(int currentPage, long countItems){
+        this.pageNumber = currentPage;
+        this.offset = calculateOffset(this.pageNumber, MAX_ROWS);
+    }
 
     public Page(int pageNumber, long totalElements, int limit, List<T> elements, T filter, String sortBy, String direction) {
         this.pageNumber = pageNumber;
@@ -81,6 +88,23 @@ public class Page<T> {
     public void setDirection(String direction) {
         this.direction = direction;
     }
+
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
+    }
+
+    private int calculateMaxPage(long countItems, int MAX_ROWS){
+        return (int) Math.ceil(((double) countItems) / MAX_ROWS);
+    }
+
+    private int calculateOffset(int currentPage, int _MAX_ROWS_AT_PAGE) {
+        return (currentPage - 1) * _MAX_ROWS_AT_PAGE;
+    }
+
 
     @Override
     public boolean equals(Object o) {

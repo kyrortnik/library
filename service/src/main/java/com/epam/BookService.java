@@ -18,8 +18,12 @@ public interface BookService {
 
     Page<Book> getAll(Page<Book> pageRequest);
 
-    Page<Book> findBooksByIds(List<Reserve> reserves);
+    List<Book> findBooksByIds(List<Reserve> reserves);
 
     List<Book> findBooksByOrder(Order order);
+
+    Page<Book> getPageByFilter(Page<Book> daoProductPageable);
+
+//    Page<Book> get
 
 }

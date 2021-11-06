@@ -2,7 +2,7 @@ package com.epam.entity;
 
 public class Reserve {
 
-    private Long id;
+    private long id;
     private Long userId;
     private Long productId;
 
@@ -22,11 +22,11 @@ public class Reserve {
         this.productId = productId;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -53,14 +53,14 @@ public class Reserve {
 
         Reserve reserve = (Reserve) o;
 
-        if (id != null ? !id.equals(reserve.id) : reserve.id != null) return false;
+        if (id != reserve.id) return false;
         if (userId != null ? !userId.equals(reserve.userId) : reserve.userId != null) return false;
         return productId != null ? productId.equals(reserve.productId) : reserve.productId == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
+        int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (userId != null ? userId.hashCode() : 0);
         result = 31 * result + (productId != null ? productId.hashCode() : 0);
         return result;
