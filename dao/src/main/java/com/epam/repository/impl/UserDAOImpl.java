@@ -24,9 +24,6 @@ public class UserDAOImpl implements UserDAO {
     PropertyInitializer propertyInitializer = new PropertyInitializer();
     protected ConnectionPool connectionPool = new ConnectionPoolImpl(propertyInitializer);
 
-    public UserDAOImpl() {
-       // this.connectionPool = connectionPool;
-    }
 
     @Override
     public User get(User user) {

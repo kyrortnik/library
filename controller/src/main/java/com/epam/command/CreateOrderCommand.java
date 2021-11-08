@@ -26,48 +26,64 @@ public class CreateOrderCommand implements AbstractCommand {
     private static final Logger log = Logger.getLogger(AddToOrderCommand.class.getName());
 
 
-
-
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
 
         log.info("Start in CreateOrderCommand");
 
         try {
-           long userId = (Long) request.getSession().getAttribute("id");
-           List<Reserve> reserveList = reserveService.getReservesForUser(userId);
-           StringBuilder builder = new StringBuilder();
-           for (Reserve reserve : reserveList){
-              builder.append(reserve.getProductId()).append(" ");
-           }
-           String productIds = builder.toString().trim();
-
-           Order order = new Order(productIds,userId);
-           String pageForRedirect = "frontController?command=goToPage&address=main.jsp";
+            long userId = (Long) request.getSession().getAttribute("id");
+            List<Reserve> reserveList = reserveService.getReservesForUser(userId);
 
 
-            if (orderService.save(order)){
-                if(reserveService.deleteReservesByUserId(userId)){
-                    request.setAttribute("productAddedToOrder","Products ordered! Visit library to get them");
+                if (orderService.productsAlreadyOrdered(reserveList)){
+                    request.setAttribute("message","Some product in list is already ordered!");
+                    request.getRequestDispatcher("/jsp/main.jsp").forward(request, response);
                 }else{
-                    request.setAttribute("errorNoCreateOrder","Products are not ordered!Unable to delete user reserves");
+                    Order order = createOrder(userId, reserveList);
+                    String pageForRedirect = "frontController?command=goToPage&address=main.jsp";
+ /*                   if (orderService.save(order)) {
+                        if (reserveService.deleteReservesByUserId(userId)) {
+                            request.setAttribute("productAddedToOrder", "Products ordered! Visit library to get them");
+                        } else {
+                            request.setAttribute("errorNoCreateOrder", "Products are not ordered!Unable to delete user reserves");
+                        }
+
+                    } else {
+
+                        if (orderService.update(order)) {
+                            reserveService.deleteReservesByUserId(userId);
+                            request.setAttribute("productAddedToOrder", "Products ordered! Visit library to get them");
+                        } else {
+                            request.setAttribute("errorNoCreateOrder", "Products are not ordered!Unable to delete user reserves");
+                        }
+                        // request.setAttribute("errorNoCreateOrder","Products are not ordered!!");
+                    }*/
+                    if (orderService.save(order) && reserveService.deleteReservesByUserId(userId)){
+                        request.setAttribute("productAddedToOrder", "Products ordered! Visit library to get them");
+                    }else{
+                        orderService.update(order);
+                        reserveService.deleteReservesByUserId(userId);
+//                        request.setAttribute("productAddedToOrder", "Products ordered! Visit library to get them");
+                        request.setAttribute("productAddedToOrder","Order is updated");
+                    }
+                    response.sendRedirect(pageForRedirect);
                 }
 
-            }else{
 
-                if (orderService.update(order)){
-                    reserveService.deleteReservesByUserId(userId);
-                    request.setAttribute("productAddedToOrder","Products ordered! Visit library to get them");
-                }else {
-                    request.setAttribute("errorNoCreateOrder","Products are not ordered!Unable to delete user reserves");
-                }
-               // request.setAttribute("errorNoCreateOrder","Products are not ordered!!");
-            }
-//            request.getRequestDispatcher("/jsp/productInfo.jsp").forward(request,response);
-            response.sendRedirect(pageForRedirect);
-
-        } catch (ServiceException | IOException  e) {
+        } catch (ServiceException | IOException | ServletException e) {
             throw new ControllerException(e);
         }
     }
+
+    private Order createOrder(long userId, List<Reserve> reserveList) {
+        StringBuilder builder = new StringBuilder();
+        for (Reserve reserve : reserveList) {
+            builder.append(reserve.getProductId()).append(" ");
+        }
+        String productIds = builder.toString().trim();
+
+        return new Order(productIds, userId);
+    }
+
 }

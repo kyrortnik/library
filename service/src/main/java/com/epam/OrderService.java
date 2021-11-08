@@ -1,6 +1,7 @@
 package com.epam;
 
 import com.epam.entity.Order;
+import com.epam.entity.Reserve;
 import com.epam.exception.ServiceException;
 
 import java.rmi.ServerException;
@@ -23,6 +24,12 @@ public interface OrderService {
     Order getByUserId(Long userId);
 
     boolean relationExists(Order order, String bookId);
+
+
+    boolean productAlreadyOrdered(Reserve reserve);
+
+    boolean productsAlreadyOrdered(List<Reserve> reserveList);
+
 
 
 

@@ -42,6 +42,9 @@ public enum TypeCommand {
     },
     GOTOPAGE{
         {this.command = new GoToPageCommand();}
+    },
+    CHANGELANGUAGE{
+        {this.command = new ChangeLanguageCommand();}
     };
 
     public AbstractCommand getCurrentCommand() {

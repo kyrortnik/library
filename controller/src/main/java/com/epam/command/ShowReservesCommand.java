@@ -80,8 +80,6 @@ public class ShowReservesCommand implements AbstractCommand{
                 currentPageParam = "1";
             }
             int currentPage = Integer.parseInt(currentPageParam);
-
-
             int numberOfReserves = reserveService.countReservesForUser(userId);
 
             Page<Book> pageableReserves = new Page<>(currentPage,numberOfReserves);
@@ -92,27 +90,12 @@ public class ShowReservesCommand implements AbstractCommand{
             pageableReserves.setPageNumber(currentPage);
             pageableReserves.setTotalElements(numberOfReserves);
 
-
-
-//            List<Reserve> reservesForUser = reserveService.getReservesForUser(userId);
-//            List<Book> booksForUser= bookService.findBooksByIds(reservesForUser);
-
-//            pageableReserves = bookService.findBooksByIds(reservesForUser);
-
-
-//            filteredReserves = bookService.getPageByFilter(pageableReserves);
             if (pageableReserves.getElements().isEmpty()){
                 request.setAttribute("reservesMessage","No reserves for you yet.");
             }
-//            pageableReserves.setPageNumber(currentPage);
-//            pageableReserves.setLimit(MAX_ROWS);
 
            request.setAttribute("pageableReserves", pageableReserves);
-//             request.setAttribute("pageableReserves",filteredReserves);
-
-
-
-            request.getRequestDispatcher("/jsp/main.jsp").forward(request,response);
+           request.getRequestDispatcher("/jsp/main.jsp").forward(request,response);
         }catch (IOException | ServletException e){
             throw new ControllerException(e);
         }

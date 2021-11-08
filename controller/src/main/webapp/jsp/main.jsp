@@ -1,17 +1,24 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored = "false"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="fmt" %>
+
+
+
+
 <html>
     <head>
+
+
+
+
+
+
+
         <title>Main page</title>
     </head>
     <body>
     <h3>Welcome</h3>
-<!--    <hr/>
-    ${user}, hello!
-    <br/>
-    To logout click link below
-    <hr/>-->
-<!--    <a href="frontController?command=logout">Logout</a>-->
+
 
     <h3>${message}</h3>
     <c:if test="${sessionScope.role != null}">
@@ -20,12 +27,6 @@
         <input type = "submit" value ="logout">
     </form>
 
-   <!-- <br/>
-    <a href ="/jsp/manageUsers.jsp"> Manage users </a>
-    <br/>
-    <a href ="/jsp/manageProducts.jsp"> Manage products</a>
-    <br/>
-    <a href ="/jsp/manageOrders.jsp"> Manage orders</a>-->
 
 <!-----------SHOW PRODUCTS ------------------------->
     <div>
@@ -92,93 +93,6 @@
 
         <!-----------SHOW RESERVES ------------------------->
 
-  <!--  <div>
-    <form id ="showReserves" method="GET" action ="frontController">
-        <input type="hidden" name = "command" value="showReserves" />
-        <button form ="showReserves" type ="submit">Show Reserved Products</button>
-    </form>
-        </div>
-        <div>
-            <table>
-                <thead>
-                <tr>
-                    <td></td>
-                    <td><h4><c:out value="title"/></h4></td>
-                    <td><h4><c:out value="author"/></h4></td>
-                    <td><h4><c:out value="publisher"/></h4></td>
-                    <td><h4><c:out value="publishing Year"/></h4></td>
-                </tr>
-                </thead>
-
-                <tbody>
-
-                <c:forEach items="${requestScope.pageableReserves.elements}" var="reserveRow">
-                    <c:if test="${not empty requestScope.pageableReserves.elements}">
-                    <tr>
-                       &lt;!&ndash; <td>
-                            <form method="POST" action ="frontController">
-                                <input type ="hidden" name="command" value="addToOrder"/>
-                                <input type ="hidden" name="bookId" value="${reserveRow.id}"/>
-                                <button type="submit">Add to Order List</button>
-                            </form>
-
-                        </td>&ndash;&gt;
-                        <td>
-                           &lt;!&ndash; <form  method="GET" action="frontController" >
-                                <input type="hidden" name="command" value="productInfo" />
-                                <input type="hidden" name="id" value="${reserveRow.id}" />
-                                <button type="submit" >Product info</button><br/>
-                            </form>&ndash;&gt;
-                        </td>
-                        <td>${reserveRow.title}</td>
-                        <td>${reserveRow.author}</td>
-                        <td>${reserveRow.publisher}</td>
-                        <td>${reserveRow.publishingYear}</td>
-                     &lt;!&ndash;   <td>
-                             <form method = "POST" action="frontController">
-                                 <input type = "hidden" name ="command" value ="createReserve"/>
-                                 <input type = "hidden" name="productId" value="${reserveRow.id}"/>
-                                 <input type="submit" value ="Reserve this Book">
-                                 <br/>
-                                 ${message}
-                                 <br/>
-                             </form>
-
-                        </td>&ndash;&gt;
-                    </tr>
-                    </c:if>
-                </c:forEach>
-                <c:if test ="${empty requestScope.pageableReserves.elements}">
-
-                    <h3>${reservesMessage}</h3>
-
-                </c:if>
-
-                </tbody>
-            </table>
-            <div>
-                <form method="POST" action="frontController">
-                    <input type="hidden" name="command" value="createOrder"/>
-                    <input type="submit" value="Create Order for Reserved books">
-                </form>
-            </div>
-            <div style="margin-left: center">
-                <c:forEach begin="1" end="${Math.ceil(pageableReserves.totalElements / pageableReserves.limit)}" var="i">
-                    <c:if test="${i == pageableReserves.pageNumber}">
-                            <span>
-                                <button style="color:red" form="showReserves" type="submit" name="currentPageReserve" value="${i}">${i}</button>
-                            </span>
-                    </c:if>
-                    <c:if test="${i != pageableReserves.pageNumber}">
-                            <span>
-                                <button form="showReserves" type="submit" name="currentPageReserve" value="${i}">${i}</button>
-                            </span>
-                    </c:if>
-                </c:forEach>
-            </div>
-        </div>
--->
-
         <div>
             <form id ="showReserves" method="GET" action ="frontController">
                 <input type="hidden" name = "command" value="showReserves" />
@@ -208,11 +122,6 @@
                         <td>${reserveRow.publishingYear}</td>
                     </tr>
                 </c:forEach>
- <!--               <c:if test ="${empty requestScope.pageableReserves.elements}">
-
-                <h3>${reservesMessage}</h3>
-
-                </c:if>-->
                 </tbody>
             </table>
             <div>
@@ -236,8 +145,6 @@
                 </c:forEach>
             </div>
         </div>
-
-
 
         <!-----------SHOW ORDER INFO ------------------------->
 

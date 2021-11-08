@@ -1,6 +1,7 @@
 package com.epam.impl;
 
 import com.epam.entity.Order;
+import com.epam.entity.Reserve;
 import com.epam.exception.DAOException;
 import com.epam.exception.ServiceException;
 import com.epam.repository.DAOFactory;
@@ -10,6 +11,8 @@ import com.epam.OrderService;
 import java.rmi.ServerException;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class OrderServiceImpl implements OrderService {
 
@@ -46,6 +49,7 @@ public class OrderServiceImpl implements OrderService {
         return orderDAO.getByUserId(userId);
     }
 
+
     @Override
     public boolean relationExists(Order order,String bookId) {
 
@@ -57,6 +61,28 @@ public class OrderServiceImpl implements OrderService {
             }
         }
         return relationExists;
+    }
+
+    @Override
+    public boolean productAlreadyOrdered(Reserve reserve) {
+        boolean productAlreadyOrdered = false;
+        long productId = reserve.getProductId();
+        String regex = "(?<=\\s|^)" +productId + "(?=\\s|$)";
+        Pattern pattern = Pattern.compile(regex);
+//        List<Order> allOrders = getAll();
+//        for (Order order: allOrders){
+//            Matcher matcher = pattern.matcher(order.getProductIds());
+//            if (matcher.find()){
+//                productAlreadyOrdered = true;
+//                break;
+//            }
+//        }
+        Order foundOrder = getByUserId(reserve.getUserId());
+        Matcher matcher = pattern.matcher(foundOrder.getProductIds());
+        if (matcher.find()){
+            productAlreadyOrdered = true;
+        }
+        return productAlreadyOrdered;
     }
 
     @Override
@@ -72,8 +98,18 @@ public class OrderServiceImpl implements OrderService {
         }catch (DAOException e){
             throw new ServiceException(e);
         }
+    }
 
+    @Override
+    public boolean productsAlreadyOrdered(List<Reserve> reserveList) {
+        boolean productAlreadyOrdered;
 
-
+        for (Reserve reserve : reserveList) {
+            productAlreadyOrdered = productAlreadyOrdered(reserve);
+            if (productAlreadyOrdered) {
+                return true;
+            }
+        }
+        return false;
     }
 }
