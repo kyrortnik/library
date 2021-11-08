@@ -8,6 +8,7 @@ import com.epam.entity.Reserve;
 import com.epam.exception.ServiceException;
 
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -17,7 +18,7 @@ public class CreateReserveCommand implements AbstractCommand {
 
     private ReserveService reserveService = ServiceFactory.getInstance().createReserveService();
 
-    private static final Logger log = Logger.getLogger(AddToOrderCommand.class.getName());
+    private static final Logger log = Logger.getLogger(CreateReserveCommand.class.getName());
 
     //    TODO proper implementation of goToPageCommand
     @Override
@@ -27,6 +28,7 @@ public class CreateReserveCommand implements AbstractCommand {
 
 
         try {
+
             Long userId = (Long) request.getSession().getAttribute("id");
             Long productId = Long.valueOf(request.getParameter("bookId"));
             String pageForRedirect;
@@ -34,14 +36,19 @@ public class CreateReserveCommand implements AbstractCommand {
             Reserve reserve = new Reserve(userId, productId);
 //            if (!reserveService.productExistsInOrder(reserve)) {
                 if (reserveService.save(reserve)) {
-                    request.setAttribute("message", "Product successfully added to Order list");
+//                    request.setAttribute("reserveMessage", "Product successfully added to Order list");
+                    request.getSession().setAttribute("message", "Product successfully added to Order list");
                     pageForRedirect = "frontController?command=goToPage&address=main.jsp";
                 } else {
-                    request.setAttribute("message", "Product is not added to Reserve list! Order for you already exists.");
-                    pageForRedirect = "frontController?command=goToPage&address=productInfo.jsp";
+//                    request.setAttribute("reserveMessage", "Product is not added to Reserve list! Order for you already exists.");
+                    request.getSession().setAttribute("message","Product is not added to Reserve list! Order for you already exists.");
+                    pageForRedirect = "frontController?command=goToPage&address=main.jsp";
                 }
 
+                String lastCommand = AbstractCommand.defineCommand(request,false);
+                request.getSession().setAttribute("lastCommand",lastCommand);
                 response.sendRedirect(pageForRedirect);
+//                request.getRequestDispatcher(pageForRedirect).forward(request,response);
             /*else{
                 request.setAttribute("errorNoCreateOrder","Order is not added to Order list! Such order already exists.");
 

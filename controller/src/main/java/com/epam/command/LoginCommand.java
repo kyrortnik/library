@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 public class LoginCommand implements AbstractCommand {
 
-    private static final Logger log = Logger.getLogger(AddToOrderCommand.class.getName());
+    private static final Logger log = Logger.getLogger(LoginCommand.class.getName());
 
 
 
@@ -49,6 +49,8 @@ public class LoginCommand implements AbstractCommand {
 //                request.getRequestDispatcher("/jsp/main.jsp").forward(request,response);
                 addressForRedirect = "frontController?command=goToPage&address=login.jsp&message=noSuchUser";
             }
+            String lastCommand = AbstractCommand.defineCommand(request,false);
+            request.getSession().setAttribute("lastCommand",lastCommand);
             response.sendRedirect(addressForRedirect);
 
         }catch (IOException e){

@@ -15,7 +15,7 @@ public class ShowUsersCommand implements AbstractCommand{
 
     private ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private UserService userService = serviceFactory.createUserService();
-    private static final Logger log = Logger.getLogger(AddToOrderCommand.class.getName());
+    private static final Logger log = Logger.getLogger(ShowUsersCommand.class.getName());
 
 
     @Override

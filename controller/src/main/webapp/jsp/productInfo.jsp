@@ -47,15 +47,16 @@
                <input type = "hidden" name="bookId" value="${requestScope.book.id}"/>
                <input type="submit" value ="Reserve this Book">
                <br/>
-               ${message}
                <br/>
                 </form>
             </td>
         </tr>
+
         </tbody>
     </table>
         </div>
     </c:if>
+
     </body>
 
 </html>

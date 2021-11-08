@@ -24,15 +24,14 @@ public class OrderInfoCommand implements AbstractCommand{
     private OrderService orderService = ServiceFactory.getInstance().createOrderService();
     private BookService bookService = ServiceFactory.getInstance().createBookService();
 
-    private static final Logger log = Logger.getLogger(AddToOrderCommand.class.getName());
+    private static final Logger log = Logger.getLogger(OrderInfoCommand.class.getName());
 
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
 
-
-
         try{
+
             log.info("Start in OrderInfoCommand");
             Long userId = (Long)request.getSession().getAttribute("id");
             Order order = orderService.getByUserId(userId);
@@ -50,6 +49,8 @@ public class OrderInfoCommand implements AbstractCommand{
                 } else {
                     request.setAttribute("orderMessage", "No order created for you yet.");
                 }
+                String lastCommand = AbstractCommand.defineCommand(request,false);
+                request.getSession().setAttribute("lastCommand",lastCommand);
                 request.getRequestDispatcher("/jsp/main.jsp").forward(request, response);
 
         }catch (IOException | ServletException e ){

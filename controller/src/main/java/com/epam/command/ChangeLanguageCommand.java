@@ -15,10 +15,12 @@ public class ChangeLanguageCommand implements AbstractCommand{
 
         try{
             request.getSession().setAttribute("local",request.getParameter("local"));
-//            response.sendRedirect("/jsp/login.jsp");
-            request.getRequestDispatcher("/jsp/login.jsp").forward(request,response);
+            String addressForRedirect = String.valueOf(request.getSession().getAttribute("lastCommand"));
+            String path = addressForRedirect.equals("null") ? "/index.jsp" : addressForRedirect;
+            response.sendRedirect(path);
+//            request.getRequestDispatcher("/jsp/login.jsp").forward(request,response);
 
-        }catch (IOException | ServletException e){
+        }catch (IOException e){
             throw new ControllerException(e);
         }
 

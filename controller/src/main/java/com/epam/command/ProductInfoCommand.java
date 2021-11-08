@@ -17,12 +17,11 @@ public class ProductInfoCommand implements AbstractCommand {
     private static final String MESSAGE = "message";
     private ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private BookService bookService = serviceFactory.createBookService();
-    private static final Logger log = Logger.getLogger(AddToOrderCommand.class.getName());
+    private static final Logger log = Logger.getLogger(ProductInfoCommand.class.getName());
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
 
-//        String page;
 
         try {
             log.info("Start in ProductInfoCommand");
@@ -34,7 +33,8 @@ public class ProductInfoCommand implements AbstractCommand {
                 request.setAttribute("noSuchProduct", "No such product was found");
             }
 
-//            request.setAttribute("message", request.getParameter(MESSAGE));
+            String lastCommand = AbstractCommand.defineCommand(request,false);
+            request.getSession().setAttribute("lastCommand",lastCommand);
            request.getRequestDispatcher("/jsp/productInfo.jsp").forward(request,response);
 
         } catch (ServiceException | IOException | ServletException e) {

@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public class ShowOrdersCommand implements AbstractCommand{
 
     private OrderService serviceFactory = ServiceFactory.getInstance().createOrderService();
-    private static final Logger log = Logger.getLogger(AddToOrderCommand.class.getName());
+    private static final Logger log = Logger.getLogger(ShowOrdersCommand.class.getName());
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException{

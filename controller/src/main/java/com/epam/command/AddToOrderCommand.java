@@ -1,3 +1,4 @@
+/*
 package com.epam.command;
 
 import com.epam.OrderService;
@@ -42,10 +43,12 @@ public class AddToOrderCommand implements AbstractCommand{
             }else{
                     pageForRedirect = "frontController?command=goToPage&address=main.jsp";
                 }
-                /*else{
+                */
+/*else{
                     request.setAttribute("message", "Order is not created");
                     pageForRedirect = "frontController?command=goToPage&address=productInfo.jsp";
-                }*/
+                }*//*
+
             }else{
                 Order newOrder = new Order(bookId,userId);
                 if (orderService.save(newOrder)){
@@ -63,3 +66,4 @@ public class AddToOrderCommand implements AbstractCommand{
 
     }
 }
+*/

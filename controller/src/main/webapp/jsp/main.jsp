@@ -2,31 +2,21 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="fmt" %>
 
-
-
-
 <html>
     <head>
-
-
-
-
-
-
-
         <title>Main page</title>
     </head>
     <body>
     <h3>Welcome</h3>
-
+    <%@ include file="parts/header.jsp" %>
 
     <h3>${message}</h3>
+    <c:out value ="${requestScope.reserveMessage}"/>
     <c:if test="${sessionScope.role != null}">
     <form name="logoutForm" method="POST" action="frontController">
         <input type="hidden" name="command" value="logout" />
         <input type = "submit" value ="logout">
     </form>
-
 
 <!-----------SHOW PRODUCTS ------------------------->
     <div>
@@ -143,6 +133,9 @@
                             </span>
                     </c:if>
                 </c:forEach>
+
+
+
             </div>
         </div>
 

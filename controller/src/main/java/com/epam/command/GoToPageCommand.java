@@ -12,7 +12,7 @@ import static com.epam.command.util.ControllerConstants.*;
 
 public class GoToPageCommand implements AbstractCommand{
 
-    private static final Logger log = Logger.getLogger(AddToOrderCommand.class.getName());
+    private static final Logger log = Logger.getLogger(GoToPageCommand.class.getName());
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {

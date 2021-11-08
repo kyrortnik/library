@@ -20,7 +20,7 @@ public class RegistrationCommand implements AbstractCommand{
 
     private ServiceFactory factory = ServiceFactory.getInstance();
     private UserService userService = factory.createUserService();
-    private static final Logger log = Logger.getLogger(AddToOrderCommand.class.getName());
+    private static final Logger log = Logger.getLogger(RegistrationCommand.class.getName());
 
 
 

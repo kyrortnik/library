@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 public class LogoutCommand implements AbstractCommand {
    // Receiver receiver;
-   private static final Logger log = Logger.getLogger(AddToOrderCommand.class.getName());
+   private static final Logger log = Logger.getLogger(LogoutCommand.class.getName());
 
 
     @Override

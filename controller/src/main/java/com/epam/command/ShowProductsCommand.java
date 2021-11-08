@@ -19,11 +19,11 @@ import static com.epam.command.util.ControllerConstants.*;
 public class ShowProductsCommand implements AbstractCommand{
 
     private BookService bookService = ServiceFactory.getInstance().createBookService();
-    private static final Logger log = Logger.getLogger(AddToOrderCommand.class.getName());
+    private static final Logger log = Logger.getLogger(ShowProductsCommand.class.getName());
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException{
-//        String page;
+
         log.info("Start in ShowProductsCommand");
         try{
            String currentPageParam = request.getParameter("currentPage");
@@ -51,8 +51,10 @@ public class ShowProductsCommand implements AbstractCommand{
 
              Page<Book> pageable = bookService.getAll(pageableRequest);
 
-             request.setAttribute("pageable",pageable);
+             String lastCommand = AbstractCommand.defineCommand(request,true);
 
+             request.setAttribute("pageable",pageable);
+             request.getSession().setAttribute("lastCommand",lastCommand + pageable.getPageNumber());
 
 //            final Pageable<Book> pageable = bookService.showProducts(pageableRequest);
 

@@ -33,7 +33,7 @@
             </form>
         </div>
         <div>
-            <form action="frontController" method="GET" accept-charset="UTF-8">
+            <form action="frontController" method="GET">
                 <input type="hidden" name="command" value="changeLanguage"/>
                 <input type="hidden" name="local" value="ru"/>
                 <button type="submit">

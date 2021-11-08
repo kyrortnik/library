@@ -25,9 +25,9 @@ public enum TypeCommand {
     PRODUCTINFO{
         {this.command = new ProductInfoCommand();}
     },
-    ADDTOORDER{
-        {this.command = new AddToOrderCommand();}
-    },
+//    ADDTOORDER{
+//        {this.command = new AddToOrderCommand();}
+//    },
     CREATEORDER{
         {this.command = new CreateOrderCommand();}
     },

@@ -20,7 +20,7 @@ public class ShowReservesCommand implements AbstractCommand{
 
     private ReserveService reserveService = ServiceFactory.getInstance().createReserveService();
     private BookService bookService = ServiceFactory.getInstance().createBookService();
-    private static final Logger log = Logger.getLogger(AddToOrderCommand.class.getName());
+    private static final Logger log = Logger.getLogger(ShowReservesCommand.class.getName());
 
     private static int MAX_ROWS = 5;
 
@@ -89,6 +89,9 @@ public class ShowReservesCommand implements AbstractCommand{
             pageableReserves.setLimit(MAX_ROWS);
             pageableReserves.setPageNumber(currentPage);
             pageableReserves.setTotalElements(numberOfReserves);
+
+            String lastCommand = AbstractCommand.defineCommand(request,true);
+            request.getSession().setAttribute("lastCommand",lastCommand + pageableReserves.getPageNumber());
 
             if (pageableReserves.getElements().isEmpty()){
                 request.setAttribute("reservesMessage","No reserves for you yet.");
