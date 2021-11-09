@@ -7,7 +7,6 @@ public class Order extends Entity {
     private String status;
 
     public Order(){
-
     }
 
 

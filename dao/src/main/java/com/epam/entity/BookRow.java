@@ -2,34 +2,34 @@ package com.epam.entity;
 
 public class BookRow extends ProductRow {
 
-    private int publishingYear;
+    private Integer publishingYear;
     private String publisher;
     private String genre;
-    private int numberOfPages;
+    private Integer numberOfPages;
     private boolean isHardCover;
 
     public BookRow() {
     }
 
-    public BookRow(long id, String title, String author, int publishingYear) {
+    public BookRow(Long id, String title, String author, Integer publishingYear) {
         super(id, title, author);
         this.publishingYear = publishingYear;
     }
 
-    public BookRow(long id, String title, String author, int publishingYear, String publisher) {
+    public BookRow(Long id, String title, String author, Integer publishingYear, String publisher) {
         super(id, title, author);
         this.publishingYear = publishingYear;
         this.publisher = publisher;
     }
 
-    public BookRow(long id, String title, String author, int publishingYear, String publisher, String genre) {
+    public BookRow(Long id, String title, String author, Integer publishingYear, String publisher, String genre) {
         super(id, title, author);
         this.publishingYear = publishingYear;
         this.publisher = publisher;
         this.genre = genre;
     }
 
-    public BookRow(long id, String title, String author, int publishingYear, String publisher, String genre, int numberOfPages) {
+    public BookRow(Long id, String title, String author, Integer publishingYear, String publisher, String genre, Integer numberOfPages) {
         super(id, title, author);
         this.publishingYear = publishingYear;
         this.publisher = publisher;
@@ -37,7 +37,7 @@ public class BookRow extends ProductRow {
         this.numberOfPages = numberOfPages;
     }
 
-    public BookRow(long id, String title, String author, int publishingYear, String publisher, String genre, int numberOfPages, boolean isHardCover) {
+    public BookRow(Long id, String title, String author, Integer publishingYear, String publisher, String genre, Integer numberOfPages, boolean isHardCover) {
         super(id, title, author);
         this.publishingYear = publishingYear;
         this.publisher = publisher;
@@ -46,7 +46,7 @@ public class BookRow extends ProductRow {
         this.isHardCover = isHardCover;
     }
 
-    public BookRow(long id, String title, String author, int publishYear, String publisher, boolean isReserved, String genre, int numberOfPages, boolean isHardCover) {
+    public BookRow(Long id, String title, String author, Integer publishYear, String publisher, boolean isReserved, String genre, Integer numberOfPages, boolean isHardCover) {
         super(id,title,author,isReserved);
         this.publishingYear = publishYear;
         this.publisher = publisher;
@@ -57,11 +57,11 @@ public class BookRow extends ProductRow {
 
     }
 
-    public int getPublishingYear() {
+    public Integer getPublishingYear() {
         return publishingYear;
     }
 
-    public void setPublishingYear(int publishingYear) {
+    public void setPublishingYear(Integer publishingYear) {
         this.publishingYear = publishingYear;
     }
 
@@ -81,7 +81,7 @@ public class BookRow extends ProductRow {
         this.genre = genre;
     }
 
-    public int getNumberOfPages() {
+    public Integer getNumberOfPages() {
         return numberOfPages;
     }
 
@@ -103,22 +103,23 @@ public class BookRow extends ProductRow {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
 
-        BookRow that = (BookRow) o;
+        BookRow bookRow = (BookRow) o;
 
-        if (publishingYear != that.publishingYear) return false;
-        if (numberOfPages != that.numberOfPages) return false;
-        if (isHardCover != that.isHardCover) return false;
-        if (publisher != null ? !publisher.equals(that.publisher) : that.publisher != null) return false;
-        return genre != null ? genre.equals(that.genre) : that.genre == null;
+        if (isHardCover != bookRow.isHardCover) return false;
+        if (publishingYear != null ? !publishingYear.equals(bookRow.publishingYear) : bookRow.publishingYear != null)
+            return false;
+        if (publisher != null ? !publisher.equals(bookRow.publisher) : bookRow.publisher != null) return false;
+        if (genre != null ? !genre.equals(bookRow.genre) : bookRow.genre != null) return false;
+        return numberOfPages != null ? numberOfPages.equals(bookRow.numberOfPages) : bookRow.numberOfPages == null;
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + publishingYear;
+        result = 31 * result + (publishingYear != null ? publishingYear.hashCode() : 0);
         result = 31 * result + (publisher != null ? publisher.hashCode() : 0);
         result = 31 * result + (genre != null ? genre.hashCode() : 0);
-        result = 31 * result + numberOfPages;
+        result = 31 * result + (numberOfPages != null ? numberOfPages.hashCode() : 0);
         result = 31 * result + (isHardCover ? 1 : 0);
         return result;
     }

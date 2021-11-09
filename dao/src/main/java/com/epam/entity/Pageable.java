@@ -82,13 +82,13 @@ public class Pageable<T> {
     }
 
 
-    private int calculateMaxPage(long countItems, int _MAX_ROWS_AT_PAGE){
-        return (int) Math.ceil(((double) countItems) / _MAX_ROWS_AT_PAGE);
-    }
-
-    private int calculateRow(int currentPage, int _MAX_ROWS_AT_PAGE) {
-        return (currentPage - 1) * _MAX_ROWS_AT_PAGE;
-    }
+//    private int calculateMaxPage(long countItems, int _MAX_ROWS_AT_PAGE){
+//        return (int) Math.ceil(((double) countItems) / _MAX_ROWS_AT_PAGE);
+//    }
+//
+//    private int calculateRow(int currentPage, int _MAX_ROWS_AT_PAGE) {
+//        return (currentPage - 1) * _MAX_ROWS_AT_PAGE;
+//    }
 
 
 
