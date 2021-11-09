@@ -1,28 +1,25 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored = "false"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="fmt" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <html>
     <head>
+        <%@ include file="parts/meta.jsp" %>
         <title>Main page</title>
+
     </head>
     <body>
-    <h3>Welcome</h3>
     <%@ include file="parts/header.jsp" %>
 
     <h3>${message}</h3>
     <c:out value ="${requestScope.reserveMessage}"/>
     <c:if test="${sessionScope.role != null}">
-    <form name="logoutForm" method="POST" action="frontController">
-        <input type="hidden" name="command" value="logout" />
-        <input type = "submit" value ="logout">
-    </form>
-
+<!-----------MAIN------------------------->
 <!-----------SHOW PRODUCTS ------------------------->
     <div>
     <form id="showProducts" method="GET" action="frontController">
     <input type="hidden" name="command" value="showProducts"/>
-    <button form="showProducts" type="submit">Show products</button>
+    <button form="showProducts" type="submit">${showProducts}</button>
     </form>
     </div>
             <div>
@@ -30,9 +27,9 @@
                     <thead>
                     <tr>
                         <td></td>
-                        <td><h4><c:out value="title"/></h4></td>
-                        <td><h4><c:out value="author"/></h4></td>
-                        <td><h4><c:out value="publishing Year"/></h4></td>
+                        <td><h4><c:out value="${title}"/></h4></td>
+                        <td><h4><c:out value="${author}"/></h4></td>
+                        <td><h4><c:out value="${publishingYear}"/></h4></td>
                     </tr>
                     </thead>
 
@@ -43,7 +40,7 @@
                                 <form  method="GET" action="frontController" >
                                     <input type="hidden" name="command" value="productInfo" />
                                     <input type="hidden" name="id" value="${productRow.id}" />
-                                    <button type="submit" >Product info</button><br/>
+                                    <button type="submit">${productInfo}</button><br/>
                                 </form>
                             </td>
                             <td>${productRow.title}</td>
@@ -86,7 +83,7 @@
         <div>
             <form id ="showReserves" method="GET" action ="frontController">
                 <input type="hidden" name = "command" value="showReserves" />
-                <button form ="showReserves" type ="submit">Show Reserved Products</button>
+                <button form ="showReserves" type ="submit">${showReservedProducts}</button>
             </form>
         </div>
         <div>
@@ -94,10 +91,10 @@
                 <thead>
                 <tr>
                     <td></td>
-                    <td><h4><c:out value="title"/></h4></td>
-                    <td><h4><c:out value="author"/></h4></td>
-                    <td><h4><c:out value="publisher"/></h4></td>
-                    <td><h4><c:out value="publishing Year"/></h4></td>
+                    <td><h4><c:out value="${title}"/></h4></td>
+                    <td><h4><c:out value="${author}"/></h4></td>
+                    <td><h4><c:out value="${publisher}"/></h4></td>
+                    <td><h4><c:out value="${publishingYear}"/></h4></td>
                 </tr>
                 </thead>
 
@@ -115,9 +112,9 @@
                 </tbody>
             </table>
             <div>
-                <form method="POST" action="frontController">
+                <form id="createOrder" method="POST" action="frontController">
                     <input type="hidden" name="command" value="createOrder"/>
-                    <input type="submit" value="Create Order for Reserved books">
+                    <button form ="createOrder" type="submit">${createOrder}</button>
                 </form>
             </div>
             <div style="margin-left: center">
@@ -143,19 +140,18 @@
 
         <form id ="showOrderInfo" method="GET" action ="frontController">
         <input type = "hidden" name ="command" value="orderInfo"/>
-         <button form ="showOrderInfo" type="submit">Go to Order List</button>
+         <button form ="showOrderInfo" type="submit">${goToOrderList}</button>
         </form>
 
-        </div>
         <div>
             <table>
                 <thead>
                 <tr>
                     <td></td>
-                    <td><h4><c:out value="title"/></h4></td>
-                    <td><h4><c:out value="author"/></h4></td>
-                    <td><h4><c:out value="publisher"/></h4></td>
-                    <td><h4><c:out value="publishing Year"/></h4></td>
+                    <td><h4><c:out value="${title}"/></h4></td>
+                    <td><h4><c:out value="${author}"/></h4></td>
+                    <td><h4><c:out value="${publisher}"/></h4></td>
+                    <td><h4><c:out value="${publishingYear}"/></h4></td>
                 </tr>
                 </thead>
 

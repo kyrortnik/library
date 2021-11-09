@@ -31,32 +31,25 @@ public class RegistrationCommand implements AbstractCommand{
         String addressForRedirect;
         String login = request.getParameter(PARAM_NAME_LOGIN);
         String pass = request.getParameter(PARAM_NAME_PASSWORD);
-//        String role = String.valueOf(request.getSession().getAttribute("role"));
         String role = "user";
         String pass2 = request.getParameter(PARAM_NAME_SECOND_PASSWORD);
         User user = new User(login,pass,role);
 
         try {
             if (userService.registration(user,pass2)){
-//                request.setAttribute("user",login);
-                request.getSession().setAttribute("role",role);
-                addressForRedirect = "frontController?command=goToPage&address=main.jsp";
-//               request.getRequestDispatcher("/jsp/main.jsp").forward(request,response);
-               user = userService.get(user);
-               request.getSession().setAttribute("id",user.getId());
-
-            }else {
-
-//                request.getRequestDispatcher("/jsp/login.jsp").forward(request,response);
-                addressForRedirect = "frontController?command=goToPage&address=login.jsp&message=registrationFail";
-            }
+            request.getSession().setAttribute("role",role);
+            addressForRedirect = "frontController?command=goToPage&address=main.jsp";
+            user = userService.get(user);
+            request.getSession().setAttribute("id",user.getId());
             response.sendRedirect(addressForRedirect);
-        }catch (IOException  e){
+            }else {
+                request.setAttribute("registrationFail","Registration failed");
+                request.getRequestDispatcher("/jsp/login.jsp").forward(request,response);
+
+            }
+
+        }catch (IOException | ServletException e){
             throw new ControllerException(e);
         }
-
-
-
-//        return page;
     }
 }

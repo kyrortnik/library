@@ -33,7 +33,8 @@ public class ProductInfoCommand implements AbstractCommand {
                 request.setAttribute("noSuchProduct", "No such product was found");
             }
 
-            String lastCommand = AbstractCommand.defineCommand(request,false);
+//            String lastCommand = AbstractCommand.defineCommand(request,false);
+            String lastCommand = "frontController?command=goToPage&address=main.jsp";
             request.getSession().setAttribute("lastCommand",lastCommand);
            request.getRequestDispatcher("/jsp/productInfo.jsp").forward(request,response);
 

@@ -5,21 +5,10 @@
 
 <html>
     <head>
-
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <fmt:setLocale value="${sessionScope.local}" />
-        <fmt:setBundle basename="localization.local" var="loc" />
-        <fmt:message bundle="${loc}" key="local.locbutton.name.en" var="en_button" />
-        <fmt:message bundle="${loc}" key="local.locbutton.name.ru" var="ru_button" />
-        <fmt:message bundle="${loc}" key="local.locbutton.name.pl" var="pl_button" />
-        <fmt:message bundle="${loc}" key="local.login" var="login" />
-        <fmt:message bundle="${loc}" key="local.password" var="password" />
-        <fmt:message bundle="${loc}" key="local.registration" var="registration" />
-        <fmt:message bundle="${loc}" key="local.registrationForm" var="registrationForm" />
-
-<title>
-<c:out value="${login}"/>
-</title>
+        <%@ include file="parts/meta.jsp" %>
+        <title>
+        <c:out value="${login}"/>
+        </title>
     </head>
     <!-------Language change----------->
     <div >
@@ -41,7 +30,7 @@
                 </button>
             </form>
         </div>
-        <div>
+       <!-- <div>
             <form action="frontController" method="GET">
                 <input type="hidden" name="command" value="changeLanguage"/>
                 <input type="hidden" name="local" value="pl"/>
@@ -49,14 +38,10 @@
                     PL
                 </button>
             </form>
-        </div>
+        </div>-->
     </div>
 
     <!-------Language change----------->
-
-
-
-
 
     <body>
         <form name="loginForm" method="POST" action="frontController">
@@ -91,7 +76,7 @@
                 <a>Registration failed</a>
             </c:if>
          <br/>
-         <input type="submit" value="registration"/>
+         <input type="submit" value="${registration}"/>
         </form>
 
 
@@ -103,9 +88,9 @@
         </c:if>
 
 
-        <c:if test="${requestScope.message == 'registrationFail'}">
+        <c:if test="${not empty requestScope.registrationFail}">
             <div>
-                <h3>${failedRegistration}</h3>
+                <h3>${registrationFail}</h3>
             </div>
         </c:if>
 

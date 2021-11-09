@@ -49,8 +49,8 @@ public class LoginCommand implements AbstractCommand {
 //                request.getRequestDispatcher("/jsp/main.jsp").forward(request,response);
                 addressForRedirect = "frontController?command=goToPage&address=login.jsp&message=noSuchUser";
             }
-            String lastCommand = AbstractCommand.defineCommand(request,false);
-            request.getSession().setAttribute("lastCommand",lastCommand);
+//            String lastCommand = AbstractCommand.defineCommand(request,false);
+            request.getSession().setAttribute("lastCommand",addressForRedirect);
             response.sendRedirect(addressForRedirect);
 
         }catch (IOException e){
