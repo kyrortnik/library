@@ -220,7 +220,9 @@ public class OrderDAOImpl implements OrderDAO {
                 foundOrder.setId(resultSet.getLong(1));
                 foundOrder.setProductIds(resultSet.getString(2));
                 foundOrder.setUserId(resultSet.getLong(3));
-                return foundOrder;
+                if(!foundOrder.getProductIds().equals("")){
+                    return foundOrder;
+                }
             }
             return null;
         }catch (SQLException e){

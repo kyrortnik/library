@@ -11,7 +11,7 @@
     <body>
     <%@ include file="parts/header.jsp" %>
 
-    <h3>${message}</h3>
+<!--    <h3>${message}</h3>-->
     <c:out value ="${requestScope.reserveMessage}"/>
     <c:if test="${sessionScope.role != null}">
 <!-----------MAIN------------------------->
@@ -88,12 +88,7 @@
         </div>
         <div>
             <c:if test="${not empty requestScope.pageableReserves.elements}">
-                <div>
-                    <form id="createOrder" method="POST" action="frontController">
-                        <input type="hidden" name="command" value="createOrder"/>
-                        <button form ="createOrder" type="submit">${createOrder}</button>
-                    </form>
-                </div>
+
             <table>
              <!--   <thead>
                 <tr>
@@ -116,8 +111,15 @@
                         <td>${reserveRow.publishingYear}</td>
                     </tr>
                 </c:forEach>
+
                 </tbody>
             </table>
+                <div>
+                    <form id="createOrder" method="POST" action="frontController">
+                        <input type="hidden" name="command" value="createOrder"/>
+                        <button form ="createOrder" type="submit">${createOrder}</button>
+                    </form>
+                </div>
 
             <div style="margin-left: center">
                 <c:forEach begin="1" end="${Math.ceil(pageableReserves.totalElements / pageableReserves.limit)}" var="j">
@@ -132,8 +134,12 @@
                             </span>
                     </c:if>
                 </c:forEach>
-
             </div>
+            </c:if>
+            <c:if test="${empty requestScope.pageableReserves.elements}">
+                <div>
+                    <h3>${reservesMessage}</h3>
+                </div>
             </c:if>
         </div>
 

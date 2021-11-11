@@ -7,6 +7,7 @@ import com.epam.entity.Reserve;
 import com.epam.exception.ServiceException;
 
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -28,34 +29,27 @@ public class CreateReserveCommand implements AbstractCommand {
         try {
 
             Long userId = (Long) request.getSession().getAttribute("id");
-            Long productId = Long.valueOf(request.getParameter("bookId"));
+            Long bookId = Long.valueOf(request.getParameter("bookId"));
             String pageForRedirect;
 
-            Reserve reserve = new Reserve(userId, productId);
+            Reserve reserve = new Reserve(userId, bookId);
+            String lastCommand = AbstractCommand.defineCommand(request,false);
+            request.getSession().setAttribute("lastCommand",lastCommand);
+            request.setAttribute("bookId",bookId);
 //            if (!reserveService.productExistsInOrder(reserve)) {
                 if (reserveService.save(reserve)) {
 //                    request.setAttribute("reserveMessage", "Product successfully added to Order list");
-                    request.getSession().setAttribute("message", "Product successfully added to Reserve list");
+//                    request.getSession().setAttribute("message", "Product successfully added to Reserve list");
                     pageForRedirect = "frontController?command=goToPage&address=main.jsp";
+                    response.sendRedirect(pageForRedirect);
                 } else {
 //                    request.setAttribute("reserveMessage", "Product is not added to Reserve list! Order for you already exists.");
-                    request.getSession().setAttribute("message","Product is not added to Reserve list! Order for you already exists.");
-                    pageForRedirect = "frontController?command=goToPage&address=main.jsp";
+                    request.setAttribute("reserveErrorMessage","Product is not added to Reserve list! Order for you already exists.");
+//                    request.setAttribute("backURL","frontController?command=goToPage&address=productInfo.jsp" + "&bookId=" + bookId);
+                    pageForRedirect = "frontController?command=goToPage&address=productInfo.jsp";
+                    request.getRequestDispatcher(pageForRedirect).forward(request,response);
                 }
-
-                String lastCommand = AbstractCommand.defineCommand(request,false);
-                request.getSession().setAttribute("lastCommand",lastCommand);
-                response.sendRedirect(pageForRedirect);
-//                request.getRequestDispatcher(pageForRedirect).forward(request,response);
-            /*else{
-                request.setAttribute("errorNoCreateOrder","Order is not added to Order list! Such order already exists.");
-
-            }*/
-
-            /*} else {
-
-            }*/
-        } catch (ServiceException | IOException /*| ServletException*/ e) {
+        } catch (ServiceException | IOException | ServletException e) {
             throw new ControllerException(e);
 
         }

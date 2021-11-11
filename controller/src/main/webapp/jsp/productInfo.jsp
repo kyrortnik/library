@@ -11,11 +11,15 @@
     </head>
     <body>
     <%@ include file="parts/header.jsp" %>
-    <c:if test="${empty requestScope.book }">
-       <h3><c:out value="${noSuchProduct}"/></h3>
+    <c:if test="${ empty requestScope.book}">
+       <h3>${noSuchProduct}</h3>
+        <h3>${reserveErrorMessage}</h3>
+<!--        <c:set var="backURL" value="${requestScope.backURL}"/>-->
+<!--        <p> <a href="${backURL}">Go back to product</a></p>-->
+        <p><a href="frontController?command=showProducts">Back to Products</a></p>
     </c:if>
 
-    <c:if test="${not empty requestScope.book }">
+    <c:if test="${not empty requestScope.book}">
         <div>
 
     <table>
@@ -57,6 +61,9 @@
 
         </tbody>
     </table>
+            <div>
+                <h3>${reserveErrorMessage}</h3>
+            </div>
         </div>
     </c:if>
 

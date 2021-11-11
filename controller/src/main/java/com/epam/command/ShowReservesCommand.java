@@ -96,9 +96,9 @@ public class ShowReservesCommand implements AbstractCommand{
 
             if (pageableReserves.getElements().isEmpty()){
                 request.setAttribute("reservesMessage","No reserves for you yet.");
+            }else{
+                request.setAttribute("pageableReserves", pageableReserves);
             }
-
-           request.setAttribute("pageableReserves", pageableReserves);
            request.getRequestDispatcher("/jsp/main.jsp").forward(request,response);
         }catch (IOException | ServletException | ServiceException e){
             throw new ControllerException(e);
