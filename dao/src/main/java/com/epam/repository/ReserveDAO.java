@@ -1,12 +1,24 @@
 package com.epam.repository;
 
-import com.epam.entity.Reserve;
+import com.epam.entity.ReserveRow;
+import com.epam.exception.DAOException;
 
 import java.util.List;
 
-public interface ReserveDAO extends AbstractDAO<Reserve>{
+public interface ReserveDAO extends AbstractDAO<ReserveRow>{
 
-    List<Reserve> getReservesForUser(Long userId);
+    List<ReserveRow> getReservesForUser(Long userId) throws DAOException;
 
-    Reserve getByUserAndProductId(Reserve reserve);
+    ReserveRow getByUserAndProductId(ReserveRow reserve) throws DAOException;
+
+    boolean deleteByUserId(Long userId) throws DAOException;
+
+    boolean orderForReserveExists(ReserveRow reserveRow) throws DAOException;
+
+    int countReservesForUser(long userId) throws DAOException;
+
+
+    List<ReserveRow> findReservationsByUserId(long userId, int row) throws DAOException;
+
+
 }

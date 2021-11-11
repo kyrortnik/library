@@ -8,22 +8,20 @@ import java.util.List;
 /**
  * Base interface for all Data Access Objects
  * */
-/**
- * TODO add DAOException to methods
-* */
+
 public interface AbstractDAO<T> {
 
     T get(T t) throws DAOException;
 
-    T getById(Long id);
+    T getById(Long id) throws DAOException;
 
-    List<T> getAll();
+    List<T> getAll() throws DAOException;
 
-    boolean save(T t);
+    boolean save(T t) throws DAOException;
 
-    boolean delete(T t);
+    boolean delete(T t) throws DAOException;
 
-    boolean update(T t);
+    boolean update(T t) throws DAOException;
 
 
 }

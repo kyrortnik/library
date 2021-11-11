@@ -1,28 +1,28 @@
 package com.epam.entity;
 
 
-public class Product extends Entity {
+public class ProductRow extends Entity {
 
 
     private String title;
     private String author;
     private boolean isReserved;
 
-    public Product() {
+    public ProductRow() {
     }
 
-    public Product(Long id, String title) {
+    public ProductRow(Long id, String title) {
         super(id);
         this.title = title;
     }
 
-    public Product(Long id, String title, String author) {
+    public ProductRow(Long id, String title, String author) {
         super(id);
         this.title = title;
         this.author = author;
     }
 
-    public Product(Long id, String title, String author, boolean isReserved) {
+    public ProductRow(Long id, String title, String author, boolean isReserved) {
         super(id);
         this.title = title;
         this.author = author;
@@ -61,11 +61,11 @@ public class Product extends Entity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
 
-        Product product = (Product) o;
+        ProductRow productRow = (ProductRow) o;
 
-        if (isReserved != product.isReserved) return false;
-        if (title != null ? !title.equals(product.title) : product.title != null) return false;
-        return author != null ? author.equals(product.author) : product.author == null;
+        if (isReserved != productRow.isReserved) return false;
+        if (title != null ? !title.equals(productRow.title) : productRow.title != null) return false;
+        return author != null ? author.equals(productRow.author) : productRow.author == null;
     }
 
     @Override

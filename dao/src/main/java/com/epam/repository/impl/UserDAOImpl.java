@@ -9,11 +9,13 @@ import com.epam.repository.UserDAO;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class UserDAOImpl implements UserDAO {
 
-    private static final String FIND_USER_QUERY = "SELECT * FROM users WHERE login = ?";
+    private static final String FIND_USER_QUERY = "SELECT * FROM users WHERE login = ? AND password = ?";
     private static final String FIND_USER_BY_ID = "SELECT * FROM users WHERE id = ? ";
+    private static final String FIND_USER_BY_LOGIN_QUERY = "SELECT * FROM users WHERE login = ?";
     private static final String SAVE_USER = "INSERT INTO users VALUES (DEFAULT, ?, ?, ?) ";
     private static final String DELETE_USER = "DELETE FROM users WHERE login = ?";
     private static final String UPDATE_USER = "UPDATE users SET login = ?, password = ? WHERE id = ? ";
@@ -22,13 +24,11 @@ public class UserDAOImpl implements UserDAO {
 
     PropertyInitializer propertyInitializer = new PropertyInitializer();
     protected ConnectionPool connectionPool = new ConnectionPoolImpl(propertyInitializer);
+    private static final Logger log = Logger.getLogger(UserDAOImpl.class.getName());
 
-    public UserDAOImpl() {
-       // this.connectionPool = connectionPool;
-    }
 
     @Override
-    public User get(User user) {
+    public User get(User user) throws DAOException {
 
         Connection connection = null;
         PreparedStatement statement = null;
@@ -37,7 +37,7 @@ public class UserDAOImpl implements UserDAO {
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(FIND_USER_QUERY);
             statement.setString(1,user.getLogin());
-           // statement.setString(2,user.getPassword());
+            statement.setString(2,user.getPassword());
             resultSet = statement.executeQuery();
             user = new User();
             while (resultSet.next()){
@@ -49,9 +49,10 @@ public class UserDAOImpl implements UserDAO {
             if (user.getLogin() != null){
                 return user;
             }
-            throw new DAOException("login is empty,no such user");
+            log.info("Unable to get requested user.");
+            return null;
         }catch (SQLException e ){
-            throw new DAOException("No user with such login",e);
+            throw new DAOException(e);
         }
         finally {
             closeResultSet(resultSet);
@@ -64,7 +65,7 @@ public class UserDAOImpl implements UserDAO {
 
 
     @Override
-    public User getById(Long id) {
+    public User getById(Long id) throws DAOException {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -83,9 +84,10 @@ public class UserDAOImpl implements UserDAO {
             if (user.getLogin() != null){
                 return user;
             }
-            throw new DAOException("login is empty,no such user");
-        }catch (SQLException e){
-            throw new DAOException("no user with such login",e);
+            log.info("Unable to get requested by Id user.");
+            return null;
+        }catch (Exception e){
+            throw new DAOException(e);
         }finally {
             closeResultSet(resultSet);
             closeStatement(statement);
@@ -93,23 +95,23 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
+    /*TODO need to add check on whether book already exists*/
+    /**Functionality not yet implemented*/
 
     @Override
-    public boolean save(User user) {
+    public boolean save(User user) throws DAOException {
         Connection connection = null;
         PreparedStatement statement = null;
 
         try {
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(SAVE_USER);
-//            statement.setLong(1,element.getId());
             statement.setString(1, user.getLogin());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getRole());
-
             return (statement.executeUpdate() != 0);
         } catch (SQLException e) {
-            throw new DAOException("error while saving user",e);
+            throw new DAOException(e);
         } finally {
             closeStatement(statement);
             connectionPool.releaseConnection(connection);
@@ -117,9 +119,16 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
+//    @Override
+//    public boolean registration(User user, String password2) {
+//        return false;
+//    }
+
+    /*TODO need to add check on whether book already exists*/
+    /**Functionality not yet implemented*/
 
     @Override
-    public boolean delete(User user) {
+    public boolean delete(User user) throws DAOException {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
@@ -128,7 +137,7 @@ public class UserDAOImpl implements UserDAO {
             statement.setString(1,user.getLogin());
             return (statement.executeUpdate() != 0);
         }catch (SQLException e){
-            throw new DAOException("unable to delete user",e);
+            throw new DAOException(e);
         }
         finally {
             closeStatement(statement);
@@ -137,31 +146,57 @@ public class UserDAOImpl implements UserDAO {
 
     }
 
-/**
-* Should I add check on whether user which I want to update exists?
-* */
-    @Override
-    public boolean update(User user) {
+    /**Functionality not yet implemented
+     *Logic in not complete
+     */
+
+
+    public boolean update(User user) throws DAOException {
         Connection connection = null;
         PreparedStatement statement = null;
-        try{
+        ResultSet resultSet = null;
+        try {
+            int result = 0;
             connection = connectionPool.getConnection();
-            statement = connection.prepareStatement(UPDATE_USER);
-            statement.setString(1,user.getLogin());
-            statement.setString(2,user.getPassword());
-            statement.setLong(3,user.getId());
-            return (statement.executeUpdate() != 0);
-        }catch (SQLException e){
-            throw new DAOException("unable to update user",e);
-        }finally {
+            connection.setAutoCommit(false);
+            statement = connection.prepareStatement(FIND_USER_BY_LOGIN_QUERY);
+            statement.setString(1, user.getLogin());
+            resultSet = statement.executeQuery();
+            User userCheck = new User();
+            while (resultSet.next()) {
+                userCheck.setId(resultSet.getLong(1));
+                userCheck.setLogin(resultSet.getString(2));
+                userCheck.setRole(resultSet.getString(4));
+            }
+
+            if(userCheck.getId() == null || user.getId().equals(userCheck.getId())) {
+                statement = connection.prepareStatement(UPDATE_USER);
+                statement.setString(1, user.getLogin());
+                statement.setString(2, user.getPassword());
+                statement.setLong(3, user.getId());
+                result = statement.executeUpdate();
+            }
+            connection.commit();
+            return (result > 0);
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (Exception ex) {
+                throw new DAOException(ex);
+            }
+            throw new DAOException(e);
+        } finally {
+            closeResultSet(resultSet);
             closeStatement(statement);
             connectionPool.releaseConnection(connection);
         }
     }
 
 
+    /**Functionality not yet implemented*/
+
     @Override
-    public boolean changePassword(User user, String newPassword) {
+    public boolean changePassword(User user, String newPassword) throws DAOException {
         Connection connection = null;
         PreparedStatement statement = null;
         try{
@@ -178,26 +213,10 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
-    /** Do I need this when in find(User user) I search by login already?*/
-   /* @Override
-    public UserDTO findUserByLogin(String login) {
-       Connection connection = null;
-       PreparedStatement statement = null;
-       ResultSet resultSet = null;
-       try{
-           connection = connectionPool.getConnection();
-           statement = connection.prepareStatement()
-       }
-        return null;
-    }*/
 
-
-
-
-
-        @Override
-    public List<User> getAll() {
-        ArrayList<User> users = new ArrayList<User>();
+    @Override
+    public List<User> getAll() throws DAOException {
+        ArrayList<User> users = new ArrayList<>();
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -205,22 +224,17 @@ public class UserDAOImpl implements UserDAO {
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(GET_ALL_USERS);
             resultSet = statement.executeQuery();
-            int id;
-            String login;
-            String password;
-            String role;
-            User user;
+            User user = new User();
             while (resultSet.next()){
-                id = resultSet.getInt(1);
-                login = resultSet.getString(2);
-                password = resultSet.getString(3);
-                role = resultSet.getString(4);
-                user = new User(id,login,password,role);
+                user.setId(resultSet.getLong(1));
+                user.setLogin(resultSet.getString(2));
+                user.setPassword(resultSet.getString(3));
+                user.setRole(resultSet.getString(4));
                 users.add(user);
             }
             return users;
         }catch (SQLException e){
-            throw new DAOException("unable to get all users",e);
+            throw new DAOException(e);
         }finally {
             closeResultSet(resultSet);
             closeStatement(statement);
@@ -229,7 +243,15 @@ public class UserDAOImpl implements UserDAO {
 
     }
 
-    @Override
+
+    /**
+    * Do I need this method?
+    *
+    * */
+
+
+
+   /* @Override
     public boolean findUserByLogin(User user) {
         Connection connection = null;
         PreparedStatement statement = null;
@@ -255,7 +277,7 @@ public class UserDAOImpl implements UserDAO {
             closeStatement(statement);
             connectionPool.releaseConnection(connection);
         }
-    }
+    }*/
 
     private void closeResultSet(ResultSet resultSet) {
         try{

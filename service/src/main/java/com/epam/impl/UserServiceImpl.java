@@ -10,21 +10,34 @@ import com.epam.UserService;
 
 import java.util.List;
 
+import static com.epam.validator.ServiceValidator.*;
 
-/** validations are needed*/
+
 
 public class UserServiceImpl implements UserService {
 
-
     private static final UserDAO userDAO = DAOFactory.getInstance().createUserDAO();
 
+
     @Override
-    public boolean registration(User user) {
-        return userDAO.save(user);
+    public boolean registration(User user,String password2) throws ServiceException {
+        if (!validation(user)){
+            return false;
+        }
+        boolean passwordEquals = user.getPassword().equals(password2);
+        try{
+            return passwordEquals && userDAO.save(user);
+        }catch (DAOException e){
+            throw new ServiceException(e);
+        }
+
     }
 
     @Override
-    public UserDTO logination(User user) {
+    public UserDTO logination(User user) throws ServiceException {
+        if (!validation(user)){
+            return null;
+        }
         try {
             user = userDAO.get(user);
             return (user == null) ? null : new UserDTO(user);
@@ -33,28 +46,83 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * Methods getter from DB
+     * */
+
+
     @Override
-    public User findUserWithId(long id) {
-        return userDAO.getById(id);
+    public UserDTO get(User user) throws ServiceException {
+        if (!validation(user)){
+            return null;
+        }try{
+            return new UserDTO(userDAO.get(user));
+        }catch (DAOException e){
+            throw new ServiceException(e);
+        }
+
+    }
+
+
+
+    @Override
+    public User findUserWithId(long id) throws ServiceException {
+        if (!validation(id)) {
+            return null;
+        } try{
+                return userDAO.getById(id);
+            }catch (DAOException e){
+                throw new ServiceException(e);
+            }
+        }
+
+
+    @Override
+    public boolean updateUser(User user) throws ServiceException {
+        if(!validation(user)){
+            return false;
+        }try{
+            return userDAO.update(user);
+        }catch (DAOException e){
+            throw new ServiceException(e);
+        }
+
     }
 
     @Override
-    public boolean updateUser(User user) {
-        return userDAO.update(user);
+    public boolean deleteUser(User user) throws ServiceException {
+        if (!validation(user)){
+            return false;
+        }try{
+            return userDAO.delete(user);
+        }catch (DAOException e){
+            throw new ServiceException(e);
+        }
+
     }
 
-    @Override
-    public boolean deleteUser(User user) {
-        return userDAO.delete(user);
-    }
-
-    @Override
+    /**
+     * TODO Do I need this?
+     * */
+   /* @Override
     public boolean findUserByLogin(User user) {
-        return userDAO.findUserByLogin(user);
-    }
+        if (!validation(user)){
+            return false;
+        }try{
+            return userDAO.findUserByLogin(user);
+        }catch (DAOException e){
+            throw new ServiceException(e);
+        }
+
+    }*/
 
     @Override
-    public List<User> getUsers() {
-        return userDAO.getAll();
+    public List<User> getUsers() throws ServiceException {
+        try {
+            return userDAO.getAll();
+        }catch (DAOException e){
+            throw new ServiceException(e);
+        }
+
     }
 }

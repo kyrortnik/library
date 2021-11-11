@@ -1,6 +1,6 @@
 package com.epam.entity;
 
-public class Book extends Product {
+public class Book extends Product{
 
     private int publishingYear;
     private String publisher;
@@ -46,14 +46,13 @@ public class Book extends Product {
         this.isHardCover = isHardCover;
     }
 
-    public Book(long id, String title, String author, int publishYear,  String publisher,boolean isReserved, String genre, int numberOfPages, boolean isHardCover) {
+    public Book(long id, String title, String author, int publishYear, String publisher, boolean isReserved, String genre, int numberOfPages, boolean isHardCover) {
         super(id,title,author,isReserved);
         this.publishingYear = publishYear;
         this.publisher = publisher;
         this.genre = genre;
         this.numberOfPages = numberOfPages;
         this.isHardCover = isHardCover;
-
 
     }
 
@@ -103,13 +102,13 @@ public class Book extends Product {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
 
-        Book that = (Book) o;
+        Book book = (Book) o;
 
-        if (publishingYear != that.publishingYear) return false;
-        if (numberOfPages != that.numberOfPages) return false;
-        if (isHardCover != that.isHardCover) return false;
-        if (publisher != null ? !publisher.equals(that.publisher) : that.publisher != null) return false;
-        return genre != null ? genre.equals(that.genre) : that.genre == null;
+        if (publishingYear != book.publishingYear) return false;
+        if (numberOfPages != book.numberOfPages) return false;
+        if (isHardCover != book.isHardCover) return false;
+        if (publisher != null ? !publisher.equals(book.publisher) : book.publisher != null) return false;
+        return genre != null ? genre.equals(book.genre) : book.genre == null;
     }
 
     @Override
@@ -126,10 +125,7 @@ public class Book extends Product {
     @Override
     public String toString() {
         return "Book{" +
-                "id=" + getId() +
-                ", title=" + getTitle() + '\'' +
-                ", author=" + getAuthor() + '\'' +
-                ", publishingYear=" + publishingYear + '\'' +
+                "publishingYear=" + publishingYear +
                 ", publisher='" + publisher + '\'' +
                 ", genre='" + genre + '\'' +
                 ", numberOfPages=" + numberOfPages +

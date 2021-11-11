@@ -6,31 +6,35 @@ import com.epam.exception.DAOException;
 import com.epam.repository.ConnectionPool;
 import com.epam.repository.OrderDAO;
 import com.epam.repository.PropertyInitializer;
-import com.sun.org.apache.xpath.internal.operations.Or;
+
+
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class OrderDAOImpl implements OrderDAO {
 
-    private static final String FIND_ORDER = "SELECT * FROM orders WHERE order_id = ?";
+    private static final String FIND_ORDER = "SELECT * FROM orders WHERE user_id = ?";
+    private static final String FIND_ORDER_BY_USER_AND_PRODUCT = "SELECT * FROM orders WHERE user_id = ? AND product_id LIKE %?%";
     private static final String FIND_BY_USED_ID = "SELECT * FROM orders WHERE user_id = ?";
     private static final String SAVE_ORDER = "INSERT INTO orders VALUES (DEFAULT, ?, ?) ";
     private static final String DELETE_ORDER = "DELETE FROM orders WHERE order_id = ?";
-    private static final String UPDATE_ORDER = "UPDATE orders SET user_id = ?, product_id = ? WHERE order_id = ? ";
+    private static final String UPDATE_ORDER = "UPDATE orders SET product_id = ? WHERE user_id = ? ";
     private static final String GET_ALL_ORDERS = "SELECT * FROM orders";
 
 
     PropertyInitializer propertyInitializer = new PropertyInitializer();
     protected ConnectionPool connectionPool = new ConnectionPoolImpl(propertyInitializer);
+    private static final Logger log = Logger.getLogger(OrderDAOImpl.class.getName());
 
 
     public OrderDAOImpl() {
     }
 
     @Override
-    public Order get(Order order) {
+    public Order get(Order order) throws DAOException {
 
         Connection connection = null;
         PreparedStatement statement = null;
@@ -38,7 +42,7 @@ public class OrderDAOImpl implements OrderDAO {
         try{
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(FIND_ORDER);
-            statement.setLong(1,order.getId());
+            statement.setLong(1,order.getUserId());
             resultSet = statement.executeQuery();
             while (resultSet.next()){
                 order.setId(resultSet.getLong(1));
@@ -47,10 +51,11 @@ public class OrderDAOImpl implements OrderDAO {
             }if (!order.getProductIds().equals("") && order.getUserId() != 0){
                 return order;
             }
-            throw  new DAOException("unable to get the order");
+            log.info("Couldn't find requested Order");
+            return null;
 
         }catch (SQLException e){
-            throw  new DAOException("dao exeption while getting order",e);
+            throw  new DAOException(e);
         }finally {
             closeResultSet(resultSet);
             closeStatement(statement);
@@ -69,13 +74,17 @@ public class OrderDAOImpl implements OrderDAO {
         return null;
     }*/
 
+
+
+    /**Functionality not yet implemented*/
     @Override
     public Order getById(Long id) {
         throw new UnsupportedOperationException();
     }
 
+    //TODO refactor order creation in the loop
     @Override
-    public List<Order> getAll() {
+    public List<Order> getAll() throws DAOException {
         ArrayList<Order> orders = new ArrayList<>();
         Connection connection = null;
         PreparedStatement statement = null;
@@ -109,7 +118,7 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public boolean save(Order order) {
+    public boolean save(Order order) throws DAOException {
         Connection connection = null;
         PreparedStatement statement = null;
         try{
@@ -119,7 +128,7 @@ public class OrderDAOImpl implements OrderDAO {
             statement.setLong(2,order.getUserId());
             return (statement.executeUpdate() != 0);
         }catch (SQLException e){
-            throw  new DAOException("couldn't save order",e);
+            throw  new DAOException(e);
         }finally {
             closeStatement(statement);
             connectionPool.releaseConnection(connection);
@@ -127,7 +136,7 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public boolean delete(Order order) {
+    public boolean delete(Order order) throws DAOException {
         Connection connection = null;
         PreparedStatement statement = null;
         try{
@@ -136,7 +145,7 @@ public class OrderDAOImpl implements OrderDAO {
             statement.setLong(1,order.getId());
             return (statement.executeUpdate() != 0);
         }catch (SQLException e){
-            throw new DAOException("unable to delete order",e);
+            throw new DAOException(e);
         }finally {
             closeStatement(statement);
             connectionPool.releaseConnection(connection);
@@ -144,45 +153,45 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public boolean update(Order order) {
+    public boolean update(Order order) throws DAOException {
+        String orderToAdd = order.getProductIds();
         Connection connection = null;
         PreparedStatement statement = null;
+        Order orderToUpdate = get(order);
+        String newProducts = orderToUpdate.getProductIds() +" "+ orderToAdd;
         try{
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(UPDATE_ORDER);
-            statement.setString(1,order.getProductIds());
+            statement.setString(1,newProducts);
             statement.setLong(2,order.getUserId());
             return (statement.executeUpdate() != 0) ;
         }catch (SQLException e){
-            throw new DAOException("unable to update order",e);
+            throw new DAOException(e);
         }finally {
             closeStatement(statement);
             connectionPool.releaseConnection(connection);
         }
     }
 
-    @Override
-    public Order getByUserId(Order order) {
+ /*   @Override
+    public Order getByUserId(Order order) throws DAOException {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        Order temp = null;
+        Order foundOrder = new Order();
         try {
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(FIND_BY_USED_ID);
             statement.setLong(1,order.getUserId());
             resultSet = statement.executeQuery();
             if(resultSet.next()){
-                temp = new Order(
+                foundOrder = new Order(
                         resultSet.getLong(1),
                         resultSet.getString(2),
                         resultSet.getLong(3)
                 );
-            }else{
-                temp =  new Order();
-
             }
-            return temp;
+            return foundOrder;
         }catch (SQLException e){
             throw new DAOException(e);
         }finally {
@@ -190,6 +199,51 @@ public class OrderDAOImpl implements OrderDAO {
             closeStatement(statement);
             connectionPool.releaseConnection(connection);
         }
+    }*/
+/**
+ * Realisation with return null ?
+ * */
+    @Override
+    public Order getByUserId(Long userId) throws DAOException{
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        Order foundOrder = new Order();
+
+        try {
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(FIND_BY_USED_ID);
+            statement.setLong(1,userId);
+            resultSet = statement.executeQuery();
+
+            if(resultSet.next()){
+                foundOrder.setId(resultSet.getLong(1));
+                foundOrder.setProductIds(resultSet.getString(2));
+                foundOrder.setUserId(resultSet.getLong(3));
+                if(!foundOrder.getProductIds().equals("")){
+                    return foundOrder;
+                }
+            }
+            return null;
+        }catch (SQLException e){
+            throw new DAOException(e);
+        }finally {
+            closeResultSet(resultSet);
+            closeStatement(statement);
+            connectionPool.releaseConnection(connection);
+        }
+    }
+
+
+
+    /**Functionality not yet implemented*/
+
+    @Override
+    public boolean deleteByUserId(Long userId) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        return true;
     }
 
     private void closeResultSet(ResultSet resultSet) {

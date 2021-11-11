@@ -2,42 +2,56 @@ package com.epam.command;
 
 import com.epam.ReserveService;
 import com.epam.ServiceFactory;
-import com.epam.UserService;
 import com.epam.command.exception.ControllerException;
 import com.epam.entity.Reserve;
 import com.epam.exception.ServiceException;
 
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.logging.Logger;
 
-public class CreateReserveCommand implements AbstractCommand{
+public class CreateReserveCommand implements AbstractCommand {
 
     private ReserveService reserveService = ServiceFactory.getInstance().createReserveService();
 
+    private static final Logger log = Logger.getLogger(CreateReserveCommand.class.getName());
+
+    //    TODO proper implementation of goToPageCommand
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
 
-        try{
-           Long userId = (Long)request.getSession().getAttribute("id");
-           Long productId = Long.valueOf(request.getParameter("productId"));
+        log.info("Start in CreateReserveCommand");
 
 
-            Reserve reserve = new Reserve(userId,productId);
-            if (reserveService.save(reserve)){
-                request.setAttribute("productAddedToOrder","Product successfully added to Order list");
+        try {
 
-            }else{
-                request.setAttribute("errorNoCreateOrder","Order is not added to Order list! Such order already exists.");
+            Long userId = (Long) request.getSession().getAttribute("id");
+            Long bookId = Long.valueOf(request.getParameter("bookId"));
+            String pageForRedirect;
 
-            }
-            request.getRequestDispatcher("/jsp/productInfo.jsp").forward(request,response);
-
+            Reserve reserve = new Reserve(userId, bookId);
+            String lastCommand = AbstractCommand.defineCommand(request,false);
+            request.getSession().setAttribute("lastCommand",lastCommand);
+            request.setAttribute("bookId",bookId);
+//            if (!reserveService.productExistsInOrder(reserve)) {
+                if (reserveService.save(reserve)) {
+//                    request.setAttribute("reserveMessage", "Product successfully added to Order list");
+//                    request.getSession().setAttribute("message", "Product successfully added to Reserve list");
+                    pageForRedirect = "frontController?command=goToPage&address=main.jsp";
+                    response.sendRedirect(pageForRedirect);
+                } else {
+//                    request.setAttribute("reserveMessage", "Product is not added to Reserve list! Order for you already exists.");
+                    request.setAttribute("reserveErrorMessage","Product is not added to Reserve list! Order for you already exists.");
+//                    request.setAttribute("backURL","frontController?command=goToPage&address=productInfo.jsp" + "&bookId=" + bookId);
+                    pageForRedirect = "frontController?command=goToPage&address=productInfo.jsp";
+                    request.getRequestDispatcher(pageForRedirect).forward(request,response);
+                }
         } catch (ServiceException | IOException | ServletException e) {
             throw new ControllerException(e);
-        }
-        }
 
+        }
+    }
 }

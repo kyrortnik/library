@@ -2,27 +2,30 @@ package com.epam;
 
 import com.epam.entity.User;
 import com.epam.entity.UserDTO;
+import com.epam.exception.ServiceException;
 
 import java.util.List;
 
 public interface UserService {
 
-    boolean registration(User user);
+   boolean registration(User user,String password2) throws ServiceException;
 
-    UserDTO logination(User user);
+    UserDTO logination(User user) throws ServiceException;
 
-    User findUserWithId(long id);
+    User findUserWithId(long id) throws ServiceException;
 
-    boolean updateUser(User user);
+    boolean updateUser(User user) throws ServiceException;
 
 
     /*TODO change to (Long id)*/
 
-    boolean deleteUser(User user);
+    boolean deleteUser(User user) throws ServiceException;
 
-    boolean findUserByLogin(User user);
+//    boolean findUserByLogin(User user);
 
-    List<User> getUsers();
+    List<User> getUsers() throws ServiceException;
+
+    UserDTO get(User user) throws ServiceException;
 
 
 }

@@ -8,7 +8,7 @@ public class Entity {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -26,12 +26,12 @@ public class Entity {
 
         Entity entity = (Entity) o;
 
-        return id != null ? id.equals(entity.id) : entity.id == null;
+        return id.equals(entity.id);
     }
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+        return (int) (id ^ (id >>> 32));
     }
 
     @Override

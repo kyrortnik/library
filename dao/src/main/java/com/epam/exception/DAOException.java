@@ -1,9 +1,6 @@
 package com.epam.exception;
 
-/**
- * TODO change to Exception
- * */
-public class DAOException extends  RuntimeException{
+public class DAOException extends Exception{
 
     public DAOException() {
     }

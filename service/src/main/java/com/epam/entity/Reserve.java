@@ -1,7 +1,8 @@
 package com.epam.entity;
 
-public class Reserve extends Entity{
+public class Reserve {
 
+    private long id;
     private Long userId;
     private Long productId;
 
@@ -9,16 +10,24 @@ public class Reserve extends Entity{
     }
 
     public Reserve(Long id){
-        super(id);
+       this.id = id;
     }
     public Reserve(Long userId,Long productId){
         this.userId = userId;
         this.productId = productId;
     }
     public Reserve(Long id,Long userId,Long productId){
-        super(id);
+        this.id = id;
         this.userId = userId;
         this.productId = productId;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Long getUserId() {
@@ -41,17 +50,17 @@ public class Reserve extends Entity{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
 
         Reserve reserve = (Reserve) o;
 
+        if (id != reserve.id) return false;
         if (userId != null ? !userId.equals(reserve.userId) : reserve.userId != null) return false;
         return productId != null ? productId.equals(reserve.productId) : reserve.productId == null;
     }
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
+        int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (userId != null ? userId.hashCode() : 0);
         result = 31 * result + (productId != null ? productId.hashCode() : 0);
         return result;
@@ -60,7 +69,8 @@ public class Reserve extends Entity{
     @Override
     public String toString() {
         return "Reserve{" +
-                "userId=" + userId +
+                "id=" + id +
+                ", userId=" + userId +
                 ", productId=" + productId +
                 '}';
     }

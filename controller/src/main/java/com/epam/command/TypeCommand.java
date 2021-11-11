@@ -25,9 +25,9 @@ public enum TypeCommand {
     PRODUCTINFO{
         {this.command = new ProductInfoCommand();}
     },
-    ADDTOORDER{
-        {this.command = new AddToOrderCommand();}
-    },
+//    ADDTOORDER{
+//        {this.command = new AddToOrderCommand();}
+//    },
     CREATEORDER{
         {this.command = new CreateOrderCommand();}
     },
@@ -36,6 +36,15 @@ public enum TypeCommand {
     },
     SHOWRESERVES{
         {this.command = new ShowReservesCommand();}
+    },
+    ORDERINFO{
+        {this.command = new OrderInfoCommand();}
+    },
+    GOTOPAGE{
+        {this.command = new GoToPageCommand();}
+    },
+    CHANGELANGUAGE{
+        {this.command = new ChangeLanguageCommand();}
     };
 
     public AbstractCommand getCurrentCommand() {
