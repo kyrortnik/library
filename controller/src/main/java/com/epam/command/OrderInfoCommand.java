@@ -6,6 +6,7 @@ import com.epam.ServiceFactory;
 import com.epam.command.exception.ControllerException;
 import com.epam.entity.Book;
 import com.epam.entity.Order;
+import com.epam.exception.ServiceException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -35,25 +36,21 @@ public class OrderInfoCommand implements AbstractCommand{
             log.info("Start in OrderInfoCommand");
             Long userId = (Long)request.getSession().getAttribute("id");
             Order order = orderService.getByUserId(userId);
-
-            List<Book> booksFromOrder = bookService.findBooksByOrder(order);
-           /* String[] booksID = order.getProductIds().split(" ");
-            Integer[] booksId = new Integer[booksID.length];
-            for (int i = 0;i<booksID.length;i++){
-                booksId[i] = Integer.parseInt(booksID[i]);
-            }*/
-
-
-                if (userId.equals(order.getUserId())) {
-                    request.setAttribute("booksFromOrder", booksFromOrder);
-                } else {
-                    request.setAttribute("orderMessage", "No order created for you yet.");
+            if (order == null){
+                request.setAttribute("orderMessage","No order created for you yet.");
+            }else{
+                List<Book> booksFromOrder = bookService.findBooksByOrder(order);
+                request.setAttribute("booksFromOrder", booksFromOrder);
+                if (booksFromOrder.isEmpty()){
+                    request.setAttribute("orderMessage","No books in your order yet.");
                 }
-                String lastCommand = AbstractCommand.defineCommand(request,false);
-                request.getSession().setAttribute("lastCommand",lastCommand);
-                request.getRequestDispatcher("/jsp/main.jsp").forward(request, response);
+                }
+            String lastCommand = AbstractCommand.defineCommand(request,false);
+            request.getSession().setAttribute("lastCommand",lastCommand);
+            request.getRequestDispatcher("/jsp/main.jsp").forward(request, response);
 
-        }catch (IOException | ServletException e ){
+
+        }catch (IOException | ServletException | ServiceException e ){
             throw new ControllerException(e);
         }
 

@@ -1,13 +1,16 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored = "false"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <html>
     <head>
+        <%@ include file="parts/meta.jsp" %>
         <title>
             Product Information Page
         </title>
     </head>
     <body>
+    <%@ include file="parts/header.jsp" %>
     <c:if test="${empty requestScope.book }">
        <h3><c:out value="${noSuchProduct}"/></h3>
     </c:if>
@@ -17,10 +20,10 @@
 
     <table>
         <tr style="text-align: center;">
-            <td><c:out value="title"/></td>
-            <td><c:out value="author"/></td>
-            <td><c:out value="genre"/></td>
-            <td><c:out value="publisher"/></td>
+            <td><c:out value="${title}"/></td>
+            <td><c:out value="${author}"/></td>
+            <td><c:out value="${genre}"/></td>
+            <td><c:out value="${publisher}"/></td>
             <td><c:out value="pages"/></td>
         </tr>
 

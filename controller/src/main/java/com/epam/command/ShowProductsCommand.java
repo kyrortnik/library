@@ -6,6 +6,7 @@ import com.epam.entity.Book;
 import com.epam.BookService;
 import com.epam.ServiceFactory;
 import com.epam.entity.Page;
+import com.epam.exception.ServiceException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -54,7 +55,7 @@ public class ShowProductsCommand implements AbstractCommand{
              String lastCommand = AbstractCommand.defineCommand(request,true);
 
              request.setAttribute("pageable",pageable);
-             request.getSession().setAttribute("lastCommand",lastCommand + pageable.getPageNumber());
+             request.getSession().setAttribute("lastCommand",lastCommand);
 
 //            final Pageable<Book> pageable = bookService.showProducts(pageableRequest);
 
@@ -65,7 +66,7 @@ public class ShowProductsCommand implements AbstractCommand{
 
  //           request.getRequestDispatcher(Command.prepareUri(request) + JSP).forward(request, response);
             request.getRequestDispatcher("/jsp/main.jsp").forward(request,response);
-        }catch (IOException  | ServletException e){
+        }catch (IOException | ServletException | ServiceException e){
             throw new ControllerException(e);
         }
 

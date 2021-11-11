@@ -16,14 +16,11 @@ import static com.epam.validator.ServiceValidator.*;
 
 public class UserServiceImpl implements UserService {
 
-
     private static final UserDAO userDAO = DAOFactory.getInstance().createUserDAO();
 
-/**
- * Implemented methods
- * */
+
     @Override
-    public boolean registration(User user,String password2) {
+    public boolean registration(User user,String password2) throws ServiceException {
         if (!validation(user)){
             return false;
         }
@@ -37,7 +34,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO logination(User user) {
+    public UserDTO logination(User user) throws ServiceException {
         if (!validation(user)){
             return null;
         }
@@ -55,11 +52,11 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User get(User user) {
+    public UserDTO get(User user) throws ServiceException {
         if (!validation(user)){
             return null;
         }try{
-            return userDAO.get(user);
+            return new UserDTO(userDAO.get(user));
         }catch (DAOException e){
             throw new ServiceException(e);
         }
@@ -69,7 +66,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User findUserWithId(long id) {
+    public User findUserWithId(long id) throws ServiceException {
         if (!validation(id)) {
             return null;
         } try{
@@ -81,7 +78,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public boolean updateUser(User user) {
+    public boolean updateUser(User user) throws ServiceException {
         if(!validation(user)){
             return false;
         }try{
@@ -93,7 +90,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean deleteUser(User user) {
+    public boolean deleteUser(User user) throws ServiceException {
         if (!validation(user)){
             return false;
         }try{
@@ -107,7 +104,7 @@ public class UserServiceImpl implements UserService {
     /**
      * TODO Do I need this?
      * */
-    @Override
+   /* @Override
     public boolean findUserByLogin(User user) {
         if (!validation(user)){
             return false;
@@ -117,10 +114,10 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException(e);
         }
 
-    }
+    }*/
 
     @Override
-    public List<User> getUsers() {
+    public List<User> getUsers() throws ServiceException {
         try {
             return userDAO.getAll();
         }catch (DAOException e){

@@ -19,12 +19,12 @@ public class PropertyInitializer {
         loadProperties();
     }
 
-    private void loadProperties() throws DAOException {
+    private void loadProperties() {
         try(InputStream inputStream = PropertyInitializer.class.getClassLoader().getResourceAsStream(DATABASE_CONFIG_PATH)) {
             properties = new Properties();
             properties.load(inputStream);
         } catch (IOException e) {
-            throw new DAOException(" Error while loading properties.");
+            throw new RuntimeException(e);
         }
     }
 

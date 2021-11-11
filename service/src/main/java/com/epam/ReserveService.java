@@ -9,16 +9,16 @@ public interface ReserveService {
 
     boolean save(Reserve reserve)throws ServiceException;
 
-    List<Reserve> getReservesForUser(Long userId);
+   List<Reserve> getReservesForUser(Long userId) throws ServiceException;
 
 
-    boolean deleteReservesByUserId(Long userId);
+    boolean deleteReservesByUserId(Long userId) throws ServiceException;
 
-    boolean productExistsInOrder(Reserve reserve);
+    boolean productExistsInOrder(Reserve reserve) throws ServiceException;
 
-    int countReservesForUser(long userId);
+    int countReservesForUser(long userId) throws ServiceException;
 
-    List<Reserve> findReservationsByUserId(long userId,int row);
+    List<Reserve> findReservationsByUserId(long userId,int row) throws ServiceException;
 
 
 

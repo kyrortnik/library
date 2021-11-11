@@ -6,6 +6,7 @@ import com.epam.repository.PropertyInitializer;
 import java.sql.*;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.concurrent.ArrayBlockingQueue;
 
 import static com.epam.repository.utils.DBConstants.*;
 
@@ -67,9 +68,9 @@ public class ConnectionPoolImpl implements ConnectionPool {
     }
 
     @Override
-    public boolean releaseConnection(Connection connection) {
+    public void releaseConnection(Connection connection) {
         availableConnections.add(connection);
-        return takenConnections.remove(connection);
+        takenConnections.remove(connection);
     }
 
     private Connection createConnection(String url,String user,String password) throws SQLException {

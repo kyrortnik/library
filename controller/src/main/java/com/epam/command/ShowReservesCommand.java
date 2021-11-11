@@ -7,6 +7,7 @@ import com.epam.command.exception.ControllerException;
 import com.epam.entity.Book;
 import com.epam.entity.Page;
 import com.epam.entity.Reserve;
+import com.epam.exception.ServiceException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -91,7 +92,7 @@ public class ShowReservesCommand implements AbstractCommand{
             pageableReserves.setTotalElements(numberOfReserves);
 
             String lastCommand = AbstractCommand.defineCommand(request,true);
-            request.getSession().setAttribute("lastCommand",lastCommand + pageableReserves.getPageNumber());
+            request.getSession().setAttribute("lastCommand",lastCommand);
 
             if (pageableReserves.getElements().isEmpty()){
                 request.setAttribute("reservesMessage","No reserves for you yet.");
@@ -99,7 +100,7 @@ public class ShowReservesCommand implements AbstractCommand{
 
            request.setAttribute("pageableReserves", pageableReserves);
            request.getRequestDispatcher("/jsp/main.jsp").forward(request,response);
-        }catch (IOException | ServletException e){
+        }catch (IOException | ServletException | ServiceException e){
             throw new ControllerException(e);
         }
 

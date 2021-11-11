@@ -17,18 +17,33 @@ public class BookServiceImpl implements BookService {
     private static final BookDAO bookDAO = DAOFactory.getInstance().createBookDAO();
 
     @Override
-    public boolean create(BookRow bookRow) {
-        return bookDAO.save(bookRow);
+    public boolean create(BookRow bookRow) throws ServiceException {
+        try{
+            return bookDAO.save(bookRow);
+        }catch(DAOException e){
+            throw new ServiceException(e);
+        }
+
     }
 
     @Override
-    public boolean update(BookRow bookRow) {
-        return bookDAO.update(bookRow);
+    public boolean update(BookRow bookRow) throws ServiceException {
+        try{
+            return bookDAO.update(bookRow);
+        }catch (DAOException e){
+            throw new ServiceException(e);
+        }
+
     }
 
     @Override
-    public boolean delete(BookRow bookRow) {
-        return bookDAO.delete(bookRow);
+    public boolean delete(BookRow bookRow) throws ServiceException {
+        try{
+            return bookDAO.delete(bookRow);
+        }catch (DAOException e){
+            throw new ServiceException(e);
+        }
+
     }
 
    /* @Override
@@ -37,21 +52,24 @@ public class BookServiceImpl implements BookService {
     }*/
 
     @Override
-    public Book findById(Long id) {
-        return convertToBook(bookDAO.getById(id));
+    public Book findById(Long id) throws ServiceException {
+        try{
+            return convertToBook(bookDAO.getById(id));
+        }catch (DAOException e){
+            throw new ServiceException(e);
+        }
+
     }
 
     @Override
     public List<Book> findBooksByIds(List<Reserve> reserves) throws ServiceException {
         try{
             List<BookRow> bookRows = new ArrayList<>();
-            Pageable<BookRow> bookRowPageable = new Pageable<>();
             BookRow bookRow;
             for (Reserve reserve : reserves){
                 bookRow = bookDAO.getById(reserve.getProductId());
                 bookRows.add(bookRow);
             }
-//            bookRowPageable.setElements(bookRows);
 
             return convertToBooks(bookRows);
         }catch (DAOException e){
@@ -62,7 +80,7 @@ public class BookServiceImpl implements BookService {
 
 
     @Override
-    public Page<Book> getAll(Page<Book> pageableRequest) {
+    public Page<Book> getAll(Page<Book> pageableRequest) throws ServiceException {
         try {
             // validation
             // ...
@@ -97,10 +115,15 @@ public class BookServiceImpl implements BookService {
         }
     }*/
 
-    public Page<Book> getPageByFilter(Page<Book> daoProductPageable) {
+    public Page<Book> getPageByFilter(Page<Book> daoProductPageable) throws ServiceException {
+        try{
+            Pageable<BookRow> rowPageable = convertToPageableBook(daoProductPageable);
+            return convertToServicePage(bookDAO.findPageByFilter(rowPageable));
+        }catch (DAOException e){
+            throw new ServiceException(e);
+        }
 
-        Pageable<BookRow> rowPageable = convertToPageableBook(daoProductPageable);
-        return convertToServicePage(bookDAO.findPageByFilter(rowPageable));
+
     }
 
 
@@ -125,13 +148,8 @@ public class BookServiceImpl implements BookService {
     }
 
     private Book convertToBook(final BookRow row) {
-       /* long id;
-        String title;
-        String author;
-        int publishYear;*/
         Book book = new Book();
         if (Objects.nonNull(row)) {
-
             book.setId(row.getId());
             book.setAuthor(row.getAuthor());
             book.setTitle(row.getTitle());
@@ -141,11 +159,6 @@ public class BookServiceImpl implements BookService {
             book.setHardCover(row.isHardCover());
             book.setReserved(row.isReserved());
             book.setNumberOfPages(row.getNumberOfPages());
-           /* id = row.getId();
-            title = row.getTitle();
-           author = row.getAuthor();
-           publishYear = row.getPublishingYear();
-            book = new Book(id,title,author, publishYear);*/
         }
         return book;
     }
@@ -186,21 +199,26 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> findBooksByOrder(Order order) {
-        List<Book> booksFromOrder = new ArrayList<>();
-        if (order.getId() != 0 && order.getId() != 0){
-            String[] idsString = order.getProductIds().split(" ");
-            Long[] idsLong = new Long[idsString.length];
-            for (int i = 0;i<idsString.length;i++){
-                idsLong[i] = Long.valueOf(idsString[i]);
-            }
+    public List<Book> findBooksByOrder(Order order) throws ServiceException {
+        try{
+            List<Book> booksFromOrder = new ArrayList<>();
+            if (order.getId() != 0 && order.getId() != 0){
+                String[] idsString = order.getProductIds().split(" ");
+                Long[] idsLong = new Long[idsString.length];
+                for (int i = 0;i<idsString.length;i++){
+                    idsLong[i] = Long.valueOf(idsString[i]);
+                }
 
-            for (Long id : idsLong){
-                booksFromOrder.add(findById(id));
+                for (Long id : idsLong){
+                    booksFromOrder.add(findById(id));
+                }
             }
             return booksFromOrder;
+        }catch (ServiceException e){
+            throw new ServiceException(e);
         }
-        return booksFromOrder;
+
+
 
     }
 }

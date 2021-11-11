@@ -30,15 +30,6 @@
                 </button>
             </form>
         </div>
-       <!-- <div>
-            <form action="frontController" method="GET">
-                <input type="hidden" name="command" value="changeLanguage"/>
-                <input type="hidden" name="local" value="pl"/>
-                <button type="submit">
-                    PL
-                </button>
-            </form>
-        </div>-->
     </div>
 
     <!-------Language change----------->
@@ -67,9 +58,9 @@
         <br/>${login}<br/>
         <input type = "text" name = "login" value=""/>
         <br/>${password}<br/>
-        <input type ="text" name = "password" value=""/>
+        <input type ="password" name = "password" value=""/>
         <br/>${passwordAgain}<br/>
-        <input type ="text" name = "secondPassword" value=""/>
+        <input type ="password" name = "secondPassword" value=""/>
         <br/>
         <br/>
             <c:if test="requestScope.message eq 'registrationFail'">

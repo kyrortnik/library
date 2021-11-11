@@ -23,5 +23,6 @@
 <fmt:message bundle="${loc}" key="local.logout" var="logout" />
 <fmt:message bundle="${loc}" key="local.createOrder" var="createOrder" />
 <fmt:message bundle="${loc}" key="local.passwordAgain" var="passwordAgain" />
+<fmt:message bundle="${loc}" key="local.genre" var="genre" />
 
 

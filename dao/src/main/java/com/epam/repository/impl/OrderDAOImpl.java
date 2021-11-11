@@ -6,13 +6,13 @@ import com.epam.exception.DAOException;
 import com.epam.repository.ConnectionPool;
 import com.epam.repository.OrderDAO;
 import com.epam.repository.PropertyInitializer;
-import com.epam.repository.ReserveDAO;
-import com.sun.org.apache.xpath.internal.operations.Or;
+
 
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class OrderDAOImpl implements OrderDAO {
 
@@ -27,13 +27,14 @@ public class OrderDAOImpl implements OrderDAO {
 
     PropertyInitializer propertyInitializer = new PropertyInitializer();
     protected ConnectionPool connectionPool = new ConnectionPoolImpl(propertyInitializer);
+    private static final Logger log = Logger.getLogger(OrderDAOImpl.class.getName());
 
 
     public OrderDAOImpl() {
     }
 
     @Override
-    public Order get(Order order) {
+    public Order get(Order order) throws DAOException {
 
         Connection connection = null;
         PreparedStatement statement = null;
@@ -50,10 +51,11 @@ public class OrderDAOImpl implements OrderDAO {
             }if (!order.getProductIds().equals("") && order.getUserId() != 0){
                 return order;
             }
-            throw  new DAOException("unable to get the order");
+            log.info("Couldn't find requested Order");
+            return null;
 
         }catch (SQLException e){
-            throw  new DAOException("dao exeption while getting order",e);
+            throw  new DAOException(e);
         }finally {
             closeResultSet(resultSet);
             closeStatement(statement);
@@ -72,13 +74,17 @@ public class OrderDAOImpl implements OrderDAO {
         return null;
     }*/
 
+
+
+    /**Functionality not yet implemented*/
     @Override
     public Order getById(Long id) {
         throw new UnsupportedOperationException();
     }
 
+    //TODO refactor order creation in the loop
     @Override
-    public List<Order> getAll() {
+    public List<Order> getAll() throws DAOException {
         ArrayList<Order> orders = new ArrayList<>();
         Connection connection = null;
         PreparedStatement statement = null;
@@ -112,7 +118,7 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public boolean save(Order order) {
+    public boolean save(Order order) throws DAOException {
         Connection connection = null;
         PreparedStatement statement = null;
         try{
@@ -122,7 +128,7 @@ public class OrderDAOImpl implements OrderDAO {
             statement.setLong(2,order.getUserId());
             return (statement.executeUpdate() != 0);
         }catch (SQLException e){
-            throw  new DAOException("couldn't save order",e);
+            throw  new DAOException(e);
         }finally {
             closeStatement(statement);
             connectionPool.releaseConnection(connection);
@@ -130,7 +136,7 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public boolean delete(Order order) {
+    public boolean delete(Order order) throws DAOException {
         Connection connection = null;
         PreparedStatement statement = null;
         try{
@@ -139,7 +145,7 @@ public class OrderDAOImpl implements OrderDAO {
             statement.setLong(1,order.getId());
             return (statement.executeUpdate() != 0);
         }catch (SQLException e){
-            throw new DAOException("unable to delete order",e);
+            throw new DAOException(e);
         }finally {
             closeStatement(statement);
             connectionPool.releaseConnection(connection);
@@ -147,29 +153,28 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public boolean update(Order order) {
+    public boolean update(Order order) throws DAOException {
         String orderToAdd = order.getProductIds();
         Connection connection = null;
         PreparedStatement statement = null;
         Order orderToUpdate = get(order);
         String newProducts = orderToUpdate.getProductIds() +" "+ orderToAdd;
         try{
-
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(UPDATE_ORDER);
             statement.setString(1,newProducts);
             statement.setLong(2,order.getUserId());
             return (statement.executeUpdate() != 0) ;
         }catch (SQLException e){
-            throw new DAOException("unable to update order",e);
+            throw new DAOException(e);
         }finally {
             closeStatement(statement);
             connectionPool.releaseConnection(connection);
         }
     }
 
-    @Override
-    public Order getByUserId(Order order) {
+ /*   @Override
+    public Order getByUserId(Order order) throws DAOException {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -194,14 +199,16 @@ public class OrderDAOImpl implements OrderDAO {
             closeStatement(statement);
             connectionPool.releaseConnection(connection);
         }
-    }
-
+    }*/
+/**
+ * Realisation with return null ?
+ * */
     @Override
     public Order getByUserId(Long userId) throws DAOException{
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        Order foundOrder = new Order(0L,"",0L);
+        Order foundOrder = new Order();
 
         try {
             connection = connectionPool.getConnection();
@@ -215,7 +222,7 @@ public class OrderDAOImpl implements OrderDAO {
                 foundOrder.setUserId(resultSet.getLong(3));
                 return foundOrder;
             }
-            return foundOrder;
+            return null;
         }catch (SQLException e){
             throw new DAOException(e);
         }finally {
@@ -227,9 +234,10 @@ public class OrderDAOImpl implements OrderDAO {
 
 
 
+    /**Functionality not yet implemented*/
 
     @Override
-    public boolean deleteBbyUserId(Long userId) {
+    public boolean deleteByUserId(Long userId) {
         Connection connection = null;
         PreparedStatement statement = null;
 

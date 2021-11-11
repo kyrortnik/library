@@ -5,6 +5,8 @@ import com.epam.command.exception.ControllerException;
 import com.epam.entity.User;
 import com.epam.ServiceFactory;
 import com.epam.UserService;
+import com.epam.entity.UserDTO;
+import com.epam.exception.ServiceException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -39,8 +41,8 @@ public class RegistrationCommand implements AbstractCommand{
             if (userService.registration(user,pass2)){
             request.getSession().setAttribute("role",role);
             addressForRedirect = "frontController?command=goToPage&address=main.jsp";
-            user = userService.get(user);
-            request.getSession().setAttribute("id",user.getId());
+            UserDTO userDTO = userService.get(user);
+            request.getSession().setAttribute("id",userDTO.getId());
             response.sendRedirect(addressForRedirect);
             }else {
                 request.setAttribute("registrationFail","Registration failed");
@@ -48,7 +50,7 @@ public class RegistrationCommand implements AbstractCommand{
 
             }
 
-        }catch (IOException | ServletException e){
+        }catch (IOException | ServletException | ServiceException e){
             throw new ControllerException(e);
         }
     }

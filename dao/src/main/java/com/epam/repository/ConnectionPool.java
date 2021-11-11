@@ -7,10 +7,5 @@ public interface ConnectionPool {
 
     Connection getConnection() throws SQLException;
 
-
-    boolean releaseConnection(Connection connection);
-
-
-
-
+    void releaseConnection(Connection connection);
 }

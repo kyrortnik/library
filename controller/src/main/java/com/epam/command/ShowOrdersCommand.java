@@ -5,6 +5,7 @@ import com.epam.command.exception.ControllerException;
 import com.epam.entity.Order;
 import com.epam.OrderService;
 import com.epam.ServiceFactory;
+import com.epam.exception.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,11 +24,12 @@ public class ShowOrdersCommand implements AbstractCommand{
 
         log.info("Start in ShowOrdersCommand");
 
-        ArrayList<Order> orders =(ArrayList<Order>)serviceFactory.getAll();
+
         try{
+            ArrayList<Order> orders =(ArrayList<Order>)serviceFactory.getAll();
             request.setAttribute("orders",orders);
             response.sendRedirect("/jsp/orders.jsp");
-        }catch (IOException e){
+        }catch (IOException | ServiceException e){
             throw new ControllerException(e);
         }
 

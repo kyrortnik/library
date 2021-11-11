@@ -18,7 +18,6 @@ public class ChangeLanguageCommand implements AbstractCommand{
             String addressForRedirect = String.valueOf(request.getSession().getAttribute("lastCommand"));
             String path = addressForRedirect.equals("null") ? "/index.jsp" : addressForRedirect;
             response.sendRedirect(path);
-//            request.getRequestDispatcher("/jsp/login.jsp").forward(request,response);
 
         }catch (IOException e){
             throw new ControllerException(e);

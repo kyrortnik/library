@@ -6,7 +6,6 @@ import com.epam.repository.ConnectionPool;
 import com.epam.repository.PropertyInitializer;
 import com.epam.repository.ReserveDAO;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,7 +20,7 @@ public class ReserveDAOImpl implements ReserveDAO {
     private static final String FIND_RESERVES_FOR_USER = " SELECT * FROM reserves WHERE user_id = ?";
 //    private static final String FIND_RESERVES_FOR_USER ="SELECT reserve_id, reserves.user_id, reserves.product_id from reserves FULL JOIN orders ON reserves.user_id = orders.user_id WHERE reserves.user_id = ? AND order_id IS NULL";
     private static final String FIND_RESERVE_IN_ORDER = " SELECT * FROM reserves WHERE user_id = ? AND product_id = ?";
-    private static final String FIND_ORDER_FOR_RESERVE = "SELECT reserve_id, reserves.product_id,reserves.user_id, orders.product_id,orders.user_id from reserves full join orders on reserves.user_id = orders.user_id where orders.user_id = ? and orders.product_id  LIKE ?";
+    private static final String FIND_ORDER_FOR_RESERVE = "SELECT reserve_id, reserves.product_id,reserves.user_id, orders.product_id,orders.user_id FROM reserves FULL JOIN orders ON reserves.user_id = orders.user_id WHERE orders.user_id = ? and orders.product_id LIKE ?";
     private static final String DELETE_RESERVE_BY_USER_ID = " DELETE FROM reserves WHERE user_id = ?";
     private static final String COUNT_RESERVES_FOR_USER = "SELECT COUNT(reserve_id) FROM reserves WHERE user_id = ?";
     private static final String FIND_RESERVES_BY_USER_ID_LIMIT_QUERY = "SELECT * FROM reserves WHERE user_id = ? LIMIT ? OFFSET ?";
@@ -34,6 +33,7 @@ public class ReserveDAOImpl implements ReserveDAO {
 
 
     /*TODO provide implementation*/
+    /**Functionality not yet implemented*/
 
     @Override
     public ReserveRow get(ReserveRow reserve) throws DAOException {
@@ -66,28 +66,30 @@ public class ReserveDAOImpl implements ReserveDAO {
         return null;
     }
 
+    /**Functionality not yet implemented*/
+
     @Override
     public ReserveRow getById(Long id) {
         return null;
     }
 
 
-
+    /**Functionality not yet implemented*/
     @Override
     public List<ReserveRow> getAll() {
         return null;
     }
 
     @Override
-    public boolean orderForReserveExists(ReserveRow reserveRow) {
+    public boolean orderForReserveExists(ReserveRow reserveRow) throws DAOException {
         Connection connection = null;
         PreparedStatement statement = null;
-        String parameterForLike = "%" + String.valueOf(reserveRow.getProductId()) + "%";
+        String parameterForLikeQuery = "%" + String.valueOf(reserveRow.getProductId()) + "%";
         try{
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(FIND_ORDER_FOR_RESERVE);
             statement.setLong(1,reserveRow.getUserId());
-            statement.setString(2,parameterForLike);
+            statement.setString(2,parameterForLikeQuery);
             if (statement.executeUpdate() > 0){
                 return  true;
             }else
@@ -112,18 +114,20 @@ public class ReserveDAOImpl implements ReserveDAO {
             statement.setLong(2,reserve.getProductId());
             return (statement.executeUpdate() != 0);
         }catch (SQLException e){
-            throw  new DAOException("couldn't save reserve",e);
+            throw  new DAOException(e);
         }finally {
             closeStatement(statement);
             connectionPool.releaseConnection(connection);
         }
     }
 
+    /**Functionality not yet implemented*/
     @Override
     public boolean delete(ReserveRow reserve) {
         return false;
     }
 
+    /**Functionality not yet implemented*/
     @Override
     public boolean update(ReserveRow reserve) {
         return false;
@@ -159,7 +163,7 @@ public class ReserveDAOImpl implements ReserveDAO {
     }
 
     @Override
-    public List<ReserveRow> getReservesForUser(Long userId) {
+    public List<ReserveRow> getReservesForUser(Long userId) throws DAOException {
 
         Connection connection = null;
         PreparedStatement statement = null;
@@ -191,7 +195,7 @@ public class ReserveDAOImpl implements ReserveDAO {
     }
 
     @Override
-    public int countReservesForUser(long userId) {
+    public int countReservesForUser(long userId) throws DAOException {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -215,7 +219,7 @@ public class ReserveDAOImpl implements ReserveDAO {
     }
 
     @Override
-    public boolean deleteByUserId(Long userId) {
+    public boolean deleteByUserId(Long userId) throws DAOException {
         Connection connection = null;
         PreparedStatement statement = null;
         try{
@@ -261,7 +265,7 @@ public class ReserveDAOImpl implements ReserveDAO {
             }
             return reservations;
         } catch (SQLException e) {
-            throw new DAOException("Error in DAO method", e);
+            throw new DAOException(e);
         } finally {
             closeResultSet(resultSet);
             closeStatement(preparedStatement);

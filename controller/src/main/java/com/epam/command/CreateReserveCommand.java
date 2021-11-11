@@ -2,13 +2,11 @@ package com.epam.command;
 
 import com.epam.ReserveService;
 import com.epam.ServiceFactory;
-import com.epam.UserService;
 import com.epam.command.exception.ControllerException;
 import com.epam.entity.Reserve;
 import com.epam.exception.ServiceException;
 
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -37,7 +35,7 @@ public class CreateReserveCommand implements AbstractCommand {
 //            if (!reserveService.productExistsInOrder(reserve)) {
                 if (reserveService.save(reserve)) {
 //                    request.setAttribute("reserveMessage", "Product successfully added to Order list");
-                    request.getSession().setAttribute("message", "Product successfully added to Order list");
+                    request.getSession().setAttribute("message", "Product successfully added to Reserve list");
                     pageForRedirect = "frontController?command=goToPage&address=main.jsp";
                 } else {
 //                    request.setAttribute("reserveMessage", "Product is not added to Reserve list! Order for you already exists.");

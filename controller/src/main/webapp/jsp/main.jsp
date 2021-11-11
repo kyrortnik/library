@@ -24,14 +24,14 @@
     </div>
             <div>
                 <table>
-                    <thead>
-                    <tr>
-                        <td></td>
-                        <td><h4><c:out value="${title}"/></h4></td>
-                        <td><h4><c:out value="${author}"/></h4></td>
-                        <td><h4><c:out value="${publishingYear}"/></h4></td>
-                    </tr>
-                    </thead>
+<!--                    <thead>-->
+<!--                    <tr>-->
+<!--                        <td></td>-->
+<!--                        <td><h4><c:out value="${title}"/></h4></td>-->
+<!--                        <td><h4><c:out value="${author}"/></h4></td>-->
+<!--                        <td><h4><c:out value="${publishingYear}"/></h4></td>-->
+<!--                    </tr>-->
+<!--                    </thead>-->
 
                     <tbody>
                     <c:forEach items="${requestScope.pageable.elements}" var="productRow">
@@ -87,8 +87,15 @@
             </form>
         </div>
         <div>
+            <c:if test="${not empty requestScope.pageableReserves.elements}">
+                <div>
+                    <form id="createOrder" method="POST" action="frontController">
+                        <input type="hidden" name="command" value="createOrder"/>
+                        <button form ="createOrder" type="submit">${createOrder}</button>
+                    </form>
+                </div>
             <table>
-                <thead>
+             <!--   <thead>
                 <tr>
                     <td></td>
                     <td><h4><c:out value="${title}"/></h4></td>
@@ -96,7 +103,7 @@
                     <td><h4><c:out value="${publisher}"/></h4></td>
                     <td><h4><c:out value="${publishingYear}"/></h4></td>
                 </tr>
-                </thead>
+                </thead>-->
 
                 <tbody>
                 <c:forEach items="${requestScope.pageableReserves.elements}" var="reserveRow">
@@ -111,12 +118,7 @@
                 </c:forEach>
                 </tbody>
             </table>
-            <div>
-                <form id="createOrder" method="POST" action="frontController">
-                    <input type="hidden" name="command" value="createOrder"/>
-                    <button form ="createOrder" type="submit">${createOrder}</button>
-                </form>
-            </div>
+
             <div style="margin-left: center">
                 <c:forEach begin="1" end="${Math.ceil(pageableReserves.totalElements / pageableReserves.limit)}" var="j">
                     <c:if test="${j == pageableReserves.pageNumber}">
@@ -131,9 +133,8 @@
                     </c:if>
                 </c:forEach>
 
-
-
             </div>
+            </c:if>
         </div>
 
         <!-----------SHOW ORDER INFO ------------------------->
@@ -145,7 +146,7 @@
 
         <div>
             <table>
-                <thead>
+               <!-- <thead>
                 <tr>
                     <td></td>
                     <td><h4><c:out value="${title}"/></h4></td>
@@ -153,7 +154,7 @@
                     <td><h4><c:out value="${publisher}"/></h4></td>
                     <td><h4><c:out value="${publishingYear}"/></h4></td>
                 </tr>
-                </thead>
+                </thead>-->
 
                 <tbody>
 

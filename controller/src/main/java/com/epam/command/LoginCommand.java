@@ -5,6 +5,7 @@ import com.epam.entity.User;
 import com.epam.ServiceFactory;
 import com.epam.UserService;
 import com.epam.entity.UserDTO;
+import com.epam.exception.ServiceException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -53,7 +54,7 @@ public class LoginCommand implements AbstractCommand {
             request.getSession().setAttribute("lastCommand",addressForRedirect);
             response.sendRedirect(addressForRedirect);
 
-        }catch (IOException e){
+        }catch (IOException | ServiceException e){
             throw new ControllerException(e);
         }
 
