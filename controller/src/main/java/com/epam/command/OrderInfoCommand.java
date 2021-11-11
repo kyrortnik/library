@@ -12,14 +12,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.logging.Logger;
 
-import static com.epam.command.util.ControllerConstants.*;
-
-public class OrderInfoCommand implements AbstractCommand{
+public class OrderInfoCommand implements Command {
 
 
     private OrderService orderService = ServiceFactory.getInstance().createOrderService();
@@ -45,7 +41,7 @@ public class OrderInfoCommand implements AbstractCommand{
                     request.setAttribute("orderMessage","No books in your order yet.");
                 }
                 }
-            String lastCommand = AbstractCommand.defineCommand(request,false);
+            String lastCommand = Command.defineCommand(request,false);
             request.getSession().setAttribute("lastCommand",lastCommand);
             request.getRequestDispatcher("/jsp/main.jsp").forward(request, response);
 

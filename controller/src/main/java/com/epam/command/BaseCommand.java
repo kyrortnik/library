@@ -5,7 +5,7 @@ package com.epam.command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class BaseCommand implements AbstractCommand {
+public class BaseCommand implements Command {
 
     public BaseCommand() {
     }

@@ -15,6 +15,8 @@ public interface OrderService {
 
     boolean update(Order order) throws ServiceException;
 
+    boolean deleteFromOrder(Order order) throws ServiceException;
+
     boolean delete(Order order) throws ServiceException;
 
     List<Order> getAll() throws ServiceException;

@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.logging.Logger;
 
-public class ShowReservesCommand implements AbstractCommand{
+public class ShowReservesCommand implements Command {
 
     private ReserveService reserveService = ServiceFactory.getInstance().createReserveService();
     private BookService bookService = ServiceFactory.getInstance().createBookService();
@@ -91,7 +91,7 @@ public class ShowReservesCommand implements AbstractCommand{
             pageableReserves.setPageNumber(currentPage);
             pageableReserves.setTotalElements(numberOfReserves);
 
-            String lastCommand = AbstractCommand.defineCommand(request,true);
+            String lastCommand = Command.defineCommand(request,true);
             request.getSession().setAttribute("lastCommand",lastCommand);
 
             if (pageableReserves.getElements().isEmpty()){

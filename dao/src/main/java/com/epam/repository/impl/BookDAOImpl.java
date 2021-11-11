@@ -47,7 +47,7 @@ public class BookDAOImpl implements BookDAO {
 
 
     @Override
-    public BookRow get(BookRow bookRow) throws DAOException {
+    public BookRow find(BookRow bookRow) throws DAOException {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -86,7 +86,7 @@ public class BookDAOImpl implements BookDAO {
     }
 
     @Override
-    public BookRow getById(Long id) throws DAOException {
+    public BookRow findById(Long id) throws DAOException {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;

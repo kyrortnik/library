@@ -7,14 +7,13 @@ import com.epam.UserService;
 import com.epam.entity.UserDTO;
 import com.epam.exception.ServiceException;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.logging.Logger;
 
 
-public class LoginCommand implements AbstractCommand {
+public class LoginCommand implements Command {
 
     private static final Logger log = Logger.getLogger(LoginCommand.class.getName());
 

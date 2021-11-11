@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
             return null;
         }
         try {
-            user = userDAO.get(user);
+            user = userDAO.find(user);
             return (user == null) ? null : new UserDTO(user);
         } catch (DAOException e) {
             throw new ServiceException(e);
@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
         if (!validation(user)){
             return null;
         }try{
-            return new UserDTO(userDAO.get(user));
+            return new UserDTO(userDAO.find(user));
         }catch (DAOException e){
             throw new ServiceException(e);
         }
@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
         if (!validation(id)) {
             return null;
         } try{
-                return userDAO.getById(id);
+                return userDAO.findById(id);
             }catch (DAOException e){
                 throw new ServiceException(e);
             }

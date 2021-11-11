@@ -21,23 +21,39 @@ public class ReserveServiceImpl implements ReserveService {
         try{
             ReserveRow reserveRow = convertToReserveRow(reserve);
             ReserveRow foundReserveRow = reserveDAO.getByUserAndProductId(reserveRow);
-            boolean sameReserveNotFound = !reserveRow.getProductId().equals(foundReserveRow.getProductId())
-                    && !reserveRow.getUserId().equals(foundReserveRow.getUserId());
-            if (sameReserveNotFound){
+            if (foundReserveRow == null){
                 return reserveDAO.save(reserveRow);
             }else {
                 return false;
             }
-
         }catch (DAOException e){
             throw new ServiceException(e);
         }
     }
 
 
+    @Override
+    public boolean delete(Reserve reserve) throws ServiceException {
+        try{
+            ReserveRow reserveRow = convertToReserveRow(reserve);
+            ReserveRow foundRow = reserveDAO.getByUserAndProductId(reserveRow);
+            if (Objects.nonNull(foundRow)){
+              return reserveDAO.delete(foundRow);
+            }else {
+                return true;
+            }
+        }catch (Exception e){
+            throw new ServiceException(e);
+        }
 
+    }
 
-/**
+   /* @Override
+    public Reserve findReserveByUserAndProduct(Reserve reserve) throws ServiceException {
+        return null;
+    }*/
+
+    /**
  * Functionality not yet implemented
  * */
 
@@ -50,6 +66,7 @@ public class ReserveServiceImpl implements ReserveService {
         }
 
     }
+
 
     @Override
     public List<Reserve> getReservesForUser(Long userId) throws ServiceException {

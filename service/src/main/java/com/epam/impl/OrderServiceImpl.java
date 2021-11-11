@@ -8,8 +8,8 @@ import com.epam.repository.DAOFactory;
 import com.epam.repository.OrderDAO;
 import com.epam.OrderService;
 
+import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,6 +46,28 @@ public class OrderServiceImpl implements OrderService {
             throw new ServiceException(e);
         }
 
+    }
+
+    @Override
+    public boolean deleteFromOrder(Order order) throws ServiceException {
+        try{
+            StringBuilder updatedProducts = new StringBuilder();
+            String productToRemove = order.getProductIds();
+            Order foundOrder = orderDAO.find(order);
+            String[] oldProducts = foundOrder.getProductIds().split(" ");
+            for (int i = 0;i<oldProducts.length;i++){
+                if (!oldProducts[i].equals(productToRemove)){
+                    updatedProducts.append(oldProducts[i]).append(" ");
+                }
+            }
+            if (orderDAO.deleteFromOrder(order, updatedProducts.toString().trim()) && orderDAO.find(foundOrder).getProductIds().equals("")){
+                return orderDAO.delete(foundOrder);
+            }else {
+                return false;
+            }
+        }catch (Exception e){
+            throw new ServiceException(e);
+        }
     }
 
     @Override

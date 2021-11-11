@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class CreateOrderCommand implements AbstractCommand {
+public class CreateOrderCommand implements Command {
 
     private ServiceFactory serviceFactory = ServiceFactory.getInstance();
 
@@ -35,33 +35,16 @@ public class CreateOrderCommand implements AbstractCommand {
 
             long userId = (Long) request.getSession().getAttribute("id");
             List<Reserve> reserveList = reserveService.getReservesForUser(userId);
-
             String lastCommand = "frontController?command=goToPage&address=main.jsp";
 
 
+            /**TODO check that order for user doesn't exist*/
                 if (orderService.productsAlreadyOrdered(reserveList)){
                     request.setAttribute("message","Some product/s on the list is already ordered!");
                     request.getSession().setAttribute("lastCommand",lastCommand);
                     request.getRequestDispatcher("/jsp/main.jsp").forward(request, response);
                 }else{
                     Order order = createOrder(userId, reserveList);
- /*                   if (orderService.save(order)) {
-                        if (reserveService.deleteReservesByUserId(userId)) {
-                            request.setAttribute("productAddedToOrder", "Products ordered! Visit library to get them");
-                        } else {
-                            request.setAttribute("errorNoCreateOrder", "Products are not ordered!Unable to delete user reserves");
-                        }
-
-                    } else {
-
-                        if (orderService.update(order)) {
-                            reserveService.deleteReservesByUserId(userId);
-                            request.setAttribute("productAddedToOrder", "Products ordered! Visit library to get them");
-                        } else {
-                            request.setAttribute("errorNoCreateOrder", "Products are not ordered!Unable to delete user reserves");
-                        }
-                        // request.setAttribute("errorNoCreateOrder","Products are not ordered!!");
-                    }*/
                     if (orderService.save(order) && reserveService.deleteReservesByUserId(userId)){
                         request.setAttribute("productAddedToOrder", "Products ordered! Visit library to get them");
                     }else{

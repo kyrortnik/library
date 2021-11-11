@@ -11,9 +11,9 @@ import java.util.List;
 
 public interface AbstractDAO<T> {
 
-    T get(T t) throws DAOException;
+    T find(T t) throws DAOException;
 
-    T getById(Long id) throws DAOException;
+    T findById(Long id) throws DAOException;
 
     List<T> getAll() throws DAOException;
 

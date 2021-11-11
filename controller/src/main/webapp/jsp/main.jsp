@@ -14,6 +14,9 @@
 <!--    <h3>${message}</h3>-->
     <c:out value ="${requestScope.reserveMessage}"/>
     <c:if test="${sessionScope.role != null}">
+        <div>
+            <h3>${sessionScope.deleteMessage}</h3>
+        </div>
 <!-----------MAIN------------------------->
 <!-----------SHOW PRODUCTS ------------------------->
     <div>
@@ -57,6 +60,13 @@
                                     <br/>
                                 </form>-->
 
+                            </td>
+                            <td>
+                                <form  method="GET" action="frontController" >
+                                    <input type="hidden" name="command" value="createReserve" />
+                                    <input type="hidden" name="bookId" value="${productRow.id}" />
+                                    <button type="submit">Create reserve</button><br/>
+                                </form>
                             </td>
                         </tr>
                     </c:forEach>
@@ -109,6 +119,13 @@
                         <td>${reserveRow.author}</td>
                         <td>${reserveRow.publisher}</td>
                         <td>${reserveRow.publishingYear}</td>
+                        <td>
+                            <form  method="POST" action="frontController" >
+                                <input type="hidden" name="command" value="deleteReserve" />
+                                <input type="hidden" name="bookId" value="${reserveRow.id}" />
+                                <button type="submit">Delete reserve</button><br/>
+                            </form>
+                        </td>
                     </tr>
                 </c:forEach>
 
@@ -178,17 +195,16 @@
                             <td>${bookFromOrder.author}</td>
                             <td>${bookFromOrder.publisher}</td>
                             <td>${bookFromOrder.publishingYear}</td>
-                            <!--   <td>
+                               <td>
                                     <form method = "POST" action="frontController">
-                                        <input type = "hidden" name ="command" value ="createReserve"/>
-                                        <input type = "hidden" name="productId" value="${reserveRow.id}"/>
-                                        <input type="submit" value ="Reserve this Book">
+                                        <input type = "hidden" name ="command" value ="deleteProductFromOrder"/>
+                                        <input type = "hidden" name="bookId" value="${bookFromOrder.id}"/>
+                                        <input type="submit" value ="Delete from Order">
                                         <br/>
-                                        ${message}
                                         <br/>
                                     </form>
 
-                               </td>-->
+                               </td>
                         </tr>
                     </c:if>
 

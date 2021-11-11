@@ -14,5 +14,8 @@ public interface OrderDAO extends AbstractDAO<Order> {
     @Override
     boolean update(Order order) throws DAOException;
 
+
+    boolean deleteFromOrder(Order orderToUpdate,String newProducts) throws DAOException;
+
 //    Order getByUserIdAndProductId(Long userId,Long productId);
 }

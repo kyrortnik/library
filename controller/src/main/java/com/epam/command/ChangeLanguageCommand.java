@@ -2,12 +2,11 @@ package com.epam.command;
 
 import com.epam.command.exception.ControllerException;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class ChangeLanguageCommand implements AbstractCommand{
+public class ChangeLanguageCommand implements Command {
     @Override
 
 

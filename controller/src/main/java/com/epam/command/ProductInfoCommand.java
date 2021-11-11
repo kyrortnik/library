@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-public class ProductInfoCommand implements AbstractCommand {
+public class ProductInfoCommand implements Command {
 
     private static final String MESSAGE = "message";
     private ServiceFactory serviceFactory = ServiceFactory.getInstance();
@@ -33,7 +33,7 @@ public class ProductInfoCommand implements AbstractCommand {
                 request.setAttribute("noSuchProduct", "No such product was found");
             }
 
-            String lastCommand = AbstractCommand.defineCommand(request,false);
+            String lastCommand = Command.defineCommand(request,false);
             request.getSession().setAttribute("lastCommand",lastCommand);
            request.getRequestDispatcher("/jsp/productInfo.jsp").forward(request,response);
 

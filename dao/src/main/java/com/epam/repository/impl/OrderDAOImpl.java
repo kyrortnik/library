@@ -34,7 +34,7 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public Order get(Order order) throws DAOException {
+    public Order find(Order order) throws DAOException {
 
         Connection connection = null;
         PreparedStatement statement = null;
@@ -44,11 +44,10 @@ public class OrderDAOImpl implements OrderDAO {
             statement = connection.prepareStatement(FIND_ORDER);
             statement.setLong(1,order.getUserId());
             resultSet = statement.executeQuery();
-            while (resultSet.next()){
+            if (resultSet.next()){
                 order.setId(resultSet.getLong(1));
                 order.setProductIds(resultSet.getString(2));
                 order.setUserId(resultSet.getLong(3));
-            }if (!order.getProductIds().equals("") && order.getUserId() != 0){
                 return order;
             }
             log.info("Couldn't find requested Order");
@@ -78,7 +77,7 @@ public class OrderDAOImpl implements OrderDAO {
 
     /**Functionality not yet implemented*/
     @Override
-    public Order getById(Long id) {
+    public Order findById(Long id) {
         throw new UnsupportedOperationException();
     }
 
@@ -157,7 +156,10 @@ public class OrderDAOImpl implements OrderDAO {
         String orderToAdd = order.getProductIds();
         Connection connection = null;
         PreparedStatement statement = null;
-        Order orderToUpdate = get(order);
+        Order orderToUpdate = find(order);
+        if (orderToUpdate == null){
+            return false;
+        }
         String newProducts = orderToUpdate.getProductIds() +" "+ orderToAdd;
         try{
             connection = connectionPool.getConnection();
@@ -173,7 +175,25 @@ public class OrderDAOImpl implements OrderDAO {
         }
     }
 
- /*   @Override
+    @Override
+    public boolean deleteFromOrder(Order orderToUpdate,String newProducts) throws DAOException {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try{
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(UPDATE_ORDER);
+            statement.setString(1,newProducts);
+            statement.setLong(2,orderToUpdate.getUserId());
+            return statement.executeUpdate() > 0;
+        }catch (SQLException e){
+            throw new DAOException(e);
+        }finally {
+            closeStatement(statement);
+            connectionPool.releaseConnection(connection);
+        }
+    }
+
+    /*   @Override
     public Order getByUserId(Order order) throws DAOException {
         Connection connection = null;
         PreparedStatement statement = null;

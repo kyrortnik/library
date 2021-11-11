@@ -13,6 +13,12 @@ public interface ReserveDAO extends AbstractDAO<ReserveRow>{
 
     boolean deleteByUserId(Long userId) throws DAOException;
 
+    @Override
+    boolean delete(ReserveRow reserveRow) throws DAOException;
+
+    @Override
+    ReserveRow find(ReserveRow reserveRow) throws DAOException;
+
     boolean orderForReserveExists(ReserveRow reserveRow) throws DAOException;
 
     int countReservesForUser(long userId) throws DAOException;

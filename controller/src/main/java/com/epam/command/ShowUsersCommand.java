@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-public class ShowUsersCommand implements AbstractCommand{
+public class ShowUsersCommand implements Command {
 
     private ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private UserService userService = serviceFactory.createUserService();

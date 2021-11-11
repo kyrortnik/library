@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-public class CreateReserveCommand implements AbstractCommand {
+public class CreateReserveCommand implements Command {
 
     private ReserveService reserveService = ServiceFactory.getInstance().createReserveService();
 
@@ -33,7 +33,7 @@ public class CreateReserveCommand implements AbstractCommand {
             String pageForRedirect;
 
             Reserve reserve = new Reserve(userId, bookId);
-            String lastCommand = AbstractCommand.defineCommand(request,false);
+            String lastCommand = Command.defineCommand(request,false);
             request.getSession().setAttribute("lastCommand",lastCommand);
             request.setAttribute("bookId",bookId);
 //            if (!reserveService.productExistsInOrder(reserve)) {
@@ -47,6 +47,7 @@ public class CreateReserveCommand implements AbstractCommand {
                     request.setAttribute("reserveErrorMessage","Product is not added to Reserve list! Order for you already exists.");
 //                    request.setAttribute("backURL","frontController?command=goToPage&address=productInfo.jsp" + "&bookId=" + bookId);
                     pageForRedirect = "frontController?command=goToPage&address=productInfo.jsp";
+//                    pageForRedirect = (String)request.getSession().getAttribute("lastCommand");
                     request.getRequestDispatcher(pageForRedirect).forward(request,response);
                 }
         } catch (ServiceException | IOException | ServletException e) {

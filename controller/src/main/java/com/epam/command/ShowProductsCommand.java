@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 
 import static com.epam.command.util.ControllerConstants.*;
 
-public class ShowProductsCommand implements AbstractCommand{
+public class ShowProductsCommand implements Command {
 
     private BookService bookService = ServiceFactory.getInstance().createBookService();
     private static final Logger log = Logger.getLogger(ShowProductsCommand.class.getName());
@@ -52,7 +52,7 @@ public class ShowProductsCommand implements AbstractCommand{
 
              Page<Book> pageable = bookService.getAll(pageableRequest);
 
-             String lastCommand = AbstractCommand.defineCommand(request,true);
+             String lastCommand = Command.defineCommand(request,true);
 
              request.setAttribute("pageable",pageable);
              request.getSession().setAttribute("lastCommand",lastCommand);

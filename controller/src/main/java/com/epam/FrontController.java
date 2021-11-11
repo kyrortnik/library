@@ -1,6 +1,6 @@
 package com.epam;
 
-import com.epam.command.AbstractCommand;
+import com.epam.command.Command;
 import com.epam.command.exception.ControllerException;
 import com.epam.command.factory.CommandFactory;
 
@@ -25,7 +25,7 @@ public class FrontController extends HttpServlet {
 
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response)  {
-        AbstractCommand command;
+        Command command;
         command = CommandFactory.getInstance().defineCommand(request);
         try{
              command.execute(request,response);

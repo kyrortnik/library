@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-public class LogoutCommand implements AbstractCommand {
+public class LogoutCommand implements Command {
    // Receiver receiver;
    private static final Logger log = Logger.getLogger(LogoutCommand.class.getName());
 

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 
-public class ShowOrdersCommand implements AbstractCommand{
+public class ShowOrdersCommand implements Command {
 
     private OrderService serviceFactory = ServiceFactory.getInstance().createOrderService();
     private static final Logger log = Logger.getLogger(ShowOrdersCommand.class.getName());

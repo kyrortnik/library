@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 import static com.epam.command.util.ControllerConstants.*;
 
-public class GoToPageCommand implements AbstractCommand{
+public class GoToPageCommand implements Command {
 
     private static final Logger log = Logger.getLogger(GoToPageCommand.class.getName());
 

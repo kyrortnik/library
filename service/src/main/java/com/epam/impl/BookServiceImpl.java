@@ -54,7 +54,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book findById(Long id) throws ServiceException {
         try{
-            return convertToBook(bookDAO.getById(id));
+            return convertToBook(bookDAO.findById(id));
         }catch (DAOException e){
             throw new ServiceException(e);
         }
@@ -67,7 +67,7 @@ public class BookServiceImpl implements BookService {
             List<BookRow> bookRows = new ArrayList<>();
             BookRow bookRow;
             for (Reserve reserve : reserves){
-                bookRow = bookDAO.getById(reserve.getProductId());
+                bookRow = bookDAO.findById(reserve.getProductId());
                 bookRows.add(bookRow);
             }
 

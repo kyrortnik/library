@@ -45,11 +45,16 @@ public enum TypeCommand {
     },
     CHANGELANGUAGE{
         {this.command = new ChangeLanguageCommand();}
+    },
+    DELETERESERVE{
+        {this.command = new DeleteReserveCommand();}
+    },
+    DELETEPRODUCTFROMORDER{
+        {this.command = new DeleteProductFromOrder();}
     };
-
-    public AbstractCommand getCurrentCommand() {
+    public Command getCurrentCommand() {
         return command;
     }
 
-    AbstractCommand command;
+    Command command;
 }

@@ -28,7 +28,7 @@ public class UserDAOImpl implements UserDAO {
 
 
     @Override
-    public User get(User user) throws DAOException {
+    public User find(User user) throws DAOException {
 
         Connection connection = null;
         PreparedStatement statement = null;
@@ -65,7 +65,7 @@ public class UserDAOImpl implements UserDAO {
 
 
     @Override
-    public User getById(Long id) throws DAOException {
+    public User findById(Long id) throws DAOException {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;

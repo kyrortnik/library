@@ -18,13 +18,15 @@ public class ReserveDAOImpl implements ReserveDAO {
 
     private static final String SAVE_RESERVE = "INSERT INTO reserves VALUES (DEFAULT,?,?)";
     private static final String FIND_RESERVES_FOR_USER = " SELECT * FROM reserves WHERE user_id = ?";
+    private static final String FIND_RESERVE_BY_ID = "SELECT * FROM reserves WHERE reserve_id = ?";
 //    private static final String FIND_RESERVES_FOR_USER ="SELECT reserve_id, reserves.user_id, reserves.product_id from reserves FULL JOIN orders ON reserves.user_id = orders.user_id WHERE reserves.user_id = ? AND order_id IS NULL";
-    private static final String FIND_RESERVE_IN_ORDER = " SELECT * FROM reserves WHERE user_id = ? AND product_id = ?";
+    private static final String FIND_RESERVE_BY_USER_AND_PRODUCT = " SELECT * FROM reserves WHERE user_id = ? AND product_id = ?";
     private static final String FIND_ORDER_FOR_RESERVE = "SELECT reserve_id, reserves.product_id,reserves.user_id, orders.product_id,orders.user_id FROM reserves FULL JOIN orders ON reserves.user_id = orders.user_id WHERE orders.user_id = ? and orders.product_id LIKE ?";
     private static final String DELETE_RESERVE_BY_USER_ID = " DELETE FROM reserves WHERE user_id = ?";
     private static final String COUNT_RESERVES_FOR_USER = "SELECT COUNT(reserve_id) FROM reserves WHERE user_id = ?";
     private static final String FIND_RESERVES_BY_USER_ID_LIMIT_QUERY = "SELECT * FROM reserves WHERE user_id = ? LIMIT ? OFFSET ?";
 //    private static final String FIND_RESERVES_BY_USER = "SELECT * FROM reserves WHERE user_id = ?";
+    private static final String DELETE_RESERVE = "DELETE FROM reserves WHERE reserve_id = ?";
 
     PropertyInitializer propertyInitializer = new PropertyInitializer();
     protected ConnectionPool connectionPool = new ConnectionPoolImpl(propertyInitializer);
@@ -32,44 +34,38 @@ public class ReserveDAOImpl implements ReserveDAO {
     private static final int MAX_ROWS = 5;
 
 
-    /*TODO provide implementation*/
-    /**Functionality not yet implemented*/
-
     @Override
-    public ReserveRow get(ReserveRow reserve) throws DAOException {
-     /*   Connection connection = null;
+    public ReserveRow find(ReserveRow reserveRow) throws DAOException {
+        Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         ReserveRow foundRow = new ReserveRow();
-        Long userId = reserve.getUserId();
-        Long productId = reserve.getProductId();
-
+        Long reserveId = reserveRow.getId();
         try{
             connection = connectionPool.getConnection();
-            statement = connection.prepareStatement(FIND_RESERVE_IN_ORDER);
-            statement.setLong(1,userId);
-            statement.setString(2,String.valueOf(productId));
+            statement = connection.prepareStatement(FIND_RESERVE_BY_ID);
+            statement.setLong(1,reserveId);
             resultSet = statement.executeQuery();
-            while(resultSet.next()){
-                foundOrder.setId(resultSet.getLong(1));
-                foundOrder.setProductIds(resultSet.getString(2));
-                foundOrder.setUserId(resultSet.getLong(3));
+            if(resultSet.next()){
+                foundRow.setId(resultSet.getLong(1));
+                foundRow.setProductId(resultSet.getLong(2));
+                foundRow.setUserId(resultSet.getLong(3));
+                return foundRow;
             }
-            return foundOrder;
+            return null;
         }catch (SQLException e){
             throw new DAOException(e);
         }finally {
             closeResultSet(resultSet);
             closeStatement(statement);
             connectionPool.releaseConnection(connection);
-        }*/
-        return null;
+        }
     }
 
     /**Functionality not yet implemented*/
 
     @Override
-    public ReserveRow getById(Long id) {
+    public ReserveRow findById(Long id) {
         return null;
     }
 
@@ -121,10 +117,23 @@ public class ReserveDAOImpl implements ReserveDAO {
         }
     }
 
-    /**Functionality not yet implemented*/
+
     @Override
-    public boolean delete(ReserveRow reserve) {
-        return false;
+    public boolean delete(ReserveRow reserve) throws DAOException {
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try{
+            connection  = connectionPool.getConnection();
+            statement = connection.prepareStatement(DELETE_RESERVE);
+            statement.setLong(1,reserve.getId());
+            return statement.executeUpdate() > 0;
+        }catch (Exception e){
+            throw new DAOException(e);
+        }finally {
+            closeStatement(statement);
+            connectionPool.releaseConnection(connection);
+        }
     }
 
     /**Functionality not yet implemented*/
@@ -138,20 +147,22 @@ public class ReserveDAOImpl implements ReserveDAO {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        ReserveRow foundReserveRow = new ReserveRow();
+        ReserveRow foundReserveRow;
         try{
             connection = connectionPool.getConnection();
-            statement = connection.prepareStatement(FIND_RESERVE_IN_ORDER);
+            statement = connection.prepareStatement(FIND_RESERVE_BY_USER_AND_PRODUCT);
             statement.setLong(1,reserve.getUserId());
             statement.setLong(2,reserve.getProductId());
             resultSet = statement.executeQuery();
-            while (resultSet.next()){
+            if (resultSet.next()){
                 foundReserveRow = new ReserveRow(
+                        resultSet.getLong(1),
                         resultSet.getLong(2),
                         resultSet.getLong(3)
                 );
+                return foundReserveRow;
             }
-            return foundReserveRow;
+           return null;
         }catch (SQLException e){
             throw new DAOException(e);
         }finally {
