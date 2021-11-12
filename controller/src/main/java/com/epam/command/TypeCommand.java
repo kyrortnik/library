@@ -11,7 +11,7 @@ public enum TypeCommand {
     REGISTRATION {
         {this.command = new RegistrationCommand();}
     },
-    SHOW_USERS {
+    SHOWUSERS {
         {this.command = new ShowUsersCommand();}
     },
 

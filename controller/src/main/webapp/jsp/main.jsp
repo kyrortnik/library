@@ -240,12 +240,74 @@
 
     <!-----------------ADMIN SHOW USERS -------------------->
 
+    <h3>Show users</h3>
+
+    <div>
+        <form id ="showUsers" method="GET" action ="frontController">
+            <input type="hidden" name = "command" value="showUsers" />
+            <button form ="showUsers" type ="submit">Show Users</button>
+        </form>
+    </div>
+    <div>
+        <c:if test="${not empty requestScope.pageableUsers.elements}">
+
+            <table>
+                <!--   <thead>
+                   <tr>
+                       <td></td>
+                       <td><h4><c:out value="${title}"/></h4></td>
+                       <td><h4><c:out value="${author}"/></h4></td>
+                       <td><h4><c:out value="${publisher}"/></h4></td>
+                       <td><h4><c:out value="${publishingYear}"/></h4></td>
+                   </tr>
+                   </thead>-->
+
+                <tbody>
+                <c:forEach items="${requestScope.pageableUsers.elements}" var="userRow">
+                    <tr>
+                        <td>
+                        </td>
+                        <td>${userRow.id}</td>
+                        <td>${userRow.login}</td>
+                        <td>${userRow.role}</td>
+<!--                        <td>-->
+<!--                            <form  method="POST" action="frontController" >-->
+<!--                                <input type="hidden" name="command" value="deleteReserve" />-->
+<!--                                <input type="hidden" name="bookId" value="${reserveRow.id}" />-->
+<!--                                <button type="submit">Delete reserve</button><br/>-->
+<!--                            </form>-->
+<!--                        </td>-->
+                    </tr>
+                </c:forEach>
+
+                </tbody>
+            </table>
+
+            <div style="margin-left: center">
+                <c:forEach begin="1" end="${Math.ceil(pageableUsers.totalElements / pageableUsers.limit)}" var="j">
+                    <c:if test="${j == pageableUsers.pageNumber}">
+                            <span>
+                                <button style="color:red" form="showUsers" type="submit" name="currentPageUser" value="${j}">${j}</button>
+                            </span>
+                    </c:if>
+                    <c:if test="${j != pageableUsers.pageNumber}">
+                            <span>
+                                <button form="showUsers" type="submit" name="currentPageUser" value="${j}">${j}</button>
+                            </span>
+                    </c:if>
+                </c:forEach>
+            </div>
+        </c:if>
+    </div>
+
 
     <!-----------------ADMIN SHOW ORDERS -------------------->
 
-
+    <h3>Show orders</h3>
 
     <!-----------------ADMIN SHOW RESERVES -------------------->
+
+    <h3>Show reserves</h3>
 
     </body>
 </html>

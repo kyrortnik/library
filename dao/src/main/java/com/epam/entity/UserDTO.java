@@ -7,7 +7,15 @@ public class UserDTO extends Entity{
 
     public UserDTO(){}
 
+
+
     public UserDTO(String login, String role) {
+        this.login = login;
+        this.role = role;
+    }
+
+    public UserDTO(Long id, String login, String role) {
+        super(id);
         this.login = login;
         this.role = role;
     }

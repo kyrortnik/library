@@ -1,6 +1,9 @@
 package com.epam.repository.impl;
 
+import com.epam.entity.BookRow;
+import com.epam.entity.Pageable;
 import com.epam.entity.User;
+import com.epam.entity.UserDTO;
 import com.epam.exception.DAOException;
 import com.epam.repository.ConnectionPool;
 import com.epam.repository.PropertyInitializer;
@@ -8,6 +11,8 @@ import com.epam.repository.UserDAO;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -21,6 +26,8 @@ public class UserDAOImpl implements UserDAO {
     private static final String UPDATE_USER = "UPDATE users SET login = ?, password = ? WHERE id = ? ";
     private static final String CHANGE_USER_PASSWORD = "UPDATE users SET password = ? WHERE password = ?";
     private static final String GET_ALL_USERS = "SELECT * FROM users";
+    private static final String COUNT_ALL = "SELECT count(user_id) FROM users";
+    private static final String FIND_PAGE_FILTERED_SORTED = "SELECT * FROM users p ORDER BY p.%s %s LIMIT ? OFFSET ?";
 
     PropertyInitializer propertyInitializer = new PropertyInitializer();
     protected ConnectionPool connectionPool = new ConnectionPoolImpl(propertyInitializer);
@@ -224,8 +231,8 @@ public class UserDAOImpl implements UserDAO {
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(GET_ALL_USERS);
             resultSet = statement.executeQuery();
-            User user = new User();
             while (resultSet.next()){
+                User user = new User();
                 user.setId(resultSet.getLong(1));
                 user.setLogin(resultSet.getString(2));
                 user.setPassword(resultSet.getString(3));
@@ -278,6 +285,103 @@ public class UserDAOImpl implements UserDAO {
             connectionPool.releaseConnection(connection);
         }
     }*/
+
+
+    @Override
+    public Pageable<UserDTO> findPageByFilter(Pageable<UserDTO> daoProductPageable) throws DAOException {
+        final int offset = (daoProductPageable.getPageNumber() - 1) * daoProductPageable.getLimit();
+        List<Object> parameters1 = Collections.emptyList(); // todo implement filtering
+        List<Object> parameters2 = Arrays.asList( // todo implement filtering
+                daoProductPageable.getLimit(),
+                offset
+        );
+        Connection connection = null;
+        PreparedStatement preparedStatement1 = null;
+        PreparedStatement preparedStatement2 = null;
+        ResultSet resultSet1 = null;
+        ResultSet resultSet2 = null;
+        try {
+            connection = connectionPool.getConnection();
+            preparedStatement1 = getPreparedStatement(COUNT_ALL, connection, parameters1);
+            final String findPageOrderedQuery =
+                    String.format(FIND_PAGE_FILTERED_SORTED, daoProductPageable.getSortBy(), daoProductPageable.getDirection());
+            preparedStatement2 = getPreparedStatement(findPageOrderedQuery, connection, parameters2);
+            resultSet1 = preparedStatement1.executeQuery();
+            resultSet2 = preparedStatement2.executeQuery();
+            // connection.commit();
+
+            return getBookRowPageable(daoProductPageable, resultSet1, resultSet2);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DAOException(e);
+        } finally {
+            closeResultSet(resultSet1);
+            closeResultSet(resultSet2);
+            closeStatement(preparedStatement1);
+            closeStatement(preparedStatement2);
+            connectionPool.releaseConnection(connection);
+        }
+    }
+
+
+    private Pageable<UserDTO> getBookRowPageable(Pageable<UserDTO> daoProductPageable,
+                                                 ResultSet resultSet1,
+                                                 ResultSet resultSet2) throws SQLException {
+        final Pageable<UserDTO> pageable = new Pageable<>();
+        long totalElements = 0L;
+        while (resultSet1.next()) {
+            totalElements = resultSet1.getLong(1);
+        }
+        final List<UserDTO> rows = new ArrayList<>();
+        while (resultSet2.next()) {
+            long id = resultSet2.getLong(1);
+            String login = resultSet2.getString(2);
+            String role = resultSet2.getString(4);
+
+            rows.add(new UserDTO(id,login,role));
+        }
+        pageable.setPageNumber(daoProductPageable.getPageNumber());
+        pageable.setLimit(daoProductPageable.getLimit());
+        pageable.setTotalElements(totalElements);
+        pageable.setElements(rows);
+        pageable.setFilter(daoProductPageable.getFilter());
+        pageable.setSortBy(daoProductPageable.getSortBy());
+        pageable.setDirection(daoProductPageable.getDirection());
+        return pageable;
+    }
+
+
+
+    protected PreparedStatement getPreparedStatement(String query, Connection connection,
+                                                     List<Object> parameters) throws SQLException {
+        final PreparedStatement preparedStatement = connection.prepareStatement(query);
+        setPreparedStatementParameters(preparedStatement, parameters);
+        return preparedStatement;
+    }
+
+    protected void setPreparedStatementParameters( PreparedStatement preparedStatement,
+                                                   List<Object> parameters) throws SQLException {
+        for (int i = 0, queryParameterIndex = 1; i < parameters.size(); i++, queryParameterIndex++) {
+            final Object parameter = parameters.get(i);
+            setPreparedStatementParameter(preparedStatement, queryParameterIndex, parameter);
+        }
+    }
+
+    protected void setPreparedStatementParameter( PreparedStatement preparedStatement,
+                                                  int queryParameterIndex,  Object parameter) throws SQLException {
+        if (Long.class == parameter.getClass()) {
+            preparedStatement.setLong(queryParameterIndex, (Long) parameter);
+        } else if (Integer.class == parameter.getClass()){
+            preparedStatement.setInt(queryParameterIndex, (Integer) parameter);
+        } else if (String.class == parameter.getClass()){
+            preparedStatement.setString(queryParameterIndex, (String) parameter);
+        }
+    }
+
+
+
+
+
 
     private void closeResultSet(ResultSet resultSet) {
         try{

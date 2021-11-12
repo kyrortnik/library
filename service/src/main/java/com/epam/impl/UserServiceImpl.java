@@ -1,14 +1,15 @@
 package com.epam.impl;
 
-import com.epam.entity.User;
-import com.epam.entity.UserDTO;
+import com.epam.entity.*;
 import com.epam.exception.DAOException;
 import com.epam.exception.ServiceException;
 import com.epam.repository.DAOFactory;
 import com.epam.repository.UserDAO;
 import com.epam.UserService;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.epam.validator.ServiceValidator.*;
 
@@ -101,6 +102,55 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public Page<UserDTO> getAll(Page<UserDTO> pageRequest) throws ServiceException {
+        try{
+            Pageable<UserDTO> pageable = convertToPageableUserDTO(pageRequest);
+            Pageable<UserDTO> filteredDaoPageable = userDAO.findPageByFilter(pageable);
+            return convertToServicePage(filteredDaoPageable);
+        }catch (Exception e){
+            throw new ServiceException(e);
+        }
+
+    }
+
+
+
+
+    private Page<UserDTO> convertToServicePage(Pageable<UserDTO> userRowPageable) {
+        Page<UserDTO> page = new Page<>();
+        page.setPageNumber(userRowPageable.getPageNumber());
+        page.setLimit(userRowPageable.getLimit());
+        page.setTotalElements(userRowPageable.getTotalElements());
+        page.setElements(userRowPageable.getElements());
+        page.setFilter((userRowPageable.getFilter()));
+        page.setSortBy(userRowPageable.getSortBy());
+        page.setDirection(userRowPageable.getDirection());
+        return page;
+    }
+
+    private List<UserDTO> convertToUserDTOs( List<User> users) {
+        List<UserDTO> list = new ArrayList<>();
+        for (User user : users) {
+            list.add(new UserDTO(user));
+        }
+        return list;
+    }
+
+
+    private Pageable<UserDTO> convertToPageableUserDTO(Page<UserDTO> pageableRequest) {
+        final Pageable<UserDTO> pageable = new Pageable<>();
+        pageable.setPageNumber(pageableRequest.getPageNumber());
+        pageable.setLimit(pageableRequest.getLimit());
+        pageable.setTotalElements(pageableRequest.getTotalElements());
+        pageable.setElements(pageableRequest.getElements());
+        pageable.setFilter(pageableRequest.getFilter());
+        pageable.setSortBy(pageableRequest.getSortBy());
+        pageable.setDirection(pageableRequest.getDirection());
+        return pageable;
+    }
+
+
     /**
      * TODO Do I need this?
      * */
@@ -123,6 +173,8 @@ public class UserServiceImpl implements UserService {
         }catch (DAOException e){
             throw new ServiceException(e);
         }
+
+
 
     }
 }

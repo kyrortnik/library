@@ -1,5 +1,6 @@
 package com.epam;
 
+import com.epam.entity.Page;
 import com.epam.entity.User;
 import com.epam.entity.UserDTO;
 import com.epam.exception.ServiceException;
@@ -24,6 +25,8 @@ public interface UserService {
 //    boolean findUserByLogin(User user);
 
     List<User> getUsers() throws ServiceException;
+
+    Page<UserDTO> getAll(Page<UserDTO> pageableRequest) throws ServiceException;
 
     UserDTO get(User user) throws ServiceException;
 

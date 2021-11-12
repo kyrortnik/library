@@ -23,9 +23,15 @@ public class CreateBookCommand implements Command{
             String title = request.getParameter("title");
             String author = request.getParameter("author");
             String publisher = request.getParameter("publisher");
-            int publishingYear = Integer.parseInt(request.getParameter("publishingYear"));
+            int publishingYear = 0;
+            if (!request.getParameter("publishingYear").equals("")){
+                publishingYear = Integer.parseInt(request.getParameter("publishingYear"));
+            }
             String genre = request.getParameter("genre");
-            int numberOfPages = Integer.parseInt(request.getParameter("numberOfPages"));
+            int numberOfPages = 0;
+            if (!request.getParameter("numberOfPages").equals("")){
+                numberOfPages  = Integer.parseInt(request.getParameter("numberOfPages"));
+            }
             String description = request.getParameter("description");
             boolean isHardCover;
             isHardCover = request.getParameter("isHardCover").toUpperCase(Locale.ROOT).equals("YES");
