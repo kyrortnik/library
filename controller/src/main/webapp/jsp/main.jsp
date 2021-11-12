@@ -11,8 +11,12 @@
     <body>
     <%@ include file="parts/header.jsp" %>
 
-<!--    <h3>${message}</h3>-->
+    <h3>${sessionScope.message}</h3>
     <c:out value ="${requestScope.reserveMessage}"/>
+    <c:if test ="${sessionScope.role == 'admin'}">
+        <a href="frontController?command=goToPage&address=newBook.jsp">New Book Creation</a>
+
+    </c:if>
     <c:if test="${sessionScope.role != null}">
         <div>
             <h3>${sessionScope.deleteMessage}</h3>
@@ -233,5 +237,15 @@
             </div>-->
         </div>
         </c:if>
+
+    <!-----------------ADMIN SHOW USERS -------------------->
+
+
+    <!-----------------ADMIN SHOW ORDERS -------------------->
+
+
+
+    <!-----------------ADMIN SHOW RESERVES -------------------->
+
     </body>
 </html>

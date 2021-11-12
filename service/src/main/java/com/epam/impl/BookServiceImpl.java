@@ -17,9 +17,16 @@ public class BookServiceImpl implements BookService {
     private static final BookDAO bookDAO = DAOFactory.getInstance().createBookDAO();
 
     @Override
-    public boolean create(BookRow bookRow) throws ServiceException {
+    public boolean create(Book book) throws ServiceException {
         try{
-            return bookDAO.save(bookRow);
+
+            BookRow bookRow = convertToBookRow(book);
+            BookRow foundRow = bookDAO.find(bookRow);
+            if (foundRow == null){
+                return bookDAO.save(bookRow);
+            }else{
+                return false;
+            }
         }catch(DAOException e){
             throw new ServiceException(e);
         }
@@ -27,9 +34,17 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public boolean update(BookRow bookRow) throws ServiceException {
+    public boolean update(Book book) throws ServiceException {
         try{
-            return bookDAO.update(bookRow);
+            BookRow bookRow = convertToBookRow(book);
+            BookRow foundRow = bookDAO.find(bookRow);
+            if (foundRow != null){
+                bookRow.setId(foundRow.getId());
+                return bookDAO.update(bookRow);
+            }else{
+                return false;
+            }
+
         }catch (DAOException e){
             throw new ServiceException(e);
         }
@@ -37,9 +52,16 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public boolean delete(BookRow bookRow) throws ServiceException {
+    public boolean delete(Book book) throws ServiceException {
         try{
-            return bookDAO.delete(bookRow);
+            BookRow bookRow = convertToBookRow(book);
+            BookRow foundRow = bookDAO.findById(bookRow.getId());
+            if (foundRow != null){
+                return bookDAO.delete(bookRow);
+            }else {
+                return false;
+            }
+
         }catch (DAOException e){
             throw new ServiceException(e);
         }
@@ -159,6 +181,7 @@ public class BookServiceImpl implements BookService {
             book.setHardCover(row.isHardCover());
             book.setReserved(row.isReserved());
             book.setNumberOfPages(row.getNumberOfPages());
+
         }
         return book;
     }
@@ -189,11 +212,18 @@ public class BookServiceImpl implements BookService {
     private BookRow convertToBookRow(Book book) {
         BookRow row = null;
         if (Objects.nonNull(book)) {
-            row = new BookRow();
-            row.setId(book.getId());
-            row.setTitle(book.getTitle());
-            row.setAuthor(book.getAuthor());
-            row.setPublisher(book.getPublisher());
+            row = new BookRow(
+                    book.getId(),
+                    book.getTitle(),
+                    book.getAuthor(),
+                    book.getPublishingYear(),
+                    book.getPublisher(),
+                    book.isReserved(),
+                    book.getGenre(),
+                    book.getNumberOfPages(),
+                    book.isHardCover(),
+                    book.getDescription()
+            );
         }
         return row;
     }

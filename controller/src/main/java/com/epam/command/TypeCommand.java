@@ -25,9 +25,7 @@ public enum TypeCommand {
     PRODUCTINFO{
         {this.command = new ProductInfoCommand();}
     },
-//    ADDTOORDER{
-//        {this.command = new AddToOrderCommand();}
-//    },
+
     CREATEORDER{
         {this.command = new CreateOrderCommand();}
     },
@@ -51,6 +49,15 @@ public enum TypeCommand {
     },
     DELETEPRODUCTFROMORDER{
         {this.command = new DeleteProductFromOrder();}
+    },
+    CREATEBOOK{
+        {this.command = new CreateBookCommand();}
+    },
+    UPDATEBOOK{
+        {this.command = new UpdateBookCommand();}
+    },
+    DELETEBOOK{
+        {this.command = new DeleteBookCommand();}
     };
     public Command getCurrentCommand() {
         return command;

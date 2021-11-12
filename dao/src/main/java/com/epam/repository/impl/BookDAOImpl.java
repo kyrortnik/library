@@ -20,11 +20,11 @@ import java.util.logging.Logger;
 public class BookDAOImpl implements BookDAO {
 
 
-    private static final String FIND_BOOK_QUERY = "SELECT * FROM products WHERE title = ? AND author = ? AND publish_year = ?";
+    private static final String FIND_BOOK_QUERY = "SELECT * FROM products WHERE title = ? AND author = ?";
     private static final String FIND_BOOK_BY_ID = "SELECT * FROM products WHERE product_id = ? ";
-    private static final String SAVE_BOOK = "INSERT INTO products VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?) ";
-    private static final String DELETE_BOOK = "DELETE FROM products WHERE title = ? AND author = ? AND publisher = ?";
-    private static final String UPDATE_BOOK = "UPDATE products SET author = ?, is_reserved = ?, publishyear = ?, publisher = ?, genre = ?, pages = ?, is_hard = ? WHERE id = ? ";
+    private static final String SAVE_BOOK = "INSERT INTO products (product_id,title,author,publishyear,publisher,genre,number_of_pages,is_hard_cover,description) VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String DELETE_BOOK = "DELETE FROM products WHERE product_id = ?";
+    private static final String UPDATE_BOOK = "UPDATE products SET title = ?, author = ?,  publisher = ?, publishyear = ?, is_hard_cover = ? , number_of_pages = ?, genre = ?, description = ?  WHERE product_id = ?";
     private static final String GET_ALL_BOOKS = "SELECT * FROM products";
 
     private static final String COUNT_ALL = "SELECT count(product_id) FROM products";
@@ -56,7 +56,6 @@ public class BookDAOImpl implements BookDAO {
             statement = connection.prepareStatement(FIND_BOOK_QUERY);
             statement.setString(1, bookRow.getTitle());
             statement.setString(2, bookRow.getAuthor());
-            statement.setInt(3, bookRow.getPublishingYear());
             resultSet = statement.executeQuery();
             bookRow = new BookRow();
             while (resultSet.next()){
@@ -69,7 +68,8 @@ public class BookDAOImpl implements BookDAO {
                 bookRow.setGenre(resultSet.getString(7));
                 bookRow.setNumberOfPages(resultSet.getInt(8));
                 bookRow.setHardCover(resultSet.getBoolean(9));
-            }if (bookRow.getTitle() != null){
+                bookRow.setDescription(resultSet.getString(10));
+            }if (bookRow.getTitle() != null || bookRow.getId() != null){
                 return bookRow;
             }
             log.info("Couldn't find requested book.");
@@ -186,19 +186,21 @@ public class BookDAOImpl implements BookDAO {
         PreparedStatement statement = null;
         try {
 
-                connection = connectionPool.getConnection();
-                statement = connection.prepareStatement(SAVE_BOOK);
-                statement.setString(1, bookRow.getAuthor());
-                statement.setBoolean(2, bookRow.isReserved());
-                statement.setInt(3, bookRow.getPublishingYear());
-                statement.setString(4, bookRow.getPublisher());
-                statement.setString(5, bookRow.getGenre());
-                statement.setInt(6, bookRow.getNumberOfPages());
-                statement.setBoolean(7, bookRow.isHardCover());
-                return (statement.executeUpdate() != 0);
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SAVE_BOOK);
+            statement.setString(1, bookRow.getTitle());
+            statement.setString(2, bookRow.getAuthor());
+            statement.setInt(3, bookRow.getPublishingYear());
+            statement.setString(4, bookRow.getPublisher());
+            statement.setString(5, bookRow.getGenre());
+            statement.setInt(6, bookRow.getNumberOfPages());
+            statement.setBoolean(7, bookRow.isHardCover());
+            statement.setString(8, bookRow.getDescription());
+
+            return (statement.executeUpdate() != 0);
 
         }catch (SQLException e) {
-            throw new DAOException("error while saving book");
+            throw new DAOException(e);
         } finally {
             closeStatement(statement);
             connectionPool.releaseConnection(connection);
@@ -207,8 +209,8 @@ public class BookDAOImpl implements BookDAO {
 
     }
 
-    /*TODO need to add check on whether book already exists*/
-    /**Functionality not yet implemented*/
+
+
     @Override
     public boolean delete(BookRow bookRow) throws DAOException {
        Connection connection = null;
@@ -217,9 +219,7 @@ public class BookDAOImpl implements BookDAO {
        try {
            connection = connectionPool.getConnection();
            statement = connection.prepareStatement(DELETE_BOOK);
-           statement.setString(1, bookRow.getTitle());
-           statement.setString(2, bookRow.getAuthor());
-           statement.setInt(3, bookRow.getPublishingYear());
+           statement.setLong(1, bookRow.getId());
            return (statement.executeUpdate() != 0);
        }catch (Exception e){
            throw new DAOException(e);
@@ -230,9 +230,15 @@ public class BookDAOImpl implements BookDAO {
     }
 
 
-    /**
-     * check whether book exists - service layer?
-     * */
+    //                          <input type="hidden" name="command" value="editBook"/>
+//                        <input class="fname" type="text" name="title" placeholder="Book title"/>
+//                        <input type="text" name="author" placeholder="Author"/>
+//                        <input type="text" name="publisher" placeholder="publisher"/>
+//                        <input type="text" name="publishingYear" placeholder="publishing Year"/>
+//                        <input type="text" name="isHardCover" placeholder="is hard cover"/>
+//                        <input type="text" name="numberOfPages" placeholder="number of pages"/>
+//                        <input type="text" name="genre" placeholder="Genre"/>
+//                        <input type="text" name="description" placeholder="Description"/>
 
     @Override
     public boolean update(BookRow bookRow) throws DAOException {
@@ -241,18 +247,19 @@ public class BookDAOImpl implements BookDAO {
        try{
            connection = connectionPool.getConnection();
            statement = connection.prepareStatement(UPDATE_BOOK);
-           statement.setString(1, bookRow.getAuthor());
-           statement.setBoolean(2, bookRow.isReserved());
-           statement.setInt(3, bookRow.getPublishingYear());
-           statement.setString(4, bookRow.getPublisher());
-           statement.setString(5, bookRow.getGenre());
+           statement.setString(1, bookRow.getTitle());
+           statement.setString(2, bookRow.getAuthor());
+           statement.setString(3, bookRow.getPublisher());
+           statement.setInt(4, bookRow.getPublishingYear());
+           statement.setBoolean(5, bookRow.isHardCover());
            statement.setInt(6, bookRow.getNumberOfPages());
-           statement.setBoolean(7, bookRow.isHardCover());
-           statement.setLong(8, bookRow.getId());
-           return (statement.executeUpdate() != 0);
+           statement.setString(7, bookRow.getGenre());
+           statement.setString(8, bookRow.getDescription());
+           statement.setLong(9, bookRow.getId());
+           return (statement.executeUpdate() > 0);
 
        }catch (Exception e){
-           throw new DAOException("unable to update book",e);
+           throw new DAOException(e);
        }finally {
            closeStatement(statement);
            connectionPool.releaseConnection(connection);

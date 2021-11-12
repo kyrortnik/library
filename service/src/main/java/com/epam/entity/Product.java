@@ -10,9 +10,17 @@ public class Product {
     public Product() {
     }
 
+    public Product(Long id){
+        this.id = id;
+    }
+
     public Product(long id, String title) {
         this.id = id;
         this.title = title;
+    }
+    public Product(String title, String author) {
+        this.title = title;
+        this.author = author;
     }
 
     public Product(long id, String title, String author) {

@@ -9,11 +9,11 @@ public interface BookService {
 
     Book findById(Long id) throws ServiceException;
 
-    boolean create(BookRow bookRow) throws ServiceException;
+    boolean create(Book book) throws ServiceException;
 
-    boolean update(BookRow bookRow) throws ServiceException;
+    boolean update(Book book) throws ServiceException;
 
-    boolean delete(BookRow bookRow) throws ServiceException;
+    boolean delete(Book book) throws ServiceException;
 
 //    List<BookRow> getAll();
 
