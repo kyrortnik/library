@@ -11,52 +11,49 @@ public enum TypeCommand {
     REGISTRATION {
         {this.command = new RegistrationCommand();}
     },
-    SHOWUSERS {
+    SHOW_USERS {
         {this.command = new ShowUsersCommand();}
     },
 
-    SHOWPRODUCTS {
+    SHOW_PRODUCTS {
         {this.command = new ShowProductsCommand();}
     },
-    SHOW_ORDERS{
-        {this.command = new ShowOrdersCommand();}
-    },
 
-    PRODUCTINFO{
+    PRODUCT_INFO{
         {this.command = new ProductInfoCommand();}
     },
 
-    CREATEORDER{
+    CREATE_ORDER{
         {this.command = new CreateOrderCommand();}
     },
-    CREATERESERVE{
+    CREATE_RESERVE{
         {this.command = new CreateReserveCommand();}
     },
-    SHOWRESERVES{
+    SHOW_RESERVES{
         {this.command = new ShowReservesCommand();}
     },
-    ORDERINFO{
+    ORDER_INFO{
         {this.command = new OrderInfoCommand();}
     },
-    GOTOPAGE{
+    GO_TO_PAGE{
         {this.command = new GoToPageCommand();}
     },
-    CHANGELANGUAGE{
+    CHANGE_LANGUAGE{
         {this.command = new ChangeLanguageCommand();}
     },
-    DELETERESERVE{
+    DELETE_RESERVE{
         {this.command = new DeleteReserveCommand();}
     },
-    DELETEPRODUCTFROMORDER{
+    DELETE_PRODUCT_FROM_ORDER{
         {this.command = new DeleteProductFromOrder();}
     },
-    CREATEBOOK{
+    CREATE_BOOK{
         {this.command = new CreateBookCommand();}
     },
-    UPDATEBOOK{
+    UPDATE_BOOK{
         {this.command = new UpdateBookCommand();}
     },
-    DELETEBOOK{
+    DELETE_BOOK{
         {this.command = new DeleteBookCommand();}
     };
     public Command getCurrentCommand() {

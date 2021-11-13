@@ -8,7 +8,6 @@ import com.epam.repository.DAOFactory;
 import com.epam.repository.OrderDAO;
 import com.epam.OrderService;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -60,9 +59,12 @@ public class OrderServiceImpl implements OrderService {
                     updatedProducts.append(oldProducts[i]).append(" ");
                 }
             }
-            if (orderDAO.deleteFromOrder(order, updatedProducts.toString().trim()) && orderDAO.find(foundOrder).getProductIds().equals("")){
-                return orderDAO.delete(foundOrder);
-            }else {
+            if (orderDAO.deleteFromOrder(order,updatedProducts.toString().trim())){
+                if (orderDAO.find(foundOrder).getProductIds().equals("")){
+                    return orderDAO.delete(foundOrder);
+                }
+                return  true;
+            }else{
                 return false;
             }
         }catch (Exception e){
@@ -153,7 +155,7 @@ public class OrderServiceImpl implements OrderService {
             if (foundOrder == null){
                 return orderDAO.save(order);
             }else {
-                return false;
+                return update(order);
             }
 
         }catch (DAOException e){

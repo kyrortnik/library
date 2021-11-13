@@ -16,16 +16,12 @@ public class GoToPageCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
-        log.info("Start in GoToPageCommand");
-        try {
-            String goToPage = "/index.jsp".equals(request.getParameter(ADDRESS)) ? "/index.jsp" :
-                    "/jsp/" + request.getParameter(ADDRESS);
-//            String goToPage = "/index.jsp";
 
-//            request.setAttribute("message", request.getParameter("message"));
-           /* if (request.getParameter("message") == null) {
-                request.getSession().setAttribute(LAST_COMMAND, defineCommand(request, true));
-            }*/
+        log.info("Start in GoToPageCommand");
+
+        try {
+            String goToPage = "/index.jsp".equals(request.getParameter(ADDRESS)) ? "/index.jsp" : "/jsp/" + request.getParameter(ADDRESS);
+            request.getSession().setAttribute(MESSAGE,null);
             request.getRequestDispatcher(goToPage).forward(request, response);
         } catch (IOException | ServletException e) {
             throw new ControllerException(e);

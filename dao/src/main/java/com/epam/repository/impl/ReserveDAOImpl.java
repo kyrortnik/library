@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.epam.repository.utils.DBConstants.*;
+
 public class ReserveDAOImpl implements ReserveDAO {
 
 
@@ -31,7 +33,7 @@ public class ReserveDAOImpl implements ReserveDAO {
     PropertyInitializer propertyInitializer = new PropertyInitializer();
     protected ConnectionPool connectionPool = new ConnectionPoolImpl(propertyInitializer);
 
-    private static final int MAX_ROWS = 5;
+//    private static final int MAX_ROWS = 5;
 
 
     @Override

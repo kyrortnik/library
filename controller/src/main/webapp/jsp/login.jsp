@@ -14,7 +14,7 @@
     <div >
         <div>
             <form action="frontController" method="GET">
-                <input type="hidden" name="command" value="changeLanguage"/>
+                <input type="hidden" name="command" value="change_Language"/>
                 <input type="hidden" name="local" value="en"/>
                 <button type="submit">
                     EN
@@ -23,7 +23,7 @@
         </div>
         <div>
             <form action="frontController" method="GET">
-                <input type="hidden" name="command" value="changeLanguage"/>
+                <input type="hidden" name="command" value="change_Language"/>
                 <input type="hidden" name="local" value="ru"/>
                 <button type="submit">
                     РУ

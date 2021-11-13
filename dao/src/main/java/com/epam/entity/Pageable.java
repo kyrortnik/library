@@ -1,5 +1,7 @@
 package com.epam.entity;
 
+import com.epam.repository.utils.DBConstants;
+
 import java.util.ArrayList;
 import java.util.List;
 

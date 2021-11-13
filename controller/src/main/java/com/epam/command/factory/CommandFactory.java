@@ -19,14 +19,16 @@ public class CommandFactory {
 
         Command current = new BaseCommand();
         String command = request.getParameter("command");
-        if (command.isEmpty()){
+        if (command == null){
+            request.getSession().setAttribute("message","No such command was found");
             return current;
+
         }else {
             try {
                 TypeCommand typeCommand = TypeCommand.valueOf(command.toUpperCase());
                 current = typeCommand.getCurrentCommand();
             } catch (IllegalArgumentException e) {
-                request.setAttribute("wrongAction", "Wrong Action");
+                request.setAttribute("errorMessage", "Unknown command");
             }
         }
         return current;

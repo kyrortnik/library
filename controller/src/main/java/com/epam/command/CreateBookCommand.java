@@ -11,47 +11,68 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Locale;
+import java.util.logging.Logger;
+
+import static com.epam.command.util.ControllerConstants.*;
 
 public class CreateBookCommand implements Command{
 
-    private final BookService bookService = ServiceFactory.getInstance().createBookService();
+    private final ServiceFactory serviceFactory = ServiceFactory.getInstance();
+    private final BookService bookService = serviceFactory.createBookService();
+
+    private static final Logger log = Logger.getLogger(CreateBookCommand.class.getName());
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
+        log.info("Start in CreateBookCommand");
         try{
-            String pageToRedirect;
-            String title = request.getParameter("title");
-            String author = request.getParameter("author");
-            String publisher = request.getParameter("publisher");
-            int publishingYear = 0;
-            if (!request.getParameter("publishingYear").equals("")){
-                publishingYear = Integer.parseInt(request.getParameter("publishingYear"));
-            }
-            String genre = request.getParameter("genre");
-            int numberOfPages = 0;
-            if (!request.getParameter("numberOfPages").equals("")){
-                numberOfPages  = Integer.parseInt(request.getParameter("numberOfPages"));
-            }
-            String description = request.getParameter("description");
-            boolean isHardCover;
-            isHardCover = request.getParameter("isHardCover").toUpperCase(Locale.ROOT).equals("YES");
-
-            Book book = new Book(author,title,publishingYear,publisher,genre,numberOfPages,isHardCover,description);
+            String pageForRedirect;
+            Book book = getBook(request);
             if (bookService.create(book)){
-                pageToRedirect = "frontController?command=goToPage&address=main.jsp";
-                request.getSession().setAttribute("lastCommand",pageToRedirect);
-                request.getSession().setAttribute("message","Book is created!");
-                response.sendRedirect(pageToRedirect);
+                pageForRedirect = "frontController?command=go_To_Page&address=main.jsp";
+                request.getSession().setAttribute(LAST_COMMAND,pageForRedirect);
+                request.getSession().setAttribute(MESSAGE,"Book is created!");
+                response.sendRedirect(pageForRedirect);
             }else{
-                pageToRedirect = "frontController?command=goToPage&address=newBook.jsp";
-                request.getSession().setAttribute("lastCommand",pageToRedirect);
-                request.setAttribute("message","Book with such title already exists!");
-                request.getRequestDispatcher(pageToRedirect).forward(request,response);
+                pageForRedirect = "frontController?command=go_To_Page&address=newBook.jsp";
+                request.getSession().setAttribute(LAST_COMMAND,pageForRedirect);
+                request.setAttribute(MESSAGE,"Book with such title already exists!");
+                request.getRequestDispatcher(pageForRedirect).forward(request,response);
             }
         }catch (ServiceException | ServletException | IOException e){
             throw new ControllerException(e);
         }
+    }
 
+    private Book getBook(HttpServletRequest request) {
 
+        String title = request.getParameter("title");
+        String author = request.getParameter("author");
+        String publisher = request.getParameter("publisher");
+
+        String publishYear = request.getParameter("publishingYear");
+        int publishingYear = isNumeric(publishYear) ? Integer.parseInt(publishYear) : 0;
+
+        String genre = request.getParameter("genre");
+
+        String pages = request.getParameter("numberOfPages");
+        int numberOfPages = isNumeric(pages) ? Integer.parseInt(pages) : 0;
+
+        String description = request.getParameter("description");
+        boolean isHardCover = request.getParameter("isHardCover").toUpperCase(Locale.ROOT).equals("YES");
+
+        return  new Book(author,title,publishingYear,publisher,genre,numberOfPages,isHardCover,description);
+    }
+
+    private boolean isNumeric(String parameter){
+        if (parameter == null){
+            return false;
+        }
+        try{
+            int num = Integer.parseInt(parameter);
+        }catch (NumberFormatException e){
+            return false;
+        }
+        return true;
     }
 }

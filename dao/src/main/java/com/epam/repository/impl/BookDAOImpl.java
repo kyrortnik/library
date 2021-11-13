@@ -17,6 +17,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
+
+import static com.epam.repository.utils.DBConstants.*;
+
 public class BookDAOImpl implements BookDAO {
 
 
@@ -178,8 +181,6 @@ public class BookDAOImpl implements BookDAO {
     }
 
 
-    /*TODO need to add check on whether book already exists*/
-    /**Functionality not yet implemented*/
     @Override
     public boolean save(BookRow bookRow) throws DAOException {
         Connection connection = null;
@@ -270,10 +271,10 @@ public class BookDAOImpl implements BookDAO {
 
     @Override
     public Pageable<BookRow> findPageByFilter(Pageable<BookRow> daoProductPageable) throws DAOException {
-        final int offset = (daoProductPageable.getPageNumber() - 1) * daoProductPageable.getLimit();
+        final int offset = (daoProductPageable.getPageNumber() - 1) * MAX_ROWS;
         List<Object> parameters1 = Collections.emptyList(); // todo implement filtering
         List<Object> parameters2 = Arrays.asList( // todo implement filtering
-                daoProductPageable.getLimit(),
+                MAX_ROWS,
                 offset
         );
         Connection connection = null;
@@ -289,7 +290,7 @@ public class BookDAOImpl implements BookDAO {
             preparedStatement2 = getPreparedStatement(findPageOrderedQuery, connection, parameters2);
             resultSet1 = preparedStatement1.executeQuery();
             resultSet2 = preparedStatement2.executeQuery();
-           // connection.commit();
+//            connection.commit();
 
             return getBookRowPageable(daoProductPageable, resultSet1, resultSet2);
         } catch (SQLException e) {
@@ -328,7 +329,7 @@ public class BookDAOImpl implements BookDAO {
             rows.add(new BookRow(id, title,author,publishingYear,publisher,isReserved,genre,numberOfPages,isHardCover));
         }
         pageable.setPageNumber(daoProductPageable.getPageNumber());
-        pageable.setLimit(daoProductPageable.getLimit());
+        pageable.setLimit(MAX_ROWS);
         pageable.setTotalElements(totalElements);
         pageable.setElements(rows);
         pageable.setFilter(daoProductPageable.getFilter());

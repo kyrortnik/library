@@ -137,7 +137,7 @@
     <h1>New Book</h1>
     <form id="createBook" action="frontController" method="POST">
         <div class="info">
-            <input type="hidden" name="command" value="createBook"/>
+            <input type="hidden" name="command" value="create_Book"/>
             <input class="fname" type="text" name="title" placeholder="Book title"/>
             <input type="text" name="author" placeholder="Author"/>
             <input type="text" name="publisher" placeholder="publisher"/>

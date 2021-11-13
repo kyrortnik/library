@@ -16,7 +16,7 @@
     <h3>${reserveErrorMessage}</h3>
     <!--        <c:set var="backURL" value="${requestScope.backURL}"/>-->
     <!--        <p> <a href="${backURL}">Go back to product</a></p>-->
-    <p><a href="frontController?command=showProducts">Back to Products</a></p>
+    <p><a href="frontController?command=show_Products">Back to Products</a></p>
 </c:if>
 
 <c:if test="${not empty requestScope.book}">
@@ -52,7 +52,7 @@
                          <br/>
                      </form>-->
                     <form method = "POST" action="frontController">
-                        <input type = "hidden" name ="command" value ="createReserve"/>
+                        <input type = "hidden" name ="command" value ="create_Reserve"/>
                         <input type = "hidden" name="bookId" value="${requestScope.book.id}"/>
                         <input type="submit" value ="Reserve this Book">
                         <br/>
@@ -71,7 +71,7 @@
 <c:if test="${sessionScope.role == 'admin'}">
     <div>
         <form id="deleteBook" action="frontController" method="POST">
-            <input type="hidden" name="command" value="deleteBook"/>
+            <input type="hidden" name="command" value="delete_Book"/>
             <input type = "hidden" name="bookId" value="${requestScope.book.id}"/>
             <button form="deleteBook" type="submit">Delete Book</button>
 
@@ -82,7 +82,7 @@
     <form id="editBook" action="frontController" method="POST">
 
     <input type = "hidden" name="bookId" value="${requestScope.book.id}"/>
-    <input type="hidden" name="command" value="updateBook"/>
+    <input type="hidden" name="command" value="update_Book"/>
     <input type="text" name="title" placeholder="Book title"/>
     <input type="text" name="author" placeholder="Author"/>
     <input type="text" name="publisher" placeholder="publisher"/>

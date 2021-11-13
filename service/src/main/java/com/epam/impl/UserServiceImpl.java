@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
         }
         boolean passwordEquals = user.getPassword().equals(password2);
         try{
-            return passwordEquals && userDAO.save(user);
+            return passwordEquals && (userDAO.find(user) == null) && userDAO.save(user);
         }catch (DAOException e){
             throw new ServiceException(e);
         }

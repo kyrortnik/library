@@ -12,34 +12,37 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-public class ProductInfoCommand implements Command {
+import static com.epam.command.util.ControllerConstants.*;
 
-    private static final String MESSAGE = "message";
-    private ServiceFactory serviceFactory = ServiceFactory.getInstance();
-    private BookService bookService = serviceFactory.createBookService();
+public class ProductInfoCommand extends AbstractCommand {
+
+
+    private final ServiceFactory serviceFactory = ServiceFactory.getInstance();
+    private final BookService bookService = serviceFactory.createBookService();
+
     private static final Logger log = Logger.getLogger(ProductInfoCommand.class.getName());
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
 
+        log.info("Start in ProductInfoCommand");
 
         try {
-            log.info("Start in ProductInfoCommand");
-            Book book = bookService.findById(Long.parseLong(request.getParameter("id")));
+            Book book = bookService.findById(Long.parseLong(request.getParameter(ID)));
 
             if(book != null){
                 request.setAttribute("book", book);
             } else {
-                request.setAttribute("noSuchProduct", "No such product was found");
+                request.setAttribute(MESSAGE, "No such product was found");
             }
 
-            String lastCommand = Command.defineCommand(request,false);
-            request.getSession().setAttribute("lastCommand",lastCommand);
-           request.getRequestDispatcher("/jsp/productInfo.jsp").forward(request,response);
+            String lastCommand = defineCommand(request,false);
+            request.getSession().setAttribute(LAST_COMMAND,lastCommand);
+            request.getSession().setAttribute(MESSAGE,null);
+            request.getRequestDispatcher("frontController?command=go_To_Page&address=productInfo.jsp").forward(request,response);
 
         } catch (ServiceException | IOException | ServletException e) {
             throw new ControllerException(e);
         }
-//        return page;
     }
 }

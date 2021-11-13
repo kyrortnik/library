@@ -16,12 +16,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
 
+import static com.epam.command.util.ControllerConstants.*;
 public class CreateOrderCommand implements Command {
 
-    private ServiceFactory serviceFactory = ServiceFactory.getInstance();
-
-    private OrderService orderService = serviceFactory.createOrderService();
-    private ReserveService reserveService = serviceFactory.createReserveService();
+    private final ServiceFactory serviceFactory = ServiceFactory.getInstance();
+    private final OrderService orderService = serviceFactory.createOrderService();
+    private final ReserveService reserveService = serviceFactory.createReserveService();
 
     private static final Logger log = Logger.getLogger(CreateOrderCommand.class.getName());
 
@@ -30,33 +30,26 @@ public class CreateOrderCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
 
         log.info("Start in CreateOrderCommand");
-
         try {
 
-            long userId = (Long) request.getSession().getAttribute("id");
+            long userId = (Long) request.getSession().getAttribute(ID);
             List<Reserve> reserveList = reserveService.getReservesForUser(userId);
-            String lastCommand = "frontController?command=goToPage&address=main.jsp";
+            Order order = createOrder(userId, reserveList);
+            String pageForRedirect = "frontController?command=go_To_Page&address=main.jsp";
+            request.getSession().setAttribute(LAST_COMMAND,pageForRedirect);
 
-
-            /**TODO check that order for user doesn't exist*/
-                if (orderService.productsAlreadyOrdered(reserveList)){
-                    request.setAttribute("message","Some product/s on the list is already ordered!");
-                    request.getSession().setAttribute("lastCommand",lastCommand);
-                    request.getRequestDispatcher("/jsp/main.jsp").forward(request, response);
+            if (orderService.productsAlreadyOrdered(reserveList)){
+                request.setAttribute(MESSAGE,"Some product/s on the list is already ordered!");
+                request.getRequestDispatcher(pageForRedirect).forward(request, response);
+            }else{
+                if (orderService.save(order) && reserveService.deleteReservesByUserId(userId)){
+                    request.getSession().setAttribute(MESSAGE, "Products ordered! Visit library to get them");
+                    response.sendRedirect(pageForRedirect);
                 }else{
-                    Order order = createOrder(userId, reserveList);
-                    if (orderService.save(order) && reserveService.deleteReservesByUserId(userId)){
-                        request.setAttribute("productAddedToOrder", "Products ordered! Visit library to get them");
-                    }else{
-                        orderService.update(order);
-                        reserveService.deleteReservesByUserId(userId);
-//                        request.setAttribute("productAddedToOrder", "Products ordered! Visit library to get them");
-                        request.setAttribute("productAddedToOrder","Order is updated");
-                    }
-                    request.getSession().setAttribute("lastCommand",lastCommand);
-                    response.sendRedirect(lastCommand);
+                    request.setAttribute(MESSAGE,"Couldn't create or update existing order.");
+                    request.getRequestDispatcher(pageForRedirect).forward(request,response);
                 }
-
+            }
 
         } catch (ServiceException | IOException | ServletException e) {
             throw new ControllerException(e);
@@ -69,7 +62,6 @@ public class CreateOrderCommand implements Command {
             builder.append(reserve.getProductId()).append(" ");
         }
         String productIds = builder.toString().trim();
-
         return new Order(productIds, userId);
     }
 

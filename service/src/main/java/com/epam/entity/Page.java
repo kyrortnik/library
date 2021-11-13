@@ -3,10 +3,11 @@ package com.epam.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.epam.repository.utils.DBConstants;
+
 public class Page<T> {
 
 
-    private static final int MAX_ROWS = 5;
     private int pageNumber;
     private long totalElements;
     private int limit;
@@ -16,11 +17,14 @@ public class Page<T> {
     private String sortBy = "author";
     private String direction = "ASC";
 
-    public Page() {}
+    public Page() {
+        this.limit = DBConstants.MAX_ROWS;
+    }
 
     public Page(int currentPage, long countItems){
         this.pageNumber = currentPage;
-        this.offset = calculateOffset(this.pageNumber, MAX_ROWS);
+        this.offset = calculateOffset(this.pageNumber,  DBConstants.MAX_ROWS);
+        this.limit = DBConstants.MAX_ROWS;
     }
 
     public Page(int pageNumber, long totalElements, int limit, List<T> elements, T filter, String sortBy, String direction) {
