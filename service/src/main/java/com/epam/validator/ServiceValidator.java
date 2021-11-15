@@ -8,7 +8,6 @@ public class ServiceValidator {
         return !"".equals(user.getLogin()) && !"".equals(user.getPassword());
     }
 
-
     public static boolean validation(long id) {
         return id > 0;
     }

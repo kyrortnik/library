@@ -12,6 +12,7 @@
     <%@ include file="parts/header.jsp" %>
 
     <h3>${sessionScope.message}</h3>
+    <h3>${message}</h3>
     <c:out value ="${requestScope.reserveMessage}"/>
     <c:if test ="${sessionScope.role == 'admin'}">
         <a href="frontController?command=go_To_Page&address=newBook.jsp">New Book Creation</a>

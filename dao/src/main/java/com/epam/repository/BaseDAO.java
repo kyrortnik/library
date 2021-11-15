@@ -5,11 +5,7 @@ import com.epam.exception.DAOException;
 
 import java.util.List;
 
-/**
- * Base interface for all Data Access Objects
- * */
-
-public interface AbstractDAO<T> {
+public interface BaseDAO<T> {
 
     T find(T t) throws DAOException;
 

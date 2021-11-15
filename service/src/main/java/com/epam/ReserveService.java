@@ -18,7 +18,7 @@ public interface ReserveService {
 
     boolean deleteReservesByUserId(Long userId) throws ServiceException;
 
-    boolean productExistsInOrder(Reserve reserve) throws ServiceException;
+//    boolean productExistsInOrder(Reserve reserve) throws ServiceException;
 
     int countReservesForUser(long userId) throws ServiceException;
 

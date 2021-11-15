@@ -110,7 +110,7 @@ public class BookServiceImpl implements BookService {
             // prepare data
             Pageable<BookRow> daoProductPageable = convertToPageableBook(pageableRequest);
             // process data
-            Pageable<BookRow> productRowsPageable = bookDAO.findPageByFilter(daoProductPageable);
+            Pageable<BookRow> productRowsPageable = bookDAO.findPageWithParameters(daoProductPageable);
 
             // return
             return convertToServicePage(productRowsPageable);
@@ -140,7 +140,7 @@ public class BookServiceImpl implements BookService {
     public Page<Book> getPageByFilter(Page<Book> daoProductPageable) throws ServiceException {
         try{
             Pageable<BookRow> rowPageable = convertToPageableBook(daoProductPageable);
-            return convertToServicePage(bookDAO.findPageByFilter(rowPageable));
+            return convertToServicePage(bookDAO.findPageWithParameters(rowPageable));
         }catch (DAOException e){
             throw new ServiceException(e);
         }

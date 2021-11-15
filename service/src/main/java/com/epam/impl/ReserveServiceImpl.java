@@ -90,24 +90,23 @@ public class ReserveServiceImpl implements ReserveService {
     }
 
 
-    @Override
-    public boolean productExistsInOrder(Reserve reserve) throws ServiceException {
-       try{
-           ReserveRow foundRow;
-           foundRow = convertToReserveRow(reserve);
-           return reserveDAO.orderForReserveExists(foundRow);
-       }catch (DAOException e){
-           throw new ServiceException(e);
-       }
-
-
-    }
+//    @Override
+//    public boolean productExistsInOrder(Reserve reserve) throws ServiceException {
+//       try{
+//           ReserveRow foundRow;
+//           foundRow = convertToReserveRow(reserve);
+//           return reserveDAO.orderForReserveExists(foundRow);
+//       }catch (DAOException e){
+//           throw new ServiceException(e);
+//       }
+//
+//    }
 
 
     @Override
     public List<Reserve> findReservationsByUserId(long userId, int row) throws ServiceException {
         try{
-            return  convertToReserves(reserveDAO.findReservationsByUserId(userId,row));
+            return  convertToReserves(reserveDAO.findReserveByUserId(userId,row));
         }catch (DAOException e){
             throw new ServiceException(e);
         }
