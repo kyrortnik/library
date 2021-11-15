@@ -14,5 +14,5 @@ public interface UserDAO extends BaseDAO<User> {
 //    boolean findUserByLogin(User user);
 
 
-     Pageable<UserDTO> findPageByFilter(Pageable<UserDTO> daoProductPageable) throws DAOException;
+     Pageable<UserDTO> findPageByParameters(Pageable<UserDTO> daoProductPageable) throws DAOException;
 }

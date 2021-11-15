@@ -36,7 +36,7 @@ public class ShowUsersCommand extends AbstractCommand {
             Page<UserDTO> pageableRequest = new Page<>();
             pageableRequest.setPageNumber(currentPage);
             pageableRequest.setSortBy("login");
-            Page<UserDTO> pageable = userService.getAll(pageableRequest);
+            Page<UserDTO> pageable = userService.getUsersPage(pageableRequest);
             String lastCommand = defineCommand(request,true);
 
             request.setAttribute("pageableUsers",pageable);

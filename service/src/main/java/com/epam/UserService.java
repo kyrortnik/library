@@ -7,28 +7,28 @@ import com.epam.exception.ServiceException;
 
 import java.util.List;
 
+
 public interface UserService {
 
-   boolean registration(User user,String password2) throws ServiceException;
+   boolean registration(User user,String secondPassword) throws ServiceException;
 
     UserDTO logination(User user) throws ServiceException;
 
-    User findUserWithId(long id) throws ServiceException;
+    UserDTO find(User user) throws ServiceException;
+
+    User findById(long id) throws ServiceException;
+
+    Page<UserDTO> getUsersPage(Page<UserDTO> pageableRequest) throws ServiceException;
 
     boolean updateUser(User user) throws ServiceException;
 
-
-    /*TODO change to (Long id)*/
-
     boolean deleteUser(User user) throws ServiceException;
-
-//    boolean findUserByLogin(User user);
 
     List<User> getUsers() throws ServiceException;
 
-    Page<UserDTO> getAll(Page<UserDTO> pageableRequest) throws ServiceException;
 
-    UserDTO get(User user) throws ServiceException;
+
+
 
 
 }

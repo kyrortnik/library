@@ -20,7 +20,7 @@ public class ChangeLanguageCommand implements Command {
             request.getSession().setAttribute(LOCAL,request.getParameter(LOCAL));
             request.getSession().setAttribute(MESSAGE,null);
             String addressForRedirect = String.valueOf(request.getSession().getAttribute(LAST_COMMAND));
-            String path = addressForRedirect.equals("null") ? "/login.jsp" : addressForRedirect;
+            String path = addressForRedirect.equals("null") ? "/index.jsp" : addressForRedirect;
 
             response.sendRedirect(path);
         }catch (IOException e){

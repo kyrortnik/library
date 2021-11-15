@@ -7,26 +7,34 @@ import com.epam.exception.ServiceException;
 import com.epam.repository.DAOFactory;
 import com.epam.repository.ReserveDAO;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static com.epam.validator.ServiceValidator.validation;
 
 public class ReserveServiceImpl implements ReserveService {
 
     private static final ReserveDAO reserveDAO = DAOFactory.getInstance().createReserveDAO();
 
+    private static final Logger log = Logger.getLogger(ReserveServiceImpl.class.getName());
+
     @Override
     public boolean save(Reserve reserve) throws ServiceException {
-        try{
+        if (!validation(reserve)){
+            return false;
+        }try{
             ReserveRow reserveRow = convertToReserveRow(reserve);
             ReserveRow foundReserveRow = reserveDAO.getByUserAndProductId(reserveRow);
-            if (foundReserveRow == null){
+            if (Objects.nonNull(foundReserveRow)){
                 return reserveDAO.save(reserveRow);
             }else {
                 return false;
             }
         }catch (DAOException e){
+            log.log(Level.SEVERE,"Exception: " + e);
             throw new ServiceException(e);
         }
     }
@@ -34,7 +42,9 @@ public class ReserveServiceImpl implements ReserveService {
 
     @Override
     public boolean delete(Reserve reserve) throws ServiceException {
-        try{
+        if (!validation(reserve)){
+            return false;
+        }try{
             ReserveRow reserveRow = convertToReserveRow(reserve);
             ReserveRow foundRow = reserveDAO.getByUserAndProductId(reserveRow);
             if (Objects.nonNull(foundRow)){
@@ -43,36 +53,32 @@ public class ReserveServiceImpl implements ReserveService {
                 return true;
             }
         }catch (Exception e){
+            log.log(Level.SEVERE,"Exception: " + e);
             throw new ServiceException(e);
         }
 
     }
 
-   /* @Override
-    public Reserve findReserveByUserAndProduct(Reserve reserve) throws ServiceException {
-        return null;
-    }*/
-
-    /**
- * Functionality not yet implemented
- * */
 
     @Override
     public boolean deleteReservesByUserId(Long userId) throws ServiceException {
-        try{
+        if (!validation(userId)){
+            return false;
+        }try{
             return reserveDAO.deleteByUserId(userId);
         }catch (DAOException e){
+            log.log(Level.SEVERE,"Exception: " + e);
             throw new ServiceException(e);
         }
-
     }
 
 
     @Override
     public List<Reserve> getReservesForUser(Long userId) throws ServiceException {
-        try{
+       try{
             return convertToReserves(reserveDAO.getReservesForUser(userId));
         }catch (DAOException e){
+           log.log(Level.SEVERE,"Exception: " + e);
             throw new ServiceException(e);
         }
 
@@ -81,54 +87,26 @@ public class ReserveServiceImpl implements ReserveService {
 
     @Override
     public int countReservesForUser(long userId) throws ServiceException {
-        try{
+        if (!validation(userId)){
+            return 0;
+        }try{
             return reserveDAO.countReservesForUser(userId);
         }catch (DAOException e){
+            log.log(Level.SEVERE,"Exception: " + e);
             throw new ServiceException(e);
         }
-
     }
-
-
-//    @Override
-//    public boolean productExistsInOrder(Reserve reserve) throws ServiceException {
-//       try{
-//           ReserveRow foundRow;
-//           foundRow = convertToReserveRow(reserve);
-//           return reserveDAO.orderForReserveExists(foundRow);
-//       }catch (DAOException e){
-//           throw new ServiceException(e);
-//       }
-//
-//    }
 
 
     @Override
-    public List<Reserve> findReservationsByUserId(long userId, int row) throws ServiceException {
+    public List<Reserve> findReservationsByUserId(long userId, int offset) throws ServiceException {
         try{
-            return  convertToReserves(reserveDAO.findReserveByUserId(userId,row));
+            return  convertToReserves(reserveDAO.findReserveByUserId(userId, offset));
         }catch (DAOException e){
+            log.log(Level.SEVERE,"Exception: " + e);
             throw new ServiceException(e);
         }
-
     }
-
-    /**
-     * Do I need this?
-     * */
-
-/*    public boolean reserveForUserExists(Reserve reserve) {
-        boolean flag;
-       ReserveRow reserveRow = convertToReserveRow(reserve);
-       ReserveRow foundRow =  reserveDAO.get(reserveRow);
-       if (reserveRow.getUserId().equals(foundRow.getUserId())
-               && reserveRow.getProductId().equals(foundRow.getProductId())){
-           flag = true;
-       }else
-           flag = false;
-
-       return flag;
-    }*/
 
 
     private List<Reserve> convertToReserves(List<ReserveRow> reserveRows){
@@ -138,21 +116,6 @@ public class ReserveServiceImpl implements ReserveService {
         }
         return reserves;
     }
-
-
-
-    private Page<Reserve> convertToServicePage(Pageable<ReserveRow> reserveRowPageable) {
-        Page<Reserve> page = new Page<>();
-        page.setPageNumber(reserveRowPageable.getPageNumber());
-        page.setLimit(reserveRowPageable.getLimit());
-        page.setTotalElements(reserveRowPageable.getTotalElements());
-        page.setElements(convertToReserves(reserveRowPageable.getElements()));
-        page.setFilter(convertToReserve(reserveRowPageable.getFilter()));
-        page.setSortBy(reserveRowPageable.getSortBy());
-        page.setDirection(reserveRowPageable.getDirection());
-        return page;
-    }
-
 
     private ReserveRow convertToReserveRow(Reserve reserve) {
         ReserveRow row = null;

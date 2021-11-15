@@ -16,6 +16,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static com.epam.repository.utils.DBConstants.*;
+
+
 public class UserDAOImpl extends AbstractDAO implements UserDAO {
 
     private static final String FIND_USER_QUERY = "SELECT * FROM users WHERE login = ? AND password = ?";
@@ -281,55 +284,51 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
 
 
     @Override
-    public Pageable<UserDTO> findPageByFilter(Pageable<UserDTO> daoProductPageable) throws DAOException {
-        final int offset = (daoProductPageable.getPageNumber() - 1) * daoProductPageable.getLimit();
-        List<Object> parameters1 = Collections.emptyList(); // todo implement filtering
-        List<Object> parameters2 = Arrays.asList( // todo implement filtering
-                daoProductPageable.getLimit(),
-                offset
-        );
+    public Pageable<UserDTO> findPageByParameters(Pageable<UserDTO> daoProductPageable) throws DAOException {
+        final int offset = (daoProductPageable.getPageNumber() - 1) * MAX_ROWS;
+
+        List<Object> parameters = Arrays.asList(MAX_ROWS, offset);
         Connection connection = null;
-        PreparedStatement preparedStatement1 = null;
-        PreparedStatement preparedStatement2 = null;
-        ResultSet resultSet1 = null;
-        ResultSet resultSet2 = null;
+        PreparedStatement countStatement = null;
+        PreparedStatement queryStatement = null;
+        ResultSet countResultSet = null;
+        ResultSet queryResultSet = null;
         try {
             connection = connectionPool.getConnection();
-            preparedStatement1 = getPreparedStatement(COUNT_ALL, connection, parameters1);
+            connection.setAutoCommit(false);
+            countStatement = getPreparedStatement(COUNT_ALL, connection, Collections.emptyList());
             final String findPageOrderedQuery =
                     String.format(FIND_PAGE_FILTERED_SORTED, daoProductPageable.getSortBy(), daoProductPageable.getDirection());
-            preparedStatement2 = getPreparedStatement(findPageOrderedQuery, connection, parameters2);
-            resultSet1 = preparedStatement1.executeQuery();
-            resultSet2 = preparedStatement2.executeQuery();
-            // connection.commit();
+            queryStatement = getPreparedStatement(findPageOrderedQuery, connection, parameters);
+            countResultSet = countStatement.executeQuery();
+            queryResultSet = queryStatement.executeQuery();
+             connection.commit();
 
-            return getBookRowPageable(daoProductPageable, resultSet1, resultSet2);
+            return getBookRowPageable(daoProductPageable, countResultSet, queryResultSet);
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DAOException(e);
         } finally {
-            closeResultSet(resultSet1);
-            closeResultSet(resultSet2);
-            closeStatement(preparedStatement1);
-            closeStatement(preparedStatement2);
+            closeResultSet(countResultSet,queryResultSet);
+            closeStatement(countStatement,queryStatement);
             connectionPool.releaseConnection(connection);
         }
     }
 
 
     private Pageable<UserDTO> getBookRowPageable(Pageable<UserDTO> daoProductPageable,
-                                                 ResultSet resultSet1,
-                                                 ResultSet resultSet2) throws SQLException {
+                                                 ResultSet countResultSet,
+                                                 ResultSet queryResultSet) throws SQLException {
         final Pageable<UserDTO> pageable = new Pageable<>();
         long totalElements = 0L;
-        while (resultSet1.next()) {
-            totalElements = resultSet1.getLong(1);
+        while (countResultSet.next()) {
+            totalElements = countResultSet.getLong(1);
         }
         final List<UserDTO> rows = new ArrayList<>();
-        while (resultSet2.next()) {
-            long id = resultSet2.getLong(1);
-            String login = resultSet2.getString(2);
-            String role = resultSet2.getString(4);
+        while (queryResultSet.next()) {
+            long id = queryResultSet.getLong(1);
+            String login = queryResultSet.getString(2);
+            String role = queryResultSet.getString(4);
 
             rows.add(new UserDTO(id,login,role));
         }

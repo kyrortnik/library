@@ -39,7 +39,7 @@ public class RegistrationCommand implements Command {
         try {
             if (userService.registration(user,pass2)){
             lastCommand = "frontController?command=go_To_Page&address=main.jsp";
-            UserDTO userDTO = userService.get(user);
+            UserDTO userDTO = userService.find(user);
             request.getSession().setAttribute(USER, userDTO.getLogin());
             request.getSession().setAttribute(ROLE,userDTO.getRole());
             request.getSession().setAttribute(ID,userDTO.getId());
