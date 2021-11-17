@@ -7,6 +7,7 @@ import com.epam.ServiceFactory;
 import com.epam.UserService;
 import com.epam.entity.UserDTO;
 import com.epam.exception.ServiceException;
+import com.epam.security.Salt;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ public class RegistrationCommand implements Command {
     private final ServiceFactory factory = ServiceFactory.getInstance();
     private final UserService userService = factory.createUserService();
     private static final Logger log = Logger.getLogger(RegistrationCommand.class.getName());
+    private final Salt salt = new Salt();
 
 
 
@@ -30,14 +32,16 @@ public class RegistrationCommand implements Command {
 
         log.info("Start in RegistrationCommand");
         String lastCommand;
-        String login = request.getParameter(LOGIN);
-        String pass = request.getParameter(PASSWORD);
-        String pass2 = request.getParameter(SECOND_PASSWORD);
-        User user = new User(login,pass,USER);
+        String login = request.getParameter(LOGIN);;
+        String password = request.getParameter(PASSWORD);
+        String secondPassword = request.getParameter(SECOND_PASSWORD);
+        boolean passwordsEquals = password.equals(secondPassword);
+        String saltBytes = salt.generateSalt();
+        User user = new User(login, salt.generateEncryptedPassword(password,saltBytes),USER, saltBytes);
 
+ try {
+            if (passwordsEquals && userService.registration(user)){
 
-        try {
-            if (userService.registration(user,pass2)){
             lastCommand = "frontController?command=go_To_Page&address=main.jsp";
             UserDTO userDTO = userService.find(user);
             request.getSession().setAttribute(USER, userDTO.getLogin());

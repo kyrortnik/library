@@ -23,7 +23,8 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
 
     private static final String FIND_USER_QUERY = "SELECT * FROM users WHERE login = ? AND password = ?";
     private static final String FIND_USER_BY_ID = "SELECT * FROM users WHERE id = ? ";
-    private static final String SAVE_USER = "INSERT INTO users VALUES (DEFAULT, ?, ?, ?) ";
+    private static final String FIND_USER_BY_LOGIN = "SELECT * FROM users WHERE login = ?";
+    private static final String SAVE_USER = "INSERT INTO users VALUES (DEFAULT, ?, ?, ?, ?) ";
     private static final String DELETE_USER = "DELETE FROM users WHERE login = ?";
     private static final String UPDATE_USER = "UPDATE users SET login = ?, password = ? WHERE id = ? ";
     private static final String CHANGE_USER_PASSWORD = "UPDATE users SET password = ? WHERE password = ?";
@@ -105,6 +106,33 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
         }
     }
 
+    @Override
+    public User findByLogin(User user) throws DAOException {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try{
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(FIND_USER_BY_LOGIN);
+            statement.setString(1,user.getLogin());
+            resultSet = statement.executeQuery();
+            if (resultSet.next()){
+                user.setId(resultSet.getLong(1));
+                user.setPassword(resultSet.getString(3));
+                user.setRole(resultSet.getString(4));
+                user.setSalt(resultSet.getString(5));
+                return user;
+            }
+            return null;
+        }catch (SQLException e){
+            throw new DAOException(e);
+        }finally {
+            closeResultSet(resultSet);
+            closeStatement(statement);
+            connectionPool.releaseConnection(connection);
+        }
+
+    }
 
     @Override
     public boolean save(User user) throws DAOException {
@@ -116,6 +144,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
             statement.setString(1, user.getLogin());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getRole());
+            statement.setString(4, user.getSalt());
             return statement.executeUpdate() != 0;
         } catch (SQLException e) {
             log.log(Level.SEVERE,"Exception: " + e);

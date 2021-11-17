@@ -22,13 +22,12 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public boolean registration(User user,String secondPassword) throws ServiceException {
+    public boolean registration(User user) throws ServiceException {
         if (!validation(user)){
             return false;
         }
-        boolean passwordEquals = user.getPassword().equals(secondPassword);
         try{
-            return passwordEquals && (userDAO.find(user) == null) && userDAO.save(user);
+            return (userDAO.find(user) == null) && userDAO.save(user);
         }catch (DAOException e){
             log.log(Level.SEVERE,"Exception: " + e);
             throw new ServiceException(e);
@@ -37,13 +36,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO logination(User user) throws ServiceException {
+    public User logination(User user) throws ServiceException {
         if (!validation(user)){
             return null;
         }
         try {
-            user = userDAO.find(user);
-            return (user == null) ? null : new UserDTO(user);
+            user = userDAO.findByLogin(user);
+            return user;
         } catch (DAOException e) {
             log.log(Level.SEVERE,"Exception: "+ e);
             throw new ServiceException(e);

@@ -9,6 +9,8 @@ public interface UserDAO extends BaseDAO<User> {
 
     boolean changePassword(User user, String newPassword) throws DAOException;
 
+    User findByLogin(User user) throws DAOException;
+
  //   UserDTO findUserByLogin(String login);
 
 //    boolean findUserByLogin(User user);
