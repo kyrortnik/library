@@ -19,8 +19,8 @@ public enum TypeCommand {
         {this.command = new ShowProductsCommand();}
     },
 
-    PRODUCT_INFO{
-        {this.command = new ProductInfoCommand();}
+    BOOK_INFO{
+        {this.command = new BookInfoCommand();}
     },
 
     CREATE_ORDER{

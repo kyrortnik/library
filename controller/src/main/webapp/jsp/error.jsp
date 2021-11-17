@@ -2,23 +2,13 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<html>
-<head>
-    <title>
-        Error page
-    </title>
-</head>
-<body>
-<h3>${message}</h3>
-
-
-<h3>
-    <a href="frontController?command=go_To_Page&address=login.jsp">
-        toIndexPage
-    </a>
-</h3>
-
-
-</body>
-
+<html xmlns="http://www.w3.org/1999/html">
+    <head>
+    <title>{crush}</title>
+    </head>
+    <body>
+    <h1>${errorOccurred}</h1>
+    </br>
+    <h1><a href="frontController?command=go_To_Page&address=login.jsp">${toIndexPage}</a></h1>
+    </body>
 </html>

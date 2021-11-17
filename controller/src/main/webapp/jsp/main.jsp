@@ -5,7 +5,7 @@
 <html>
     <head>
         <%@ include file="parts/meta.jsp" %>
-        <title>Main page</title>
+        <title>${mainPage}</title>
     </head>
     <body>
     <%@ include file="parts/header.jsp" %>
@@ -14,20 +14,21 @@
             <form id ="goToCreateBook" method="GET" action ="frontController">
                 <input type = "hidden" name ="command" value="go_To_Page" />
                 <input type = "hidden" name="address" value="newBook.jsp" />
-                <button form ="goToCreateBook" type="submit">Create Book</button>
+                <button form ="goToCreateBook" type="submit">{createBook}</button>
             </form>
         </div>
     </c:if>
 
-    <form id="messageForm">
+    <form id="sessionMessageForm">
         <h3>
             <c:out value="${sessionScope.message}"/>
         </h3>
     </form>
 
+
+<!----------   MAIN  ---------->
+<!----------   SHOW PRODUCTS  ---------->
     <c:if test="${sessionScope.role != null}">
-<!-----------MAIN------------------------->
-<!-----------SHOW PRODUCTS ------------------------->
     <div>
     <form id="showProducts" method="GET" action="frontController">
     <input type="hidden" name="command" value="show_Products"/>
@@ -42,26 +43,24 @@
 <!--                        <td><h4><c:out value="${author}"/></h4></td>-->
 <!--                        <td><h4><c:out value="${publishingYear}"/></h4></td>-->
 <!--                    </tr>-->
-
-
                     <tbody>
-                    <c:forEach items="${requestScope.pageable.elements}" var="productRow">
+                    <c:forEach items="${requestScope.pageable.elements}" var="bookRow">
                         <tr>
                             <td>
                                 <form  method="GET" action="frontController" >
-                                    <input type="hidden" name="command" value="product_Info" />
-                                    <input type="hidden" name="id" value="${productRow.id}" />
+                                    <input type="hidden" name="command" value="book_Info" />
+                                    <input type="hidden" name="id" value="${bookRow.id}" />
                                     <button type="submit">${productInfo}</button><br/>
                                 </form>
                             </td>
-                            <td>${productRow.title}</td>
-                            <td>${productRow.author}</td>
-                            <td>${productRow.publisher}</td>
-                            <td>${productRow.publishingYear}</td>
+                            <td>${bookRow.title}</td>
+                            <td>${bookRow.author}</td>
+                            <td>${bookRow.publisher}</td>
+                            <td>${bookRow.publishingYear}</td>
                             <td>
                                <!-- <form method = "POST" action="frontController">
                                     <input type = "hidden" name ="command" value ="createReserve"/>
-                                    <input type = "hidden" name="productId" value="${productRow.id}"/>
+                                    <input type = "hidden" name="productId" value="${bookRow.id}"/>
                                     <input type="submit" value ="Reserve this Book">
                                     <br/>
                                     ${message}
@@ -72,7 +71,7 @@
                             <td>
                                 <form  method="POST" action="frontController" >
                                     <input type="hidden" name="command" value="create_Reserve" />
-                                    <input type="hidden" name="bookId" value="${productRow.id}" />
+                                    <input type="hidden" name="bookId" value="${bookRow.id}" />
                                     <button type="submit">Create reserve</button><br/>
                                 </form>
                             </td>
@@ -96,7 +95,7 @@
                 </div>
             </div>
 
-        <!-----------SHOW RESERVES ------------------------->
+<!----------   SHOW RESERVES  ---------->
 
         <div>
             <form id ="showReserves" method="GET" action ="frontController">
@@ -131,7 +130,7 @@
                             <form  method="POST" action="frontController" >
                                 <input type="hidden" name="command" value="delete_Reserve" />
                                 <input type="hidden" name="bookId" value="${reserveRow.id}" />
-                                <button type="submit">Delete reserve</button><br/>
+                                <button type="submit">${deleteReserve}</button><br/>
                             </form>
                         </td>
                     </tr>
@@ -167,7 +166,7 @@
             </c:if>
         </div>
 
-        <!-----------SHOW ORDER INFO ------------------------->
+ <!----------   SHOW ORDER INFO  ---------->
 
         <form id ="showOrderInfo" method="GET" action ="frontController">
         <input type = "hidden" name ="command" value="order_Info"/>
@@ -206,11 +205,9 @@
                                     <form method = "POST" action="frontController">
                                         <input type = "hidden" name ="command" value ="delete_Book_From_Order"/>
                                         <input type = "hidden" name="bookId" value="${bookFromOrder.id}"/>
-                                        <input type="submit" value ="Delete from Order">
-                                        <br/>
+                                        <input type="submit" value ="${deleteFromOrder}">
                                         <br/>
                                     </form>
-
                                </td>
                         </tr>
                     </c:if>
@@ -221,24 +218,22 @@
                         <h3>${orderMessage}</h3>
                     </div>
                 </c:if>
-
                 </tbody>
             </table>
         </div>
         </c:if>
 
-    <!-----------------ADMIN SHOW USERS -------------------->
+<!----------   ADMIN SHOW USERS  ---------->
 
     <c:if test ="${sessionScope.role == 'admin'}">
     <div>
         <form id ="showUsers" method="GET" action ="frontController">
             <input type="hidden" name = "command" value="show_Users" />
-            <button form ="showUsers" type ="submit">Show Users</button>
+            <button form ="showUsers" type ="submit">${showUsers}</button>
         </form>
     </div>
     <div>
         <c:if test="${not empty requestScope.pageableUsers.elements}">
-
             <table>
                 <tbody>
                 <c:forEach items="${requestScope.pageableUsers.elements}" var="userRow">
@@ -250,7 +245,6 @@
                         <td>${userRow.role}</td>
                     </tr>
                 </c:forEach>
-
                 </tbody>
             </table>
 

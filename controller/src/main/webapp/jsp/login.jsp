@@ -32,7 +32,7 @@
         </div>
     </div>
 
-<!--   LOGIN FORM -->
+<!----------  LOGIN FORM  ---------->
 
     <body>
         <form name="loginForm" method="POST" action="frontController">
@@ -46,9 +46,10 @@
         <h3>${loginErrorMessage}</h3>
         <br/>
         <input type="submit" value="${login}"/>
-        </form><hr/>
+        </form>
+        <hr/>
 
-        <!--   REGISTRATION FORM FORM -->
+<!----------   REGISTRATION FORM FORM  ---------->
 
         <form name = "registrationForm" method="POST" action="frontController">
         <input type="hidden" name = "command" value="registration" />
@@ -66,8 +67,5 @@
         <h3>${registrationErrorMessage}</h3>
         <br/>
         </form>
-
-
-
     </body>
 </html>

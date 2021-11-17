@@ -30,6 +30,43 @@
 <fmt:message bundle="${loc}" key="local.description" var="description" />
 <!---->
 <fmt:message bundle="${loc}" key="local.createBook" var="createBook" />
+<fmt:message bundle="${loc}" key="local.errorOccurred" var="errorOccurred" />
+<fmt:message bundle="${loc}" key="local.toIndexPage" var="toIndexPage" />
+<fmt:message bundle="${loc}" key="local.crush" var="crush" />
+<fmt:message bundle="${loc}" key="local.mainPage" var="mainPage" />
+<fmt:message bundle="${loc}" key="local.createReserve" var="createReserve" />
+<fmt:message bundle="${loc}" key="local.deleteReserve" var="deleteReserve" />
+<fmt:message bundle="${loc}" key="local.deleteFromOrder" var="deleteFromOrder" />
+<fmt:message bundle="${loc}" key="local.showUsers" var="showUsers" />
+<fmt:message bundle="${loc}" key="local.newBook" var="newBook" />
+<fmt:message bundle="${loc}" key="local.bookTitle" var="bookTitle" />
+<fmt:message bundle="${loc}" key="local.publisher" var="publisher" />
+<fmt:message bundle="${loc}" key="local.publishingYear" var="publishingYear" />
+<fmt:message bundle="${loc}" key="local.isHardCover" var="isHardCover" />
+<fmt:message bundle="${loc}" key="local.numberOfPages" var="numberOfPages" />
+<fmt:message bundle="${loc}" key="local.genre" var="genre" />
+<fmt:message bundle="${loc}" key="local.description" var="description" />
+<fmt:message bundle="${loc}" key="local.submit" var="submit" />
+<fmt:message bundle="${loc}" key="local.bookInformationPage" var="bookInformationPage" />
+<fmt:message bundle="${loc}" key="local.deleteBook" var="deleteBook" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
