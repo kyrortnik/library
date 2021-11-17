@@ -15,25 +15,24 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class BookDAOImpl implements BookDAO {
+
+import static com.epam.repository.utils.DBConstants.*;
+
+public class BookDAOImpl extends AbstractDAO implements BookDAO {
 
 
-    private static final String FIND_BOOK_QUERY = "SELECT * FROM products WHERE title = ? AND author = ? AND publish_year = ?";
-    private static final String FIND_BOOK_BY_ID = "SELECT * FROM products WHERE product_id = ? ";
-    private static final String SAVE_BOOK = "INSERT INTO products VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?) ";
-    private static final String DELETE_BOOK = "DELETE FROM products WHERE title = ? AND author = ? AND publisher = ?";
-    private static final String UPDATE_BOOK = "UPDATE products SET author = ?, is_reserved = ?, publishyear = ?, publisher = ?, genre = ?, pages = ?, is_hard = ? WHERE id = ? ";
-    private static final String GET_ALL_BOOKS = "SELECT * FROM products";
+    private static final String FIND_BOOK_QUERY = "SELECT * FROM books WHERE title = ? AND author = ?";
+    private static final String FIND_BOOK_BY_ID = "SELECT * FROM books WHERE book_id = ? ";
+    private static final String GET_ALL_BOOKS = "SELECT * FROM books";
+    private static final String SAVE_BOOK = "INSERT INTO books (book_id,title,author,publishyear,publisher,genre,number_of_pages,is_hard_cover,description) VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String DELETE_BOOK = "DELETE FROM books WHERE book_id = ?";
+    private static final String UPDATE_BOOK = "UPDATE books SET title = ?, author = ?,  publisher = ?, publishyear = ?, is_hard_cover = ? , number_of_pages = ?, genre = ?, description = ?  WHERE book_id = ?";
 
-    private static final String COUNT_ALL = "SELECT count(product_id) FROM products";
-    private static final String FIND_PAGE_FILTERED_SORTED = "SELECT * FROM products p ORDER BY p.%s %s LIMIT ? OFFSET ?";
-//    private static final String FIND_PAGE_FILTERED_WHERE_PARAMETER = "SELECT * FROM products ORDER BY %s % %s WHERE %s = ? LIMIT ? OFFSET ?";
-//    --------for user---------------
-//    private static final String COUNT_ALL_FOR_USER
-//    private static final String FIND_PAGE_FILTERED_FOR_USER
-
+    private static final String COUNT_ALL = "SELECT count(book_id) FROM books";
+    private static final String FIND_PAGE_FILTERED_SORTED = "SELECT * FROM books ORDER BY %s %s LIMIT ? OFFSET ?";
 
     PropertyInitializer propertyInitializer = new PropertyInitializer();
     protected ConnectionPool connectionPool = new ConnectionPoolImpl(propertyInitializer);
@@ -41,13 +40,8 @@ public class BookDAOImpl implements BookDAO {
     private static final Logger log = Logger.getLogger(BookDAOImpl.class.getName());
 
 
-    public BookDAOImpl() {
-    }
-
-
-
     @Override
-    public BookRow get(BookRow bookRow) throws DAOException {
+    public BookRow find(BookRow bookRow) throws DAOException {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -56,7 +50,6 @@ public class BookDAOImpl implements BookDAO {
             statement = connection.prepareStatement(FIND_BOOK_QUERY);
             statement.setString(1, bookRow.getTitle());
             statement.setString(2, bookRow.getAuthor());
-            statement.setInt(3, bookRow.getPublishingYear());
             resultSet = statement.executeQuery();
             bookRow = new BookRow();
             while (resultSet.next()){
@@ -69,15 +62,16 @@ public class BookDAOImpl implements BookDAO {
                 bookRow.setGenre(resultSet.getString(7));
                 bookRow.setNumberOfPages(resultSet.getInt(8));
                 bookRow.setHardCover(resultSet.getBoolean(9));
-            }if (bookRow.getTitle() != null){
+                bookRow.setDescription(resultSet.getString(10));
+            }if (bookRow.getTitle() != null || bookRow.getId() != null){
                 return bookRow;
             }
-            log.info("Couldn't find requested book.");
             return null;
         }catch (Exception e){
+            log.log(Level.SEVERE,"Exception: " + e);
             throw new DAOException(e);
-        }finally {
 
+        }finally {
             closeResultSet(resultSet);
             closeStatement(statement);
             connectionPool.releaseConnection(connection);
@@ -86,7 +80,7 @@ public class BookDAOImpl implements BookDAO {
     }
 
     @Override
-    public BookRow getById(Long id) throws DAOException {
+    public BookRow findById(Long id) throws DAOException {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -106,11 +100,13 @@ public class BookDAOImpl implements BookDAO {
                 bookRow.setGenre(resultSet.getString(7));
                 bookRow.setNumberOfPages(resultSet.getInt(8));
                 bookRow.setHardCover(resultSet.getBoolean(9));
+                bookRow.setDescription(resultSet.getString(10));
             }if (bookRow.getTitle() != null){
                 return bookRow;
-            }log.info("Couldn't find requested book by Id.");
+            }
             return null;
         }catch (Exception e){
+            log.log(Level.SEVERE,"Exception: " + e);
             throw new DAOException(e);
         }finally {
             closeResultSet(resultSet);
@@ -129,30 +125,6 @@ public class BookDAOImpl implements BookDAO {
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(GET_ALL_BOOKS);
             resultSet = statement.executeQuery();
-           /* Book book;*/
-            /*long id;
-            String title;
-            String author;
-            boolean isReserved;
-            int publishYear;
-            String publisher;
-            String genre;
-            int numberOfPages;
-            boolean isHardCover;
-            while(resultSet.next()){
-                id = resultSet.getLong(1);
-                title =resultSet.getString(2);
-                author = resultSet.getString(3);
-                isReserved = resultSet.getBoolean(4);
-                publishYear = resultSet.getInt(5);
-                publisher = resultSet.getString(6);
-                genre = resultSet.getString(7);
-                numberOfPages = resultSet.getInt(8);
-                isHardCover = resultSet.getBoolean(9);
-                BookRow bookRow = new BookRow(
-                        id,title,author,publishYear,publisher,isReserved,genre,numberOfPages,isHardCover
-                );*/
-
             while (resultSet.next()){
                 BookRow bookRow = new BookRow();
                 bookRow.setId(resultSet.getLong(1));
@@ -168,6 +140,7 @@ public class BookDAOImpl implements BookDAO {
             }
             return bookRows;
         }catch (Exception e){
+            log.log(Level.SEVERE,"Exception: " + e);
             throw new DAOException(e);
         }
         finally {
@@ -178,37 +151,35 @@ public class BookDAOImpl implements BookDAO {
     }
 
 
-    /*TODO need to add check on whether book already exists*/
-    /**Functionality not yet implemented*/
     @Override
     public boolean save(BookRow bookRow) throws DAOException {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
 
-                connection = connectionPool.getConnection();
-                statement = connection.prepareStatement(SAVE_BOOK);
-                statement.setString(1, bookRow.getAuthor());
-                statement.setBoolean(2, bookRow.isReserved());
-                statement.setInt(3, bookRow.getPublishingYear());
-                statement.setString(4, bookRow.getPublisher());
-                statement.setString(5, bookRow.getGenre());
-                statement.setInt(6, bookRow.getNumberOfPages());
-                statement.setBoolean(7, bookRow.isHardCover());
-                return (statement.executeUpdate() != 0);
+            connection = connectionPool.getConnection();
+            statement = connection.prepareStatement(SAVE_BOOK);
+            statement.setString(1, bookRow.getTitle());
+            statement.setString(2, bookRow.getAuthor());
+            statement.setInt(3, bookRow.getPublishingYear());
+            statement.setString(4, bookRow.getPublisher());
+            statement.setString(5, bookRow.getGenre());
+            statement.setInt(6, bookRow.getNumberOfPages());
+            statement.setBoolean(7, bookRow.isHardCover());
+            statement.setString(8, bookRow.getDescription());
+
+            return (statement.executeUpdate() != 0);
 
         }catch (SQLException e) {
-            throw new DAOException("error while saving book");
+            log.log(Level.SEVERE,"Exception: " + e);
+            throw new DAOException(e);
         } finally {
             closeStatement(statement);
             connectionPool.releaseConnection(connection);
-
         }
-
     }
 
-    /*TODO need to add check on whether book already exists*/
-    /**Functionality not yet implemented*/
+
     @Override
     public boolean delete(BookRow bookRow) throws DAOException {
        Connection connection = null;
@@ -217,22 +188,16 @@ public class BookDAOImpl implements BookDAO {
        try {
            connection = connectionPool.getConnection();
            statement = connection.prepareStatement(DELETE_BOOK);
-           statement.setString(1, bookRow.getTitle());
-           statement.setString(2, bookRow.getAuthor());
-           statement.setInt(3, bookRow.getPublishingYear());
+           statement.setLong(1, bookRow.getId());
            return (statement.executeUpdate() != 0);
        }catch (Exception e){
+           log.log(Level.SEVERE,"Exception: " + e);
            throw new DAOException(e);
        }finally {
            closeStatement(statement);
            connectionPool.releaseConnection(connection);
        }
     }
-
-
-    /**
-     * check whether book exists - service layer?
-     * */
 
     @Override
     public boolean update(BookRow bookRow) throws DAOException {
@@ -241,87 +206,84 @@ public class BookDAOImpl implements BookDAO {
        try{
            connection = connectionPool.getConnection();
            statement = connection.prepareStatement(UPDATE_BOOK);
-           statement.setString(1, bookRow.getAuthor());
-           statement.setBoolean(2, bookRow.isReserved());
-           statement.setInt(3, bookRow.getPublishingYear());
-           statement.setString(4, bookRow.getPublisher());
-           statement.setString(5, bookRow.getGenre());
+           statement.setString(1, bookRow.getTitle());
+           statement.setString(2, bookRow.getAuthor());
+           statement.setString(3, bookRow.getPublisher());
+           statement.setInt(4, bookRow.getPublishingYear());
+           statement.setBoolean(5, bookRow.isHardCover());
            statement.setInt(6, bookRow.getNumberOfPages());
-           statement.setBoolean(7, bookRow.isHardCover());
-           statement.setLong(8, bookRow.getId());
-           return (statement.executeUpdate() != 0);
+           statement.setString(7, bookRow.getGenre());
+           statement.setString(8, bookRow.getDescription());
+           statement.setLong(9, bookRow.getId());
+           return (statement.executeUpdate() > 0);
 
        }catch (Exception e){
-           throw new DAOException("unable to update book",e);
+           log.log(Level.SEVERE,"Exception: " + e);
+           throw new DAOException(e);
        }finally {
            closeStatement(statement);
            connectionPool.releaseConnection(connection);
        }
     }
 
-    //TODO разобраться в логике метода
 
     @Override
-    public Pageable<BookRow> findPageByFilter(Pageable<BookRow> daoProductPageable) throws DAOException {
-        final int offset = (daoProductPageable.getPageNumber() - 1) * daoProductPageable.getLimit();
-        List<Object> parameters1 = Collections.emptyList(); // todo implement filtering
-        List<Object> parameters2 = Arrays.asList( // todo implement filtering
-                daoProductPageable.getLimit(),
-                offset
-        );
+    public Pageable<BookRow> findPageWithParameters(Pageable<BookRow> daoProductPageable) throws DAOException {
+        int offset = (daoProductPageable.getPageNumber() - 1) * MAX_ROWS;
+        List<Object> parameters = Arrays.asList(MAX_ROWS, offset);
         Connection connection = null;
-        PreparedStatement preparedStatement1 = null;
-        PreparedStatement preparedStatement2 = null;
-        ResultSet resultSet1 = null;
-        ResultSet resultSet2 = null;
+        PreparedStatement countPreparedStatement = null;
+        PreparedStatement queryPreparedStatement = null;
+        ResultSet countResultSet = null;
+        ResultSet queryResultSet = null;
         try {
             connection = connectionPool.getConnection();
-            preparedStatement1 = getPreparedStatement(COUNT_ALL, connection, parameters1);
+            connection.setAutoCommit(false);
+            countPreparedStatement = getPreparedStatement(COUNT_ALL, connection, Collections.emptyList());
             final String findPageOrderedQuery =
                     String.format(FIND_PAGE_FILTERED_SORTED, daoProductPageable.getSortBy(), daoProductPageable.getDirection());
-            preparedStatement2 = getPreparedStatement(findPageOrderedQuery, connection, parameters2);
-            resultSet1 = preparedStatement1.executeQuery();
-            resultSet2 = preparedStatement2.executeQuery();
-           // connection.commit();
+            queryPreparedStatement = getPreparedStatement(findPageOrderedQuery, connection, parameters);
+            countResultSet = countPreparedStatement.executeQuery();
+            queryResultSet = queryPreparedStatement.executeQuery();
+           connection.commit();
 
-            return getBookRowPageable(daoProductPageable, resultSet1, resultSet2);
+            return getBookRowPageable(daoProductPageable, countResultSet, queryResultSet);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.log(Level.SEVERE,"Exception: " + e);
             throw new DAOException(e);
         } finally {
-            closeResultSet(resultSet1);
-            closeResultSet(resultSet2);
-            closeStatement(preparedStatement1);
-            closeStatement(preparedStatement2);
+            closeResultSet(countResultSet,queryResultSet);
+            closeStatement(countPreparedStatement,queryPreparedStatement);
             connectionPool.releaseConnection(connection);
         }
     }
 
 
     private Pageable<BookRow> getBookRowPageable(Pageable<BookRow> daoProductPageable,
-                                                    ResultSet resultSet1,
-                                                    ResultSet resultSet2) throws SQLException {
-        final Pageable<BookRow> pageable = new Pageable<>();
+                                                    ResultSet countResultSet,
+                                                    ResultSet queryResultSet) throws SQLException {
+        Pageable<BookRow> pageable = new Pageable<>();
         long totalElements = 0L;
-        while (resultSet1.next()) {
-            totalElements = resultSet1.getLong(1);
+        while (countResultSet.next()) {
+            totalElements = countResultSet.getLong(1);
         }
-        final List<BookRow> rows = new ArrayList<>();
-        while (resultSet2.next()) {
-            long id = resultSet2.getLong(1);
-            String title = resultSet2.getString(2);
-            String author = resultSet2.getString(3);
-            boolean isReserved = resultSet2.getBoolean(4);
-            int publishingYear = resultSet2.getInt(5);
-            String publisher = resultSet2.getString(6);
-            String genre = resultSet2.getString(7);
-            int numberOfPages = resultSet2.getInt(8);
-            boolean isHardCover = resultSet2.getBoolean(9);
+        List<BookRow> rows = new ArrayList<>();
+        while (queryResultSet.next()) {
+            long id = queryResultSet.getLong(1);
+            String title = queryResultSet.getString(2);
+            String author = queryResultSet.getString(3);
+            boolean isReserved = queryResultSet.getBoolean(4);
+            int publishingYear = queryResultSet.getInt(5);
+            String publisher = queryResultSet.getString(6);
+            String genre = queryResultSet.getString(7);
+            int numberOfPages = queryResultSet.getInt(8);
+            boolean isHardCover = queryResultSet.getBoolean(9);
+            String description = queryResultSet.getString(10);
 
-            rows.add(new BookRow(id, title,author,publishingYear,publisher,isReserved,genre,numberOfPages,isHardCover));
+            rows.add(new BookRow(id, title,author,publishingYear,publisher,isReserved,genre,numberOfPages,isHardCover,description));
         }
         pageable.setPageNumber(daoProductPageable.getPageNumber());
-        pageable.setLimit(daoProductPageable.getLimit());
+        pageable.setLimit(MAX_ROWS);
         pageable.setTotalElements(totalElements);
         pageable.setElements(rows);
         pageable.setFilter(daoProductPageable.getFilter());
@@ -329,59 +291,5 @@ public class BookDAOImpl implements BookDAO {
         pageable.setDirection(daoProductPageable.getDirection());
         return pageable;
     }
-
-
-
-    protected PreparedStatement getPreparedStatement(String query, Connection connection,
-                                                      List<Object> parameters) throws SQLException {
-        final PreparedStatement preparedStatement = connection.prepareStatement(query);
-        setPreparedStatementParameters(preparedStatement, parameters);
-        return preparedStatement;
-    }
-
-    protected void setPreparedStatementParameters( PreparedStatement preparedStatement,
-                                                   List<Object> parameters) throws SQLException {
-        for (int i = 0, queryParameterIndex = 1; i < parameters.size(); i++, queryParameterIndex++) {
-            final Object parameter = parameters.get(i);
-            setPreparedStatementParameter(preparedStatement, queryParameterIndex, parameter);
-        }
-    }
-
-    protected void setPreparedStatementParameter( PreparedStatement preparedStatement,
-                                                  int queryParameterIndex,  Object parameter) throws SQLException {
-        if (Long.class == parameter.getClass()) {
-            preparedStatement.setLong(queryParameterIndex, (Long) parameter);
-        } else if (Integer.class == parameter.getClass()){
-            preparedStatement.setInt(queryParameterIndex, (Integer) parameter);
-        } else if (String.class == parameter.getClass()){
-            preparedStatement.setString(queryParameterIndex, (String) parameter);
-        }
-    }
-
-
-
-    private void closeResultSet( ResultSet resultSet) {
-        try{
-
-            if (resultSet != null){
-                resultSet.close();
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-    }
-    private void closeStatement(PreparedStatement statement){
-        try{
-            if (statement != null){
-                statement.close();
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-    }
-
-
-
-
 
 }

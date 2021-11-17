@@ -5,7 +5,7 @@ import com.epam.exception.DAOException;
 
 import java.util.List;
 
-public interface ReserveDAO extends AbstractDAO<ReserveRow>{
+public interface ReserveDAO extends BaseDAO<ReserveRow> {
 
     List<ReserveRow> getReservesForUser(Long userId) throws DAOException;
 
@@ -13,12 +13,11 @@ public interface ReserveDAO extends AbstractDAO<ReserveRow>{
 
     boolean deleteByUserId(Long userId) throws DAOException;
 
-    boolean orderForReserveExists(ReserveRow reserveRow) throws DAOException;
-
     int countReservesForUser(long userId) throws DAOException;
 
+    List<ReserveRow> findReserveByUserId(long userId, int row) throws DAOException;
 
-    List<ReserveRow> findReservationsByUserId(long userId, int row) throws DAOException;
+    //    boolean orderForReserveExists(ReserveRow reserveRow) throws DAOException;
 
 
 }

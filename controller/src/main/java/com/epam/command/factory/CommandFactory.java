@@ -1,7 +1,7 @@
 package com.epam.command.factory;
 
 
-import com.epam.command.AbstractCommand;
+import com.epam.command.Command;
 import com.epam.command.BaseCommand;
 import com.epam.command.TypeCommand;
 
@@ -15,18 +15,20 @@ public class CommandFactory {
     private CommandFactory(){
     }
 
-    public AbstractCommand defineCommand(HttpServletRequest request){
+    public Command defineCommand(HttpServletRequest request){
 
-        AbstractCommand current = new BaseCommand();
+        Command current = new BaseCommand();
         String command = request.getParameter("command");
-        if (command.isEmpty()){
+        if (command == null){
+            request.getSession().setAttribute("message","No such command was found");
             return current;
+
         }else {
             try {
                 TypeCommand typeCommand = TypeCommand.valueOf(command.toUpperCase());
                 current = typeCommand.getCurrentCommand();
             } catch (IllegalArgumentException e) {
-                request.setAttribute("wrongAction", "Wrong Action");
+                request.setAttribute("errorMessage", "Unknown command");
             }
         }
         return current;

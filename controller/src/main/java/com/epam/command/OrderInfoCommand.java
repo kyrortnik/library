@@ -12,42 +12,44 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.logging.Logger;
+
 
 import static com.epam.command.util.ControllerConstants.*;
 
-public class OrderInfoCommand implements AbstractCommand{
+public class OrderInfoCommand extends AbstractCommand {
 
+    private final ServiceFactory serviceFactory = ServiceFactory.getInstance();
 
-    private OrderService orderService = ServiceFactory.getInstance().createOrderService();
-    private BookService bookService = ServiceFactory.getInstance().createBookService();
+    private final OrderService orderService = serviceFactory.createOrderService();
+    private final BookService bookService = serviceFactory.createBookService();
 
     private static final Logger log = Logger.getLogger(OrderInfoCommand.class.getName());
 
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
+        log.info("Start in OrderInfoCommand");
+
+        String lastCommand;
+        Long userId = (Long)request.getSession().getAttribute(ID);
+
 
         try{
-
-            log.info("Start in OrderInfoCommand");
-            Long userId = (Long)request.getSession().getAttribute("id");
             Order order = orderService.getByUserId(userId);
             if (order == null){
-                request.setAttribute("orderMessage","No order created for you yet.");
+                request.setAttribute(ORDER_MESSAGE,"No order created for you yet.");
             }else{
                 List<Book> booksFromOrder = bookService.findBooksByOrder(order);
                 request.setAttribute("booksFromOrder", booksFromOrder);
                 if (booksFromOrder.isEmpty()){
-                    request.setAttribute("orderMessage","No books in your order yet.");
+                    request.setAttribute(ORDER_MESSAGE,"No books in your order yet.");
                 }
                 }
-            String lastCommand = AbstractCommand.defineCommand(request,false);
+             lastCommand = defineCommand(request,false);
             request.getSession().setAttribute("lastCommand",lastCommand);
-            request.getRequestDispatcher("/jsp/main.jsp").forward(request, response);
+            request.getRequestDispatcher("frontController?command=go_To_Page&address=main.jsp").forward(request, response);
 
 
         }catch (IOException | ServletException | ServiceException e ){

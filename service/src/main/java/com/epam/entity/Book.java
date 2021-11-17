@@ -7,8 +7,12 @@ public class Book extends Product{
     private String genre;
     private int numberOfPages;
     private boolean isHardCover;
+    private String description;
 
     public Book() {
+    }
+    public Book(Long id){
+        super(id);
     }
 
     public Book(long id, String title, String author, int publishingYear) {
@@ -56,6 +60,16 @@ public class Book extends Product{
 
     }
 
+    public Book( String title, String author, int publishYear, String publisher, String genre, int numberOfPages, boolean isHardCover,String description) {
+        super(title,author);
+        this.publishingYear = publishYear;
+        this.publisher = publisher;
+        this.genre = genre;
+        this.numberOfPages = numberOfPages;
+        this.isHardCover = isHardCover;
+        this.description = description;
+
+    }
     public int getPublishingYear() {
         return publishingYear;
     }
@@ -94,6 +108,14 @@ public class Book extends Product{
 
     public void setHardCover(boolean hardCover) {
         isHardCover = hardCover;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

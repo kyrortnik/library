@@ -1,16 +1,12 @@
 package com.epam.command;
 
-import com.epam.command.exception.ControllerException;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
-public interface AbstractCommand {
+public abstract class AbstractCommand implements Command{
 
-    void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException;
 
-     static String defineCommand(HttpServletRequest request, boolean withPage) {
+    protected String defineCommand(HttpServletRequest request, boolean withPage) {
         /*
         name and value as Map<String, String[]>
          */
@@ -45,5 +41,4 @@ public interface AbstractCommand {
             return sb.substring(0, sb.length() - 1);
         }
     }
-
 }

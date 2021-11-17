@@ -14,14 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-public class RegistrationCommand implements AbstractCommand{
+import static com.epam.command.util.ControllerConstants.*;
 
-    private static final String PARAM_NAME_LOGIN = "login";
-    private static final String PARAM_NAME_PASSWORD = "password";
-    private static final String PARAM_NAME_SECOND_PASSWORD = "secondPassword";
+public class RegistrationCommand implements Command {
 
-    private ServiceFactory factory = ServiceFactory.getInstance();
-    private UserService userService = factory.createUserService();
+
+    private final ServiceFactory factory = ServiceFactory.getInstance();
+    private final UserService userService = factory.createUserService();
     private static final Logger log = Logger.getLogger(RegistrationCommand.class.getName());
 
 
@@ -30,26 +29,28 @@ public class RegistrationCommand implements AbstractCommand{
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
 
         log.info("Start in RegistrationCommand");
-        String addressForRedirect;
-        String login = request.getParameter(PARAM_NAME_LOGIN);
-        String pass = request.getParameter(PARAM_NAME_PASSWORD);
-        String role = "user";
-        String pass2 = request.getParameter(PARAM_NAME_SECOND_PASSWORD);
-        User user = new User(login,pass,role);
+        String lastCommand;
+        String login = request.getParameter(LOGIN);
+        String pass = request.getParameter(PASSWORD);
+        String pass2 = request.getParameter(SECOND_PASSWORD);
+        User user = new User(login,pass,USER);
+
 
         try {
             if (userService.registration(user,pass2)){
-            request.getSession().setAttribute("role",role);
-            addressForRedirect = "frontController?command=goToPage&address=main.jsp";
-            UserDTO userDTO = userService.get(user);
-            request.getSession().setAttribute("id",userDTO.getId());
-            response.sendRedirect(addressForRedirect);
-            }else {
-                request.setAttribute("registrationFail","Registration failed");
-                request.getRequestDispatcher("/jsp/login.jsp").forward(request,response);
+            lastCommand = "frontController?command=go_To_Page&address=main.jsp";
+            UserDTO userDTO = userService.find(user);
+            request.getSession().setAttribute(USER, userDTO.getLogin());
+            request.getSession().setAttribute(ROLE,userDTO.getRole());
+            request.getSession().setAttribute(ID,userDTO.getId());
+            response.sendRedirect(lastCommand);
+            }
+            else {
+            lastCommand = "frontController?command=go_To_Page&address=login.jsp";
+            request.setAttribute(MESSAGE,"Registration failed");
+            request.getRequestDispatcher(lastCommand).forward(request,response);
 
             }
-
         }catch (IOException | ServletException | ServiceException e){
             throw new ControllerException(e);
         }

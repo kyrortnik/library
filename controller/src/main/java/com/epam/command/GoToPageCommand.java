@@ -10,22 +10,18 @@ import java.util.logging.Logger;
 
 import static com.epam.command.util.ControllerConstants.*;
 
-public class GoToPageCommand implements AbstractCommand{
+public class GoToPageCommand implements Command {
 
     private static final Logger log = Logger.getLogger(GoToPageCommand.class.getName());
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
-        log.info("Start in GoToPageCommand");
-        try {
-            String goToPage = "/index.jsp".equals(request.getParameter(ADDRESS)) ? "/index.jsp" :
-                    "/jsp/" + request.getParameter(ADDRESS);
-//            String goToPage = "/index.jsp";
 
-//            request.setAttribute("message", request.getParameter("message"));
-           /* if (request.getParameter("message") == null) {
-                request.getSession().setAttribute(LAST_COMMAND, defineCommand(request, true));
-            }*/
+        log.info("Start in GoToPageCommand");
+
+        try {
+            String goToPage = "/index.jsp".equals(request.getParameter(ADDRESS)) ? "/index.jsp" : "/jsp/" + request.getParameter(ADDRESS);
+            request.getSession().setAttribute(MESSAGE,null);
             request.getRequestDispatcher(goToPage).forward(request, response);
         } catch (IOException | ServletException e) {
             throw new ControllerException(e);

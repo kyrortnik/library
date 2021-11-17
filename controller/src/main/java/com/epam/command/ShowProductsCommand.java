@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 
 import static com.epam.command.util.ControllerConstants.*;
 
-public class ShowProductsCommand implements AbstractCommand{
+public class ShowProductsCommand extends AbstractCommand {
 
     private BookService bookService = ServiceFactory.getInstance().createBookService();
     private static final Logger log = Logger.getLogger(ShowProductsCommand.class.getName());
@@ -27,50 +27,33 @@ public class ShowProductsCommand implements AbstractCommand{
 
         log.info("Start in ShowProductsCommand");
         try{
-           String currentPageParam = request.getParameter("currentPage");
-            if (Objects.isNull(currentPageParam)) {
-                currentPageParam = "1";
-            }
-//           String currentPageParam = "2";
-//            if(/*validation on null/empty*/){
-//            currentPage = "1";authType = null
-//            }
-//            String currentLimitParam = request.getParameter("pageLimit");
-//            if(/*validation on null/empty*/){
-//            currentLimitParam = "10";
-//            }
-
-            int currentPage = Integer.parseInt(currentPageParam);
-//
-
- /*           ArrayList<Book> products =(ArrayList<Book>) bookService.getAll();
-            request.setAttribute("products",products);*/
-
+            int currentPage = getCurrentPage(request);
             Page<Book> pageableRequest = new Page<>();
             pageableRequest.setPageNumber(currentPage);
-            pageableRequest.setLimit(MAX_ROWS);
+            String lastCommand = defineCommand(request,true);
+            request.getSession().setAttribute(LAST_COMMAND,lastCommand);
+            request.getSession().setAttribute(MESSAGE,null);
 
-             Page<Book> pageable = bookService.getAll(pageableRequest);
+            Page<Book> pageable = bookService.getAll(pageableRequest);
 
-             String lastCommand = AbstractCommand.defineCommand(request,true);
-
-             request.setAttribute("pageable",pageable);
-             request.getSession().setAttribute("lastCommand",lastCommand);
-
-//            final Pageable<Book> pageable = bookService.showProducts(pageableRequest);
-
-            // send response
-//            request.setAttribute(PAGEABLE, pageable);
-//            request.getRequestDispatcher(Command.prepareUri(request) + JSP).forward(request, response);
-//            // response.sendRedirect(ConfigurationManager.getProperty("path.page.products"));
-
- //           request.getRequestDispatcher(Command.prepareUri(request) + JSP).forward(request, response);
-            request.getRequestDispatcher("/jsp/main.jsp").forward(request,response);
+            if (!pageable.getElements().isEmpty()){
+                request.setAttribute("pageable",pageable);
+            }else{
+              request.setAttribute("productsMessage","No books in library yet");
+            }
+            request.getRequestDispatcher("frontController?command=go_To_Page&address=main.jsp").forward(request,response);
         }catch (IOException | ServletException | ServiceException e){
             throw new ControllerException(e);
         }
 
 
-//        return page;
+    }
+
+    private int getCurrentPage(HttpServletRequest request) {
+        String currentPageParam = request.getParameter(CURRENT_PAGE);
+        if (Objects.isNull(currentPageParam)) {
+            currentPageParam = "1";
+        }
+        return Integer.parseInt(currentPageParam);
     }
 }

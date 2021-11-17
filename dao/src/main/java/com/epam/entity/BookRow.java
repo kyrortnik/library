@@ -7,6 +7,7 @@ public class BookRow extends ProductRow {
     private String genre;
     private Integer numberOfPages;
     private boolean isHardCover;
+    private String description;
 
     public BookRow() {
     }
@@ -54,8 +55,18 @@ public class BookRow extends ProductRow {
         this.numberOfPages = numberOfPages;
         this.isHardCover = isHardCover;
 
+    }
+    public BookRow(Long id, String title, String author, Integer publishYear, String publisher, boolean isReserved, String genre, Integer numberOfPages, boolean isHardCover,String description) {
+        super(id,title,author,isReserved);
+        this.publishingYear = publishYear;
+        this.publisher = publisher;
+        this.genre = genre;
+        this.numberOfPages = numberOfPages;
+        this.isHardCover = isHardCover;
+        this.description = description;
 
     }
+
 
     public Integer getPublishingYear() {
         return publishingYear;
@@ -95,6 +106,14 @@ public class BookRow extends ProductRow {
 
     public void setHardCover(boolean hardCover) {
         isHardCover = hardCover;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

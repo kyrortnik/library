@@ -1,19 +1,14 @@
 package com.epam.repository;
 
-import com.epam.exception.DAOException;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import static com.epam.repository.utils.DBConstants.*;
 
 public class PropertyInitializer {
 
-
-    private static final String DATABASE_CONFIG_PATH = "database.properties";
     private Properties properties;
-
-
 
     public PropertyInitializer() {
         loadProperties();

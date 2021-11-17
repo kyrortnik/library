@@ -1,6 +1,8 @@
 package com.epam.repository.impl;
 
+import com.epam.entity.Pageable;
 import com.epam.entity.User;
+import com.epam.entity.UserDTO;
 import com.epam.exception.DAOException;
 import com.epam.repository.ConnectionPool;
 import com.epam.repository.PropertyInitializer;
@@ -8,19 +10,27 @@ import com.epam.repository.UserDAO;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class UserDAOImpl implements UserDAO {
+import static com.epam.repository.utils.DBConstants.*;
+
+
+public class UserDAOImpl extends AbstractDAO implements UserDAO {
 
     private static final String FIND_USER_QUERY = "SELECT * FROM users WHERE login = ? AND password = ?";
     private static final String FIND_USER_BY_ID = "SELECT * FROM users WHERE id = ? ";
-    private static final String FIND_USER_BY_LOGIN_QUERY = "SELECT * FROM users WHERE login = ?";
     private static final String SAVE_USER = "INSERT INTO users VALUES (DEFAULT, ?, ?, ?) ";
     private static final String DELETE_USER = "DELETE FROM users WHERE login = ?";
     private static final String UPDATE_USER = "UPDATE users SET login = ?, password = ? WHERE id = ? ";
     private static final String CHANGE_USER_PASSWORD = "UPDATE users SET password = ? WHERE password = ?";
     private static final String GET_ALL_USERS = "SELECT * FROM users";
+    private static final String COUNT_ALL = "SELECT count(user_id) FROM users";
+    private static final String FIND_PAGE_FILTERED_SORTED = "SELECT * FROM users p ORDER BY p.%s %s LIMIT ? OFFSET ?";
+    private static final String FIND_USER_BY_LOGIN_QUERY = "SELECT * FROM users WHERE login = ?";
 
     PropertyInitializer propertyInitializer = new PropertyInitializer();
     protected ConnectionPool connectionPool = new ConnectionPoolImpl(propertyInitializer);
@@ -28,7 +38,7 @@ public class UserDAOImpl implements UserDAO {
 
 
     @Override
-    public User get(User user) throws DAOException {
+    public User find(User user) throws DAOException {
 
         Connection connection = null;
         PreparedStatement statement = null;
@@ -49,9 +59,9 @@ public class UserDAOImpl implements UserDAO {
             if (user.getLogin() != null){
                 return user;
             }
-            log.info("Unable to get requested user.");
             return null;
-        }catch (SQLException e ){
+        }catch (SQLException e){
+            log.log(Level.SEVERE,"Exception: " + e);
             throw new DAOException(e);
         }
         finally {
@@ -65,7 +75,7 @@ public class UserDAOImpl implements UserDAO {
 
 
     @Override
-    public User getById(Long id) throws DAOException {
+    public User findById(Long id) throws DAOException {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -84,9 +94,9 @@ public class UserDAOImpl implements UserDAO {
             if (user.getLogin() != null){
                 return user;
             }
-            log.info("Unable to get requested by Id user.");
             return null;
         }catch (Exception e){
+            log.log(Level.SEVERE,"Exception: " + e);
             throw new DAOException(e);
         }finally {
             closeResultSet(resultSet);
@@ -95,22 +105,20 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
-    /*TODO need to add check on whether book already exists*/
-    /**Functionality not yet implemented*/
 
     @Override
     public boolean save(User user) throws DAOException {
         Connection connection = null;
         PreparedStatement statement = null;
-
         try {
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(SAVE_USER);
             statement.setString(1, user.getLogin());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getRole());
-            return (statement.executeUpdate() != 0);
+            return statement.executeUpdate() != 0;
         } catch (SQLException e) {
+            log.log(Level.SEVERE,"Exception: " + e);
             throw new DAOException(e);
         } finally {
             closeStatement(statement);
@@ -118,14 +126,6 @@ public class UserDAOImpl implements UserDAO {
 
         }
     }
-
-//    @Override
-//    public boolean registration(User user, String password2) {
-//        return false;
-//    }
-
-    /*TODO need to add check on whether book already exists*/
-    /**Functionality not yet implemented*/
 
     @Override
     public boolean delete(User user) throws DAOException {
@@ -135,8 +135,9 @@ public class UserDAOImpl implements UserDAO {
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(DELETE_USER);
             statement.setString(1,user.getLogin());
-            return (statement.executeUpdate() != 0);
+            return statement.executeUpdate() != 0;
         }catch (SQLException e){
+            log.log(Level.SEVERE,"Exception: " + e);
             throw new DAOException(e);
         }
         finally {
@@ -169,7 +170,7 @@ public class UserDAOImpl implements UserDAO {
                 userCheck.setRole(resultSet.getString(4));
             }
 
-            if(userCheck.getId() == null || user.getId().equals(userCheck.getId())) {
+            if(userCheck.getId() != null && user.getId().equals(userCheck.getId())) {
                 statement = connection.prepareStatement(UPDATE_USER);
                 statement.setString(1, user.getLogin());
                 statement.setString(2, user.getPassword());
@@ -177,13 +178,15 @@ public class UserDAOImpl implements UserDAO {
                 result = statement.executeUpdate();
             }
             connection.commit();
-            return (result > 0);
+            return result > 0;
         } catch (Exception e) {
             try {
                 connection.rollback();
             } catch (Exception ex) {
+                log.log(Level.SEVERE,"Exception:" + ex);
                 throw new DAOException(ex);
             }
+            log.log(Level.SEVERE,"Exception:" + e);
             throw new DAOException(e);
         } finally {
             closeResultSet(resultSet);
@@ -224,8 +227,8 @@ public class UserDAOImpl implements UserDAO {
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(GET_ALL_USERS);
             resultSet = statement.executeQuery();
-            User user = new User();
             while (resultSet.next()){
+                User user = new User();
                 user.setId(resultSet.getLong(1));
                 user.setLogin(resultSet.getString(2));
                 user.setPassword(resultSet.getString(3));
@@ -279,24 +282,69 @@ public class UserDAOImpl implements UserDAO {
         }
     }*/
 
-    private void closeResultSet(ResultSet resultSet) {
-        try{
 
-            if (resultSet != null){
-                resultSet.close();
-            }
-        }catch (SQLException e){
+    @Override
+    public Pageable<UserDTO> findPageByParameters(Pageable<UserDTO> daoProductPageable) throws DAOException {
+        final int offset = (daoProductPageable.getPageNumber() - 1) * MAX_ROWS;
+
+        List<Object> parameters = Arrays.asList(MAX_ROWS, offset);
+        Connection connection = null;
+        PreparedStatement countStatement = null;
+        PreparedStatement queryStatement = null;
+        ResultSet countResultSet = null;
+        ResultSet queryResultSet = null;
+        try {
+            connection = connectionPool.getConnection();
+            connection.setAutoCommit(false);
+            countStatement = getPreparedStatement(COUNT_ALL, connection, Collections.emptyList());
+            final String findPageOrderedQuery =
+                    String.format(FIND_PAGE_FILTERED_SORTED, daoProductPageable.getSortBy(), daoProductPageable.getDirection());
+            queryStatement = getPreparedStatement(findPageOrderedQuery, connection, parameters);
+            countResultSet = countStatement.executeQuery();
+            queryResultSet = queryStatement.executeQuery();
+             connection.commit();
+
+            return getBookRowPageable(daoProductPageable, countResultSet, queryResultSet);
+        } catch (SQLException e) {
             e.printStackTrace();
+            throw new DAOException(e);
+        } finally {
+            closeResultSet(countResultSet,queryResultSet);
+            closeStatement(countStatement,queryStatement);
+            connectionPool.releaseConnection(connection);
         }
     }
-    private void closeStatement(PreparedStatement statement){
-        try{
-            if (statement != null){
-                statement.close();
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
+
+
+    private Pageable<UserDTO> getBookRowPageable(Pageable<UserDTO> daoProductPageable,
+                                                 ResultSet countResultSet,
+                                                 ResultSet queryResultSet) throws SQLException {
+        final Pageable<UserDTO> pageable = new Pageable<>();
+        long totalElements = 0L;
+        while (countResultSet.next()) {
+            totalElements = countResultSet.getLong(1);
         }
+        final List<UserDTO> rows = new ArrayList<>();
+        while (queryResultSet.next()) {
+            long id = queryResultSet.getLong(1);
+            String login = queryResultSet.getString(2);
+            String role = queryResultSet.getString(4);
+
+            rows.add(new UserDTO(id,login,role));
+        }
+        pageable.setPageNumber(daoProductPageable.getPageNumber());
+        pageable.setLimit(daoProductPageable.getLimit());
+        pageable.setTotalElements(totalElements);
+        pageable.setElements(rows);
+        pageable.setFilter(daoProductPageable.getFilter());
+        pageable.setSortBy(daoProductPageable.getSortBy());
+        pageable.setDirection(daoProductPageable.getDirection());
+        return pageable;
     }
+
+
+
+
+
 
 }

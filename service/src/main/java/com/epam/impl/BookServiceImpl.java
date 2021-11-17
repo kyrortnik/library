@@ -11,51 +11,89 @@ import com.epam.entity.Page;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static com.epam.validator.ServiceValidator.*;
 
 public class BookServiceImpl implements BookService {
 
     private static final BookDAO bookDAO = DAOFactory.getInstance().createBookDAO();
 
+    private static final Logger log = Logger.getLogger(BookServiceImpl.class.getName());
+
     @Override
-    public boolean create(BookRow bookRow) throws ServiceException {
+    public boolean create(Book book) throws ServiceException {
+        if (!validation(book)){
+            return false;
+        }
         try{
-            return bookDAO.save(bookRow);
+            BookRow bookRow = convertToBookRow(book);
+            BookRow foundRow = bookDAO.find(bookRow);
+            if (foundRow == null){
+                return bookDAO.save(bookRow);
+            }else{
+                return false;
+            }
         }catch(DAOException e){
+            log.log(Level.SEVERE,"Exception: " + e);
             throw new ServiceException(e);
         }
 
     }
 
     @Override
-    public boolean update(BookRow bookRow) throws ServiceException {
-        try{
-            return bookDAO.update(bookRow);
+    public boolean update(Book book) throws ServiceException {
+        if (!validation(book)){
+            return false;
+        }try{
+            BookRow bookRow = convertToBookRow(book);
+            BookRow foundRow = bookDAO.find(bookRow);
+            if (foundRow != null){
+                bookRow.setId(foundRow.getId());
+                return bookDAO.update(bookRow);
+            }else{
+                return false;
+            }
+
         }catch (DAOException e){
+            log.log(Level.SEVERE,"Exception: " + e);
             throw new ServiceException(e);
         }
 
     }
 
     @Override
-    public boolean delete(BookRow bookRow) throws ServiceException {
+    public boolean delete(Book book) throws ServiceException {
+        if (!validation(book)){
+            return false;
+        }
         try{
-            return bookDAO.delete(bookRow);
+            BookRow bookRow = convertToBookRow(book);
+            BookRow foundRow = bookDAO.findById(bookRow.getId());
+            if (foundRow != null){
+                return bookDAO.delete(bookRow);
+            }else {
+                return false;
+            }
+
         }catch (DAOException e){
+            log.log(Level.SEVERE,"Exception: " + e);
             throw new ServiceException(e);
         }
 
     }
 
-   /* @Override
-    public List<Book> getAll() {
-        return bookDAO.getAll();
-    }*/
 
     @Override
     public Book findById(Long id) throws ServiceException {
+        if (!validation(id)){
+            return null;
+        }
         try{
-            return convertToBook(bookDAO.getById(id));
+            return convertToBook(bookDAO.findById(id));
         }catch (DAOException e){
+            log.log(Level.SEVERE,"Exception: " + e);
             throw new ServiceException(e);
         }
 
@@ -67,12 +105,13 @@ public class BookServiceImpl implements BookService {
             List<BookRow> bookRows = new ArrayList<>();
             BookRow bookRow;
             for (Reserve reserve : reserves){
-                bookRow = bookDAO.getById(reserve.getProductId());
+                bookRow = bookDAO.findById(reserve.getProductId());
                 bookRows.add(bookRow);
             }
 
             return convertToBooks(bookRows);
         }catch (DAOException e){
+            log.log(Level.SEVERE,"Exception: " + e);
             throw new ServiceException(e);
         }
 
@@ -80,50 +119,45 @@ public class BookServiceImpl implements BookService {
 
 
     @Override
-    public Page<Book> getAll(Page<Book> pageableRequest) throws ServiceException {
+    public Page<Book> getAll(Page<Book> page) throws ServiceException {
         try {
-            // validation
-            // ...
-
-            // prepare data
-            Pageable<BookRow> daoProductPageable = convertToPageableBook(pageableRequest);
-            // process data
-            Pageable<BookRow> productRowsPageable = bookDAO.findPageByFilter(daoProductPageable);
-
-            // return
-            return convertToServicePage(productRowsPageable);
+            Pageable<BookRow> bookRowPageable = convertToPageableBook(page);
+            Pageable<BookRow> bookRowsPageable = bookDAO.findPageWithParameters(bookRowPageable);
+            return convertToServicePage(bookRowsPageable);
         } catch ( DAOException e) {
             throw new ServiceException(e);
         }
     }
 
 
-
-    /*@Override
-    public Page<Book> getAll(Page<Book> pageableRequest) {
-        try {
-            // validation
-            // ...
-
-            // prepare data
-            // process data
-
-            // return
-            return getPageByFilter(pageableRequest);
-        } catch ( DAOException e) {
-            throw new ServiceException(e);
-        }
-    }*/
-
     public Page<Book> getPageByFilter(Page<Book> daoProductPageable) throws ServiceException {
         try{
             Pageable<BookRow> rowPageable = convertToPageableBook(daoProductPageable);
-            return convertToServicePage(bookDAO.findPageByFilter(rowPageable));
+            return convertToServicePage(bookDAO.findPageWithParameters(rowPageable));
         }catch (DAOException e){
             throw new ServiceException(e);
         }
+    }
 
 
+    @Override
+    public List<Book> findBooksByOrder(Order order) throws ServiceException {
+        try{
+            List<Book> booksFromOrder = new ArrayList<>();
+            if (order.getId() != 0 && order.getId() != 0){
+                String[] idsString = order.getProductIds().split(" ");
+                Long[] idsLong = new Long[idsString.length];
+                for (int i = 0;i<idsString.length;i++){
+                    idsLong[i] = Long.valueOf(idsString[i]);
+                }
+                for (Long id : idsLong){
+                    booksFromOrder.add(findById(id));
+                }
+            }
+            return booksFromOrder;
+        }catch (ServiceException e){
+            throw new ServiceException(e);
+        }
     }
 
 
@@ -159,6 +193,7 @@ public class BookServiceImpl implements BookService {
             book.setHardCover(row.isHardCover());
             book.setReserved(row.isReserved());
             book.setNumberOfPages(row.getNumberOfPages());
+
         }
         return book;
     }
@@ -189,36 +224,19 @@ public class BookServiceImpl implements BookService {
     private BookRow convertToBookRow(Book book) {
         BookRow row = null;
         if (Objects.nonNull(book)) {
-            row = new BookRow();
-            row.setId(book.getId());
-            row.setTitle(book.getTitle());
-            row.setAuthor(book.getAuthor());
-            row.setPublisher(book.getPublisher());
+            row = new BookRow(
+                    book.getId(),
+                    book.getTitle(),
+                    book.getAuthor(),
+                    book.getPublishingYear(),
+                    book.getPublisher(),
+                    book.isReserved(),
+                    book.getGenre(),
+                    book.getNumberOfPages(),
+                    book.isHardCover(),
+                    book.getDescription()
+            );
         }
         return row;
-    }
-
-    @Override
-    public List<Book> findBooksByOrder(Order order) throws ServiceException {
-        try{
-            List<Book> booksFromOrder = new ArrayList<>();
-            if (order.getId() != 0 && order.getId() != 0){
-                String[] idsString = order.getProductIds().split(" ");
-                Long[] idsLong = new Long[idsString.length];
-                for (int i = 0;i<idsString.length;i++){
-                    idsLong[i] = Long.valueOf(idsString[i]);
-                }
-
-                for (Long id : idsLong){
-                    booksFromOrder.add(findById(id));
-                }
-            }
-            return booksFromOrder;
-        }catch (ServiceException e){
-            throw new ServiceException(e);
-        }
-
-
-
     }
 }

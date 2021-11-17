@@ -7,7 +7,7 @@
         <div>
             <div>
                 <form action="frontController" method="GET">
-                    <input type="hidden" name="command" value="changeLanguage"/>
+                    <input type="hidden" name="command" value="change_Language"/>
                     <input type="hidden" name="local" value="en"/>
                     <button class="btn btn-default" type="submit">
                         EN
@@ -16,7 +16,7 @@
             </div>
             <div>
                 <form action="frontController" method="GET">
-                    <input type="hidden" name="command" value="changeLanguage"/>
+                    <input type="hidden" name="command" value="change_Language"/>
                     <input type="hidden" name="local" value="ru"/>
                     <button class="btn btn-default" type="submit">
                         РУ
@@ -84,7 +84,7 @@
         <c:if test="${sessionScope.role == 'user'}">
             <div class="col-md-1" style="padding-top:10px;">
                 <form method="GET" action="frontController">
-                    <input type="hidden" name="command" value="goToPage"/>
+                    <input type="hidden" name="command" value="go_To_Page"/>
                     <input type="hidden" name="address" value="profile.jsp"/>
                     <button >
                         <c:out  value="updateProfile"/>

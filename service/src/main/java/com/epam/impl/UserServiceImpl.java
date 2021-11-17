@@ -1,33 +1,36 @@
 package com.epam.impl;
 
-import com.epam.entity.User;
-import com.epam.entity.UserDTO;
+import com.epam.entity.*;
 import com.epam.exception.DAOException;
 import com.epam.exception.ServiceException;
 import com.epam.repository.DAOFactory;
 import com.epam.repository.UserDAO;
 import com.epam.UserService;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static com.epam.validator.ServiceValidator.*;
-
-
 
 public class UserServiceImpl implements UserService {
 
     private static final UserDAO userDAO = DAOFactory.getInstance().createUserDAO();
 
+    private static final Logger log = Logger.getLogger(UserServiceImpl.class.getName());
+
 
     @Override
-    public boolean registration(User user,String password2) throws ServiceException {
+    public boolean registration(User user,String secondPassword) throws ServiceException {
         if (!validation(user)){
             return false;
         }
-        boolean passwordEquals = user.getPassword().equals(password2);
+        boolean passwordEquals = user.getPassword().equals(secondPassword);
         try{
-            return passwordEquals && userDAO.save(user);
+            return passwordEquals && (userDAO.find(user) == null) && userDAO.save(user);
         }catch (DAOException e){
+            log.log(Level.SEVERE,"Exception: " + e);
             throw new ServiceException(e);
         }
 
@@ -39,25 +42,23 @@ public class UserServiceImpl implements UserService {
             return null;
         }
         try {
-            user = userDAO.get(user);
+            user = userDAO.find(user);
             return (user == null) ? null : new UserDTO(user);
         } catch (DAOException e) {
+            log.log(Level.SEVERE,"Exception: "+ e);
             throw new ServiceException(e);
         }
     }
 
-    /**
-     * Methods getter from DB
-     * */
-
 
     @Override
-    public UserDTO get(User user) throws ServiceException {
+    public UserDTO find(User user) throws ServiceException {
         if (!validation(user)){
             return null;
         }try{
-            return new UserDTO(userDAO.get(user));
+            return new UserDTO(userDAO.find(user));
         }catch (DAOException e){
+            log.log(Level.SEVERE,"Exception: " + e);
             throw new ServiceException(e);
         }
 
@@ -66,12 +67,13 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User findUserWithId(long id) throws ServiceException {
+    public User findById(long id) throws ServiceException {
         if (!validation(id)) {
             return null;
         } try{
-                return userDAO.getById(id);
+                return userDAO.findById(id);
             }catch (DAOException e){
+                log.log(Level.SEVERE,"Exception: " + e);
                 throw new ServiceException(e);
             }
         }
@@ -84,6 +86,7 @@ public class UserServiceImpl implements UserService {
         }try{
             return userDAO.update(user);
         }catch (DAOException e){
+            log.log(Level.SEVERE,"Exception: " + e);
             throw new ServiceException(e);
         }
 
@@ -96,25 +99,51 @@ public class UserServiceImpl implements UserService {
         }try{
             return userDAO.delete(user);
         }catch (DAOException e){
+            log.log(Level.SEVERE,"Exception: " + e);
             throw new ServiceException(e);
         }
 
     }
 
-    /**
-     * TODO Do I need this?
-     * */
-   /* @Override
-    public boolean findUserByLogin(User user) {
-        if (!validation(user)){
-            return false;
-        }try{
-            return userDAO.findUserByLogin(user);
-        }catch (DAOException e){
+    @Override
+    public Page<UserDTO> getUsersPage(Page<UserDTO> page) throws ServiceException {
+        try{
+            Pageable<UserDTO> pageableDAO = convertToPageableUserDTO(page);
+            Pageable<UserDTO> filteredDaoPageable = userDAO.findPageByParameters(pageableDAO);
+            return convertToServicePage(filteredDaoPageable);
+        }catch (Exception e){
+            log.log(Level.SEVERE,"Exception: " + e);
             throw new ServiceException(e);
         }
 
-    }*/
+    }
+
+
+    private Page<UserDTO> convertToServicePage(Pageable<UserDTO> pageableDAO) {
+        Page<UserDTO> page = new Page<>();
+        page.setPageNumber(pageableDAO.getPageNumber());
+        page.setLimit(pageableDAO.getLimit());
+        page.setTotalElements(pageableDAO.getTotalElements());
+        page.setElements(pageableDAO.getElements());
+        page.setFilter((pageableDAO.getFilter()));
+        page.setSortBy(pageableDAO.getSortBy());
+        page.setDirection(pageableDAO.getDirection());
+        return page;
+    }
+
+
+    private Pageable<UserDTO> convertToPageableUserDTO(Page<UserDTO> page) {
+        final Pageable<UserDTO> pageableDAO = new Pageable<>();
+        pageableDAO.setPageNumber(page.getPageNumber());
+        pageableDAO.setLimit(page.getLimit());
+        pageableDAO.setTotalElements(page.getTotalElements());
+        pageableDAO.setElements(page.getElements());
+        pageableDAO.setFilter(page.getFilter());
+        pageableDAO.setSortBy(page.getSortBy());
+        pageableDAO.setDirection(page.getDirection());
+        return pageableDAO;
+    }
+
 
     @Override
     public List<User> getUsers() throws ServiceException {

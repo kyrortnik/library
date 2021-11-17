@@ -17,93 +17,55 @@ import java.util.List;
 import java.util.Objects;
 import java.util.logging.Logger;
 
-public class ShowReservesCommand implements AbstractCommand{
+import static com.epam.command.util.ControllerConstants.*;
 
-    private ReserveService reserveService = ServiceFactory.getInstance().createReserveService();
-    private BookService bookService = ServiceFactory.getInstance().createBookService();
-    private static final Logger log = Logger.getLogger(ShowReservesCommand.class.getName());
+public class ShowReservesCommand extends AbstractCommand {
 
-    private static int MAX_ROWS = 5;
-
-
-    /*@Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
-        log.info("Start in ShowReservesCommand");
-
-       Long userId = (Long)request.getSession().getAttribute("id");
-            try{
-
-                String currentPageParam = request.getParameter("currentPageReserve");
-                if (Objects.isNull(currentPageParam)) {
-                    currentPageParam = "1";
-                }
-                int currentPage = Integer.parseInt(currentPageParam);
-                int currentLimit = MAX_ROWS;
-
-
-                Page<Book> pageableReserves = new Page<>();
-                Page<Book> filteredPageableReserves = new Page<>();
-
-                pageableReserves.setPageNumber(currentPage);
-                pageableReserves.setLimit(currentLimit);
-
-                List<Reserve> reservesForUser = reserveService.getReservesForUser(userId);
-                pageableReserves = bookService.findBooksByIds(reservesForUser);
-                 filteredPageableReserves = bookService.getPageByFilter(pageableReserves);
-                if (pageableReserves.getElements().isEmpty()){
-                request.setAttribute("reservesMessage","No reserves for you yet.");
-                }
-                request.setAttribute("pageableReserves", pageableReserves);
-
-
-
-
-          *//*  List<Reserve> reserves = reserveService.getReservesForUser(userId);
-            List<BookRow> bookRows = bookService.findBooksByIds(reserves);
-            request.setAttribute("products", bookRows);*//*
-            request.getRequestDispatcher("/jsp/main.jsp").forward(request,response);
-        }catch (IOException | ServletException e){
-            throw new ControllerException(e);
-        }
-
-    }*/
-
+    private final ReserveService reserveService = ServiceFactory.getInstance().createReserveService();
+    private final BookService bookService = ServiceFactory.getInstance().createBookService();
+    private  static final Logger log = Logger.getLogger(ShowReservesCommand.class.getName());
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
         log.info("Start in ShowReservesCommand");
-
-        Long userId = (Long)request.getSession().getAttribute("id");
         try{
+            Long userId = (Long)request.getSession().getAttribute(ID);
+            int currentPage = getCurrentPage(request);
 
-            String currentPageParam = request.getParameter("currentPageReserve");
-            if (Objects.isNull(currentPageParam)) {
-                currentPageParam = "1";
-            }
-            int currentPage = Integer.parseInt(currentPageParam);
-            int numberOfReserves = reserveService.countReservesForUser(userId);
-
-            Page<Book> pageableReserves = new Page<>(currentPage,numberOfReserves);
-            List<Reserve> reservesForUser = reserveService.findReservationsByUserId(userId,pageableReserves.getOffset());
-            List<Book> booksForUser = bookService.findBooksByIds(reservesForUser);
-            pageableReserves.setElements(booksForUser);
-            pageableReserves.setLimit(MAX_ROWS);
-            pageableReserves.setPageNumber(currentPage);
-            pageableReserves.setTotalElements(numberOfReserves);
-
-            String lastCommand = AbstractCommand.defineCommand(request,true);
-            request.getSession().setAttribute("lastCommand",lastCommand);
+            Page<Book> pageableReserves = getPageableReserve(userId, currentPage);
+            String lastCommand = defineCommand(request,true);
+            request.getSession().setAttribute(LAST_COMMAND,lastCommand);
+            request.getSession().setAttribute(MESSAGE,null);
 
             if (pageableReserves.getElements().isEmpty()){
-                request.setAttribute("reservesMessage","No reserves for you yet.");
+                request.setAttribute(RESERVE_MESSAGE,"No reserves for you yet.");
             }else{
                 request.setAttribute("pageableReserves", pageableReserves);
             }
-           request.getRequestDispatcher("/jsp/main.jsp").forward(request,response);
+           request.getRequestDispatcher("frontController?command=go_To_Page&address=main.jsp").forward(request,response);
         }catch (IOException | ServletException | ServiceException e){
             throw new ControllerException(e);
         }
 
+    }
+
+    private Page<Book> getPageableReserve(Long userId, int currentPage) throws ServiceException {
+        int numberOfReserves = reserveService.countReservesForUser(userId);
+        Page<Book> pageableReserves = new Page<>(currentPage, numberOfReserves);
+        List<Reserve> reservesForUser = reserveService.findReservationsByUserId(userId,pageableReserves.getOffset());
+        List<Book> booksForUser = bookService.findBooksByIds(reservesForUser);
+        pageableReserves.setElements(booksForUser);
+        pageableReserves.setPageNumber(currentPage);
+        pageableReserves.setTotalElements(numberOfReserves);
+        return pageableReserves;
+    }
+
+    private int getCurrentPage(HttpServletRequest request) {
+        String currentPageParam = request.getParameter("currentPageReserve");
+        if (Objects.isNull(currentPageParam)) {
+            currentPageParam = "1";
+        }
+        return Integer.parseInt(currentPageParam);
     }
 
 }

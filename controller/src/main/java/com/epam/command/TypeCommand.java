@@ -15,41 +15,50 @@ public enum TypeCommand {
         {this.command = new ShowUsersCommand();}
     },
 
-    SHOWPRODUCTS {
+    SHOW_PRODUCTS {
         {this.command = new ShowProductsCommand();}
     },
-    SHOW_ORDERS{
-        {this.command = new ShowOrdersCommand();}
-    },
 
-    PRODUCTINFO{
+    PRODUCT_INFO{
         {this.command = new ProductInfoCommand();}
     },
-//    ADDTOORDER{
-//        {this.command = new AddToOrderCommand();}
-//    },
-    CREATEORDER{
+
+    CREATE_ORDER{
         {this.command = new CreateOrderCommand();}
     },
-    CREATERESERVE{
+    CREATE_RESERVE{
         {this.command = new CreateReserveCommand();}
     },
-    SHOWRESERVES{
+    SHOW_RESERVES{
         {this.command = new ShowReservesCommand();}
     },
-    ORDERINFO{
+    ORDER_INFO{
         {this.command = new OrderInfoCommand();}
     },
-    GOTOPAGE{
+    GO_TO_PAGE{
         {this.command = new GoToPageCommand();}
     },
-    CHANGELANGUAGE{
+    CHANGE_LANGUAGE{
         {this.command = new ChangeLanguageCommand();}
+    },
+    DELETE_RESERVE{
+        {this.command = new DeleteReserveCommand();}
+    },
+    DELETE_PRODUCT_FROM_ORDER{
+        {this.command = new DeleteProductFromOrder();}
+    },
+    CREATE_BOOK{
+        {this.command = new CreateBookCommand();}
+    },
+    UPDATE_BOOK{
+        {this.command = new UpdateBookCommand();}
+    },
+    DELETE_BOOK{
+        {this.command = new DeleteBookCommand();}
     };
-
-    public AbstractCommand getCurrentCommand() {
+    public Command getCurrentCommand() {
         return command;
     }
 
-    AbstractCommand command;
+    Command command;
 }
