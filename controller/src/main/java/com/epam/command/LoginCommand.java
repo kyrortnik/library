@@ -24,21 +24,19 @@ public class LoginCommand implements Command {
     private final UserService userService = serviceFactory.createUserService();
 
     private static final Logger log = Logger.getLogger(LoginCommand.class.getName());
-    private  final Salt salt = new Salt();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException{
 
         String login = request.getParameter(LOGIN);
         String password = request.getParameter(PASSWORD);
-//        String saltBytes = salt.generateSalt();
         User user = new User(login);
         String lastCommand;
 
         try{
             log.info("Start in LoginCommand");
             User foundUser = userService.logination(user);
-            if (foundUser != null && salt.verifyPassword(password, foundUser.getPassword(), foundUser.getSalt())){
+            if (foundUser != null && Salt.verifyPassword(password, foundUser.getPassword(), foundUser.getSalt())){
                 lastCommand = "frontController?command=go_To_Page&address=main.jsp";
                 request.getSession().setAttribute(USER, foundUser.getLogin());
                 request.getSession().setAttribute(ROLE,foundUser.getRole());

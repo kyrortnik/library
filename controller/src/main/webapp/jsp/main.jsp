@@ -14,7 +14,7 @@
             <form id ="goToCreateBook" method="GET" action ="frontController">
                 <input type = "hidden" name ="command" value="go_To_Page" />
                 <input type = "hidden" name="address" value="newBook.jsp" />
-                <button form ="goToCreateBook" type="submit">{createBook}</button>
+                <button form ="goToCreateBook" type="submit">${createBook}</button>
             </form>
         </div>
     </c:if>

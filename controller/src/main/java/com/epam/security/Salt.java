@@ -12,7 +12,7 @@ public class Salt {
     private static final char[] hexArray = "0123456789ABCDEF".toCharArray();
 
 
-    public String generateEncryptedPassword(String password,String salt) throws ControllerException {
+    public static String generateEncryptedPassword(String password,String salt) throws ControllerException {
         try{
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             md.update(salt.getBytes(StandardCharsets.UTF_8));
@@ -23,20 +23,7 @@ public class Salt {
         }
     }
 
-//    public String encryptPassword(String password) throws ControllerException {
-//        try{
-//            byte[] salt = generateSalt();
-//            MessageDigest md = MessageDigest.getInstance("SHA-256");
-//            md.update(salt);
-//            byte[] hashedPassword = md.digest(password.getBytes(StandardCharsets.UTF_8));
-//            return bytesToStringHex(hashedPassword);
-//        }catch (NoSuchAlgorithmException e){
-//            throw new ControllerException(e);
-//        }
-//
-//    }
-
-    public String generateSalt(){
+    public static String generateSalt(){
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];
          random.nextBytes(salt);
@@ -44,7 +31,8 @@ public class Salt {
         return bytesToStringHex(salt);
     }
 
-    private String bytesToStringHex(byte[] bytes){
+
+    private static String bytesToStringHex(byte[] bytes){
 
         char[] hexChars = new char[bytes.length * 2];
         for (int i = 0;i< bytes.length;i++){
@@ -56,7 +44,7 @@ public class Salt {
     }
 
 
-    public boolean verifyPassword(String providedPassword, String fromdatabase, String passwordSalt) throws ControllerException {
+    public static boolean verifyPassword(String providedPassword, String fromdatabase, String passwordSalt) throws ControllerException {
         boolean isValid;
         try {
             String generate = generateEncryptedPassword(providedPassword, passwordSalt);

@@ -24,6 +24,7 @@
                 <td><c:out value="${author}"/></td>
                 <td><c:out value="${genre}"/></td>
                 <td><c:out value="${publisher}"/></td>
+                <td><c:out value="${publishingYear}"/></td>
                 <td><c:out value="${pages}"/></td>
                 <td><c:out value="${description}"/></td>
             </tr>
@@ -34,6 +35,7 @@
                 <td>${requestScope.book.author}</td>
                 <td>${requestScope.book.genre}</td>
                 <td>${requestScope.book.publisher}</td>
+                <td>${requestScope.book.publishingYear}</td>
                 <td>${requestScope.book.numberOfPages}</td>
                 <td>${requestScope.book.description}</td>
                 <td>

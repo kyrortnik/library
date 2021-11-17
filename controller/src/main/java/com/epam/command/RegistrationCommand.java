@@ -1,6 +1,5 @@
 package com.epam.command;
 
-
 import com.epam.command.exception.ControllerException;
 import com.epam.entity.User;
 import com.epam.ServiceFactory;
@@ -19,13 +18,10 @@ import static com.epam.command.util.ControllerConstants.*;
 
 public class RegistrationCommand implements Command {
 
-
     private final ServiceFactory factory = ServiceFactory.getInstance();
     private final UserService userService = factory.createUserService();
+
     private static final Logger log = Logger.getLogger(RegistrationCommand.class.getName());
-    private final Salt salt = new Salt();
-
-
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
@@ -36,8 +32,8 @@ public class RegistrationCommand implements Command {
         String password = request.getParameter(PASSWORD);
         String secondPassword = request.getParameter(SECOND_PASSWORD);
         boolean passwordsEquals = password.equals(secondPassword);
-        String saltBytes = salt.generateSalt();
-        User user = new User(login, salt.generateEncryptedPassword(password,saltBytes),USER, saltBytes);
+        String saltBytes = Salt.generateSalt();
+        User user = new User(login, Salt.generateEncryptedPassword(password,saltBytes),USER, saltBytes);
 
  try {
             if (passwordsEquals && userService.registration(user)){
@@ -53,7 +49,6 @@ public class RegistrationCommand implements Command {
             lastCommand = "frontController?command=go_To_Page&address=login.jsp";
             request.setAttribute(REGISTRATION_ERROR_MESSAGE,"Registration failed. Check that login is not empty and two passwords match.");
             request.getRequestDispatcher(lastCommand).forward(request,response);
-
             }
         }catch (IOException | ServletException | ServiceException e){
             throw new ControllerException(e);
