@@ -28,5 +28,8 @@
 <fmt:message bundle="${loc}" key="local.pages" var="pages" />
 <fmt:message bundle="${loc}" key="local.isHardCover" var="isHardCover" />
 <fmt:message bundle="${loc}" key="local.description" var="description" />
+<!---->
+<fmt:message bundle="${loc}" key="local.createBook" var="createBook" />
+
 
 

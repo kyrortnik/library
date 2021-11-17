@@ -30,7 +30,6 @@ public class CreateReserveCommand extends AbstractCommand {
             Long bookId = Long.valueOf(request.getParameter("bookId"));
             Reserve reserve = new Reserve(userId, bookId);
             String lastCommand;
-//            request.setAttribute(BOOK_ID,bookId);
                 if (reserveService.save(reserve)) {
                     lastCommand = "frontController?command=go_To_Page&address=main.jsp";
                     request.getSession().setAttribute(LAST_COMMAND,lastCommand);
@@ -38,7 +37,6 @@ public class CreateReserveCommand extends AbstractCommand {
                     response.sendRedirect(lastCommand);
                 } else {
                     request.setAttribute(MESSAGE,"Product is not added to Reserve list! Order for this product already exists.");
-//                    lastCommand = "frontController?command=goToPage&address=productInfo.jsp&id=" + bookId;
                     lastCommand = "frontController?command=go_To_Page&address=main.jsp";
                     request.getSession().setAttribute(LAST_COMMAND,lastCommand);
                     request.getRequestDispatcher(lastCommand).forward(request,response);

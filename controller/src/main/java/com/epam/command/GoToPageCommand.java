@@ -21,7 +21,6 @@ public class GoToPageCommand implements Command {
 
         try {
             String goToPage = "/index.jsp".equals(request.getParameter(ADDRESS)) ? "/index.jsp" : "/jsp/" + request.getParameter(ADDRESS);
-            request.getSession().setAttribute(MESSAGE,null);
             request.getRequestDispatcher(goToPage).forward(request, response);
         } catch (IOException | ServletException e) {
             throw new ControllerException(e);

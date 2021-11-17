@@ -44,7 +44,7 @@ public class LoginCommand implements Command {
                 response.sendRedirect(lastCommand);
             }else{
                 lastCommand = "frontController?command=go_To_Page&address=login.jsp";
-                request.setAttribute(MESSAGE, "Error while logging");
+                request.setAttribute(LOGIN_ERROR_MESSAGE, "Incorrect login or password.Try again");
                 request.getSession().setAttribute(LAST_COMMAND,lastCommand);
                 request.getRequestDispatcher(lastCommand).forward(request,response);
             }

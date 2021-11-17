@@ -44,10 +44,11 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
             statement.setLong(1,order.getUserId());
             resultSet = statement.executeQuery();
             if (resultSet.next()){
-                order.setId(resultSet.getLong(1));
-                order.setProductIds(resultSet.getString(2));
-                order.setUserId(resultSet.getLong(3));
-                return order;
+                Order foundOrder = new Order();
+                foundOrder.setId(resultSet.getLong(1));
+                foundOrder.setProductIds(resultSet.getString(2));
+                foundOrder.setUserId(resultSet.getLong(3));
+                return foundOrder;
             }
             return null;
 

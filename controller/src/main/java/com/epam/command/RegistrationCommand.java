@@ -47,7 +47,7 @@ public class RegistrationCommand implements Command {
             }
             else {
             lastCommand = "frontController?command=go_To_Page&address=login.jsp";
-            request.setAttribute(MESSAGE,"Registration failed");
+            request.setAttribute(REGISTRATION_ERROR_MESSAGE,"Registration failed. Check that login is not empty and two passwords match.");
             request.getRequestDispatcher(lastCommand).forward(request,response);
 
             }

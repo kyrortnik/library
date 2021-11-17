@@ -28,7 +28,8 @@ public class DeleteReserveCommand implements Command {
         Long userId = (Long)request.getSession().getAttribute(ID);
         Long bookId = Long.valueOf(request.getParameter(BOOK_ID));
         Reserve reserve = new Reserve(userId,bookId);
-        String lastCommand = "frontController?command=show_Reserves";
+        String lastCommand = "frontController?command=go_To_Page&address=main.jsp";
+//        String lastCommand = "/jsp/main.jsp";
         request.getSession().setAttribute(LAST_COMMAND,lastCommand);
 
         try{

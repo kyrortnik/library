@@ -16,7 +16,7 @@ public class ServiceValidator {
     }
 
     public static boolean validation(Order order){
-        return order.getId() > 0 && !order.getProductIds().equals("");
+        return !order.getProductIds().equals("");
     }
 
     public static boolean validation(Book book){

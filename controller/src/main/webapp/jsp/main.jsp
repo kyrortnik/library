@@ -6,22 +6,26 @@
     <head>
         <%@ include file="parts/meta.jsp" %>
         <title>Main page</title>
-
     </head>
     <body>
     <%@ include file="parts/header.jsp" %>
-
-    <h3>${sessionScope.message}</h3>
-    <h3>${message}</h3>
-    <c:out value ="${requestScope.reserveMessage}"/>
     <c:if test ="${sessionScope.role == 'admin'}">
-        <a href="frontController?command=go_To_Page&address=newBook.jsp">New Book Creation</a>
-
-    </c:if>
-    <c:if test="${sessionScope.role != null}">
         <div>
-            <h3>${sessionScope.deleteMessage}</h3>
+            <form id ="goToCreateBook" method="GET" action ="frontController">
+                <input type = "hidden" name ="command" value="go_To_Page" />
+                <input type = "hidden" name="address" value="newBook.jsp" />
+                <button form ="goToCreateBook" type="submit">Create Book</button>
+            </form>
         </div>
+    </c:if>
+
+    <form id="messageForm">
+        <h3>
+            <c:out value="${sessionScope.message}"/>
+        </h3>
+    </form>
+
+    <c:if test="${sessionScope.role != null}">
 <!-----------MAIN------------------------->
 <!-----------SHOW PRODUCTS ------------------------->
     <div>
@@ -32,14 +36,13 @@
     </div>
             <div>
                 <table>
-<!--                    <thead>-->
 <!--                    <tr>-->
 <!--                        <td></td>-->
 <!--                        <td><h4><c:out value="${title}"/></h4></td>-->
 <!--                        <td><h4><c:out value="${author}"/></h4></td>-->
 <!--                        <td><h4><c:out value="${publishingYear}"/></h4></td>-->
 <!--                    </tr>-->
-<!--                    </thead>-->
+
 
                     <tbody>
                     <c:forEach items="${requestScope.pageable.elements}" var="productRow">
@@ -75,7 +78,6 @@
                             </td>
                         </tr>
                     </c:forEach>
-                    <h3>${requestScope.message}</h3>
                     </tbody>
                 </table>
                 <div style="margin-left: center">
@@ -134,7 +136,6 @@
                         </td>
                     </tr>
                 </c:forEach>
-
                 </tbody>
             </table>
                 <div>
@@ -203,7 +204,7 @@
                             <td>${bookFromOrder.publishingYear}</td>
                                <td>
                                     <form method = "POST" action="frontController">
-                                        <input type = "hidden" name ="command" value ="delete_Product_From_Order"/>
+                                        <input type = "hidden" name ="command" value ="delete_Book_From_Order"/>
                                         <input type = "hidden" name="bookId" value="${bookFromOrder.id}"/>
                                         <input type="submit" value ="Delete from Order">
                                         <br/>
@@ -223,26 +224,12 @@
 
                 </tbody>
             </table>
-            <!--<div style="margin-left: center">
-                <c:forEach begin="1" end="${Math.ceil(pageableReserves.totalElements / pageableReserves.limit)}" var="i">
-                    <c:if test="${i == pageableReserves.pageNumber}">
-                            <span>
-                                <button style="color:red" form="showReserves" type="submit" name="currentPageReserve" value="${i}">${i}</button>
-                            </span>
-                    </c:if>
-                    <c:if test="${i != pageableReserves.pageNumber}">
-                            <span>
-                                <button form="showReserves" type="submit" name="currentPageReserve" value="${i}">${i}</button>
-                            </span>
-                    </c:if>
-                </c:forEach>
-            </div>-->
         </div>
         </c:if>
 
     <!-----------------ADMIN SHOW USERS -------------------->
 
-
+    <c:if test ="${sessionScope.role == 'admin'}">
     <div>
         <form id ="showUsers" method="GET" action ="frontController">
             <input type="hidden" name = "command" value="show_Users" />
@@ -253,16 +240,6 @@
         <c:if test="${not empty requestScope.pageableUsers.elements}">
 
             <table>
-                <!--   <thead>
-                   <tr>
-                       <td></td>
-                       <td><h4><c:out value="${title}"/></h4></td>
-                       <td><h4><c:out value="${author}"/></h4></td>
-                       <td><h4><c:out value="${publisher}"/></h4></td>
-                       <td><h4><c:out value="${publishingYear}"/></h4></td>
-                   </tr>
-                   </thead>-->
-
                 <tbody>
                 <c:forEach items="${requestScope.pageableUsers.elements}" var="userRow">
                     <tr>
@@ -293,5 +270,6 @@
             </div>
         </c:if>
     </div>
+    </c:if>
     </body>
 </html>

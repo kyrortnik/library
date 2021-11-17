@@ -65,9 +65,6 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public boolean delete(Book book) throws ServiceException {
-        if (!validation(book)){
-            return false;
-        }
         try{
             BookRow bookRow = convertToBookRow(book);
             BookRow foundRow = bookDAO.findById(bookRow.getId());

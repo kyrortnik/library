@@ -28,7 +28,7 @@ public class ReserveServiceImpl implements ReserveService {
         }try{
             ReserveRow reserveRow = convertToReserveRow(reserve);
             ReserveRow foundReserveRow = reserveDAO.getByUserAndProductId(reserveRow);
-            if (Objects.nonNull(foundReserveRow)){
+            if (Objects.isNull(foundReserveRow)){
                 return reserveDAO.save(reserveRow);
             }else {
                 return false;

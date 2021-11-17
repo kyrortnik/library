@@ -32,7 +32,7 @@
         </div>
     </div>
 
-    <!-------Language change----------->
+<!--   LOGIN FORM -->
 
     <body>
         <form name="loginForm" method="POST" action="frontController">
@@ -43,14 +43,12 @@
         ${password}:<br/>
         <input type="password" name="password" value=""/>
         <br/>
-        ${errorLoginPassMessage}
-        <br/>
-        ${wrongAction}
-        <br/>
-        ${nullPage}
+        <h3>${loginErrorMessage}</h3>
         <br/>
         <input type="submit" value="${login}"/>
         </form><hr/>
+
+        <!--   REGISTRATION FORM FORM -->
 
         <form name = "registrationForm" method="POST" action="frontController">
         <input type="hidden" name = "command" value="registration" />
@@ -63,27 +61,13 @@
         <input type ="password" name = "secondPassword" value=""/>
         <br/>
         <br/>
-            <c:if test="requestScope.message eq 'registrationFail'">
-                <a>Registration failed</a>
-            </c:if>
-         <br/>
-         <input type="submit" value="${registration}"/>
+        <input type="submit" value="${registration}"/>
+        <br/>
+        <h3>${registrationErrorMessage}</h3>
+        <br/>
         </form>
 
 
-
-        <c:if test="${requestScope.message == 'noSuchUser'}">
-            <div>
-                <h3>${noSuchUser}</h3>
-            </div>
-        </c:if>
-
-
-        <c:if test="${not empty requestScope.registrationFail}">
-            <div>
-                <h3>${registrationFail}</h3>
-            </div>
-        </c:if>
 
     </body>
 </html>
