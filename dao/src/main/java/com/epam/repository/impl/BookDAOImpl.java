@@ -34,11 +34,11 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
     private static final String COUNT_ALL = "SELECT count(book_id) FROM books";
     private static final String FIND_PAGE_FILTERED_SORTED = "SELECT * FROM books ORDER BY %s %s LIMIT ? OFFSET ?";
 
-    PropertyInitializer propertyInitializer = new PropertyInitializer();
-    protected ConnectionPool connectionPool = new ConnectionPoolImpl(propertyInitializer);
-
     private static final Logger log = Logger.getLogger(BookDAOImpl.class.getName());
 
+    public BookDAOImpl(ConnectionPool connectionPool) {
+        super(connectionPool);
+    }
 
     @Override
     public BookRow find(BookRow bookRow) throws DAOException {

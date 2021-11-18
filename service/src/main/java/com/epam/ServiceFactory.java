@@ -4,6 +4,7 @@ import com.epam.impl.BookServiceImpl;
 import com.epam.impl.OrderServiceImpl;
 import com.epam.impl.ReserveServiceImpl;
 import com.epam.impl.UserServiceImpl;
+import com.epam.repository.DAOFactory;
 
 public class ServiceFactory {
 
@@ -15,15 +16,14 @@ public class ServiceFactory {
     private final ReserveService reserveService;
 
     private ServiceFactory() {
-        this.userService = new UserServiceImpl();
-        this.orderService = new OrderServiceImpl();
-        this.bookService = new BookServiceImpl();
-        this.reserveService = new ReserveServiceImpl();
+        DAOFactory daoFactory = DAOFactory.getInstance();
+        this.userService = new UserServiceImpl(daoFactory.createUserDAO());
+        this.orderService = new OrderServiceImpl(daoFactory.createOrderDAO());
+        this.bookService = new BookServiceImpl(daoFactory.createBookDAO());
+        this.reserveService = new ReserveServiceImpl(daoFactory.createReserveDAO());
     }
 
-    public UserService createUserService(){
-        return  userService;
-    }
+    public UserService createUserService(){ return  userService; }
 
     public OrderService createOrderService(){
         return orderService;

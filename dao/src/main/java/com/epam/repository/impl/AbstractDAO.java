@@ -1,5 +1,7 @@
 package com.epam.repository.impl;
 
+import com.epam.repository.ConnectionPool;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,6 +11,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public abstract class AbstractDAO {
+
+    protected final ConnectionPool connectionPool;
+
+    public AbstractDAO(ConnectionPool connectionPool) {
+        this.connectionPool = connectionPool;
+    }
 
     private static final Logger log = Logger.getLogger(AbstractDAO.class.getName());
 

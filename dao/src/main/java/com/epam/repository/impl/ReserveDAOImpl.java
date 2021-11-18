@@ -33,14 +33,11 @@ public class ReserveDAOImpl extends AbstractDAO implements ReserveDAO {
 //    private static final String FIND_ORDER_FOR_RESERVE = "SELECT reserve_id, reserves.product_id,reserves.user_id, orders.product_id,orders.user_id FROM reserves FULL JOIN orders ON reserves.user_id = orders.user_id WHERE orders.user_id = ? and orders.product_id LIKE ?";
 
 
-
-
-
-
-    PropertyInitializer propertyInitializer = new PropertyInitializer();
-    protected ConnectionPool connectionPool = new ConnectionPoolImpl(propertyInitializer);
-
     private static final Logger log = Logger.getLogger(ReserveDAOImpl.class.getName());
+
+    public ReserveDAOImpl(ConnectionPool connectionPool) {
+        super(connectionPool);
+    }
 
 
 

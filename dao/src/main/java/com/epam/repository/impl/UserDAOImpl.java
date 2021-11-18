@@ -33,9 +33,11 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
     private static final String FIND_PAGE_FILTERED_SORTED = "SELECT * FROM users p ORDER BY p.%s %s LIMIT ? OFFSET ?";
     private static final String FIND_USER_BY_LOGIN_QUERY = "SELECT * FROM users WHERE login = ?";
 
-    PropertyInitializer propertyInitializer = new PropertyInitializer();
-    protected ConnectionPool connectionPool = new ConnectionPoolImpl(propertyInitializer);
     private static final Logger log = Logger.getLogger(UserDAOImpl.class.getName());
+
+    public UserDAOImpl(ConnectionPool connectionPool) {
+        super(connectionPool);
+    }
 
 
     @Override

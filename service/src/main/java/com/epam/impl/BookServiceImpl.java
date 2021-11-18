@@ -18,9 +18,14 @@ import static com.epam.validator.ServiceValidator.*;
 
 public class BookServiceImpl implements BookService {
 
-    private static final BookDAO bookDAO = DAOFactory.getInstance().createBookDAO();
+    private final BookDAO bookDAO;
 
     private static final Logger log = Logger.getLogger(BookServiceImpl.class.getName());
+
+
+    public BookServiceImpl(BookDAO bookDAO) {
+        this.bookDAO = bookDAO;
+    }
 
     @Override
     public boolean create(Book book) throws ServiceException {

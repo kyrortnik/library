@@ -25,11 +25,11 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
     private static final String FIND_BY_USED_ID = "SELECT * FROM orders WHERE user_id = ?";
 //    private static final String FIND_ORDER_BY_USER_AND_PRODUCT = "SELECT * FROM orders WHERE user_id = ? AND product_id LIKE %?%";
 
-
-    PropertyInitializer propertyInitializer = new PropertyInitializer();
-    protected ConnectionPool connectionPool = new ConnectionPoolImpl(propertyInitializer);
-
     private static final Logger log = Logger.getLogger(OrderDAOImpl.class.getName());
+
+    public OrderDAOImpl(ConnectionPool connectionPool) {
+        super(connectionPool);
+    }
 
 
     @Override

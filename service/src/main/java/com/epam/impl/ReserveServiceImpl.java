@@ -17,9 +17,13 @@ import static com.epam.validator.ServiceValidator.validation;
 
 public class ReserveServiceImpl implements ReserveService {
 
-    private static final ReserveDAO reserveDAO = DAOFactory.getInstance().createReserveDAO();
+    private final ReserveDAO reserveDAO;
 
     private static final Logger log = Logger.getLogger(ReserveServiceImpl.class.getName());
+
+    public ReserveServiceImpl(ReserveDAO reserveDAO) {
+        this.reserveDAO = reserveDAO;
+    }
 
     @Override
     public boolean save(Reserve reserve) throws ServiceException {

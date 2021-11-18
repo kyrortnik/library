@@ -18,10 +18,13 @@ import static com.epam.validator.ServiceValidator.validation;
 
 public class OrderServiceImpl implements OrderService {
 
-    private static final OrderDAO orderDAO = DAOFactory.getInstance().createOrderDAO();
+    private final OrderDAO orderDAO;
 
     private static final Logger log = Logger.getLogger(OrderServiceImpl.class.getName());
 
+    public OrderServiceImpl(OrderDAO orderDAO) {
+        this.orderDAO = orderDAO;
+    }
 
     @Override
     public boolean save(Order order) throws ServiceException {

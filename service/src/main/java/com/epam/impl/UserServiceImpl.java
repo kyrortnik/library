@@ -16,10 +16,13 @@ import static com.epam.validator.ServiceValidator.*;
 
 public class UserServiceImpl implements UserService {
 
-    private static final UserDAO userDAO = DAOFactory.getInstance().createUserDAO();
+    private final UserDAO userDAO;
 
     private static final Logger log = Logger.getLogger(UserServiceImpl.class.getName());
 
+    public UserServiceImpl(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
 
     @Override
     public boolean registration(User user) throws ServiceException {
