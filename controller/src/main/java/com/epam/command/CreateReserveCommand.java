@@ -36,7 +36,7 @@ public class CreateReserveCommand extends AbstractCommand {
                     request.getSession().setAttribute(MESSAGE,"Book is reserved");
                     response.sendRedirect(lastCommand);
                 } else {
-                    request.setAttribute(MESSAGE,"Product is not added to Reserve list! Order for this product already exists.");
+                    request.getSession().setAttribute(MESSAGE,"Product is not added to Reserve list! Order for this product already exists.");
                     lastCommand = "frontController?command=go_To_Page&address=main.jsp";
                     request.getSession().setAttribute(LAST_COMMAND,lastCommand);
                     request.getRequestDispatcher(lastCommand).forward(request,response);

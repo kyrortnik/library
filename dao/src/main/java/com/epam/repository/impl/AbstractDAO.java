@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -51,25 +52,30 @@ public abstract class AbstractDAO {
 
 
     protected void closeResultSet(ResultSet ...resultSets) {
-        try{
-            if (resultSets != null){
-                for (ResultSet rs : resultSets){
-                    rs.close();
+        if (resultSets != null){
+            for (ResultSet rs : resultSets) {
+                if (Objects.nonNull(rs)) {
+                    try {
+                        rs.close();
+                    } catch (SQLException e) {
+                        log.log(Level.SEVERE, "Exception: " + e);
+                    }
                 }
             }
-        }catch (SQLException e){
-            log.log(Level.SEVERE,"Exception: " + e);
         }
     }
+
     protected void closeStatement(PreparedStatement ...statements){
-        try{
-            if (statements != null){
-                for (PreparedStatement statement : statements){
-                    statement.close();
+        if (statements != null){
+            for (PreparedStatement statement : statements){
+                if (Objects.nonNull(statement)){
+                    try{
+                        statement.close();
+                    }catch (SQLException e){
+                        log.log(Level.SEVERE,"Exception: " + e);
+                    }
                 }
             }
-        }catch (SQLException e){
-            log.log(Level.SEVERE,"Exception: " + e);
         }
     }
 

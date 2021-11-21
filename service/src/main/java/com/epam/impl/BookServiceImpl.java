@@ -85,9 +85,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book findById(Long id) throws ServiceException {
-        if (!validation(id)){
-            return null;
-        }
+        validation(id);
         try{
             return convertToBook(bookDAO.findById(id));
         }catch (DAOException e){

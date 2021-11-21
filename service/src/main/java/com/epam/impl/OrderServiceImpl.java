@@ -27,9 +27,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean create(Order order) throws ServiceException {
-        if (!validation(order)){
-            return false;
-        }try{
+        validation(order);
+        try{
             Long userId = order.getUserId();
             Order foundOrder = orderDAO.getByUserId(userId);
             if (foundOrder == null){
@@ -45,9 +44,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean update(Order order) throws ServiceException {
-        if (!validation(order)){
-            return false;
-        }try{
+        validation(order);
+        try{
             Long userId = order.getUserId();
             Order foundOrder = orderDAO.getByUserId(userId);
             if (foundOrder != null){
@@ -64,9 +62,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean delete(Order order) throws ServiceException {
-        if (!validation(order)){
-            return false;
-        }else{
+        validation(order);
             try{
                 return orderDAO.delete(order);
             }catch (DAOException e){
@@ -74,9 +70,6 @@ public class OrderServiceImpl implements OrderService {
                 throw new ServiceException(e);
             }
         }
-
-
-    }
 
 //    @Override
 //    public boolean deleteFromOrder(Order order) throws ServiceException {
@@ -118,9 +111,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order getByUserId(Long userId) throws ServiceException {
-        if (!validation(userId)){
-            return null;
-        }try{
+       validation(userId);
+    try{
             return orderDAO.getByUserId(userId);
         }catch (DAOException e){
             log.log(Level.SEVERE,"Exception: " + e);
@@ -132,9 +124,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean productAlreadyOrdered(Reserve reserve) throws ServiceException {
-        if (!validation(reserve)){
-            return false;
-        }try{
+        validation(reserve);
+        try{
             boolean productAlreadyOrdered = false;
             long productId = reserve.getProductId();
             String regex = "(?<=\\s|^)" +productId + "(?=\\s|$)";

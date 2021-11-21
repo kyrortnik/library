@@ -26,9 +26,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean registration(User user) throws ServiceException {
-        if (validation(user)){
-            return false;
-        }
+        validation(user);
+
         try{
             return (userDAO.find(user) == null) && userDAO.save(user);
         }catch (DAOException e){
@@ -40,9 +39,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User logination(User user) throws ServiceException {
-        if (validation(user)){
-            return null;
-        }
+        validation(user);
         try {
             user = userDAO.findByLogin(user);
             return user;
@@ -55,9 +52,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO find(User user) throws ServiceException {
-        if (validation(user)){
-            return null;
-        }try{
+        validation(user);
+        try{
             return new UserDTO(userDAO.find(user));
         }catch (DAOException e){
             log.log(Level.SEVERE,"Exception: " + e);
@@ -70,9 +66,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findById(long id) throws ServiceException {
-        if (!validation(id)) {
-            return null;
-        } try{
+        validation(id);
+        try{
                 return userDAO.findById(id);
             }catch (DAOException e){
                 log.log(Level.SEVERE,"Exception: " + e);
@@ -83,9 +78,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean updateUser(User user) throws ServiceException {
-        if(validation(user)){
-            return false;
-        }try{
+        validation(user);
+            try{
             return userDAO.update(user);
         }catch (DAOException e){
             log.log(Level.SEVERE,"Exception: " + e);
@@ -96,9 +90,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean deleteUser(User user) throws ServiceException {
-        if (validation(user)){
-            return false;
-        }try{
+        validation(user);
+        try{
             return userDAO.delete(user);
         }catch (DAOException e){
             log.log(Level.SEVERE,"Exception: " + e);

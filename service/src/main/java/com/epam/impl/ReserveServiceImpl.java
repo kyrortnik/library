@@ -26,9 +26,8 @@ public class ReserveServiceImpl implements ReserveService {
 
     @Override
     public boolean save(Reserve reserve) throws ServiceException {
-        if (validation(reserve)){
-            return false;
-        }try{
+        validation(reserve);
+        try{
             ReserveRow reserveRow = convertToReserveRow(reserve);
             ReserveRow foundReserveRow = reserveDAO.getByUserAndProductId(reserveRow);
             if (Objects.isNull(foundReserveRow)){
@@ -45,9 +44,8 @@ public class ReserveServiceImpl implements ReserveService {
 
     @Override
     public boolean delete(Reserve reserve) throws ServiceException {
-        if (validation(reserve)){
-            return false;
-        }try{
+        validation(reserve);
+        try{
             ReserveRow reserveRow = convertToReserveRow(reserve);
             ReserveRow foundRow = reserveDAO.getByUserAndProductId(reserveRow);
             if (Objects.nonNull(foundRow)){
@@ -65,9 +63,8 @@ public class ReserveServiceImpl implements ReserveService {
 
     @Override
     public boolean deleteReservesByUserId(Long userId) throws ServiceException {
-        if (!validation(userId)){
-            return false;
-        }try{
+        validation(userId);
+        try{
             return reserveDAO.deleteByUserId(userId);
         }catch (DAOException e){
             log.log(Level.SEVERE,"Exception: " + e);
@@ -90,9 +87,8 @@ public class ReserveServiceImpl implements ReserveService {
 
     @Override
     public int countReservesForUser(long userId) throws ServiceException {
-        if (!validation(userId)){
-            return 0;
-        }try{
+        validation(userId);
+        try{
             return reserveDAO.countReservesForUser(userId);
         }catch (DAOException e){
             log.log(Level.SEVERE,"Exception: " + e);
