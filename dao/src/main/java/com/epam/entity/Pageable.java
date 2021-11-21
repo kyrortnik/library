@@ -26,6 +26,15 @@ public class Pageable<T> {
         this.direction = direction;
     }
 
+    public Pageable(int pageNumber, long totalElements, int limit, List<T> elements,String sortBy, String direction) {
+        this.pageNumber = pageNumber;
+        this.totalElements = totalElements;
+        this.limit = limit;
+        this.elements = elements;
+        this.sortBy = sortBy;
+        this.direction = direction;
+    }
+
     public int getPageNumber() {
         return pageNumber;
     }

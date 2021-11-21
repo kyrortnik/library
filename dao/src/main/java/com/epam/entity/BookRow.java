@@ -2,35 +2,39 @@ package com.epam.entity;
 
 public class BookRow extends ProductRow {
 
-    private Integer publishingYear;
+    private int publishingYear;
     private String publisher;
     private String genre;
-    private Integer numberOfPages;
+    private int numberOfPages;
     private boolean isHardCover;
     private String description;
 
     public BookRow() {
     }
 
-    public BookRow(Long id, String title, String author, Integer publishingYear) {
+    public BookRow(Long id) {
+        super(id);
+    }
+
+    public BookRow(Long id, String title, String author, int publishingYear) {
         super(id, title, author);
         this.publishingYear = publishingYear;
     }
 
-    public BookRow(Long id, String title, String author, Integer publishingYear, String publisher) {
+    public BookRow(Long id, String title, String author, int publishingYear, String publisher) {
         super(id, title, author);
         this.publishingYear = publishingYear;
         this.publisher = publisher;
     }
 
-    public BookRow(Long id, String title, String author, Integer publishingYear, String publisher, String genre) {
+    public BookRow(Long id, String title, String author, int publishingYear, String publisher, String genre) {
         super(id, title, author);
         this.publishingYear = publishingYear;
         this.publisher = publisher;
         this.genre = genre;
     }
 
-    public BookRow(Long id, String title, String author, Integer publishingYear, String publisher, String genre, Integer numberOfPages) {
+    public BookRow(Long id, String title, String author, int publishingYear, String publisher, String genre, int numberOfPages) {
         super(id, title, author);
         this.publishingYear = publishingYear;
         this.publisher = publisher;
@@ -38,27 +42,38 @@ public class BookRow extends ProductRow {
         this.numberOfPages = numberOfPages;
     }
 
-    public BookRow(Long id, String title, String author, Integer publishingYear, String publisher, String genre, Integer numberOfPages, boolean isHardCover) {
+    public BookRow(Long id, String title, String author, int publishingYear, String publisher, String genre, int numberOfPages, boolean isHardCover) {
         super(id, title, author);
+        this.publishingYear = publishingYear;
+        this.publisher = publisher;
+        this.genre = genre;
+        this.numberOfPages = numberOfPages;
+        this.isHardCover = isHardCover;
+    }
+
+    public BookRow(Long id, String title, String author, int publishingYear, String publisher, boolean isReserved, String genre, int numberOfPages, boolean isHardCover) {
+        super(id,title,author,isReserved);
         this.publishingYear = publishingYear;
         this.publisher = publisher;
         this.genre = genre;
         this.numberOfPages = numberOfPages;
         this.isHardCover = isHardCover;
-    }
 
-    public BookRow(Long id, String title, String author, Integer publishYear, String publisher, boolean isReserved, String genre, Integer numberOfPages, boolean isHardCover) {
+    }
+    public BookRow(Long id, String title, String author, int publishingYear, String publisher, boolean isReserved, String genre, int numberOfPages, boolean isHardCover,String description) {
         super(id,title,author,isReserved);
-        this.publishingYear = publishYear;
+        this.publishingYear = publishingYear;
         this.publisher = publisher;
         this.genre = genre;
         this.numberOfPages = numberOfPages;
         this.isHardCover = isHardCover;
+        this.description = description;
 
     }
-    public BookRow(Long id, String title, String author, Integer publishYear, String publisher, boolean isReserved, String genre, Integer numberOfPages, boolean isHardCover,String description) {
-        super(id,title,author,isReserved);
-        this.publishingYear = publishYear;
+
+    public BookRow(Long id, String title, String author, int publishingYear, String publisher, String genre, int numberOfPages, boolean isHardCover,String description) {
+        super(id,title,author);
+        this.publishingYear = publishingYear;
         this.publisher = publisher;
         this.genre = genre;
         this.numberOfPages = numberOfPages;
@@ -68,11 +83,12 @@ public class BookRow extends ProductRow {
     }
 
 
-    public Integer getPublishingYear() {
+
+    public int getPublishingYear() {
         return publishingYear;
     }
 
-    public void setPublishingYear(Integer publishingYear) {
+    public void setPublishingYear(int publishingYear) {
         this.publishingYear = publishingYear;
     }
 
@@ -92,7 +108,7 @@ public class BookRow extends ProductRow {
         this.genre = genre;
     }
 
-    public Integer getNumberOfPages() {
+    public int getNumberOfPages() {
         return numberOfPages;
     }
 
@@ -124,36 +140,35 @@ public class BookRow extends ProductRow {
 
         BookRow bookRow = (BookRow) o;
 
+        if (publishingYear != bookRow.publishingYear) return false;
+        if (numberOfPages != bookRow.numberOfPages) return false;
         if (isHardCover != bookRow.isHardCover) return false;
-        if (publishingYear != null ? !publishingYear.equals(bookRow.publishingYear) : bookRow.publishingYear != null)
-            return false;
         if (publisher != null ? !publisher.equals(bookRow.publisher) : bookRow.publisher != null) return false;
         if (genre != null ? !genre.equals(bookRow.genre) : bookRow.genre != null) return false;
-        return numberOfPages != null ? numberOfPages.equals(bookRow.numberOfPages) : bookRow.numberOfPages == null;
+        return description != null ? description.equals(bookRow.description) : bookRow.description == null;
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (publishingYear != null ? publishingYear.hashCode() : 0);
+        result = 31 * result + publishingYear;
         result = 31 * result + (publisher != null ? publisher.hashCode() : 0);
         result = 31 * result + (genre != null ? genre.hashCode() : 0);
-        result = 31 * result + (numberOfPages != null ? numberOfPages.hashCode() : 0);
+        result = 31 * result + numberOfPages;
         result = 31 * result + (isHardCover ? 1 : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return "Book{" +
-                "id=" + getId() +
-                ", title=" + getTitle() + '\'' +
-                ", author=" + getAuthor() + '\'' +
-                ", publishingYear=" + publishingYear + '\'' +
+        return "BookRow{" +
+                "publishingYear=" + publishingYear +
                 ", publisher='" + publisher + '\'' +
                 ", genre='" + genre + '\'' +
                 ", numberOfPages=" + numberOfPages +
                 ", isHardCover=" + isHardCover +
+                ", description='" + description + '\'' +
                 '}';
     }
 }

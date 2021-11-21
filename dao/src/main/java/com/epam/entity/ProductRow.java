@@ -29,6 +29,9 @@ public class ProductRow extends Entity {
         this.isReserved = isReserved;
     }
 
+    public ProductRow(Long id) {
+        super(id);
+    }
 
     public String getTitle() {
         return title;

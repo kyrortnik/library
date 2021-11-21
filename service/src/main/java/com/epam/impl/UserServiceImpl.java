@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean registration(User user) throws ServiceException {
-        if (!validation(user)){
+        if (validation(user)){
             return false;
         }
         try{
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User logination(User user) throws ServiceException {
-        if (!validation(user)){
+        if (validation(user)){
             return null;
         }
         try {
@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO find(User user) throws ServiceException {
-        if (!validation(user)){
+        if (validation(user)){
             return null;
         }try{
             return new UserDTO(userDAO.find(user));
@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean updateUser(User user) throws ServiceException {
-        if(!validation(user)){
+        if(validation(user)){
             return false;
         }try{
             return userDAO.update(user);
@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean deleteUser(User user) throws ServiceException {
-        if (!validation(user)){
+        if (validation(user)){
             return false;
         }try{
             return userDAO.delete(user);
@@ -119,6 +119,15 @@ public class UserServiceImpl implements UserService {
         }
 
     }
+    @Override
+    public List<User> getUsers() throws ServiceException {
+        try {
+            return userDAO.getAll();
+        }catch (DAOException e){
+            throw new ServiceException(e);
+        }
+
+    }
 
 
     private Page<UserDTO> convertToServicePage(Pageable<UserDTO> pageableDAO) {
@@ -127,7 +136,7 @@ public class UserServiceImpl implements UserService {
         page.setLimit(pageableDAO.getLimit());
         page.setTotalElements(pageableDAO.getTotalElements());
         page.setElements(pageableDAO.getElements());
-        page.setFilter((pageableDAO.getFilter()));
+//        page.setFilter((pageableDAO.getFilter()));
         page.setSortBy(pageableDAO.getSortBy());
         page.setDirection(pageableDAO.getDirection());
         return page;
@@ -140,20 +149,12 @@ public class UserServiceImpl implements UserService {
         pageableDAO.setLimit(page.getLimit());
         pageableDAO.setTotalElements(page.getTotalElements());
         pageableDAO.setElements(page.getElements());
-        pageableDAO.setFilter(page.getFilter());
+//        pageableDAO.setFilter(page.getFilter());
         pageableDAO.setSortBy(page.getSortBy());
         pageableDAO.setDirection(page.getDirection());
         return pageableDAO;
     }
 
 
-    @Override
-    public List<User> getUsers() throws ServiceException {
-        try {
-            return userDAO.getAll();
-        }catch (DAOException e){
-            throw new ServiceException(e);
-        }
 
-    }
 }

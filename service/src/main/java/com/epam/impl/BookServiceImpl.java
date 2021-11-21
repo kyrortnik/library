@@ -4,7 +4,6 @@ import com.epam.entity.*;
 import com.epam.exception.DAOException;
 import com.epam.exception.ServiceException;
 import com.epam.repository.BookDAO;
-import com.epam.repository.DAOFactory;
 import com.epam.BookService;
 import com.epam.entity.Page;
 
@@ -29,9 +28,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public boolean create(Book book) throws ServiceException {
-        if (!validation(book)){
-            return false;
-        }
+        validation(book);
         try{
             BookRow bookRow = convertToBookRow(book);
             BookRow foundRow = bookDAO.find(bookRow);
@@ -49,9 +46,8 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public boolean update(Book book) throws ServiceException {
-        if (!validation(book)){
-            return false;
-        }try{
+        validation(book);
+        try{
             BookRow bookRow = convertToBookRow(book);
             BookRow foundRow = bookDAO.find(bookRow);
             if (foundRow != null){
@@ -122,6 +118,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Page<Book> getAll(Page<Book> page) throws ServiceException {
+        validation(page);
         try {
             Pageable<BookRow> bookRowPageable = convertToPageableBook(page);
             Pageable<BookRow> bookRowsPageable = bookDAO.findPageWithParameters(bookRowPageable);
@@ -132,34 +129,29 @@ public class BookServiceImpl implements BookService {
     }
 
 
-    public Page<Book> getPageByFilter(Page<Book> daoProductPageable) throws ServiceException {
+    @Override
+    public List<Book> findBooksByOrder(Order order) throws ServiceException {
+        validation(order);
         try{
-            Pageable<BookRow> rowPageable = convertToPageableBook(daoProductPageable);
-            return convertToServicePage(bookDAO.findPageWithParameters(rowPageable));
-        }catch (DAOException e){
+           List<Book> booksFromOrder = new ArrayList<>();
+           for (Long id : getProductIdsFromOrder(order)){
+               booksFromOrder.add(findById(id));
+           }
+            return booksFromOrder;
+        }catch (ServiceException e){
             throw new ServiceException(e);
         }
     }
 
 
-    @Override
-    public List<Book> findBooksByOrder(Order order) throws ServiceException {
-        try{
-            List<Book> booksFromOrder = new ArrayList<>();
-            if (order.getId() != 0 && order.getId() != 0){
-                String[] idsString = order.getProductIds().split(" ");
-                Long[] idsLong = new Long[idsString.length];
-                for (int i = 0;i<idsString.length;i++){
-                    idsLong[i] = Long.valueOf(idsString[i]);
-                }
-                for (Long id : idsLong){
-                    booksFromOrder.add(findById(id));
-                }
-            }
-            return booksFromOrder;
-        }catch (ServiceException e){
-            throw new ServiceException(e);
+    private Long[] getProductIdsFromOrder(Order order) {
+
+        String[] idsString = order.getProductIds().split(" ");
+        Long[] idsLong = new Long[idsString.length];
+        for (int i = 0;i<idsString.length;i++){
+            idsLong[i] = Long.valueOf(idsString[i]);
         }
+        return idsLong;
     }
 
 
@@ -169,7 +161,10 @@ public class BookServiceImpl implements BookService {
         page.setLimit(bookRowPageable.getLimit());
         page.setTotalElements(bookRowPageable.getTotalElements());
         page.setElements(convertToBooks(bookRowPageable.getElements()));
-        page.setFilter(convertToBook(bookRowPageable.getFilter()));
+//        if (bookRowPageable.getFilter() == null){
+//            page.setFilter(null);
+//        }
+//        page.setFilter(convertToBook(bookRowPageable.getFilter()));
         page.setSortBy(bookRowPageable.getSortBy());
         page.setDirection(bookRowPageable.getDirection());
         return page;
@@ -207,7 +202,7 @@ public class BookServiceImpl implements BookService {
         pageable.setLimit(pageableRequest.getLimit());
         pageable.setTotalElements(pageableRequest.getTotalElements());
         pageable.setElements(convertToBookRows(pageableRequest.getElements()));
-        pageable.setFilter(convertToBookRow(pageableRequest.getFilter()));
+//        pageable.setFilter(convertToBookRow(pageableRequest.getFilter()));
         pageable.setSortBy(pageableRequest.getSortBy());
         pageable.setDirection(pageableRequest.getDirection());
         return pageable;

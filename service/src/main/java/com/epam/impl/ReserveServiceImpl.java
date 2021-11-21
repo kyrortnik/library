@@ -4,7 +4,6 @@ import com.epam.ReserveService;
 import com.epam.entity.*;
 import com.epam.exception.DAOException;
 import com.epam.exception.ServiceException;
-import com.epam.repository.DAOFactory;
 import com.epam.repository.ReserveDAO;
 
 import java.util.ArrayList;
@@ -27,7 +26,7 @@ public class ReserveServiceImpl implements ReserveService {
 
     @Override
     public boolean save(Reserve reserve) throws ServiceException {
-        if (!validation(reserve)){
+        if (validation(reserve)){
             return false;
         }try{
             ReserveRow reserveRow = convertToReserveRow(reserve);
@@ -46,7 +45,7 @@ public class ReserveServiceImpl implements ReserveService {
 
     @Override
     public boolean delete(Reserve reserve) throws ServiceException {
-        if (!validation(reserve)){
+        if (validation(reserve)){
             return false;
         }try{
             ReserveRow reserveRow = convertToReserveRow(reserve);
@@ -103,9 +102,9 @@ public class ReserveServiceImpl implements ReserveService {
 
 
     @Override
-    public List<Reserve> findReservationsByUserId(long userId, int offset) throws ServiceException {
+    public List<Reserve> getReservesByUserId(long userId, int offset) throws ServiceException {
         try{
-            return  convertToReserves(reserveDAO.findReserveByUserId(userId, offset));
+            return  convertToReserves(reserveDAO.getReservesByUserId(userId, offset));
         }catch (DAOException e){
             log.log(Level.SEVERE,"Exception: " + e);
             throw new ServiceException(e);

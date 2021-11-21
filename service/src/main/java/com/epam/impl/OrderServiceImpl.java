@@ -4,7 +4,6 @@ import com.epam.entity.Order;
 import com.epam.entity.Reserve;
 import com.epam.exception.DAOException;
 import com.epam.exception.ServiceException;
-import com.epam.repository.DAOFactory;
 import com.epam.repository.OrderDAO;
 import com.epam.OrderService;
 
@@ -27,7 +26,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean save(Order order) throws ServiceException {
+    public boolean create(Order order) throws ServiceException {
         if (!validation(order)){
             return false;
         }try{
@@ -49,7 +48,13 @@ public class OrderServiceImpl implements OrderService {
         if (!validation(order)){
             return false;
         }try{
-            return orderDAO.update(order);
+            Long userId = order.getUserId();
+            Order foundOrder = orderDAO.getByUserId(userId);
+            if (foundOrder != null){
+                return orderDAO.update(order);
+            }else {
+                return false;
+            }
         }catch (DAOException e){
             log.log(Level.SEVERE,"Exception: " + e);
             throw new ServiceException(e);
@@ -59,23 +64,46 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean delete(Order order) throws ServiceException {
-        try{
-            return orderDAO.delete(order);
-        }catch (DAOException e){
-            log.log(Level.SEVERE,"Exception: " + e);
-            throw new ServiceException(e);
+        if (!validation(order)){
+            return false;
+        }else{
+            try{
+                return orderDAO.delete(order);
+            }catch (DAOException e){
+                log.log(Level.SEVERE,"Exception: " + e);
+                throw new ServiceException(e);
+            }
         }
+
 
     }
 
+//    @Override
+//    public boolean deleteFromOrder(Order order) throws ServiceException {
+//        try{
+//            Order foundOrder = orderDAO.find(order);
+//            String updatedProducts = getUpdatedProducts(order, foundOrder);
+//            if (orderDAO.deleteFromOrder(order,updatedProducts)){
+//                if (orderDAO.find(foundOrder).getProductIds().equals("")){
+//                    return orderDAO.delete(foundOrder);
+//                }
+//                return  true;
+//            }else{
+//                return false;
+//            }
+//        }catch (Exception e){
+//            log.log(Level.SEVERE,"Exception: " + e);
+//            throw new ServiceException(e);
+//        }
+//    }
     @Override
     public boolean deleteFromOrder(Order order) throws ServiceException {
         try{
-            Order foundOrder = orderDAO.find(order);
-            String updatedProducts = getUpdatedProducts(order, foundOrder);
+            Order existingOrder = orderDAO.find(order);
+            String updatedProducts = getUpdatedProducts(order, existingOrder);
             if (orderDAO.deleteFromOrder(order,updatedProducts)){
-                if (orderDAO.find(foundOrder).getProductIds().equals("")){
-                    return orderDAO.delete(foundOrder);
+                if (orderDAO.find(existingOrder).getProductIds().equals("")){
+                    return orderDAO.delete(existingOrder);
                 }
                 return  true;
             }else{

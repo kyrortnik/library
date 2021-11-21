@@ -284,7 +284,7 @@ public class ReserveDAOImpl extends AbstractDAO implements ReserveDAO {
 
 
     @Override
-    public List<ReserveRow> findReserveByUserId(long userId, int offset) throws DAOException {
+    public List<ReserveRow> getReservesByUserId(long userId, int offset) throws DAOException {
 
         PreparedStatement preparedStatement = null;
         Connection connection = null;

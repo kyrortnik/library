@@ -52,7 +52,7 @@ public class ShowReservesCommand extends AbstractCommand {
     private Page<Book> getPageableReserve(Long userId, int currentPage) throws ServiceException {
         int numberOfReserves = reserveService.countReservesForUser(userId);
         Page<Book> pageableReserves = new Page<>(currentPage, numberOfReserves);
-        List<Reserve> reservesForUser = reserveService.findReservationsByUserId(userId,pageableReserves.getOffset());
+        List<Reserve> reservesForUser = reserveService.getReservesByUserId(userId,pageableReserves.getOffset());
         List<Book> booksForUser = bookService.findBooksByIds(reservesForUser);
         pageableReserves.setElements(booksForUser);
         pageableReserves.setPageNumber(currentPage);

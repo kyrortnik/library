@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface OrderService {
 
-    boolean save(Order order) throws ServiceException;
+    boolean create(Order order) throws ServiceException;
 
     boolean update(Order order) throws ServiceException;
 
