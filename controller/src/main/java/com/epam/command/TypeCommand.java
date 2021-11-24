@@ -19,8 +19,8 @@ public enum TypeCommand {
         {this.command = new ShowProductsCommand();}
     },
 
-    PRODUCT_INFO{
-        {this.command = new ProductInfoCommand();}
+    BOOK_INFO{
+        {this.command = new BookInfoCommand();}
     },
 
     CREATE_ORDER{
@@ -44,8 +44,8 @@ public enum TypeCommand {
     DELETE_RESERVE{
         {this.command = new DeleteReserveCommand();}
     },
-    DELETE_PRODUCT_FROM_ORDER{
-        {this.command = new DeleteProductFromOrder();}
+    DELETE_BOOK_FROM_ORDER{
+        {this.command = new DeleteBookFromOrder();}
     },
     CREATE_BOOK{
         {this.command = new CreateBookCommand();}

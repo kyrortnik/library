@@ -60,19 +60,25 @@ public class ConnectionPoolImpl implements ConnectionPool {
         }
 
         Connection connection = availableConnections.remove();
+        log.info("=======take()");
 
         if(!connection.isValid(MAX_TIMEOUT)){
             connection = createConnection(url, username, password);
         }
 
         takenConnections.add(connection);
+        log.info("=======availableConnections.size() is " + availableConnections.size());
+        log.info("=======takenConnections.size() is " + takenConnections.size());
         return connection;
     }
 
     @Override
     public void releaseConnection(Connection connection) {
+        log.info("======= releasing Connection)");
         takenConnections.remove(connection);
         availableConnections.add(connection);
+        log.info("=======availableConnections.size() is " + availableConnections.size());
+        log.info("=======takenConnections.size() is " + takenConnections.size());
     }
 
     private Connection createConnection(String url,String user,String password) throws SQLException {

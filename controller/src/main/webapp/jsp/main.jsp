@@ -5,25 +5,30 @@
 <html>
     <head>
         <%@ include file="parts/meta.jsp" %>
-        <title>Main page</title>
-
+        <title>${mainPage}</title>
     </head>
     <body>
     <%@ include file="parts/header.jsp" %>
-
-    <h3>${sessionScope.message}</h3>
-    <h3>${message}</h3>
-    <c:out value ="${requestScope.reserveMessage}"/>
     <c:if test ="${sessionScope.role == 'admin'}">
-        <a href="frontController?command=go_To_Page&address=newBook.jsp">New Book Creation</a>
-
-    </c:if>
-    <c:if test="${sessionScope.role != null}">
         <div>
-            <h3>${sessionScope.deleteMessage}</h3>
+            <form id ="goToCreateBook" method="GET" action ="frontController">
+                <input type = "hidden" name ="command" value="go_To_Page" />
+                <input type = "hidden" name="address" value="newBook.jsp" />
+                <button form ="goToCreateBook" type="submit">${createBook}</button>
+            </form>
         </div>
-<!-----------MAIN------------------------->
-<!-----------SHOW PRODUCTS ------------------------->
+    </c:if>
+
+    <form id="sessionMessageForm">
+        <h3>
+            <c:out value="${sessionScope.message}"/>
+        </h3>
+    </form>
+
+
+<!----------   MAIN  ---------->
+<!----------   SHOW PRODUCTS  ---------->
+    <c:if test="${sessionScope.role != null}">
     <div>
     <form id="showProducts" method="GET" action="frontController">
     <input type="hidden" name="command" value="show_Products"/>
@@ -32,33 +37,30 @@
     </div>
             <div>
                 <table>
-<!--                    <thead>-->
 <!--                    <tr>-->
 <!--                        <td></td>-->
 <!--                        <td><h4><c:out value="${title}"/></h4></td>-->
 <!--                        <td><h4><c:out value="${author}"/></h4></td>-->
 <!--                        <td><h4><c:out value="${publishingYear}"/></h4></td>-->
 <!--                    </tr>-->
-<!--                    </thead>-->
-
                     <tbody>
-                    <c:forEach items="${requestScope.pageable.elements}" var="productRow">
+                    <c:forEach items="${requestScope.pageable.elements}" var="bookRow">
                         <tr>
                             <td>
                                 <form  method="GET" action="frontController" >
-                                    <input type="hidden" name="command" value="product_Info" />
-                                    <input type="hidden" name="id" value="${productRow.id}" />
+                                    <input type="hidden" name="command" value="book_Info" />
+                                    <input type="hidden" name="id" value="${bookRow.id}" />
                                     <button type="submit">${productInfo}</button><br/>
                                 </form>
                             </td>
-                            <td>${productRow.title}</td>
-                            <td>${productRow.author}</td>
-                            <td>${productRow.publisher}</td>
-                            <td>${productRow.publishingYear}</td>
+                            <td>${bookRow.title}</td>
+                            <td>${bookRow.author}</td>
+                            <td>${bookRow.publisher}</td>
+                            <td>${bookRow.publishingYear}</td>
                             <td>
                                <!-- <form method = "POST" action="frontController">
                                     <input type = "hidden" name ="command" value ="createReserve"/>
-                                    <input type = "hidden" name="productId" value="${productRow.id}"/>
+                                    <input type = "hidden" name="productId" value="${bookRow.id}"/>
                                     <input type="submit" value ="Reserve this Book">
                                     <br/>
                                     ${message}
@@ -69,13 +71,12 @@
                             <td>
                                 <form  method="POST" action="frontController" >
                                     <input type="hidden" name="command" value="create_Reserve" />
-                                    <input type="hidden" name="bookId" value="${productRow.id}" />
+                                    <input type="hidden" name="bookId" value="${bookRow.id}" />
                                     <button type="submit">Create reserve</button><br/>
                                 </form>
                             </td>
                         </tr>
                     </c:forEach>
-                    <h3>${requestScope.message}</h3>
                     </tbody>
                 </table>
                 <div style="margin-left: center">
@@ -94,7 +95,7 @@
                 </div>
             </div>
 
-        <!-----------SHOW RESERVES ------------------------->
+<!----------   SHOW RESERVES  ---------->
 
         <div>
             <form id ="showReserves" method="GET" action ="frontController">
@@ -129,12 +130,11 @@
                             <form  method="POST" action="frontController" >
                                 <input type="hidden" name="command" value="delete_Reserve" />
                                 <input type="hidden" name="bookId" value="${reserveRow.id}" />
-                                <button type="submit">Delete reserve</button><br/>
+                                <button type="submit">${deleteReserve}</button><br/>
                             </form>
                         </td>
                     </tr>
                 </c:forEach>
-
                 </tbody>
             </table>
                 <div>
@@ -166,7 +166,7 @@
             </c:if>
         </div>
 
-        <!-----------SHOW ORDER INFO ------------------------->
+ <!----------   SHOW ORDER INFO  ---------->
 
         <form id ="showOrderInfo" method="GET" action ="frontController">
         <input type = "hidden" name ="command" value="order_Info"/>
@@ -203,13 +203,11 @@
                             <td>${bookFromOrder.publishingYear}</td>
                                <td>
                                     <form method = "POST" action="frontController">
-                                        <input type = "hidden" name ="command" value ="delete_Product_From_Order"/>
+                                        <input type = "hidden" name ="command" value ="delete_Book_From_Order"/>
                                         <input type = "hidden" name="bookId" value="${bookFromOrder.id}"/>
-                                        <input type="submit" value ="Delete from Order">
-                                        <br/>
+                                        <input type="submit" value ="${deleteFromOrder}">
                                         <br/>
                                     </form>
-
                                </td>
                         </tr>
                     </c:if>
@@ -220,49 +218,23 @@
                         <h3>${orderMessage}</h3>
                     </div>
                 </c:if>
-
                 </tbody>
             </table>
-            <!--<div style="margin-left: center">
-                <c:forEach begin="1" end="${Math.ceil(pageableReserves.totalElements / pageableReserves.limit)}" var="i">
-                    <c:if test="${i == pageableReserves.pageNumber}">
-                            <span>
-                                <button style="color:red" form="showReserves" type="submit" name="currentPageReserve" value="${i}">${i}</button>
-                            </span>
-                    </c:if>
-                    <c:if test="${i != pageableReserves.pageNumber}">
-                            <span>
-                                <button form="showReserves" type="submit" name="currentPageReserve" value="${i}">${i}</button>
-                            </span>
-                    </c:if>
-                </c:forEach>
-            </div>-->
         </div>
         </c:if>
 
-    <!-----------------ADMIN SHOW USERS -------------------->
+<!----------   ADMIN SHOW USERS  ---------->
 
-
+    <c:if test ="${sessionScope.role == 'admin'}">
     <div>
         <form id ="showUsers" method="GET" action ="frontController">
             <input type="hidden" name = "command" value="show_Users" />
-            <button form ="showUsers" type ="submit">Show Users</button>
+            <button form ="showUsers" type ="submit">${showUsers}</button>
         </form>
     </div>
     <div>
         <c:if test="${not empty requestScope.pageableUsers.elements}">
-
             <table>
-                <!--   <thead>
-                   <tr>
-                       <td></td>
-                       <td><h4><c:out value="${title}"/></h4></td>
-                       <td><h4><c:out value="${author}"/></h4></td>
-                       <td><h4><c:out value="${publisher}"/></h4></td>
-                       <td><h4><c:out value="${publishingYear}"/></h4></td>
-                   </tr>
-                   </thead>-->
-
                 <tbody>
                 <c:forEach items="${requestScope.pageableUsers.elements}" var="userRow">
                     <tr>
@@ -273,7 +245,6 @@
                         <td>${userRow.role}</td>
                     </tr>
                 </c:forEach>
-
                 </tbody>
             </table>
 
@@ -293,5 +264,6 @@
             </div>
         </c:if>
     </div>
+    </c:if>
     </body>
 </html>

@@ -4,7 +4,6 @@ import com.epam.ReserveService;
 import com.epam.entity.*;
 import com.epam.exception.DAOException;
 import com.epam.exception.ServiceException;
-import com.epam.repository.DAOFactory;
 import com.epam.repository.ReserveDAO;
 
 import java.util.ArrayList;
@@ -17,18 +16,21 @@ import static com.epam.validator.ServiceValidator.validation;
 
 public class ReserveServiceImpl implements ReserveService {
 
-    private static final ReserveDAO reserveDAO = DAOFactory.getInstance().createReserveDAO();
+    private final ReserveDAO reserveDAO;
 
     private static final Logger log = Logger.getLogger(ReserveServiceImpl.class.getName());
 
+    public ReserveServiceImpl(ReserveDAO reserveDAO) {
+        this.reserveDAO = reserveDAO;
+    }
+
     @Override
     public boolean save(Reserve reserve) throws ServiceException {
-        if (!validation(reserve)){
-            return false;
-        }try{
+        validation(reserve);
+        try{
             ReserveRow reserveRow = convertToReserveRow(reserve);
             ReserveRow foundReserveRow = reserveDAO.getByUserAndProductId(reserveRow);
-            if (Objects.nonNull(foundReserveRow)){
+            if (Objects.isNull(foundReserveRow)){
                 return reserveDAO.save(reserveRow);
             }else {
                 return false;
@@ -42,9 +44,8 @@ public class ReserveServiceImpl implements ReserveService {
 
     @Override
     public boolean delete(Reserve reserve) throws ServiceException {
-        if (!validation(reserve)){
-            return false;
-        }try{
+        validation(reserve);
+        try{
             ReserveRow reserveRow = convertToReserveRow(reserve);
             ReserveRow foundRow = reserveDAO.getByUserAndProductId(reserveRow);
             if (Objects.nonNull(foundRow)){
@@ -62,9 +63,8 @@ public class ReserveServiceImpl implements ReserveService {
 
     @Override
     public boolean deleteReservesByUserId(Long userId) throws ServiceException {
-        if (!validation(userId)){
-            return false;
-        }try{
+        validation(userId);
+        try{
             return reserveDAO.deleteByUserId(userId);
         }catch (DAOException e){
             log.log(Level.SEVERE,"Exception: " + e);
@@ -87,9 +87,8 @@ public class ReserveServiceImpl implements ReserveService {
 
     @Override
     public int countReservesForUser(long userId) throws ServiceException {
-        if (!validation(userId)){
-            return 0;
-        }try{
+        validation(userId);
+        try{
             return reserveDAO.countReservesForUser(userId);
         }catch (DAOException e){
             log.log(Level.SEVERE,"Exception: " + e);
@@ -99,9 +98,9 @@ public class ReserveServiceImpl implements ReserveService {
 
 
     @Override
-    public List<Reserve> findReservationsByUserId(long userId, int offset) throws ServiceException {
+    public List<Reserve> getReservesByUserId(long userId, int offset) throws ServiceException {
         try{
-            return  convertToReserves(reserveDAO.findReserveByUserId(userId, offset));
+            return  convertToReserves(reserveDAO.getReservesByUserId(userId, offset));
         }catch (DAOException e){
             log.log(Level.SEVERE,"Exception: " + e);
             throw new ServiceException(e);

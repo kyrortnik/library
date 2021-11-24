@@ -14,13 +14,13 @@ import java.util.logging.Logger;
 
 import static com.epam.command.util.ControllerConstants.*;
 
-public class ProductInfoCommand extends AbstractCommand {
+public class BookInfoCommand extends AbstractCommand {
 
 
     private final ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private final BookService bookService = serviceFactory.createBookService();
 
-    private static final Logger log = Logger.getLogger(ProductInfoCommand.class.getName());
+    private static final Logger log = Logger.getLogger(BookInfoCommand.class.getName());
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {

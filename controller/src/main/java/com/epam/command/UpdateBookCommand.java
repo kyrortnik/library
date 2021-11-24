@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Locale;
 
+import static com.epam.command.util.ControllerConstants.*;
+
 public class UpdateBookCommand implements Command {
 
     private final BookService bookService = ServiceFactory.getInstance().createBookService();
@@ -16,39 +18,56 @@ public class UpdateBookCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
 
-        long bookId = Long.parseLong(request.getParameter("bookId"));
-        String pageForRedirect;
-        String title = request.getParameter("title").trim();
-        String author = request.getParameter("author").trim();
-        String publisher = request.getParameter("publisher").trim();
-        int publishingYear = 0;
-        if (!request.getParameter("publishingYear").equals("")){
-            publishingYear = Integer.parseInt(request.getParameter("publishingYear"));
-        }
-        boolean isHardCover = request.getParameter("isHardCover").toUpperCase(Locale.ROOT).equals("YES");
-        int numberOfPages = 0;
-        if (!request.getParameter("numberOfPages").equals("")){
-            numberOfPages  = Integer.parseInt(request.getParameter("numberOfPages"));
-        }
-        String genre = request.getParameter("genre").trim();
-        String description = request.getParameter("description").trim();
-
-        Book book = new Book (title,author,publishingYear,publisher,genre,numberOfPages,isHardCover,description);
-        String lastCommand = "frontController?command=productInfo&id="+ bookId;
-        request.getSession().setAttribute("lastCommand",lastCommand);
+        long bookId = Long.parseLong(request.getParameter(BOOK_ID));
+        Book book = getBook(request);
+        String lastCommand;
 
         try{
             if (bookService.update(book)){
-                pageForRedirect = "frontController?command=goToPage&address=main.jsp";
-            request.getSession().setAttribute("message","Book is updated");
-            response.sendRedirect(pageForRedirect);
+                lastCommand = "frontController?command=go_To_Page&address=main.jsp";
+                request.getSession().setAttribute(MESSAGE,"Book is updated");
+                request.getSession().setAttribute(LAST_COMMAND,lastCommand);
+                response.sendRedirect(lastCommand);
             }else {
-                request.setAttribute("reserveErrorMessage","No such book exists");
+                lastCommand = "frontController?command=productInfo&id="+ bookId;
+                request.setAttribute(MESSAGE,"No such book exists");
+                request.getSession().setAttribute(LAST_COMMAND,lastCommand);
                 request.getRequestDispatcher(lastCommand).forward(request,response);
             }
         }catch (Exception e){
             throw new ControllerException(e);
         }
-
     }
+
+    private Book getBook(HttpServletRequest request) {
+        String title = request.getParameter("title").trim();
+        String author = request.getParameter("author").trim();
+        String publisher = request.getParameter("publisher").trim();
+
+        String publishYear = request.getParameter("publishingYear");
+        int publishingYear = isNumeric(publishYear) ? Integer.parseInt(publishYear) : 0;
+
+        boolean isHardCover = request.getParameter("isHardCover").toUpperCase(Locale.ROOT).equals("YES");
+
+        String pages = request.getParameter("numberOfPages");
+        int numberOfPages = isNumeric(pages) ? Integer.parseInt(pages) : 0;
+
+        String genre = request.getParameter("genre").trim();
+        String description = request.getParameter("description").trim();
+
+        return new Book (title,author,publishingYear,publisher,genre,numberOfPages,isHardCover,description);
+    }
+
+    private boolean isNumeric(String parameter){
+        if (parameter == null){
+            return false;
+        }
+        try{
+            Integer.parseInt(parameter);
+        }catch (NumberFormatException e){
+            return false;
+        }
+        return true;
+    }
+
 }

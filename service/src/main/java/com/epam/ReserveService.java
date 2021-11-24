@@ -17,7 +17,7 @@ public interface ReserveService {
 
     int countReservesForUser(long userId) throws ServiceException;
 
-    List<Reserve> findReservationsByUserId(long userId,int offset) throws ServiceException;
+    List<Reserve> getReservesByUserId(long userId, int offset) throws ServiceException;
 
 
 

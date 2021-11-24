@@ -4,7 +4,6 @@ import com.epam.entity.Order;
 import com.epam.entity.Reserve;
 import com.epam.exception.DAOException;
 import com.epam.exception.ServiceException;
-import com.epam.repository.DAOFactory;
 import com.epam.repository.OrderDAO;
 import com.epam.OrderService;
 
@@ -18,16 +17,18 @@ import static com.epam.validator.ServiceValidator.validation;
 
 public class OrderServiceImpl implements OrderService {
 
-    private static final OrderDAO orderDAO = DAOFactory.getInstance().createOrderDAO();
+    private final OrderDAO orderDAO;
 
     private static final Logger log = Logger.getLogger(OrderServiceImpl.class.getName());
 
+    public OrderServiceImpl(OrderDAO orderDAO) {
+        this.orderDAO = orderDAO;
+    }
 
     @Override
-    public boolean save(Order order) throws ServiceException {
-        if (!validation(order)){
-            return false;
-        }try{
+    public boolean create(Order order) throws ServiceException {
+        validation(order);
+        try{
             Long userId = order.getUserId();
             Order foundOrder = orderDAO.getByUserId(userId);
             if (foundOrder == null){
@@ -43,10 +44,15 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean update(Order order) throws ServiceException {
-        if (!validation(order)){
-            return false;
-        }try{
-            return orderDAO.update(order);
+        validation(order);
+        try{
+            Long userId = order.getUserId();
+            Order foundOrder = orderDAO.getByUserId(userId);
+            if (foundOrder != null){
+                return orderDAO.update(order);
+            }else {
+                return false;
+            }
         }catch (DAOException e){
             log.log(Level.SEVERE,"Exception: " + e);
             throw new ServiceException(e);
@@ -56,23 +62,41 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean delete(Order order) throws ServiceException {
-        try{
-            return orderDAO.delete(order);
-        }catch (DAOException e){
-            log.log(Level.SEVERE,"Exception: " + e);
-            throw new ServiceException(e);
+        validation(order);
+            try{
+                return orderDAO.delete(order);
+            }catch (DAOException e){
+                log.log(Level.SEVERE,"Exception: " + e);
+                throw new ServiceException(e);
+            }
         }
 
-    }
-
+//    @Override
+//    public boolean deleteFromOrder(Order order) throws ServiceException {
+//        try{
+//            Order foundOrder = orderDAO.find(order);
+//            String updatedProducts = getUpdatedProducts(order, foundOrder);
+//            if (orderDAO.deleteFromOrder(order,updatedProducts)){
+//                if (orderDAO.find(foundOrder).getProductIds().equals("")){
+//                    return orderDAO.delete(foundOrder);
+//                }
+//                return  true;
+//            }else{
+//                return false;
+//            }
+//        }catch (Exception e){
+//            log.log(Level.SEVERE,"Exception: " + e);
+//            throw new ServiceException(e);
+//        }
+//    }
     @Override
     public boolean deleteFromOrder(Order order) throws ServiceException {
         try{
-            Order foundOrder = orderDAO.find(order);
-            String updatedProducts = getUpdatedProducts(order, foundOrder);
+            Order existingOrder = orderDAO.find(order);
+            String updatedProducts = getUpdatedProducts(order, existingOrder);
             if (orderDAO.deleteFromOrder(order,updatedProducts)){
-                if (orderDAO.find(foundOrder).getProductIds().equals("")){
-                    return orderDAO.delete(foundOrder);
+                if (orderDAO.find(existingOrder).getProductIds().equals("")){
+                    return orderDAO.delete(existingOrder);
                 }
                 return  true;
             }else{
@@ -87,9 +111,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order getByUserId(Long userId) throws ServiceException {
-        if (!validation(userId)){
-            return null;
-        }try{
+       validation(userId);
+    try{
             return orderDAO.getByUserId(userId);
         }catch (DAOException e){
             log.log(Level.SEVERE,"Exception: " + e);
@@ -101,9 +124,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean productAlreadyOrdered(Reserve reserve) throws ServiceException {
-        if (!validation(reserve)){
-            return false;
-        }try{
+        validation(reserve);
+        try{
             boolean productAlreadyOrdered = false;
             long productId = reserve.getProductId();
             String regex = "(?<=\\s|^)" +productId + "(?=\\s|$)";

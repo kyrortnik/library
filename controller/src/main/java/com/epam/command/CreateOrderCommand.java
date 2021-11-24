@@ -42,7 +42,7 @@ public class CreateOrderCommand implements Command {
                 request.setAttribute(MESSAGE,"Some product/s on the list is already ordered!");
                 request.getRequestDispatcher(pageForRedirect).forward(request, response);
             }else{
-                if (orderService.save(order) && reserveService.deleteReservesByUserId(userId)){
+                if (orderService.create(order) && reserveService.deleteReservesByUserId(userId)){
                     request.getSession().setAttribute(MESSAGE, "Products ordered! Visit library to get them");
                     response.sendRedirect(pageForRedirect);
                 }else{

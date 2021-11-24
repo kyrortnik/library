@@ -6,11 +6,15 @@ public class User extends Entity {
     private  String login;
     private  String password;
     private  String role;
+    private  String salt;
 
     public User(){}
 
     public User(long id){
         super(id);
+    }
+    public User(String login){
+        this.login = login;
     }
     public User(long id,String login,String password){
         super(id);
@@ -28,6 +32,13 @@ public class User extends Entity {
         this.login = login;
         this.password = password;
         this.role = role;
+    }
+
+    public User(String login, String password, String role, String salt) {
+        this.login = login;
+        this.password = password;
+        this.role = role;
+        this.salt = salt;
     }
 
     public String getLogin() {
@@ -54,6 +65,15 @@ public class User extends Entity {
         this.role = role;
     }
 
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -64,7 +84,8 @@ public class User extends Entity {
 
         if (login != null ? !login.equals(user.login) : user.login != null) return false;
         if (password != null ? !password.equals(user.password) : user.password != null) return false;
-        return role != null ? role.equals(user.role) : user.role == null;
+        if (role != null ? !role.equals(user.role) : user.role != null) return false;
+        return salt != null ? salt.equals(user.salt) : user.salt == null;
     }
 
     @Override
@@ -73,6 +94,7 @@ public class User extends Entity {
         result = 31 * result + (login != null ? login.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (role != null ? role.hashCode() : 0);
+        result = 31 * result + (salt != null ? salt.hashCode() : 0);
         return result;
     }
 
@@ -82,6 +104,7 @@ public class User extends Entity {
                 "login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
+                ", salt='" + salt + '\'' +
                 '}';
     }
 }

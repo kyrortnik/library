@@ -1,12 +1,12 @@
 package com.epam.command;
 
-
 import com.epam.command.exception.ControllerException;
 import com.epam.entity.User;
 import com.epam.ServiceFactory;
 import com.epam.UserService;
 import com.epam.entity.UserDTO;
 import com.epam.exception.ServiceException;
+import com.epam.security.Salt;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,26 +18,26 @@ import static com.epam.command.util.ControllerConstants.*;
 
 public class RegistrationCommand implements Command {
 
-
     private final ServiceFactory factory = ServiceFactory.getInstance();
     private final UserService userService = factory.createUserService();
+
     private static final Logger log = Logger.getLogger(RegistrationCommand.class.getName());
-
-
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
 
         log.info("Start in RegistrationCommand");
         String lastCommand;
-        String login = request.getParameter(LOGIN);
-        String pass = request.getParameter(PASSWORD);
-        String pass2 = request.getParameter(SECOND_PASSWORD);
-        User user = new User(login,pass,USER);
+        String login = request.getParameter(LOGIN);;
+        String password = request.getParameter(PASSWORD);
+        String secondPassword = request.getParameter(SECOND_PASSWORD);
+        boolean passwordsEquals = password.equals(secondPassword);
+        String saltBytes = Salt.generateSalt();
+        User user = new User(login, Salt.generateEncryptedPassword(password,saltBytes),USER, saltBytes);
 
+ try {
+            if (passwordsEquals && userService.registration(user)){
 
-        try {
-            if (userService.registration(user,pass2)){
             lastCommand = "frontController?command=go_To_Page&address=main.jsp";
             UserDTO userDTO = userService.find(user);
             request.getSession().setAttribute(USER, userDTO.getLogin());
@@ -47,9 +47,8 @@ public class RegistrationCommand implements Command {
             }
             else {
             lastCommand = "frontController?command=go_To_Page&address=login.jsp";
-            request.setAttribute(MESSAGE,"Registration failed");
+            request.setAttribute(REGISTRATION_ERROR_MESSAGE,"Registration failed. Check that login is not empty and two passwords match.");
             request.getRequestDispatcher(lastCommand).forward(request,response);
-
             }
         }catch (IOException | ServletException | ServiceException e){
             throw new ControllerException(e);

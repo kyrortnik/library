@@ -6,6 +6,7 @@ import com.epam.ServiceFactory;
 import com.epam.UserService;
 import com.epam.entity.UserDTO;
 import com.epam.exception.ServiceException;
+import com.epam.security.Salt;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -28,23 +29,23 @@ public class LoginCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException{
 
         String login = request.getParameter(LOGIN);
-        String pass = request.getParameter(PASSWORD);
-        User user = new User(login,pass,USER);
+        String password = request.getParameter(PASSWORD);
+        User user = new User(login);
         String lastCommand;
 
         try{
             log.info("Start in LoginCommand");
-            UserDTO userDTO = userService.logination(user);
-            if (userDTO != null){
+            User foundUser = userService.logination(user);
+            if (foundUser != null && Salt.verifyPassword(password, foundUser.getPassword(), foundUser.getSalt())){
                 lastCommand = "frontController?command=go_To_Page&address=main.jsp";
-                request.getSession().setAttribute(USER, userDTO.getLogin());
-                request.getSession().setAttribute(ROLE,userDTO.getRole());
-                request.getSession().setAttribute(ID,userDTO.getId());
+                request.getSession().setAttribute(USER, foundUser.getLogin());
+                request.getSession().setAttribute(ROLE,foundUser.getRole());
+                request.getSession().setAttribute(ID,foundUser.getId());
                 request.getSession().setAttribute(LAST_COMMAND,lastCommand);
                 response.sendRedirect(lastCommand);
             }else{
                 lastCommand = "frontController?command=go_To_Page&address=login.jsp";
-                request.setAttribute(MESSAGE, "Error while logging");
+                request.setAttribute(LOGIN_ERROR_MESSAGE, "Incorrect login or password.Try again");
                 request.getSession().setAttribute(LAST_COMMAND,lastCommand);
                 request.getRequestDispatcher(lastCommand).forward(request,response);
             }

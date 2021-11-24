@@ -1,6 +1,5 @@
 package com.epam.command;
 
-import com.epam.BookService;
 import com.epam.OrderService;
 import com.epam.ServiceFactory;
 import com.epam.command.exception.ControllerException;
@@ -13,11 +12,11 @@ import java.util.logging.Logger;
 
 import static com.epam.command.util.ControllerConstants.*;
 
-public class DeleteProductFromOrder implements Command{
+public class DeleteBookFromOrder implements Command{
 
     private final OrderService orderService = ServiceFactory.getInstance().createOrderService();
 
-    private static final Logger log = Logger.getLogger(DeleteProductFromOrder.class.getName());
+    private static final Logger log = Logger.getLogger(DeleteBookFromOrder.class.getName());
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {

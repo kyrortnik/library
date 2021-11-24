@@ -17,8 +17,6 @@ public class ControllerConstants {
     public static final String USER = "user";
     public static final String ORDER_MESSAGE = "orderMessage";
     public static final String RESERVE_MESSAGE = "reservesMessage";
-
-
-
-
+    public static final String LOGIN_ERROR_MESSAGE = "loginErrorMessage";
+    public static final String REGISTRATION_ERROR_MESSAGE = "registrationErrorMessage";
 }

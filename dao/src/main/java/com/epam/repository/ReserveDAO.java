@@ -15,7 +15,7 @@ public interface ReserveDAO extends BaseDAO<ReserveRow> {
 
     int countReservesForUser(long userId) throws DAOException;
 
-    List<ReserveRow> findReserveByUserId(long userId, int row) throws DAOException;
+    List<ReserveRow> getReservesByUserId(long userId, int row) throws DAOException;
 
     //    boolean orderForReserveExists(ReserveRow reserveRow) throws DAOException;
 

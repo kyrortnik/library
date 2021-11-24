@@ -49,6 +49,15 @@ public class Book extends Product{
         this.numberOfPages = numberOfPages;
         this.isHardCover = isHardCover;
     }
+    public Book(long id, String title, String author, int publishingYear, String publisher, String genre, int numberOfPages, boolean isHardCover,String description) {
+        super(id, title, author);
+        this.publishingYear = publishingYear;
+        this.publisher = publisher;
+        this.genre = genre;
+        this.numberOfPages = numberOfPages;
+        this.isHardCover = isHardCover;
+        this.description = description;
+    }
 
     public Book(long id, String title, String author, int publishYear, String publisher, boolean isReserved, String genre, int numberOfPages, boolean isHardCover) {
         super(id,title,author,isReserved);

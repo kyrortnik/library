@@ -26,18 +26,18 @@ public class CreateBookCommand implements Command{
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
         log.info("Start in CreateBookCommand");
         try{
-            String pageForRedirect;
+            String lastCommand;
             Book book = getBook(request);
             if (bookService.create(book)){
-                pageForRedirect = "frontController?command=go_To_Page&address=main.jsp";
-                request.getSession().setAttribute(LAST_COMMAND,pageForRedirect);
+                lastCommand = "frontController?command=go_To_Page&address=main.jsp";
+                request.getSession().setAttribute(LAST_COMMAND,lastCommand);
                 request.getSession().setAttribute(MESSAGE,"Book is created!");
-                response.sendRedirect(pageForRedirect);
+                response.sendRedirect(lastCommand);
             }else{
-                pageForRedirect = "frontController?command=go_To_Page&address=newBook.jsp";
-                request.getSession().setAttribute(LAST_COMMAND,pageForRedirect);
+                lastCommand = "frontController?command=go_To_Page&address=newBook.jsp";
+                request.getSession().setAttribute(LAST_COMMAND,lastCommand);
                 request.setAttribute(MESSAGE,"Book with such title already exists!");
-                request.getRequestDispatcher(pageForRedirect).forward(request,response);
+                request.getRequestDispatcher(lastCommand).forward(request,response);
             }
         }catch (ServiceException | ServletException | IOException e){
             throw new ControllerException(e);
@@ -61,7 +61,7 @@ public class CreateBookCommand implements Command{
         String description = request.getParameter("description");
         boolean isHardCover = request.getParameter("isHardCover").toUpperCase(Locale.ROOT).equals("YES");
 
-        return  new Book(author,title,publishingYear,publisher,genre,numberOfPages,isHardCover,description);
+        return  new Book(title ,author,publishingYear,publisher,genre,numberOfPages,isHardCover,description);
     }
 
     private boolean isNumeric(String parameter){
