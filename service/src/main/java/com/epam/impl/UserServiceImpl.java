@@ -3,22 +3,23 @@ package com.epam.impl;
 import com.epam.entity.*;
 import com.epam.exception.DAOException;
 import com.epam.exception.ServiceException;
-import com.epam.repository.DAOFactory;
 import com.epam.repository.UserDAO;
 import com.epam.UserService;
+import com.epam.validator.ServiceValidator;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static com.epam.validator.ServiceValidator.*;
+
 
 public class UserServiceImpl implements UserService {
 
+
+    private static final Logger LOG = Logger.getLogger(UserServiceImpl.class.getName());
     private final UserDAO userDAO;
 
-    private static final Logger log = Logger.getLogger(UserServiceImpl.class.getName());
+    private final ServiceValidator serviceValidator = new ServiceValidator();
 
     public UserServiceImpl(UserDAO userDAO) {
         this.userDAO = userDAO;
@@ -26,12 +27,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean registration(User user) throws ServiceException {
-        validation(user);
+        serviceValidator.validation(user);
 
         try{
             return (userDAO.find(user) == null) && userDAO.save(user);
         }catch (DAOException e){
-            log.log(Level.SEVERE,"Exception: " + e);
+            LOG.log(Level.SEVERE,"Exception: " + e);
             throw new ServiceException(e);
         }
 
@@ -39,12 +40,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User logination(User user) throws ServiceException {
-        validation(user);
+        serviceValidator.validation(user);
         try {
             user = userDAO.findByLogin(user);
             return user;
         } catch (DAOException e) {
-            log.log(Level.SEVERE,"Exception: "+ e);
+            LOG.log(Level.SEVERE,"Exception: "+ e);
             throw new ServiceException(e);
         }
     }
@@ -52,11 +53,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO find(User user) throws ServiceException {
-        validation(user);
+        serviceValidator.validation(user);
         try{
             return new UserDTO(userDAO.find(user));
         }catch (DAOException e){
-            log.log(Level.SEVERE,"Exception: " + e);
+            LOG.log(Level.SEVERE,"Exception: " + e);
             throw new ServiceException(e);
         }
 
@@ -66,11 +67,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findById(long id) throws ServiceException {
-        validation(id);
+        serviceValidator.validation(id);
         try{
                 return userDAO.findById(id);
             }catch (DAOException e){
-                log.log(Level.SEVERE,"Exception: " + e);
+                LOG.log(Level.SEVERE,"Exception: " + e);
                 throw new ServiceException(e);
             }
         }
@@ -78,23 +79,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean updateUser(User user) throws ServiceException {
-        validation(user);
+        serviceValidator.validation(user);
             try{
             return userDAO.update(user);
         }catch (DAOException e){
-            log.log(Level.SEVERE,"Exception: " + e);
+            LOG.log(Level.SEVERE,"Exception: " + e);
             throw new ServiceException(e);
         }
 
     }
 
     @Override
-    public boolean deleteUser(User user) throws ServiceException {
-        validation(user);
+    public boolean deleteUser(Long id) throws ServiceException {
+        serviceValidator.validation(id);
         try{
-            return userDAO.delete(user);
+            return userDAO.delete(id);
         }catch (DAOException e){
-            log.log(Level.SEVERE,"Exception: " + e);
+            LOG.log(Level.SEVERE,"Exception: " + e);
             throw new ServiceException(e);
         }
 
@@ -107,7 +108,7 @@ public class UserServiceImpl implements UserService {
             Pageable<UserDTO> filteredDaoPageable = userDAO.findPageByParameters(pageableDAO);
             return convertToServicePage(filteredDaoPageable);
         }catch (Exception e){
-            log.log(Level.SEVERE,"Exception: " + e);
+            LOG.log(Level.SEVERE,"Exception: " + e);
             throw new ServiceException(e);
         }
 

@@ -21,7 +21,7 @@ public class Page<T> {
         this.limit = DBConstants.MAX_ROWS;
     }
 
-    public Page(int currentPage, long countItems){
+    public Page(int currentPage){
         this.pageNumber = currentPage;
         this.offset = calculateOffset(this.pageNumber,  DBConstants.MAX_ROWS);
         this.limit = DBConstants.MAX_ROWS;

@@ -156,7 +156,11 @@ public class Book extends Product{
     @Override
     public String toString() {
         return "Book{" +
-                "publishingYear=" + publishingYear +
+                "id=" + getId() +
+                ", title=" + getTitle() +
+                ", author=" + getAuthor() +
+                ", isReserved=" + isReserved() +
+                ", publishingYear=" + publishingYear +
                 ", publisher='" + publisher + '\'' +
                 ", genre='" + genre + '\'' +
                 ", numberOfPages=" + numberOfPages +

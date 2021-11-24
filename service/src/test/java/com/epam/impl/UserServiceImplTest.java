@@ -82,8 +82,8 @@ public class UserServiceImplTest {
     @Test
     public void testDeleteUser_positive() throws DAOException, ServiceException {
         User user = new User(userId,login,password,role);
-        when(userDAO.delete(user)).thenReturn(true);
-        assertTrue(userService.deleteUser(user));
+        when(userDAO.delete(userId)).thenReturn(true);
+        assertTrue(userService.deleteUser(userId));
 
     }
 

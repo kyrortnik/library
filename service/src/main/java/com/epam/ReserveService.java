@@ -11,7 +11,7 @@ public interface ReserveService {
 
     List<Reserve> getReservesForUser(Long userId) throws ServiceException;
 
-    boolean delete(Reserve reserve) throws ServiceException;
+    boolean delete(Long userId,Long bookId) throws ServiceException;
 
     boolean deleteReservesByUserId(Long userId) throws ServiceException;
 

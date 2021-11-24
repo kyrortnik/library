@@ -1,5 +1,7 @@
-package com.epam.command;
+package com.epam.command.impl;
 
+import com.epam.command.AbstractCommand;
+import com.epam.command.Command;
 import com.epam.command.exception.ControllerException;
 import com.epam.entity.Page;
 import com.epam.ServiceFactory;
@@ -14,20 +16,20 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.logging.Logger;
 
-import static com.epam.command.util.ControllerConstants.*;
+import static com.epam.util.ControllerConstants.*;
 
 
-public class ShowUsersCommand extends AbstractCommand {
+public class ShowUsersCommand extends AbstractCommand implements Command {
 
     private final ServiceFactory serviceFactory = ServiceFactory.getInstance();
-    private final UserService userService = serviceFactory.createUserService();
-    private static final Logger log = Logger.getLogger(ShowUsersCommand.class.getName());
+    private final UserService userService = serviceFactory.getUserService();
+    private static final Logger LOG = Logger.getLogger(ShowUsersCommand.class.getName());
 
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException{
 
-        log.info("Start in ShowUsersCommand");
+        LOG.info("Start in ShowUsersCommand");
 
         try{
             int currentPage = getCurrentPage(request);
@@ -37,7 +39,7 @@ public class ShowUsersCommand extends AbstractCommand {
             pageableRequest.setPageNumber(currentPage);
             pageableRequest.setSortBy("login");
             Page<UserDTO> pageable = userService.getUsersPage(pageableRequest);
-            String lastCommand = defineCommand(request,true);
+            String lastCommand = defineLastCommand(request,true);
 
             request.setAttribute("pageableUsers",pageable);
             request.getSession().setAttribute(LAST_COMMAND,lastCommand);

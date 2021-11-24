@@ -1,8 +1,10 @@
-package com.epam.command;
+package com.epam.command.impl;
 
 import com.epam.BookService;
 import com.epam.OrderService;
 import com.epam.ServiceFactory;
+import com.epam.command.AbstractCommand;
+import com.epam.command.Command;
 import com.epam.command.exception.ControllerException;
 import com.epam.entity.Book;
 import com.epam.entity.Order;
@@ -15,22 +17,21 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
 
+import static com.epam.util.ControllerConstants.ID;
+import static com.epam.util.ControllerConstants.ORDER_MESSAGE;
 
-import static com.epam.command.util.ControllerConstants.*;
-
-public class OrderInfoCommand extends AbstractCommand {
+public class OrderInfoCommand extends AbstractCommand implements Command {
 
     private final ServiceFactory serviceFactory = ServiceFactory.getInstance();
+    private final OrderService orderService = serviceFactory.getOrderService();
+    private final BookService bookService = serviceFactory.getBookService();
 
-    private final OrderService orderService = serviceFactory.createOrderService();
-    private final BookService bookService = serviceFactory.createBookService();
-
-    private static final Logger log = Logger.getLogger(OrderInfoCommand.class.getName());
+    private static final Logger LOG = Logger.getLogger(OrderInfoCommand.class.getName());
 
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
-        log.info("Start in OrderInfoCommand");
+        LOG.info("Start in OrderInfoCommand");
 
         String lastCommand;
         Long userId = (Long)request.getSession().getAttribute(ID);
@@ -47,7 +48,7 @@ public class OrderInfoCommand extends AbstractCommand {
                     request.setAttribute(ORDER_MESSAGE,"No books in your order yet.");
                 }
                 }
-             lastCommand = defineCommand(request,false);
+             lastCommand = defineLastCommand(request,false);
             request.getSession().setAttribute("lastCommand",lastCommand);
             request.getRequestDispatcher("frontController?command=go_To_Page&address=main.jsp").forward(request, response);
 

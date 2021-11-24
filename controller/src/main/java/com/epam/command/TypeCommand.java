@@ -1,64 +1,35 @@
 package com.epam.command;
 
+import com.epam.command.impl.*;
+
 public enum TypeCommand {
-    LOGIN {
-        { this.command = new LoginCommand(); }
-    },
-    LOGOUT {
-        { this.command = new LogoutCommand(); }
-    },
 
-    REGISTRATION {
-        {this.command = new RegistrationCommand();}
-    },
-    SHOW_USERS {
-        {this.command = new ShowUsersCommand();}
-    },
+    BASE(new BaseCommand()),
+    LOGIN(new LoginCommand()),
+    LOGOUT(new LogoutCommand()),
+    REGISTRATION(new RegistrationCommand()),
+    SHOW_USERS(new ShowUsersCommand()),
+    SHOW_PRODUCTS(new ShowProductsCommand()),
+    BOOK_INFO(new BookInfoCommand()),
+    CREATE_ORDER(new CreateOrderCommand()),
+    CREATE_RESERVE(new CreateReserveCommand()),
+    SHOW_RESERVES(new ShowReservesCommand()),
+    ORDER_INFO(new OrderInfoCommand()),
+    GO_TO_PAGE(new GoToPageCommand()),
+    CHANGE_LANGUAGE(new ChangeLanguageCommand()),
+    DELETE_RESERVE(new DeleteReserveCommand()),
+    DELETE_BOOK_FROM_ORDER(new DeleteBookFromOrderCommand()),
+    CREATE_BOOK(new CreateBookCommand()),
+    UPDATE_BOOK(new UpdateBookCommand()),
+    DELETE_BOOK(new DeleteBookCommand());
 
-    SHOW_PRODUCTS {
-        {this.command = new ShowProductsCommand();}
-    },
-
-    BOOK_INFO{
-        {this.command = new BookInfoCommand();}
-    },
-
-    CREATE_ORDER{
-        {this.command = new CreateOrderCommand();}
-    },
-    CREATE_RESERVE{
-        {this.command = new CreateReserveCommand();}
-    },
-    SHOW_RESERVES{
-        {this.command = new ShowReservesCommand();}
-    },
-    ORDER_INFO{
-        {this.command = new OrderInfoCommand();}
-    },
-    GO_TO_PAGE{
-        {this.command = new GoToPageCommand();}
-    },
-    CHANGE_LANGUAGE{
-        {this.command = new ChangeLanguageCommand();}
-    },
-    DELETE_RESERVE{
-        {this.command = new DeleteReserveCommand();}
-    },
-    DELETE_BOOK_FROM_ORDER{
-        {this.command = new DeleteBookFromOrder();}
-    },
-    CREATE_BOOK{
-        {this.command = new CreateBookCommand();}
-    },
-    UPDATE_BOOK{
-        {this.command = new UpdateBookCommand();}
-    },
-    DELETE_BOOK{
-        {this.command = new DeleteBookCommand();}
-    };
     public Command getCurrentCommand() {
         return command;
     }
 
     Command command;
+
+    TypeCommand(Command command) {
+        this.command = command;
+    }
 }

@@ -1,5 +1,6 @@
-package com.epam.command;
+package com.epam.command.impl;
 
+import com.epam.command.Command;
 import com.epam.command.exception.ControllerException;
 
 import javax.servlet.ServletException;
@@ -10,15 +11,15 @@ import java.util.logging.Logger;
 
 public class BaseCommand implements Command {
 
-    private static final Logger log = Logger.getLogger(BaseCommand.class.getName());
+    private static final Logger LOG = Logger.getLogger(BaseCommand.class.getName());
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
-        log.info("Start on Base Command");
-        try{
-            String errorPage= "frontController?command=go_To_Page&address=error.jsp";
-            request.getRequestDispatcher(errorPage).forward(request,response);
-        }catch (ServletException | IOException e){
+        LOG.info("Start in Base Command");
+        try {
+            String errorPage = "frontController?command=go_To_Page&address=error.jsp";
+            request.getRequestDispatcher(errorPage).forward(request, response);
+        } catch (ServletException | IOException e) {
             throw new ControllerException(e);
         }
 

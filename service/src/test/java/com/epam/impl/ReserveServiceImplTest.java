@@ -30,7 +30,7 @@ public class ReserveServiceImplTest {
     @Test
     public void testSave_positive() throws DAOException, ServiceException {
 
-        when(reserveDAO.getByUserAndProductId(reserveRow)).thenReturn(null);
+        when(reserveDAO.findByUserAndProductId(reserveRow)).thenReturn(null);
         when(reserveDAO.save(reserveRow)).thenReturn(true);
         assertTrue(reserveService.save(reserve));
     }
@@ -38,9 +38,9 @@ public class ReserveServiceImplTest {
     @Test
     public void testDelete_positive() throws DAOException,ServiceException{
 
-        when(reserveDAO.getByUserAndProductId(reserveRow)).thenReturn(reserveRow);
-        when(reserveDAO.delete(reserveRow)).thenReturn(true);
-        assertTrue(reserveService.delete(reserve));
+        when(reserveDAO.findByUserAndProductId(reserveRow)).thenReturn(reserveRow);
+        when(reserveDAO.delete(reserveRow.getId())).thenReturn(true);
+        assertTrue(reserveService.delete(reserve.getUserId(),reserve.getProductId()));
     }
 
     @Test
@@ -63,7 +63,7 @@ public class ReserveServiceImplTest {
         reserveRows.add(new ReserveRow(2L,1L,2L));
         reserveRows.add(new ReserveRow(3L,1L,3L));
 
-        when(reserveDAO.getReservesForUser(userId)).thenReturn(reserveRows);
+        when(reserveDAO.findReservesForUser(userId)).thenReturn(reserveRows);
         assertEquals(reserves,reserveService.getReservesForUser(userId));
 
     }
@@ -89,7 +89,7 @@ public class ReserveServiceImplTest {
         reserves.add(new Reserve(2L,1L,2L));
         reserves.add(new Reserve(3L,1L,3L));
 
-        when(reserveDAO.getReservesByUserId(userId,offset)).thenReturn(reserveRows);
+        when(reserveDAO.findReservesByUserId(userId,offset)).thenReturn(reserveRows);
         assertEquals(reserves,reserveService.getReservesByUserId(userId,offset));
 
     }

@@ -1,22 +1,28 @@
-package com.epam.command;
+package com.epam.command.impl;
 
 import com.epam.BookService;
 import com.epam.ServiceFactory;
+import com.epam.command.AbstractCommand;
+import com.epam.command.Command;
 import com.epam.command.exception.ControllerException;
 import com.epam.entity.Book;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Locale;
+import java.util.logging.Logger;
 
-import static com.epam.command.util.ControllerConstants.*;
+import static com.epam.util.ControllerConstants.*;
 
-public class UpdateBookCommand implements Command {
+public class UpdateBookCommand extends AbstractCommand implements Command {
 
-    private final BookService bookService = ServiceFactory.getInstance().createBookService();
+    private final BookService bookService = ServiceFactory.getInstance().getBookService();
+    private static final Logger LOG = Logger.getLogger(UpdateBookCommand.class.getName());
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
+
+        LOG.info("Start in UpdateBookCommand");
 
         long bookId = Long.parseLong(request.getParameter(BOOK_ID));
         Book book = getBook(request);

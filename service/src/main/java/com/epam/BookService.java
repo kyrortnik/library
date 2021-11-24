@@ -13,7 +13,7 @@ public interface BookService {
 
     boolean update(Book book) throws ServiceException;
 
-    boolean delete(Book book) throws ServiceException;
+    boolean delete(Long id) throws ServiceException;
 
     Page<Book> getAll(Page<Book> pageRequest) throws ServiceException;
 

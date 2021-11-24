@@ -4,42 +4,34 @@ import com.epam.command.Command;
 import com.epam.command.exception.ControllerException;
 import com.epam.command.factory.CommandFactory;
 
-
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import java.io.IOException;
 
 
 public class FrontController extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)  {
-       processRequest(request,response);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)  {
-        processRequest(request,response);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        processRequest(request, response);
     }
 
 
-    private void processRequest(HttpServletRequest request, HttpServletResponse response)  {
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Command command;
         command = CommandFactory.getInstance().defineCommand(request);
-        try{
-             command.execute(request,response);
-            }
-        catch (ControllerException e){
-            e.printStackTrace();
+        try {
+            command.execute(request, response);
+        } catch (ControllerException e) {
+            request.getRequestDispatcher("frontController?command=goToPage&address=error.jsp").forward(request, response);
         }
-
-       
-
-
-
-
-
 
 
     }

@@ -49,6 +49,8 @@
 <fmt:message bundle="${loc}" key="local.submit" var="submit" />
 <fmt:message bundle="${loc}" key="local.bookInformationPage" var="bookInformationPage" />
 <fmt:message bundle="${loc}" key="local.deleteBook" var="deleteBook" />
+<fmt:message bundle="${loc}" key="local.toPreviousPage" var="toPreviousPage" />
+
 
 
 

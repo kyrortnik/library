@@ -17,23 +17,23 @@ public class ServiceFactory {
 
     private ServiceFactory() {
         DAOFactory daoFactory = DAOFactory.getInstance();
-        this.userService = new UserServiceImpl(daoFactory.createUserDAO());
-        this.orderService = new OrderServiceImpl(daoFactory.createOrderDAO());
-        this.bookService = new BookServiceImpl(daoFactory.createBookDAO());
-        this.reserveService = new ReserveServiceImpl(daoFactory.createReserveDAO());
+        this.userService = new UserServiceImpl(daoFactory.getUserDAO());
+        this.orderService = new OrderServiceImpl(daoFactory.getOrderDAO());
+        this.bookService = new BookServiceImpl(daoFactory.getBookDAO());
+        this.reserveService = new ReserveServiceImpl(daoFactory.getReserveDAO());
     }
 
-    public UserService createUserService(){ return  userService; }
+    public UserService getUserService(){ return  userService; }
 
-    public OrderService createOrderService(){
+    public OrderService getOrderService(){
         return orderService;
     }
 
-    public BookService createBookService(){
+    public BookService getBookService(){
         return bookService;
     }
 
-    public ReserveService createReserveService(){return reserveService;}
+    public ReserveService getReserveService(){return reserveService;}
 
     public static ServiceFactory getInstance(){
         return INSTANCE;

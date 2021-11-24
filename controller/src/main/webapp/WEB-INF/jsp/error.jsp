@@ -4,11 +4,12 @@
 
 <html xmlns="http://www.w3.org/1999/html">
     <head>
-    <title>{crush}</title>
+        <%@ include file="parts/meta.jsp" %>
+    <title>${crush}</title>
     </head>
     <body>
-    <h1>${errorOccurred}</h1>
+    <h1>${sessionScope.message}</h1>
     </br>
-    <h1><a href="frontController?command=go_To_Page&address=login.jsp">${toIndexPage}</a></h1>
+    <h1><a href="${lastCommand}">${toPreviousPage}</a></h1>
     </body>
 </html>

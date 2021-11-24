@@ -15,9 +15,10 @@ public interface BaseDAO<T> {
 
     boolean save(T t) throws DAOException;
 
-    boolean delete(T t) throws DAOException;
+    boolean delete(Long id) throws DAOException;
 
     boolean update(T t) throws DAOException;
+
 
 
 }

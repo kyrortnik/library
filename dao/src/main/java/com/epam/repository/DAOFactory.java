@@ -15,7 +15,7 @@ public class DAOFactory {
     private final OrderDAO orderDAO;
     private final ReserveDAO reserveDAO;
 
-    private DAOFactory(){
+    private DAOFactory() {
         bookDAO = new BookDAOImpl(connectionPool);
         userDAO = new UserDAOImpl(connectionPool);
         orderDAO = new OrderDAOImpl(connectionPool);
@@ -23,24 +23,25 @@ public class DAOFactory {
 
     }
 
-    public BookDAO createBookDAO(){
-        return  bookDAO;
+    public BookDAO getBookDAO() {
+        return bookDAO;
     }
 
-    public UserDAO createUserDAO(){
+    public UserDAO getUserDAO() {
         return userDAO;
     }
 
-    public OrderDAO createOrderDAO(){
+    public OrderDAO getOrderDAO() {
         return orderDAO;
     }
 
-    public ReserveDAO createReserveDAO(){ return reserveDAO;}
-
-    public static DAOFactory getInstance(){
-        return INSTANCE;
+    public ReserveDAO getReserveDAO() {
+        return reserveDAO;
     }
 
+    public static DAOFactory getInstance() {
+        return INSTANCE;
+    }
 
 
 }

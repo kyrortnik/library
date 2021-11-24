@@ -34,7 +34,7 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
     private static final String COUNT_ALL = "SELECT count(book_id) FROM books";
     private static final String FIND_PAGE_FILTERED_SORTED = "SELECT * FROM books ORDER BY %s %s LIMIT ? OFFSET ?";
 
-    private static final Logger log = Logger.getLogger(BookDAOImpl.class.getName());
+    private static final Logger LOG = Logger.getLogger(BookDAOImpl.class.getName());
 
     public BookDAOImpl(ConnectionPool connectionPool) {
         super(connectionPool);
@@ -68,7 +68,7 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
             }
             return null;
         }catch (Exception e){
-            log.log(Level.SEVERE,"Exception: " + e);
+            LOG.log(Level.SEVERE,"Exception: " + e);
             throw new DAOException(e);
 
         }finally {
@@ -106,7 +106,7 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
             }
             return null;
         }catch (Exception e){
-            log.log(Level.SEVERE,"Exception: " + e);
+            LOG.log(Level.SEVERE,"Exception: " + e);
             throw new DAOException(e);
         }finally {
             closeResultSet(resultSet);
@@ -140,7 +140,7 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
             }
             return bookRows;
         }catch (Exception e){
-            log.log(Level.SEVERE,"Exception: " + e);
+            LOG.log(Level.SEVERE,"Exception: " + e);
             throw new DAOException(e);
         }
         finally {
@@ -171,7 +171,7 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
             return (statement.executeUpdate() != 0);
 
         }catch (SQLException e) {
-            log.log(Level.SEVERE,"Exception: " + e);
+            LOG.log(Level.SEVERE,"Exception: " + e);
             throw new DAOException(e);
         } finally {
             closeStatement(statement);
@@ -181,17 +181,17 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
 
 
     @Override
-    public boolean delete(BookRow bookRow) throws DAOException {
+    public boolean delete(Long id) throws DAOException {
        Connection connection = null;
        PreparedStatement statement = null;
 
        try {
            connection = connectionPool.getConnection();
            statement = connection.prepareStatement(DELETE_BOOK);
-           statement.setLong(1, bookRow.getId());
+           statement.setLong(1, id);
            return (statement.executeUpdate() != 0);
        }catch (Exception e){
-           log.log(Level.SEVERE,"Exception: " + e);
+           LOG.log(Level.SEVERE,"Exception: " + e);
            throw new DAOException(e);
        }finally {
            closeStatement(statement);
@@ -218,7 +218,7 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
            return (statement.executeUpdate() > 0);
 
        }catch (Exception e){
-           log.log(Level.SEVERE,"Exception: " + e);
+           LOG.log(Level.SEVERE,"Exception: " + e);
            throw new DAOException(e);
        }finally {
            closeStatement(statement);
@@ -249,7 +249,7 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
 
             return getBookRowPageable(daoProductPageable, countResultSet, queryResultSet);
         } catch (SQLException e) {
-            log.log(Level.SEVERE,"Exception: " + e);
+            LOG.log(Level.SEVERE,"Exception: " + e);
             throw new DAOException(e);
         } finally {
             closeResultSet(countResultSet,queryResultSet);

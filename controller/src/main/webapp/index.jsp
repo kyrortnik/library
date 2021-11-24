@@ -9,6 +9,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<jsp:forward page="/jsp/login.jsp"/>
+<jsp:forward page="/WEB-INF/jsp/login.jsp"/>
 </body>
 </html>

@@ -140,6 +140,7 @@
                 <div>
                     <form id="createOrder" method="POST" action="frontController">
                         <input type="hidden" name="command" value="create_Order"/>
+                        <input type="hidden" name="reservedBooks" value="${requestScope.pageableReserves.elements}"/>
                         <button form ="createOrder" type="submit">${createOrder}</button>
                     </form>
                 </div>

@@ -10,11 +10,13 @@ public interface OrderService {
 
     boolean create(Order order) throws ServiceException;
 
+    boolean createByUserId(Long userId,List<Long> bookIds) throws ServiceException;
+
     boolean update(Order order) throws ServiceException;
 
-    boolean deleteFromOrder(Order order) throws ServiceException;
+    boolean deleteFromOrder(Long userId,Long bookId) throws ServiceException;
 
-    boolean delete(Order order) throws ServiceException;
+    boolean delete(Long id) throws ServiceException;
 
     Order getByUserId(Long userId) throws ServiceException;
 

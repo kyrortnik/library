@@ -5,7 +5,6 @@ import com.epam.entity.User;
 import com.epam.entity.UserDTO;
 import com.epam.exception.DAOException;
 import com.epam.repository.ConnectionPool;
-import com.epam.repository.PropertyInitializer;
 import com.epam.repository.UserDAO;
 
 import java.sql.*;
@@ -25,7 +24,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
     private static final String FIND_USER_BY_ID = "SELECT * FROM users WHERE id = ? ";
     private static final String FIND_USER_BY_LOGIN = "SELECT * FROM users WHERE login = ?";
     private static final String SAVE_USER = "INSERT INTO users VALUES (DEFAULT, ?, ?, ?, ?) ";
-    private static final String DELETE_USER = "DELETE FROM users WHERE login = ?";
+    private static final String DELETE_USER = "DELETE FROM users WHERE user_id = ?";
     private static final String UPDATE_USER = "UPDATE users SET login = ?, password = ? WHERE id = ? ";
     private static final String CHANGE_USER_PASSWORD = "UPDATE users SET password = ? WHERE password = ?";
     private static final String GET_ALL_USERS = "SELECT * FROM users";
@@ -33,7 +32,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
     private static final String FIND_PAGE_FILTERED_SORTED = "SELECT * FROM users p ORDER BY p.%s %s LIMIT ? OFFSET ?";
     private static final String FIND_USER_BY_LOGIN_QUERY = "SELECT * FROM users WHERE login = ?";
 
-    private static final Logger log = Logger.getLogger(UserDAOImpl.class.getName());
+    private static final Logger LOG = Logger.getLogger(UserDAOImpl.class.getName());
 
     public UserDAOImpl(ConnectionPool connectionPool) {
         super(connectionPool);
@@ -64,7 +63,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
             }
             return null;
         }catch (SQLException e){
-            log.log(Level.SEVERE,"Exception: " + e);
+            LOG.log(Level.SEVERE,"Exception: " + e);
             throw new DAOException(e);
         }
         finally {
@@ -99,7 +98,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
             }
             return null;
         }catch (Exception e){
-            log.log(Level.SEVERE,"Exception: " + e);
+            LOG.log(Level.SEVERE,"Exception: " + e);
             throw new DAOException(e);
         }finally {
             closeResultSet(resultSet);
@@ -149,7 +148,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
             statement.setString(4, user.getSalt());
             return statement.executeUpdate() != 0;
         } catch (SQLException e) {
-            log.log(Level.SEVERE,"Exception: " + e);
+            LOG.log(Level.SEVERE,"Exception: " + e);
             throw new DAOException(e);
         } finally {
             closeStatement(statement);
@@ -159,16 +158,16 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
     }
 
     @Override
-    public boolean delete(User user) throws DAOException {
+    public boolean delete(Long id) throws DAOException {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(DELETE_USER);
-            statement.setString(1,user.getLogin());
+            statement.setLong(1,id);
             return statement.executeUpdate() != 0;
         }catch (SQLException e){
-            log.log(Level.SEVERE,"Exception: " + e);
+            LOG.log(Level.SEVERE,"Exception: " + e);
             throw new DAOException(e);
         }
         finally {
@@ -214,10 +213,10 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
             try {
                 connection.rollback();
             } catch (Exception ex) {
-                log.log(Level.SEVERE,"Exception:" + ex);
+                LOG.log(Level.SEVERE,"Exception:" + ex);
                 throw new DAOException(ex);
             }
-            log.log(Level.SEVERE,"Exception:" + e);
+            LOG.log(Level.SEVERE,"Exception:" + e);
             throw new DAOException(e);
         } finally {
             closeResultSet(resultSet);

@@ -44,11 +44,11 @@ public class Salt {
     }
 
 
-    public static boolean verifyPassword(String providedPassword, String fromdatabase, String passwordSalt) throws ControllerException {
+    public static boolean verifyPassword(String providedPassword, String fromDatabase, String passwordSalt) throws ControllerException {
         boolean isValid;
         try {
             String generate = generateEncryptedPassword(providedPassword, passwordSalt);
-            isValid = generate.equals(fromdatabase);
+            isValid = generate.equals(fromDatabase);
             return isValid;
         }catch (Exception e){
             throw new ControllerException(e);

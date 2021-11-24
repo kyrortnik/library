@@ -107,8 +107,8 @@ public class BookServiceImplTest {
 
 
         when(bookDAO.findById(bookRow.getId())).thenReturn(bookRow);
-        when(bookDAO.delete(bookRow)).thenReturn(true);
-        assertTrue(bookService.delete(book));
+        when(bookDAO.delete(bookRow.getId())).thenReturn(true);
+        assertTrue(bookService.delete(book.getId()));
 
     }
 
@@ -148,7 +148,7 @@ public class BookServiceImplTest {
 
     }
 
-    @Test
+   /* @Test
     public void testFindBooksByOrder_positive() throws DAOException, ServiceException {
         Order order = new Order(1L,"2 3 4",2L);
         BookRow bookRow = new BookRow(2L);
@@ -163,6 +163,6 @@ public class BookServiceImplTest {
         when(bookDAO.findById(4L)).thenReturn(bookRow2);
         assertEquals(expectedBooks,bookService.findBooksByOrder(order));
 
-    }
+    }*/
 
 }

@@ -22,7 +22,7 @@ public interface UserService {
 
     boolean updateUser(User user) throws ServiceException;
 
-    boolean deleteUser(User user) throws ServiceException;
+    boolean deleteUser(Long id) throws ServiceException;
 
     List<User> getUsers() throws ServiceException;
 

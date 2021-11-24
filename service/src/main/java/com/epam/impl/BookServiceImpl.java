@@ -6,6 +6,7 @@ import com.epam.exception.ServiceException;
 import com.epam.repository.BookDAO;
 import com.epam.BookService;
 import com.epam.entity.Page;
+import com.epam.validator.ServiceValidator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,14 +14,14 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static com.epam.validator.ServiceValidator.*;
 
 public class BookServiceImpl implements BookService {
 
+
+    private static final Logger LOG = Logger.getLogger(BookServiceImpl.class.getName());
+
     private final BookDAO bookDAO;
-
-    private static final Logger log = Logger.getLogger(BookServiceImpl.class.getName());
-
+    private final ServiceValidator serviceValidator = new ServiceValidator();
 
     public BookServiceImpl(BookDAO bookDAO) {
         this.bookDAO = bookDAO;
@@ -28,17 +29,17 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public boolean create(Book book) throws ServiceException {
-        validation(book);
-        try{
+        serviceValidator.validation(book);
+        try {
             BookRow bookRow = convertToBookRow(book);
             BookRow foundRow = bookDAO.find(bookRow);
-            if (foundRow == null){
+            if (foundRow == null) {
                 return bookDAO.save(bookRow);
-            }else{
+            } else {
                 return false;
             }
-        }catch(DAOException e){
-            log.log(Level.SEVERE,"Exception: " + e);
+        } catch (DAOException e) {
+            LOG.log(Level.SEVERE, "Exception: " + e);
             throw new ServiceException(e);
         }
 
@@ -46,37 +47,31 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public boolean update(Book book) throws ServiceException {
-        validation(book);
-        try{
+        serviceValidator.validation(book);
+        try {
             BookRow bookRow = convertToBookRow(book);
             BookRow foundRow = bookDAO.find(bookRow);
-            if (foundRow != null){
+            if (foundRow != null) {
                 bookRow.setId(foundRow.getId());
                 return bookDAO.update(bookRow);
-            }else{
+            } else {
                 return false;
             }
 
-        }catch (DAOException e){
-            log.log(Level.SEVERE,"Exception: " + e);
+        } catch (DAOException e) {
+            LOG.log(Level.SEVERE, "Exception: " + e);
             throw new ServiceException(e);
         }
 
     }
 
     @Override
-    public boolean delete(Book book) throws ServiceException {
-        try{
-            BookRow bookRow = convertToBookRow(book);
-            BookRow foundRow = bookDAO.findById(bookRow.getId());
-            if (foundRow != null){
-                return bookDAO.delete(bookRow);
-            }else {
-                return false;
-            }
+    public boolean delete(Long id) throws ServiceException {
+        try {
+            return bookDAO.delete(id);
 
-        }catch (DAOException e){
-            log.log(Level.SEVERE,"Exception: " + e);
+        } catch (DAOException e) {
+            LOG.log(Level.SEVERE, "Exception: " + e);
             throw new ServiceException(e);
         }
 
@@ -85,11 +80,11 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book findById(Long id) throws ServiceException {
-        validation(id);
-        try{
+        serviceValidator.validation(id);
+        try {
             return convertToBook(bookDAO.findById(id));
-        }catch (DAOException e){
-            log.log(Level.SEVERE,"Exception: " + e);
+        } catch (DAOException e) {
+            LOG.log(Level.SEVERE, "Exception: " + e);
             throw new ServiceException(e);
         }
 
@@ -97,17 +92,17 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> findBooksByIds(List<Reserve> reserves) throws ServiceException {
-        try{
+        try {
             List<BookRow> bookRows = new ArrayList<>();
             BookRow bookRow;
-            for (Reserve reserve : reserves){
+            for (Reserve reserve : reserves) {
                 bookRow = bookDAO.findById(reserve.getProductId());
                 bookRows.add(bookRow);
             }
 
             return convertToBooks(bookRows);
-        }catch (DAOException e){
-            log.log(Level.SEVERE,"Exception: " + e);
+        } catch (DAOException e) {
+            LOG.log(Level.SEVERE, "Exception: " + e);
             throw new ServiceException(e);
         }
 
@@ -116,12 +111,12 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Page<Book> getAll(Page<Book> page) throws ServiceException {
-        validation(page);
+        serviceValidator.validation(page);
         try {
             Pageable<BookRow> bookRowPageable = convertToPageableBook(page);
             Pageable<BookRow> bookRowsPageable = bookDAO.findPageWithParameters(bookRowPageable);
             return convertToServicePage(bookRowsPageable);
-        } catch ( DAOException e) {
+        } catch (DAOException e) {
             throw new ServiceException(e);
         }
     }
@@ -129,14 +124,14 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> findBooksByOrder(Order order) throws ServiceException {
-        validation(order);
-        try{
-           List<Book> booksFromOrder = new ArrayList<>();
-           for (Long id : getProductIdsFromOrder(order)){
-               booksFromOrder.add(findById(id));
-           }
+        serviceValidator.validation(order);
+        try {
+            List<Book> booksFromOrder = new ArrayList<>();
+            for (Long id : getProductIdsFromOrder(order)) {
+                booksFromOrder.add(findById(id));
+            }
             return booksFromOrder;
-        }catch (ServiceException e){
+        } catch (ServiceException e) {
             throw new ServiceException(e);
         }
     }
@@ -144,18 +139,18 @@ public class BookServiceImpl implements BookService {
 
     private Long[] getProductIdsFromOrder(Order order) {
 
-        String[] idsString = order.getProductIds().split(" ");
+       /* String[] idsString = order.getProductIds();
         Long[] idsLong = new Long[idsString.length];
         for (int i = 0;i<idsString.length;i++){
             idsLong[i] = Long.valueOf(idsString[i]);
-        }
-        return idsLong;
+        }*/
+        return null;
     }
 
 
     private Page<Book> convertToServicePage(Pageable<BookRow> bookRowPageable) {
         Page<Book> page = new Page<>();
-       page.setPageNumber(bookRowPageable.getPageNumber());
+        page.setPageNumber(bookRowPageable.getPageNumber());
         page.setLimit(bookRowPageable.getLimit());
         page.setTotalElements(bookRowPageable.getTotalElements());
         page.setElements(convertToBooks(bookRowPageable.getElements()));
@@ -168,7 +163,7 @@ public class BookServiceImpl implements BookService {
         return page;
     }
 
-    private List<Book> convertToBooks( List<BookRow> rows) {
+    private List<Book> convertToBooks(List<BookRow> rows) {
         List<Book> list = new ArrayList<>();
         for (BookRow row : rows) {
             list.add(convertToBook(row));

@@ -7,15 +7,17 @@ import java.util.List;
 
 public interface ReserveDAO extends BaseDAO<ReserveRow> {
 
-    List<ReserveRow> getReservesForUser(Long userId) throws DAOException;
+    List<ReserveRow> findReservesForUser(Long userId) throws DAOException;
 
-    ReserveRow getByUserAndProductId(ReserveRow reserve) throws DAOException;
+    ReserveRow findByUserAndProductId(ReserveRow reserve) throws DAOException;
 
     boolean deleteByUserId(Long userId) throws DAOException;
 
     int countReservesForUser(long userId) throws DAOException;
 
-    List<ReserveRow> getReservesByUserId(long userId, int row) throws DAOException;
+    List<ReserveRow> findReservesByUserId(long userId, int row) throws DAOException;
+
+    boolean deleteByUserAndProduct(Long userId,Long bookId) throws DAOException;
 
     //    boolean orderForReserveExists(ReserveRow reserveRow) throws DAOException;
 

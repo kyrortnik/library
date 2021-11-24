@@ -2,10 +2,8 @@ package com.epam.repository.impl;
 
 import com.epam.repository.ConnectionPool;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.sql.rowset.serial.SerialArray;
+import java.sql.*;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
@@ -19,7 +17,7 @@ public abstract class AbstractDAO {
         this.connectionPool = connectionPool;
     }
 
-    private static final Logger log = Logger.getLogger(AbstractDAO.class.getName());
+    private static final Logger LOG = Logger.getLogger(AbstractDAO.class.getName());
 
 
     protected PreparedStatement getPreparedStatement(String query, Connection connection,
@@ -47,6 +45,8 @@ public abstract class AbstractDAO {
             preparedStatement.setString(queryParameterIndex, (String) parameter);
         } else if (Boolean.class == parameter.getClass()){
             preparedStatement.setBoolean(queryParameterIndex, (Boolean) parameter);
+        } else{
+            preparedStatement.setArray(queryParameterIndex,(Array) parameter);
         }
     }
 
@@ -58,7 +58,7 @@ public abstract class AbstractDAO {
                     try {
                         rs.close();
                     } catch (SQLException e) {
-                        log.log(Level.SEVERE, "Exception: " + e);
+                        LOG.log(Level.SEVERE, "Exception: " + e);
                     }
                 }
             }
@@ -72,7 +72,7 @@ public abstract class AbstractDAO {
                     try{
                         statement.close();
                     }catch (SQLException e){
-                        log.log(Level.SEVERE,"Exception: " + e);
+                        LOG.log(Level.SEVERE,"Exception: " + e);
                     }
                 }
             }

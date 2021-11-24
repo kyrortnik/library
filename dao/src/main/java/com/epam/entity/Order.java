@@ -1,8 +1,10 @@
 package com.epam.entity;
 
+import java.util.List;
+
 public class Order extends Entity {
 
-    private String productIds;
+    private List<Long> productIds;
     private Long userId;
     private String status;
 
@@ -14,17 +16,17 @@ public class Order extends Entity {
         super(id);
     }
 
-    public Order(String productIds, Long userId){
+    public Order(List<Long> productIds, Long userId){
         this.productIds = productIds;
         this.userId = userId;
     }
 
-   public Order(Long id, String productIds, Long userId){
+   public Order(Long id, List<Long> productIds, Long userId){
         super(id);
         this.productIds = productIds;
         this.userId = userId;
    }
-    public Order(Long id, String productIds, Long userId,String status){
+    public Order(Long id, List<Long> productIds, Long userId,String status){
         super(id);
         this.productIds = productIds;
         this.userId = userId;
@@ -32,11 +34,11 @@ public class Order extends Entity {
     }
 
 
-    public String getProductIds() {
+    public List<Long> getProductIds() {
         return productIds;
     }
 
-    public void setProductIds(String productIds) {
+    public void setProductIds(List<Long> productIds) {
         this.productIds = productIds;
     }
 

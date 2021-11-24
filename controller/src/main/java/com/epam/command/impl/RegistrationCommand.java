@@ -1,5 +1,7 @@
-package com.epam.command;
+package com.epam.command.impl;
 
+import com.epam.command.AbstractCommand;
+import com.epam.command.Command;
 import com.epam.command.exception.ControllerException;
 import com.epam.entity.User;
 import com.epam.ServiceFactory;
@@ -14,19 +16,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-import static com.epam.command.util.ControllerConstants.*;
+import static com.epam.util.ControllerConstants.*;
 
-public class RegistrationCommand implements Command {
+public class RegistrationCommand extends AbstractCommand implements Command {
 
     private final ServiceFactory factory = ServiceFactory.getInstance();
-    private final UserService userService = factory.createUserService();
+    private final UserService userService = factory.getUserService();
 
-    private static final Logger log = Logger.getLogger(RegistrationCommand.class.getName());
+    private static final Logger LOG = Logger.getLogger(RegistrationCommand.class.getName());
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
 
-        log.info("Start in RegistrationCommand");
+        LOG.info("Start in RegistrationCommand");
         String lastCommand;
         String login = request.getParameter(LOGIN);;
         String password = request.getParameter(PASSWORD);
