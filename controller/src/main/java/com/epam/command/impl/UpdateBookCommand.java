@@ -6,6 +6,7 @@ import com.epam.command.AbstractCommand;
 import com.epam.command.Command;
 import com.epam.command.exception.ControllerException;
 import com.epam.entity.Book;
+import com.epam.validator.ControllerValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,26 +19,30 @@ public class UpdateBookCommand extends AbstractCommand implements Command {
 
     private final BookService bookService = ServiceFactory.getInstance().getBookService();
     private static final Logger LOG = Logger.getLogger(UpdateBookCommand.class.getName());
+    private final ControllerValidator controllerValidator = new ControllerValidator();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
 
         LOG.info("Start in UpdateBookCommand");
 
-        long bookId = Long.parseLong(request.getParameter(BOOK_ID));
+        String bookIdString = request.getParameter(BOOK_ID);
+        controllerValidator.numericParameterValidation(bookIdString);
+        long bookId = Long.parseLong(bookIdString);
         Book book = getBook(request);
         String lastCommand;
+        String message;
 
         try{
             if (bookService.update(book)){
                 lastCommand = "frontController?command=go_To_Page&address=main.jsp";
-                request.getSession().setAttribute(MESSAGE,"Book is updated");
-                request.getSession().setAttribute(LAST_COMMAND,lastCommand);
+                message = "Book is updated";
+                successfulProcessForward(request,lastCommand,message);
                 response.sendRedirect(lastCommand);
             }else {
                 lastCommand = "frontController?command=productInfo&id="+ bookId;
-                request.setAttribute(MESSAGE,"No such book exists");
-                request.getSession().setAttribute(LAST_COMMAND,lastCommand);
+                message = "No such book exists";
+                unsuccessfulProcess(request,lastCommand,message);
                 request.getRequestDispatcher(lastCommand).forward(request,response);
             }
         }catch (Exception e){
@@ -45,35 +50,25 @@ public class UpdateBookCommand extends AbstractCommand implements Command {
         }
     }
 
-    private Book getBook(HttpServletRequest request) {
-        String title = request.getParameter("title").trim();
-        String author = request.getParameter("author").trim();
-        String publisher = request.getParameter("publisher").trim();
+    private Book getBook(HttpServletRequest request) throws ControllerException {
 
-        String publishYear = request.getParameter("publishingYear");
-        int publishingYear = isNumeric(publishYear) ? Integer.parseInt(publishYear) : 0;
+        String idString = request.getParameter(BOOK_ID);
+        String title = request.getParameter(TITLE);
+        String author = request.getParameter(AUTHOR);
+        String publisher = request.getParameter(PUBLISHER);
+        String genre = request.getParameter(GENRE);
+        String description = request.getParameter(DESCRIPTION);
+        boolean isHardCover = request.getParameter(IS_HARD_COVER).toUpperCase(Locale.ROOT).equals(YES);
+        String pages = request.getParameter(NUMBER_OF_PAGES);
+        String publishYear = request.getParameter(PUBLISHING_YEAR);
 
-        boolean isHardCover = request.getParameter("isHardCover").toUpperCase(Locale.ROOT).equals("YES");
+        controllerValidator.stringParameterValidation(title, author, publisher, genre, description);
+        controllerValidator.numericParameterValidation(idString, pages, publishYear);
+        Long id = Long.parseLong(idString);
+        int numberOfPages = Integer.parseInt(pages);
+        int publishingYear = Integer.parseInt(publishYear);
 
-        String pages = request.getParameter("numberOfPages");
-        int numberOfPages = isNumeric(pages) ? Integer.parseInt(pages) : 0;
-
-        String genre = request.getParameter("genre").trim();
-        String description = request.getParameter("description").trim();
-
-        return new Book (title,author,publishingYear,publisher,genre,numberOfPages,isHardCover,description);
-    }
-
-    private boolean isNumeric(String parameter){
-        if (parameter == null){
-            return false;
-        }
-        try{
-            Integer.parseInt(parameter);
-        }catch (NumberFormatException e){
-            return false;
-        }
-        return true;
+        return new Book (id,title,author,publishingYear,publisher,genre,numberOfPages,isHardCover,description);
     }
 
 }

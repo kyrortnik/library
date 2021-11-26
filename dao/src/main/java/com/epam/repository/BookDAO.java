@@ -12,4 +12,6 @@ public interface BookDAO extends BaseDAO<BookRow> {
 
      List<BookRow> getBookFromOrder(Long userId) throws DAOException;
 
+     Pageable<BookRow> getReservesPage(Pageable<BookRow> requestPageable, Long userId) throws DAOException;
+
 }

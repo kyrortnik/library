@@ -25,7 +25,6 @@ public class OrderInfoCommand extends AbstractCommand implements Command {
     private static final Logger LOG = Logger.getLogger(OrderInfoCommand.class.getName());
 
     private final ServiceFactory serviceFactory = ServiceFactory.getInstance();
-    private final OrderService orderService = serviceFactory.getOrderService();
     private final BookService bookService = serviceFactory.getBookService();
     private final ControllerValidator controllerValidator = new ControllerValidator();
 
@@ -33,41 +32,23 @@ public class OrderInfoCommand extends AbstractCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
         LOG.info("Start in OrderInfoCommand");
 
-        String lastCommand;
+        String lastCommand = defineLastCommand(request,false);
         String message;
+        String pageForRedirect = "frontController?command=go_To_Page&address=main.jsp";
         Long userId = (Long) request.getSession().getAttribute(ID);
         controllerValidator.validation(userId);
 
-       /* try{
-            Order order = orderService.getByUserId(userId);
-            if (order == null){
-                request.setAttribute(ORDER_MESSAGE,"No order created for you yet.");
-            }else{
-                List<Book> booksFromOrder = bookService.findBooksByOrder(order);
-                request.setAttribute("booksFromOrder", booksFromOrder);
-                if (booksFromOrder.isEmpty()){
-                    request.setAttribute(ORDER_MESSAGE,"No books in your order yet.");
-                }
-                }
-             lastCommand = defineLastCommand(request,false);
-            request.getSession().setAttribute("lastCommand",lastCommand);
-            request.getRequestDispatcher("frontController?command=go_To_Page&address=main.jsp").forward(request, response);
-
-
-        }catch (IOException | ServletException | ServiceException e ){
-            throw new ControllerException(e);
-        }*/
         try {
             List<Book> booksFromOrder = bookService.getBooksFromOrder(userId);
-            if (nonNull(booksFromOrder) || !booksFromOrder.isEmpty()) {
-                lastCommand = "frontController?command=go_To_Page&address=main.jsp";
+            controllerValidator.listParameterValidator(booksFromOrder);
+            if (!booksFromOrder.isEmpty()) {
                 request.setAttribute("booksFromOrder", booksFromOrder);
-                successfulProcessForward(request, response, lastCommand, null);
+                successfulProcessForward(request, lastCommand, null);
             } else {
-                lastCommand = "frontController?command=go_To_Page&address=main.jsp";
                 message = " There's not order for you or no books in your order yet.";
-                unsuccessfulProcess(request, response, lastCommand, message);
+                unsuccessfulProcess(request, lastCommand, message);
             }
+            request.getRequestDispatcher(pageForRedirect).forward(request,response);
         } catch (IOException | ServiceException | ServletException e) {
             throw new ControllerException(e);
         }

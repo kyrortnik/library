@@ -396,7 +396,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
     }*/
     @Override
     public Pageable<UserDTO> findPageByParameters(Pageable<UserDTO> daoProductPageable) throws DAOException {
-        final int offset = (daoProductPageable.getPageNumber() - 1) * MAX_ROWS;
+        final Long offset = (daoProductPageable.getPageNumber() - 1) * MAX_ROWS;
 
         List<Object> parameters = Arrays.asList(MAX_ROWS, offset);
         Connection connection = null;

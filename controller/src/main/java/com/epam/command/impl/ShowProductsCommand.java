@@ -1,12 +1,12 @@
 package com.epam.command.impl;
 
 
+import com.epam.BookService;
+import com.epam.ServiceFactory;
 import com.epam.command.AbstractCommand;
 import com.epam.command.Command;
 import com.epam.command.exception.ControllerException;
 import com.epam.entity.Book;
-import com.epam.BookService;
-import com.epam.ServiceFactory;
 import com.epam.entity.Page;
 import com.epam.exception.ServiceException;
 
@@ -14,48 +14,52 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Objects;
 import java.util.logging.Logger;
 
 import static com.epam.util.ControllerConstants.*;
+import static java.util.Objects.isNull;
 
 public class ShowProductsCommand extends AbstractCommand implements Command {
 
-    private final BookService bookService = ServiceFactory.getInstance().getBookService();
     private static final Logger LOG = Logger.getLogger(ShowProductsCommand.class.getName());
+
+    private final ServiceFactory serviceFactory = ServiceFactory.getInstance();
+    private final BookService bookService = serviceFactory.getBookService();
+
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
 
         LOG.info("Start in ShowProductsCommand");
         try {
-            int currentPage = getCurrentPage(request);
-            Page<Book> pageableRequest = new Page<>();
-            pageableRequest.setPageNumber(currentPage);
+            Long currentPage = getCurrentPage(request);
+            Page<Book> pageRequest = new Page<>();
+            pageRequest.setPageNumber(currentPage);
             String lastCommand = defineLastCommand(request, true);
-            request.getSession().setAttribute(LAST_COMMAND, lastCommand);
-            request.getSession().setAttribute(MESSAGE, null);
+            String message;
+            String pageForRedirect = "frontController?command=go_To_Page&address=main.jsp";
 
-            Page<Book> pageable = bookService.getAll(pageableRequest);
+            Page<Book> page = bookService.getAll(pageRequest);
 
-            if (!pageable.getElements().isEmpty()) {
-                request.setAttribute("pageable", pageable);
+            if (!page.getElements().isEmpty()) {
+                request.setAttribute(PAGEABLE, page);
+                successfulProcessForward(request, lastCommand, null);
             } else {
-                request.setAttribute("productsMessage", "No books in library yet");
+                message = "No books in library yet";
+                unsuccessfulProcess(request, lastCommand, message);
             }
-            request.getRequestDispatcher("frontController?command=go_To_Page&address=main.jsp").forward(request, response);
+            request.getRequestDispatcher(pageForRedirect).forward(request, response);
         } catch (IOException | ServletException | ServiceException e) {
             throw new ControllerException(e);
         }
 
-
     }
 
-    private int getCurrentPage(HttpServletRequest request) {
+    private Long getCurrentPage(HttpServletRequest request) {
         String currentPageParam = request.getParameter(CURRENT_PAGE);
-        if (Objects.isNull(currentPageParam)) {
-            currentPageParam = "1";
+        if (isNull(currentPageParam) || currentPageParam.isEmpty()) {
+            currentPageParam = DEFAULT_PAGE_NUMBER;
         }
-        return Integer.parseInt(currentPageParam);
+        return Long.parseLong(currentPageParam);
     }
 }

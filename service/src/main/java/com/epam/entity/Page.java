@@ -8,7 +8,7 @@ import com.epam.repository.utils.DBConstants;
 public class Page<T> {
 
 
-    private int pageNumber;
+    private Long pageNumber;
     private long totalElements;
     private int limit;
     private int offset;
@@ -21,9 +21,10 @@ public class Page<T> {
         this.limit = DBConstants.MAX_ROWS;
     }
 
-    public Page(int currentPage){
+    public Page(Long currentPage){
         this.pageNumber = currentPage;
-        this.offset = calculateOffset(this.pageNumber,  DBConstants.MAX_ROWS);
+        Long longOffset = calculateOffset(this.pageNumber,  DBConstants.MAX_ROWS);
+        this.offset = longOffset.intValue();
         this.limit = DBConstants.MAX_ROWS;
     }
 
@@ -37,7 +38,7 @@ public class Page<T> {
 //        this.direction = direction;
 //    }
 
-    public Page(int pageNumber, long totalElements, int limit, List<T> elements, String sortBy, String direction) {
+    public Page(Long pageNumber, long totalElements, int limit, List<T> elements, String sortBy, String direction) {
         this.pageNumber = pageNumber;
         this.totalElements = totalElements;
         this.limit = limit;
@@ -47,11 +48,11 @@ public class Page<T> {
     }
 
 
-    public int getPageNumber() {
+    public Long getPageNumber() {
         return pageNumber;
     }
 
-    public void setPageNumber(int pageNumber) {
+    public void setPageNumber(Long pageNumber) {
         this.pageNumber = pageNumber;
     }
 
@@ -115,7 +116,7 @@ public class Page<T> {
         return (int) Math.ceil(((double) countItems) / MAX_ROWS);
     }
 
-    private int calculateOffset(int currentPage, int _MAX_ROWS_AT_PAGE) {
+    private Long calculateOffset(Long currentPage, int _MAX_ROWS_AT_PAGE) {
         return (currentPage - 1) * _MAX_ROWS_AT_PAGE;
     }
 
@@ -161,6 +162,7 @@ public class Page<T> {
 //                '}';
 //    }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -168,10 +170,10 @@ public class Page<T> {
 
         Page<?> page = (Page<?>) o;
 
-        if (pageNumber != page.pageNumber) return false;
         if (totalElements != page.totalElements) return false;
         if (limit != page.limit) return false;
         if (offset != page.offset) return false;
+        if (pageNumber != null ? !pageNumber.equals(page.pageNumber) : page.pageNumber != null) return false;
         if (elements != null ? !elements.equals(page.elements) : page.elements != null) return false;
         if (sortBy != null ? !sortBy.equals(page.sortBy) : page.sortBy != null) return false;
         return direction != null ? direction.equals(page.direction) : page.direction == null;
@@ -179,7 +181,7 @@ public class Page<T> {
 
     @Override
     public int hashCode() {
-        int result = pageNumber;
+        int result = pageNumber != null ? pageNumber.hashCode() : 0;
         result = 31 * result + (int) (totalElements ^ (totalElements >>> 32));
         result = 31 * result + limit;
         result = 31 * result + offset;

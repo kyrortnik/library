@@ -12,22 +12,19 @@ import static com.epam.util.ControllerConstants.MESSAGE;
 public abstract class AbstractCommand implements Command {
 
 
-    protected void successfulProcessRedirect(HttpServletRequest request, HttpServletResponse response, String lastCommand, String message) throws IOException {
+    protected void successfulProcessRedirect(HttpServletRequest request, String lastCommand, String message) throws IOException {
         request.getSession().setAttribute(LAST_COMMAND,lastCommand);
         request.getSession().setAttribute(MESSAGE,message);
-        response.sendRedirect(lastCommand);
     }
-    protected void successfulProcessForward(HttpServletRequest request, HttpServletResponse response, String lastCommand, String message) throws IOException, ServletException {
+    protected void successfulProcessForward(HttpServletRequest request,  String lastCommand, String message) throws IOException, ServletException {
         request.getSession().setAttribute(LAST_COMMAND,lastCommand);
         request.getSession().setAttribute(MESSAGE,message);
-       request.getRequestDispatcher(lastCommand).forward(request,response);
     }
 
 
-    protected void unsuccessfulProcess(HttpServletRequest request, HttpServletResponse response,String lastCommand,String message) throws IOException, ServletException {
+    protected void unsuccessfulProcess(HttpServletRequest request, String lastCommand,String message) throws IOException, ServletException {
         request.getSession().setAttribute(LAST_COMMAND,lastCommand);
         request.getSession().setAttribute(MESSAGE,message);
-        request.getRequestDispatcher(lastCommand).forward(request,response);
     }
 
 

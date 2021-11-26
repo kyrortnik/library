@@ -29,8 +29,8 @@ public class ControllerValidator {
 
     }
 
-    public void listParameterValidator(List parameters) throws ControllerException {
-        if (isNull(parameters) || parameters.isEmpty()) {
+    public void listParameterValidator(List<?> parameters) throws ControllerException {
+        if (isNull(parameters)) {
             throw new ControllerException("Invalid list parameter");
         }
     }
@@ -64,7 +64,7 @@ public class ControllerValidator {
     }
 
     public void validation(Long... ids) throws ControllerException {
-        for (Long id : ids){
+        for (Long id : ids) {
             if (isNull(id) || id < 0) {
                 throw new ControllerException("Invalid id.");
             }
@@ -73,7 +73,11 @@ public class ControllerValidator {
     }
 
     public void validation(Page<Book> bookPageRequest) throws ControllerException {
-        if (Objects.isNull(bookPageRequest)) {
+        boolean isValidPage =
+                bookPageRequest.getPageNumber() != 0
+                        && !bookPageRequest.getDirection().isEmpty()
+                        && !bookPageRequest.getSortBy().isEmpty();
+        if (!isValidPage) {
             throw new ControllerException("BookPageRequest is null");
         }
     }

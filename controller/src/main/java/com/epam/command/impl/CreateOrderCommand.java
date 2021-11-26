@@ -36,11 +36,16 @@ public class CreateOrderCommand extends AbstractCommand implements Command {
             Long userId = (Long) request.getSession().getAttribute(ID);
             controllerValidator.validation(userId);
             List<Long> bookIds = getReservedBookIds(request);
+            String message;
             String lastCommand = "frontController?command=go_To_Page&address=main.jsp";
             if (orderService.createByUserId(userId, bookIds)) {
-                successfulProcessRedirect(request, response, lastCommand, "Products ordered! To see the click to Order List");
+                message =  "Products ordered! To see the click to Order List";
+                successfulProcessRedirect(request, lastCommand,message);
+                response.sendRedirect(lastCommand);
             } else {
-                unsuccessfulProcess(request, response, lastCommand, "Couldn't create or update existing order");
+                message = "Couldn't create or update existing order";
+                unsuccessfulProcess(request, lastCommand, message);
+                request.getRequestDispatcher(lastCommand).forward(request,response);
             }
         } catch (Exception e) {
             throw new ControllerException(e);

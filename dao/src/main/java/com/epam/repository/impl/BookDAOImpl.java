@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static java.util.Objects.nonNull;
+
 
 import static com.epam.repository.utils.DBConstants.*;
 
@@ -29,8 +31,13 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
     private static final String DELETE_BOOK = "DELETE FROM books WHERE book_id = ?";
     private static final String UPDATE_BOOK = "UPDATE books SET title = ?, author = ?,  publisher = ?, publishyear = ?, is_hard_cover = ? , number_of_pages = ?, genre = ?, description = ?  WHERE book_id = ?";
     private static final String COUNT_ALL = "SELECT count(book_id) FROM books";
+    private static final String COUNT_FOR_USER = "SELECT count(book_id) FROM books b join reserves r on b.book_id = r.product_id WHERE user_id = ?";
     private static final String FIND_PAGE_FILTERED_SORTED = "SELECT * FROM books ORDER BY %s %s LIMIT ? OFFSET ?";
     private static final String FIND_ORDER = "SELECT product_id FROM orders WHERE user_id = ?";
+
+    private static final String FIND_RESERVED_BOOKS =
+            "SELECT book_id, title, author, isreserved, publishyear, publisher, genre, number_of_pages, is_hard_cover, description FROM reserves r" +
+                    " JOIN books b on r.product_id = b.book_id WHERE user_id = ? ORDER BY %s %s LIMIT ? OFFSET ?";
 
     private static final Logger LOG = Logger.getLogger(BookDAOImpl.class.getName());
 
@@ -200,27 +207,38 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
 
     @Override
     public boolean update(BookRow bookRow) throws DAOException {
+        boolean result = false;
+        List<Object> parameters = Arrays.asList(
+                bookRow.getTitle(),
+                bookRow.getAuthor(),
+                bookRow.getPublisher(),
+                bookRow.getPublishingYear(),
+                bookRow.isHardCover(),
+                bookRow.getNumberOfPages(),
+                bookRow.getGenre(),
+                bookRow.getDescription(),
+                bookRow.getId()
+        );
         Connection connection = null;
-        PreparedStatement statement = null;
+        PreparedStatement updateStatement = null;
+        BookRow existingBookRow;
+
         try {
             connection = connectionPool.getConnection();
-            statement = connection.prepareStatement(UPDATE_BOOK);
-            statement.setString(1, bookRow.getTitle());
-            statement.setString(2, bookRow.getAuthor());
-            statement.setString(3, bookRow.getPublisher());
-            statement.setInt(4, bookRow.getPublishingYear());
-            statement.setBoolean(5, bookRow.isHardCover());
-            statement.setInt(6, bookRow.getNumberOfPages());
-            statement.setString(7, bookRow.getGenre());
-            statement.setString(8, bookRow.getDescription());
-            statement.setLong(9, bookRow.getId());
-            return (statement.executeUpdate() > 0);
+            connection.setAutoCommit(false);
+            existingBookRow = findById(bookRow.getId());
+            if (nonNull(existingBookRow)) {
+                updateStatement = getPreparedStatement(UPDATE_BOOK, connection, parameters);
+                result = updateStatement.executeUpdate() != 0;
+            }
+            connection.commit();
+            return result;
 
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "Exception: " + e);
             throw new DAOException(e);
         } finally {
-            closeStatement(statement);
+            closeStatement(updateStatement);
             connectionPool.releaseConnection(connection);
         }
     }
@@ -265,9 +283,9 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
             return booksFromOrder;
         } catch (SQLException e) {
             throw new DAOException(e);
-        }finally {
-            closeResultSet(foundOrderSet,booksFromOrderSet);
-            closeStatement(foundOrderStatement,booksFromOrderStatement);
+        } finally {
+            closeResultSet(foundOrderSet, booksFromOrderSet);
+            closeStatement(foundOrderStatement, booksFromOrderStatement);
             connectionPool.releaseConnection(connection);
         }
     }
@@ -286,7 +304,7 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
 
     @Override
     public Pageable<BookRow> findPageWithParameters(Pageable<BookRow> daoProductPageable) throws DAOException {
-        int offset = (daoProductPageable.getPageNumber() - 1) * MAX_ROWS;
+        Long offset = (daoProductPageable.getPageNumber() - 1) * MAX_ROWS;
         List<Object> parameters = Arrays.asList(MAX_ROWS, offset);
         Connection connection = null;
         PreparedStatement countPreparedStatement = null;
@@ -297,7 +315,7 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
             connection = connectionPool.getConnection();
             connection.setAutoCommit(false);
             countPreparedStatement = getPreparedStatement(COUNT_ALL, connection, Collections.emptyList());
-            final String findPageOrderedQuery =
+            String findPageOrderedQuery =
                     String.format(FIND_PAGE_FILTERED_SORTED, daoProductPageable.getSortBy(), daoProductPageable.getDirection());
             queryPreparedStatement = getPreparedStatement(findPageOrderedQuery, connection, parameters);
             countResultSet = countPreparedStatement.executeQuery();
@@ -315,8 +333,36 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
         }
     }
 
+    @Override
+    public Pageable<BookRow> getReservesPage(Pageable<BookRow> daoBookPageable, Long userId) throws DAOException {
+        Long offset = (daoBookPageable.getPageNumber() - 1) * MAX_ROWS;
+        List<Object> parameters = Arrays.asList(userId, MAX_ROWS, offset);
+        Connection connection = null;
+        PreparedStatement countReservesStatement = null;
+        PreparedStatement booksReservedStatement = null;
+        ResultSet reservesNumberSet = null;
+        ResultSet reservedBooksSet = null;
+        try {
+            connection = connectionPool.getConnection();
+            connection.setAutoCommit(false);
+            countReservesStatement = getPreparedStatement(COUNT_FOR_USER, connection, Collections.singletonList(userId));
+            String findPageOrderedQuery =
+                    String.format(FIND_RESERVED_BOOKS, daoBookPageable.getSortBy(), daoBookPageable.getDirection());
+            booksReservedStatement = getPreparedStatement(findPageOrderedQuery, connection, parameters);
+            reservesNumberSet = countReservesStatement.executeQuery();
+            reservedBooksSet = booksReservedStatement.executeQuery();
+            connection.commit();
+            return getBookRowPageable(daoBookPageable, reservesNumberSet, reservedBooksSet);
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        } finally {
+            closeResultSet(reservesNumberSet, reservedBooksSet);
+            closeStatement(countReservesStatement, booksReservedStatement);
+            connectionPool.releaseConnection(connection);
+        }
+    }
 
-    private Pageable<BookRow> getBookRowPageable(Pageable<BookRow> daoProductPageable,
+    private Pageable<BookRow> getBookRowPageable(Pageable<BookRow> daoBookPageable,
                                                  ResultSet countResultSet,
                                                  ResultSet queryResultSet) throws SQLException {
         Pageable<BookRow> pageable = new Pageable<>();
@@ -339,13 +385,13 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
 
             rows.add(new BookRow(id, title, author, publishingYear, publisher, isReserved, genre, numberOfPages, isHardCover, description));
         }
-        pageable.setPageNumber(daoProductPageable.getPageNumber());
+        pageable.setPageNumber(daoBookPageable.getPageNumber());
         pageable.setLimit(MAX_ROWS);
         pageable.setTotalElements(totalElements);
         pageable.setElements(rows);
-        pageable.setFilter(daoProductPageable.getFilter());
-        pageable.setSortBy(daoProductPageable.getSortBy());
-        pageable.setDirection(daoProductPageable.getDirection());
+        pageable.setFilter(daoBookPageable.getFilter());
+        pageable.setSortBy(daoBookPageable.getSortBy());
+        pageable.setDirection(daoBookPageable.getDirection());
         return pageable;
     }
 

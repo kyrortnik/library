@@ -21,6 +21,8 @@ public interface BookService {
 
     List<Book> findBooksByIds(List<Reserve> reserves) throws ServiceException;
 
+    Page<Book> getReservesPage(Page<Book> pageRequest, Long userId) throws ServiceException;
+
     List<Book> findBooksByOrder(Order order) throws ServiceException;
 
 //    Page<Book> getPageByFilter(Page<Book> daoProductPageable) throws ServiceException;

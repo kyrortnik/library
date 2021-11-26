@@ -86,22 +86,22 @@ public class UserServiceImplTest {
 
     }
 
-    @Test
-    public void testGetUsersPage_positive() throws DAOException, ServiceException {
-
-        List<UserDTO> users = new ArrayList<>();
-        users.add(new UserDTO(userId,login,role));
-        users.add(new UserDTO(2L,"log","pass"));
-        users.add(new UserDTO(3L,"l","p"));
-
-        List<UserDTO> emptyElements = new ArrayList<>();
-        Page<UserDTO> userDTOPage = new Page<>(pageNumber, totalElements, limit, emptyElements, sortBy, direction);
-        Pageable<UserDTO> userDTOPageable = new Pageable<>(pageNumber,totalElements,limit,emptyElements,sortBy,direction);
-        Pageable<UserDTO> userPageableReturn = new Pageable<>(pageNumber,totalElements,limit,users,sortBy,direction);
-        Page<UserDTO> userDTOPageExpected = new Page<>(pageNumber, totalElements, limit, users, sortBy, direction);
-        when(userDAO.findPageByParameters(userDTOPageable)).thenReturn(userPageableReturn);
-        assertEquals(userService.getUsersPage(userDTOPage),userDTOPageExpected);
-    }
+//    @Test
+//    public void testGetUsersPage_positive() throws DAOException, ServiceException {
+//
+//        List<UserDTO> users = new ArrayList<>();
+//        users.add(new UserDTO(userId,login,role));
+//        users.add(new UserDTO(2L,"log","pass"));
+//        users.add(new UserDTO(3L,"l","p"));
+//
+//        List<UserDTO> emptyElements = new ArrayList<>();
+//        Page<UserDTO> userDTOPage = new Page<>(pageNumber, totalElements, limit, emptyElements, sortBy, direction);
+//        Pageable<UserDTO> userDTOPageable = new Pageable<>(pageNumber,totalElements,limit,emptyElements,sortBy,direction);
+//        Pageable<UserDTO> userPageableReturn = new Pageable<>(pageNumber,totalElements,limit,users,sortBy,direction);
+//        Page<UserDTO> userDTOPageExpected = new Page<>(pageNumber, totalElements, limit, users, sortBy, direction);
+//        when(userDAO.findPageByParameters(userDTOPageable)).thenReturn(userPageableReturn);
+//        assertEquals(userService.getUsersPage(userDTOPage),userDTOPageExpected);
+//    }
 
     @Test
     public void testGetUsers() throws DAOException, ServiceException {

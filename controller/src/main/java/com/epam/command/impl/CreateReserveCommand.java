@@ -39,17 +39,18 @@ public class CreateReserveCommand extends AbstractCommand implements Command {
             Long bookId = Long.valueOf(bookIdString);
 
             Reserve reserve = new Reserve(userId, bookId);
-            String lastCommand;
+            String lastCommand = "frontController?command=go_To_Page&address=main.jsp";
             String message;
             if (reserveService.save(reserve)) {
-                lastCommand = "frontController?command=go_To_Page&address=main.jsp";
                 message = "Book is reserved";
-                successfulProcessRedirect(request, response, lastCommand, message);
+                successfulProcessRedirect(request,lastCommand, message);
+                response.sendRedirect(lastCommand);
             } else {
-                lastCommand = "frontController?command=go_To_Page&address=main.jsp";
                 message = "Product is not added to Reserve list! Reserve for this product already exists.";
-                unsuccessfulProcess(request, response, lastCommand, message);
+                unsuccessfulProcess(request, lastCommand, message);
+                request.getRequestDispatcher(lastCommand).forward(request,response);
             }
+
         } catch (ServiceException | IOException | ServletException e) {
             LOG.info("Error:" + e.getMessage());
             throw new ControllerException(e);

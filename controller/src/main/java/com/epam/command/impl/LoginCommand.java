@@ -46,11 +46,13 @@ public class LoginCommand extends AbstractCommand implements Command {
                 request.getSession().setAttribute(USER, foundUser.getLogin());
                 request.getSession().setAttribute(ROLE, foundUser.getRole());
                 request.getSession().setAttribute(ID, foundUser.getId());
-                successfulProcessRedirect(request, response, lastCommand, message);
+                successfulProcessRedirect(request, lastCommand, message);
+                response.sendRedirect(lastCommand);
             } else {
                 lastCommand = "frontController?command=go_To_Page&address=login.jsp";
                 message = "Incorrect login or password.Try again";
-                unsuccessfulProcess(request, response, lastCommand, message);
+                unsuccessfulProcess(request, lastCommand, message);
+                request.getRequestDispatcher(lastCommand).forward(request,response);
             }
         } catch (IOException | ServiceException | ServletException e) {
             throw new ControllerException(e);

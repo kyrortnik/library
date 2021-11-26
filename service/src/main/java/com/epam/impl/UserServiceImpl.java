@@ -11,10 +11,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
-
-
-
 public class UserServiceImpl implements UserService {
 
 
@@ -29,7 +25,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO register(User user,String secondPassword) throws ServiceException {
-        boolean result;
+
         serviceValidator.validation(user);
         serviceValidator.validation(secondPassword);
         UserDTO registeredUser = null;

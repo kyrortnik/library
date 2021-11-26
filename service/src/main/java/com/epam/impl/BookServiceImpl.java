@@ -49,14 +49,9 @@ public class BookServiceImpl implements BookService {
     public boolean update(Book book) throws ServiceException {
         serviceValidator.validation(book);
         try {
+
             BookRow bookRow = convertToBookRow(book);
-            BookRow foundRow = bookDAO.find(bookRow);
-            if (foundRow != null) {
-                bookRow.setId(foundRow.getId());
-                return bookDAO.update(bookRow);
-            } else {
-                return false;
-            }
+            return bookDAO.update(bookRow);
 
         } catch (DAOException e) {
             LOG.log(Level.SEVERE, "Exception: " + e);
@@ -156,6 +151,18 @@ public class BookServiceImpl implements BookService {
         return null;
     }
 
+    @Override
+    public Page<Book> getReservesPage(Page<Book> pageRequest, Long userId) throws ServiceException {
+        serviceValidator.validation(userId);
+       // serviceValidator.validation(pageRequest);
+        try {
+            Pageable<BookRow> pageableBookRowsRequest = convertToPageableBook(pageRequest);
+            Pageable<BookRow> foundPageable = bookDAO.getReservesPage(pageableBookRowsRequest,userId);
+            return convertToServicePage(foundPageable);
+        }catch (DAOException e){
+            throw new ServiceException(e);
+        }
+    }
 
     private Page<Book> convertToServicePage(Pageable<BookRow> bookRowPageable) {
         Page<Book> page = new Page<>();

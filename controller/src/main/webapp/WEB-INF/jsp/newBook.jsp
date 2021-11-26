@@ -14,6 +14,7 @@
     <form id="createBook" action="frontController" method="POST">
         <div class="info">
             <input type="hidden" name="command" value="create_Book"/>
+            <input type="hidden" name="bookId" value="${id}">
             <input type="text" name="title" placeholder="${bookTitle}"/>
             <input type="text" name="author" placeholder="${author}"/>
             <input type="text" name="publisher" placeholder="${publisher}"/>

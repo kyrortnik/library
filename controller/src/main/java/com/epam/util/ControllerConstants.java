@@ -35,7 +35,13 @@ public class ControllerConstants {
             NUMBER_OF_PAGES = "numberOfPages",
             PUBLISHING_YEAR = "publishingYear",
             YES = "YES",
-            RESERVED_BOOKS = "reservedBooks";
+            RESERVED_BOOKS = "reservedBooks",
+            DEFAULT_PAGE_NUMBER = "1",
+            PAGEABLE = "pageable",
+            CURRENT_PAGE_RESERVE = "currentPageReserve",
+            PAGEABLE_RESERVES = "pageableReserves",
+            CURRENT_PAGE_USER = "currentPageUser",
+            PAGEABLE_USERS = "pageableUsers";
 
 
 

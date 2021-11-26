@@ -70,17 +70,17 @@ public class BookServiceImplTest {
 
 
 
-    @Test
-    public void testGetAll_positive() throws ServiceException, DAOException {
-        Page<Book> productPageRequest = new Page<>(pageNumber, totalElements, limit, emptyElements, sortBy, direction);
-        Pageable<BookRow> daoPageRequest = new Pageable<>(pageNumber,totalElements,limit,emptyElementRows,sortBy,direction);
-        Pageable<BookRow> returnedDaoPage = new Pageable<>(pageNumber,totalElements,limit,rowElements,sortBy,direction);
-        Page<Book> expectedProductPageRequest = new Page<>(pageNumber, totalElements, limit, elements, sortBy, direction);
-
-        when(bookDAO.findPageWithParameters(daoPageRequest)).thenReturn(returnedDaoPage);
-        Page<Book> actualBookPage = bookService.getAll(productPageRequest);
-        assertEquals(expectedProductPageRequest, actualBookPage);
-    }
+//    @Test
+//    public void testGetAll_positive() throws ServiceException, DAOException {
+//        Page<Book> productPageRequest = new Page<>(pageNumber, totalElements, limit, emptyElements, sortBy, direction);
+//        Pageable<BookRow> daoPageRequest = new Pageable<>(pageNumber,totalElements,limit,emptyElementRows,sortBy,direction);
+//        Pageable<BookRow> returnedDaoPage = new Pageable<>(pageNumber,totalElements,limit,rowElements,sortBy,direction);
+//        Page<Book> expectedProductPageRequest = new Page<>(pageNumber, totalElements, limit, elements, sortBy, direction);
+//
+//        when(bookDAO.findPageWithParameters(daoPageRequest)).thenReturn(returnedDaoPage);
+//        Page<Book> actualBookPage = bookService.getAll(productPageRequest);
+//        assertEquals(expectedProductPageRequest, actualBookPage);
+//    }
 
 
     @Test
