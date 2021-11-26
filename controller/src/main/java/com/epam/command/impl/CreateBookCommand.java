@@ -37,7 +37,7 @@ public class CreateBookCommand extends AbstractCommand implements Command {
             if (bookService.create(book)) {
                 lastCommand = "frontController?command=go_To_Page&address=main.jsp";
                 message = "Book is created";
-                successfulProcess(request, response, lastCommand, message);
+                successfulProcessRedirect(request, response, lastCommand, message);
             } else {
                 message = "Book with such title already exists!";
                 unsuccessfulProcess(request, response, lastCommand, message);

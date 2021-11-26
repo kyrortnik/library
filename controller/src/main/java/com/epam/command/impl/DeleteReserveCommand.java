@@ -5,10 +5,8 @@ import com.epam.ServiceFactory;
 import com.epam.command.AbstractCommand;
 import com.epam.command.Command;
 import com.epam.command.exception.ControllerException;
-import com.epam.entity.Reserve;
 import com.epam.exception.ServiceException;
 import com.epam.validator.ControllerValidator;
-import com.epam.validator.ServiceValidator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -32,17 +30,16 @@ public class DeleteReserveCommand extends AbstractCommand implements Command {
 
         Long userId = (Long)request.getSession().getAttribute(ID);
         String bookIdString = request.getParameter(BOOK_ID);
+
         controllerValidator.validation(userId);
         controllerValidator.numericParameterValidation(bookIdString);
         Long bookId = Long.valueOf(bookIdString);
-
         String lastCommand = "frontController?command=go_To_Page&address=main.jsp";
         String message;
-
         try{
             if (reserveService.delete(userId,bookId)){
                 message = "Reserve is deleted";
-                successfulProcess(request,response,lastCommand,message);
+                successfulProcessRedirect(request,response,lastCommand,message);
             }else{
                 message = "Such reserve does not exist!";
                unsuccessfulProcess(request,response,lastCommand,message);

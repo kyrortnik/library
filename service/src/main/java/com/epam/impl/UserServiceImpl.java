@@ -13,6 +13,8 @@ import java.util.logging.Logger;
 
 
 
+
+
 public class UserServiceImpl implements UserService {
 
 
@@ -26,11 +28,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean registration(User user) throws ServiceException {
+    public UserDTO register(User user,String secondPassword) throws ServiceException {
+        boolean result;
         serviceValidator.validation(user);
+        serviceValidator.validation(secondPassword);
+        UserDTO registeredUser = null;
 
         try{
-            return (userDAO.find(user) == null) && userDAO.save(user);
+            if (user.getPassword().equals(secondPassword)){
+                registeredUser = userDAO.register(user);
+            }
+            return registeredUser;
         }catch (DAOException e){
             LOG.log(Level.SEVERE,"Exception: " + e);
             throw new ServiceException(e);
@@ -39,11 +47,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User logination(User user) throws ServiceException {
-        serviceValidator.validation(user);
+    public UserDTO login(String login,String enteredPassword) throws ServiceException {
+        serviceValidator.validation(login);
+        serviceValidator.validation(enteredPassword);
+        UserDTO foundUser;
         try {
-            user = userDAO.findByLogin(user);
-            return user;
+            foundUser = userDAO.login(login,enteredPassword);
+            return foundUser;
         } catch (DAOException e) {
             LOG.log(Level.SEVERE,"Exception: "+ e);
             throw new ServiceException(e);

@@ -8,7 +8,7 @@ import com.epam.ServiceFactory;
 import com.epam.UserService;
 import com.epam.entity.UserDTO;
 import com.epam.exception.ServiceException;
-import com.epam.security.Salt;
+import com.epam.validator.ControllerValidator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,42 +17,47 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 import static com.epam.util.ControllerConstants.*;
+import static java.util.Objects.nonNull;
 
 public class RegistrationCommand extends AbstractCommand implements Command {
 
+    private static final Logger LOG = Logger.getLogger(RegistrationCommand.class.getName());
+
     private final ServiceFactory factory = ServiceFactory.getInstance();
     private final UserService userService = factory.getUserService();
+    private final ControllerValidator controllerValidator = new ControllerValidator();
 
-    private static final Logger LOG = Logger.getLogger(RegistrationCommand.class.getName());
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
 
         LOG.info("Start in RegistrationCommand");
         String lastCommand;
-        String login = request.getParameter(LOGIN);;
+        String message;
+
+        String login = request.getParameter(LOGIN);
         String password = request.getParameter(PASSWORD);
         String secondPassword = request.getParameter(SECOND_PASSWORD);
-        boolean passwordsEquals = password.equals(secondPassword);
-        String saltBytes = Salt.generateSalt();
-        User user = new User(login, Salt.generateEncryptedPassword(password,saltBytes),USER, saltBytes);
+        controllerValidator.stringParameterValidation(login, password, secondPassword);
 
- try {
-            if (passwordsEquals && userService.registration(user)){
+        User user = new User(login, password, USER);
 
-            lastCommand = "frontController?command=go_To_Page&address=main.jsp";
-            UserDTO userDTO = userService.find(user);
-            request.getSession().setAttribute(USER, userDTO.getLogin());
-            request.getSession().setAttribute(ROLE,userDTO.getRole());
-            request.getSession().setAttribute(ID,userDTO.getId());
-            response.sendRedirect(lastCommand);
+        try {
+            UserDTO registeredUser = userService.register(user, secondPassword);
+            if (nonNull(registeredUser)) {
+                lastCommand = "frontController?command=go_To_Page&address=main.jsp";
+                message = "Registration successful";
+                request.getSession().setAttribute(USER, registeredUser.getLogin());
+                request.getSession().setAttribute(ROLE, registeredUser.getRole());
+                request.getSession().setAttribute(ID, registeredUser.getId());
+                successfulProcessRedirect(request, response, lastCommand, message);
+            } else {
+                lastCommand = "frontController?command=go_To_Page&address=login.jsp";
+                message = "Registration failed. Check that login is not empty and two passwords match.";
+                unsuccessfulProcess(request, response, lastCommand, message);
+
             }
-            else {
-            lastCommand = "frontController?command=go_To_Page&address=login.jsp";
-            request.setAttribute(REGISTRATION_ERROR_MESSAGE,"Registration failed. Check that login is not empty and two passwords match.");
-            request.getRequestDispatcher(lastCommand).forward(request,response);
-            }
-        }catch (IOException | ServletException | ServiceException e){
+        } catch (ServiceException | IOException | ServletException e) {
             throw new ControllerException(e);
         }
     }

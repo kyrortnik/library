@@ -5,7 +5,6 @@ import com.epam.ServiceFactory;
 import com.epam.command.AbstractCommand;
 import com.epam.command.Command;
 import com.epam.command.exception.ControllerException;
-import com.epam.entity.Book;
 import com.epam.exception.ServiceException;
 import com.epam.validator.ControllerValidator;
 
@@ -40,7 +39,7 @@ public class DeleteBookCommand extends AbstractCommand implements Command {
             if (bookService.delete(bookId)) {
                 lastCommand = "frontController?command=go_To_Page&address=main.jsp";
                 message = "Book is deleted";
-                successfulProcess(request, response, lastCommand, message);
+                successfulProcessRedirect(request, response, lastCommand, message);
             } else {
                 lastCommand = "frontController?command=product_Info?id=" + bookId;
                 message = "No such book exists";

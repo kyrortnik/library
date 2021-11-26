@@ -7,8 +7,8 @@ import com.epam.command.AbstractCommand;
 import com.epam.command.Command;
 import com.epam.command.exception.ControllerException;
 import com.epam.entity.Book;
-import com.epam.entity.Order;
 import com.epam.exception.ServiceException;
+import com.epam.validator.ControllerValidator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,26 +18,27 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import static com.epam.util.ControllerConstants.ID;
-import static com.epam.util.ControllerConstants.ORDER_MESSAGE;
+import static java.util.Objects.nonNull;
 
 public class OrderInfoCommand extends AbstractCommand implements Command {
+
+    private static final Logger LOG = Logger.getLogger(OrderInfoCommand.class.getName());
 
     private final ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private final OrderService orderService = serviceFactory.getOrderService();
     private final BookService bookService = serviceFactory.getBookService();
-
-    private static final Logger LOG = Logger.getLogger(OrderInfoCommand.class.getName());
-
+    private final ControllerValidator controllerValidator = new ControllerValidator();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
         LOG.info("Start in OrderInfoCommand");
 
         String lastCommand;
-        Long userId = (Long)request.getSession().getAttribute(ID);
+        String message;
+        Long userId = (Long) request.getSession().getAttribute(ID);
+        controllerValidator.validation(userId);
 
-
-        try{
+       /* try{
             Order order = orderService.getByUserId(userId);
             if (order == null){
                 request.setAttribute(ORDER_MESSAGE,"No order created for you yet.");
@@ -55,8 +56,21 @@ public class OrderInfoCommand extends AbstractCommand implements Command {
 
         }catch (IOException | ServletException | ServiceException e ){
             throw new ControllerException(e);
+        }*/
+        try {
+            List<Book> booksFromOrder = bookService.getBooksFromOrder(userId);
+            if (nonNull(booksFromOrder) || !booksFromOrder.isEmpty()) {
+                lastCommand = "frontController?command=go_To_Page&address=main.jsp";
+                request.setAttribute("booksFromOrder", booksFromOrder);
+                successfulProcessForward(request, response, lastCommand, null);
+            } else {
+                lastCommand = "frontController?command=go_To_Page&address=main.jsp";
+                message = " There's not order for you or no books in your order yet.";
+                unsuccessfulProcess(request, response, lastCommand, message);
+            }
+        } catch (IOException | ServiceException | ServletException e) {
+            throw new ControllerException(e);
         }
-
 
 
     }

@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface BookService {
 
+    List<Book> getBooksFromOrder(Long userId) throws ServiceException;
+
     Book findById(Long id) throws ServiceException;
 
     boolean create(Book book) throws ServiceException;

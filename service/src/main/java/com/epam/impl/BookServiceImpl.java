@@ -108,6 +108,15 @@ public class BookServiceImpl implements BookService {
 
     }
 
+    @Override
+    public List<Book> getBooksFromOrder(Long userId) throws ServiceException {
+        serviceValidator.validation(userId);
+        try {
+            return convertToBooks(bookDAO.getBookFromOrder(userId));
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+    }
 
     @Override
     public Page<Book> getAll(Page<Book> page) throws ServiceException {

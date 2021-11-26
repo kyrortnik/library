@@ -43,7 +43,7 @@
         ${password}:<br/>
         <input type="password" name="password" value=""/>
         <br/>
-        <h3>${loginErrorMessage}</h3>
+        <h3>${sessionScope.message}</h3>
         <br/>
         <input type="submit" value="${login}"/>
         </form>

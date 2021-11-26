@@ -8,7 +8,6 @@ import com.epam.entity.UserDTO;
 import com.epam.exception.DAOException;
 import com.epam.exception.ServiceException;
 import com.epam.repository.UserDAO;
-import com.epam.repository.impl.UserDAOImpl;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -41,20 +40,20 @@ public class UserServiceImplTest {
 
     //captures
 
-    @Test
-    public void testRegistration_positive() throws DAOException, ServiceException {
-
-        User user = new User(userId,login,password,role);
-        when(userDAO.find(user)).thenReturn(null);
-        when(userDAO.save(user)).thenReturn(true);
-        assertTrue(userService.registration(user));
-    }
+//    @Test
+//    public void testRegistration_positive() throws DAOException, ServiceException {
+//
+//        User user = new User(userId,login,password,role);
+//        when(userDAO.find(user)).thenReturn(null);
+//        when(userDAO.save(user)).thenReturn(true);
+//        assertTrue(userService.register(user,"secondPassword"));
+//    }
 
     @Test
     public void testLogination_positive() throws ServiceException, DAOException {
         User user = new User(userId,login,password,role);
         when(userDAO.findByLogin(user)).thenReturn(user);
-        assertEquals(user,userService.logination(user));
+        assertEquals(user,userService.login(login,password));
     }
 
     @Test

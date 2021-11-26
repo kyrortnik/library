@@ -226,7 +226,7 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
     @Override
     public boolean deleteFromOrder(Long userId, Long bookId) throws DAOException {
         List<Object> parameters;
-        boolean result;
+        boolean result = false;
         Connection connection = null;
         PreparedStatement findOrderStatement = null;
         PreparedStatement updateOrderStatement = null;
@@ -240,9 +240,7 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
             parameters = Collections.singletonList(userId);
             findOrderStatement = getPreparedStatement(FIND_ORDER, connection, parameters);
             findOrderResultSet = findOrderStatement.executeQuery();
-            if (!findOrderResultSet.next()) {
-                result = false;
-            } else {
+            if (findOrderResultSet.next()) {
 //  -------------2. When order exists - updates it removing asked product --------------------
                 Array updatedProducts = getUpdatedProductsArray(bookId, connection, findOrderResultSet);
                 parameters = Arrays.asList(updatedProducts, userId);
@@ -252,10 +250,10 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
                     parameters = Collections.singletonList(userId);
                     checkEmptyProductsStatement = getPreparedStatement(FIND_ORDER, connection, parameters);
                     checkProductsResultSet = checkEmptyProductsStatement.executeQuery();
-                    Long orderId = checkProductsResultSet.getLong(1);
-                    result = !productsAreEmpty(checkProductsResultSet) || delete(orderId);
-                } else {
-                    result = false;
+                    if (checkProductsResultSet.next()) {
+                        Long orderId = checkProductsResultSet.getLong(1);
+                        result = !productsAreEmpty(checkProductsResultSet) || delete(orderId);
+                    }
                 }
             }
             connection.commit();
@@ -319,18 +317,14 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
         return Stream.concat(productsInExistingOrder.stream(), productsToAdd.stream()).distinct().collect(Collectors.toList());
     }
 
-    private List<Long> getOrderWithDeleteProducts(List<Long> productsInExistingOrder, List<Long> productsToDelete) {
-        productsInExistingOrder.removeAll(productsToDelete);
-        return productsInExistingOrder;
-
-    }
 
     private Array getUpdatedProductsArray(Long bookId, Connection connection, ResultSet findOrderResultSet) throws SQLException {
         Array pgArray = findOrderResultSet.getArray(2);
         Long[] longArray = (Long[]) pgArray.getArray();
         List<Long> productsInExistingOrder = Arrays.asList(longArray);
-        return connection.createArrayOf("bigint",
-                getOrderWithDeleteProducts(productsInExistingOrder, Collections.singletonList(bookId)).toArray());
+        ArrayList<Long> list = new ArrayList<>(productsInExistingOrder);
+        list.remove(bookId);
+        return connection.createArrayOf("bigint", list.toArray());
     }
 
 

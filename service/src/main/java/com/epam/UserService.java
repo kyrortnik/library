@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface UserService {
 
-   boolean registration(User user) throws ServiceException;
+   UserDTO register(User user,String secondPassword) throws ServiceException;
 
-    User logination(User user) throws ServiceException;
+    UserDTO login(String login,String enteredPassword) throws ServiceException;
 
     UserDTO find(User user) throws ServiceException;
 

@@ -44,7 +44,7 @@ public class CreateReserveCommand extends AbstractCommand implements Command {
             if (reserveService.save(reserve)) {
                 lastCommand = "frontController?command=go_To_Page&address=main.jsp";
                 message = "Book is reserved";
-                successfulProcess(request, response, lastCommand, message);
+                successfulProcessRedirect(request, response, lastCommand, message);
             } else {
                 lastCommand = "frontController?command=go_To_Page&address=main.jsp";
                 message = "Product is not added to Reserve list! Reserve for this product already exists.";
