@@ -21,7 +21,7 @@ import static com.epam.util.ControllerConstants.RESERVED_BOOKS;
 public class CreateOrderCommand extends AbstractCommand implements Command {
 
     private static final Logger LOG = Logger.getLogger(CreateOrderCommand.class.getName());
-    private static final String BOOK_ID_FINDER_PATTERN = "(?<=id=)\\d*(?=\\,)";
+    private static final String BOOK_ID_FINDER_PATTERN = "(?<=id=)\\d*(?=,)";
 
     private final ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private final OrderService orderService = serviceFactory.getOrderService();
@@ -38,9 +38,9 @@ public class CreateOrderCommand extends AbstractCommand implements Command {
             List<Long> bookIds = getReservedBookIds(request);
             String message;
             String lastCommand = "frontController?command=go_To_Page&address=main.jsp";
-            if (orderService.createByUserId(userId, bookIds)) {
+            if (orderService.create(userId, bookIds)) {
                 message =  "Products ordered! To see the click to Order List";
-                successfulProcessRedirect(request, lastCommand,message);
+                successfulProcess(request, lastCommand,message);
                 response.sendRedirect(lastCommand);
             } else {
                 message = "Couldn't create or update existing order";

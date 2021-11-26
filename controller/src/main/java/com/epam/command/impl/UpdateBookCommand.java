@@ -33,19 +33,19 @@ public class UpdateBookCommand extends AbstractCommand implements Command {
         String lastCommand;
         String message;
 
-        try{
-            if (bookService.update(book)){
+        try {
+            if (bookService.update(book)) {
                 lastCommand = "frontController?command=go_To_Page&address=main.jsp";
                 message = "Book is updated";
-                successfulProcessForward(request,lastCommand,message);
+                successfulProcess(request, lastCommand, message);
                 response.sendRedirect(lastCommand);
-            }else {
-                lastCommand = "frontController?command=productInfo&id="+ bookId;
+            } else {
+                lastCommand = "frontController?command=productInfo&id=" + bookId;
                 message = "No such book exists";
-                unsuccessfulProcess(request,lastCommand,message);
-                request.getRequestDispatcher(lastCommand).forward(request,response);
+                unsuccessfulProcess(request, lastCommand, message);
+                request.getRequestDispatcher(lastCommand).forward(request, response);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new ControllerException(e);
         }
     }
@@ -68,7 +68,7 @@ public class UpdateBookCommand extends AbstractCommand implements Command {
         int numberOfPages = Integer.parseInt(pages);
         int publishingYear = Integer.parseInt(publishYear);
 
-        return new Book (id,title,author,publishingYear,publisher,genre,numberOfPages,isHardCover,description);
+        return new Book(id, title, author, publishingYear, publisher, genre, numberOfPages, isHardCover, description);
     }
 
 }

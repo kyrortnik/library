@@ -7,18 +7,9 @@ import com.epam.exception.DAOException;
 
 public interface UserDAO extends BaseDAO<User> {
 
-    boolean changePassword(User user, String newPassword) throws DAOException;
-
     UserDTO register(User user) throws DAOException;
 
-    UserDTO login(String login,String password) throws DAOException;
+    UserDTO login(String login, String password) throws DAOException;
 
-    User findByLogin(User user) throws DAOException;
-
- //   UserDTO findUserByLogin(String login);
-
-//    boolean findUserByLogin(User user);
-
-
-     Pageable<UserDTO> findPageByParameters(Pageable<UserDTO> daoProductPageable) throws DAOException;
+    Pageable<UserDTO> findUsersPageByParameters(Pageable<UserDTO> daoProductPageable) throws DAOException;
 }

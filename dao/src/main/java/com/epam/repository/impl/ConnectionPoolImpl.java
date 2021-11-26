@@ -63,9 +63,9 @@ public class ConnectionPoolImpl implements ConnectionPool {
             Connection connection = availableConnections.take();
             LOG.info("=======take()");
 
-            if (!connection.isValid(MAX_TIMEOUT)) {
+           /* if (!connection.isValid(MAX_TIMEOUT)) {
                 connection = createConnection(url, username, password);
-            }
+            }*/
             takenConnections.add(connection);
             LOG.info("=======availableConnections.size() is " + availableConnections.size());
             LOG.info("=======takenConnections.size() is " + takenConnections.size());

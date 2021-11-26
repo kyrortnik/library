@@ -41,11 +41,11 @@ public class ShowReservesCommand extends AbstractCommand implements Command {
             Page<Book> pageReserves = new Page<>();
             pageReserves.setPageNumber(currentPage);
 
-            pageReserves = bookService.getReservesPage(pageReserves, userId);
+            pageReserves = bookService.getReservedBooksPage(pageReserves, userId);
             controllerValidator.validation(pageReserves);
             if (!pageReserves.getElements().isEmpty()) {
                 request.setAttribute(PAGEABLE_RESERVES, pageReserves);
-                successfulProcessForward(request, lastCommand, null);
+                successfulProcess(request, lastCommand, null);
             } else {
                 message = "No reserves for you yet.";
                 unsuccessfulProcess(request, lastCommand, message);

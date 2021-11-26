@@ -43,7 +43,7 @@ public class CreateReserveCommand extends AbstractCommand implements Command {
             String message;
             if (reserveService.save(reserve)) {
                 message = "Book is reserved";
-                successfulProcessRedirect(request,lastCommand, message);
+                successfulProcess(request,lastCommand, message);
                 response.sendRedirect(lastCommand);
             } else {
                 message = "Product is not added to Reserve list! Reserve for this product already exists.";

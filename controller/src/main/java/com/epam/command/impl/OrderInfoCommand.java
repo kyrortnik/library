@@ -1,7 +1,6 @@
 package com.epam.command.impl;
 
 import com.epam.BookService;
-import com.epam.OrderService;
 import com.epam.ServiceFactory;
 import com.epam.command.AbstractCommand;
 import com.epam.command.Command;
@@ -18,7 +17,6 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import static com.epam.util.ControllerConstants.ID;
-import static java.util.Objects.nonNull;
 
 public class OrderInfoCommand extends AbstractCommand implements Command {
 
@@ -43,7 +41,7 @@ public class OrderInfoCommand extends AbstractCommand implements Command {
             controllerValidator.listParameterValidator(booksFromOrder);
             if (!booksFromOrder.isEmpty()) {
                 request.setAttribute("booksFromOrder", booksFromOrder);
-                successfulProcessForward(request, lastCommand, null);
+                successfulProcess(request, lastCommand, null);
             } else {
                 message = " There's not order for you or no books in your order yet.";
                 unsuccessfulProcess(request, lastCommand, message);

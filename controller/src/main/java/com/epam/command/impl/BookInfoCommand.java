@@ -33,16 +33,20 @@ public class BookInfoCommand extends AbstractCommand implements Command {
         String userId = request.getParameter(ID);
         controllerValidator.numericParameterValidation(userId);
 
+        String lastCommand = defineLastCommand(request, false);
+        String message;
+
         try {
             Book book = bookService.findById(Long.parseLong(userId));
 
             if (book != null) {
                 request.setAttribute(BOOK, book);
+                successfulProcess(request, lastCommand, null);
             } else {
-                request.setAttribute(MESSAGE, "No such product was found");
+                message = "No such product was found";
+                unsuccessfulProcess(request, lastCommand, message);
             }
 
-            String lastCommand = defineLastCommand(request, false);
             request.getSession().setAttribute(LAST_COMMAND, lastCommand);
             request.getSession().setAttribute(MESSAGE, null);
             request.getRequestDispatcher("frontController?command=go_To_Page&address=productInfo.jsp").forward(request, response);

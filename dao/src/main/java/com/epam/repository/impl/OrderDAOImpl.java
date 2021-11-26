@@ -6,9 +6,11 @@ import com.epam.exception.DAOException;
 import com.epam.repository.ConnectionPool;
 import com.epam.repository.OrderDAO;
 
-
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -19,53 +21,17 @@ import static java.util.Objects.nonNull;
 
 public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
 
-    private static final String FIND_ORDER = "SELECT * FROM orders WHERE user_id = ?";
-    private static final String FIND_ORDER_BY_ID = "SELECT * FROM orders WHERE order_id = ?";
-    private static final String GET_ALL_ORDERS = "SELECT * FROM orders";
+    private static final Logger LOG = Logger.getLogger(OrderDAOImpl.class.getName());
+
+    private static final String FIND_ORDER_BY_USER_ID = "SELECT order_id, product_ids, user_id FROM orders WHERE user_id = ?";
+    private static final String FIND_ORDER = "SELECT order_id, product_ids, user_id product FROM orders WHERE order_id = ?";
     private static final String SAVE_ORDER = "INSERT INTO orders VALUES (DEFAULT, ?, ?) ";
     private static final String DELETE_ORDER = "DELETE FROM orders WHERE order_id = ?";
-    private static final String UPDATE_ORDER = "UPDATE orders SET product_id = ? WHERE user_id = ? ";
-    private static final String FIND_BY_USER_ID = "SELECT * FROM orders WHERE user_id = ?";
-//    private static final String FIND_ORDER_BY_USER_AND_PRODUCT = "SELECT * FROM orders WHERE user_id = ? AND product_id LIKE %?%";
-
-    private static final Logger LOG = Logger.getLogger(OrderDAOImpl.class.getName());
+    private static final String UPDATE_ORDER = "UPDATE orders SET product_ids = ? WHERE user_id = ? ";
 
     public OrderDAOImpl(ConnectionPool connectionPool) {
         super(connectionPool);
     }
-
-
-    @Override
-    public Order find(Order order) throws DAOException {
-
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            connection = connectionPool.getConnection();
-            statement = connection.prepareStatement(FIND_ORDER);
-            statement.setLong(1, order.getUserId());
-            resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                Order foundOrder = new Order();
-                foundOrder.setId(resultSet.getLong(1));
-                foundOrder.setProductIds((List<Long>) resultSet.getArray(2));
-                foundOrder.setUserId(resultSet.getLong(3));
-                return foundOrder;
-            }
-            return null;
-
-        } catch (SQLException e) {
-            LOG.log(Level.SEVERE, "Exception: " + e);
-            throw new DAOException(e);
-        } finally {
-            closeResultSet(resultSet);
-            closeStatement(statement);
-            connectionPool.releaseConnection(connection);
-        }
-
-    }
-
 
     @Override
     public Order findById(Long id) throws DAOException {
@@ -75,13 +41,13 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
         Order order;
         try {
             connection = connectionPool.getConnection();
-            statement = connection.prepareStatement(FIND_ORDER_BY_ID);
+            statement = connection.prepareStatement(FIND_ORDER);
             statement.setLong(1, id);
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 order = new Order();
                 order.setId(resultSet.getLong(1));
-                order.setProductIds((List<Long>) resultSet.getArray(2));
+                order.setProductIds(getListFromArray(resultSet));
                 order.setUserId(resultSet.getLong(3));
                 return order;
             }
@@ -96,35 +62,6 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
         }
     }
 
-    @Override
-    public List<Order> getAll() throws DAOException {
-
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-
-        try {
-            ArrayList<Order> orders = new ArrayList<>();
-            connection = connectionPool.getConnection();
-            statement = connection.prepareStatement(GET_ALL_ORDERS);
-            resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                Order order = new Order();
-                order.setId(resultSet.getLong(1));
-                order.setProductIds((List<Long>) resultSet.getArray(2));
-                order.setUserId(resultSet.getLong(3));
-                orders.add(order);
-            }
-            return orders;
-        } catch (SQLException e) {
-            LOG.log(Level.SEVERE, "Exception: " + e);
-            throw new DAOException(e);
-        } finally {
-            closeResultSet(resultSet);
-            closeStatement(statement);
-            connectionPool.releaseConnection(connection);
-        }
-    }
 
     @Override
     public boolean save(Order order) throws DAOException {
@@ -137,9 +74,8 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
         try {
             connection = connectionPool.getConnection();
             connection.setAutoCommit(false);
-
             parameters = Collections.singletonList(order.getUserId());
-            findOrderStatement = getPreparedStatement(FIND_BY_USER_ID, connection, parameters);
+            findOrderStatement = getPreparedStatement(FIND_ORDER_BY_USER_ID, connection, parameters);
             findOrderResultSet = findOrderStatement.executeQuery();
             if (!findOrderResultSet.next()) {
                 Array productIds = connection.createArrayOf("bigint", order.getProductIds().toArray());
@@ -238,25 +174,26 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
             connection = connectionPool.getConnection();
             connection.setAutoCommit(false);
             parameters = Collections.singletonList(userId);
-            findOrderStatement = getPreparedStatement(FIND_ORDER, connection, parameters);
+            findOrderStatement = getPreparedStatement(FIND_ORDER_BY_USER_ID, connection, parameters);
             findOrderResultSet = findOrderStatement.executeQuery();
             if (findOrderResultSet.next()) {
 //  -------------2. When order exists - updates it removing asked product --------------------
                 Array updatedProducts = getUpdatedProductsArray(bookId, connection, findOrderResultSet);
                 parameters = Arrays.asList(updatedProducts, userId);
                 updateOrderStatement = getPreparedStatement(UPDATE_ORDER, connection, parameters);
-//  -------------3. Check if products are empty after update - if so deletes the order --------------------
+//  -------------3. Checks if products are empty after update - if so deletes the order --------------------
                 if (updateOrderStatement.executeUpdate() != 0) {
                     parameters = Collections.singletonList(userId);
-                    checkEmptyProductsStatement = getPreparedStatement(FIND_ORDER, connection, parameters);
+                    checkEmptyProductsStatement = getPreparedStatement(FIND_ORDER_BY_USER_ID, connection, parameters);
                     checkProductsResultSet = checkEmptyProductsStatement.executeQuery();
+                    connection.commit();
                     if (checkProductsResultSet.next()) {
                         Long orderId = checkProductsResultSet.getLong(1);
                         result = !productsAreEmpty(checkProductsResultSet) || delete(orderId);
                     }
                 }
             }
-            connection.commit();
+
             return result;
         } catch (SQLException e) {
             try {
@@ -282,15 +219,13 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
 
         try {
             connection = connectionPool.getConnection();
-            statement = connection.prepareStatement(FIND_BY_USER_ID);
+            statement = connection.prepareStatement(FIND_ORDER_BY_USER_ID);
             statement.setLong(1, userId);
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 Order foundOrder = new Order();
                 foundOrder.setId(resultSet.getLong(1));
-                Array pgArray = resultSet.getArray(2);
-                Long[] longArray = (Long[]) pgArray.getArray();
-                foundOrder.setProductIds(Arrays.asList(longArray));
+                foundOrder.setProductIds(getListFromArray(resultSet));
                 foundOrder.setUserId(resultSet.getLong(3));
                 if (!foundOrder.getProductIds().isEmpty()) {
                     return foundOrder;
@@ -319,13 +254,17 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
 
 
     private Array getUpdatedProductsArray(Long bookId, Connection connection, ResultSet findOrderResultSet) throws SQLException {
-        Array pgArray = findOrderResultSet.getArray(2);
-        Long[] longArray = (Long[]) pgArray.getArray();
-        List<Long> productsInExistingOrder = Arrays.asList(longArray);
+        List<Long> productsInExistingOrder = getListFromArray(findOrderResultSet);
         ArrayList<Long> list = new ArrayList<>(productsInExistingOrder);
         list.remove(bookId);
         return connection.createArrayOf("bigint", list.toArray());
     }
 
+
+    private List<Long> getListFromArray(ResultSet resultSet) throws SQLException {
+        Array pgArray = resultSet.getArray(2);
+        Long[] longArray = (Long[]) pgArray.getArray();
+        return Arrays.asList(longArray);
+    }
 
 }

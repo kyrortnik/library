@@ -6,7 +6,6 @@ public class Order extends Entity {
 
     private List<Long> productIds;
     private Long userId;
-    private String status;
 
     public Order(){
     }
@@ -26,12 +25,6 @@ public class Order extends Entity {
         this.productIds = productIds;
         this.userId = userId;
    }
-    public Order(Long id, List<Long> productIds, Long userId,String status){
-        super(id);
-        this.productIds = productIds;
-        this.userId = userId;
-        this.status = status;
-    }
 
 
     public List<Long> getProductIds() {
@@ -50,14 +43,6 @@ public class Order extends Entity {
         this.userId = userId;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -67,8 +52,7 @@ public class Order extends Entity {
         Order order = (Order) o;
 
         if (productIds != null ? !productIds.equals(order.productIds) : order.productIds != null) return false;
-        if (userId != null ? !userId.equals(order.userId) : order.userId != null) return false;
-        return status != null ? status.equals(order.status) : order.status == null;
+        return userId != null ? userId.equals(order.userId) : order.userId == null;
     }
 
     @Override
@@ -76,16 +60,14 @@ public class Order extends Entity {
         int result = super.hashCode();
         result = 31 * result + (productIds != null ? productIds.hashCode() : 0);
         result = 31 * result + (userId != null ? userId.hashCode() : 0);
-        result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         return "Order{" +
-                "productIds='" + productIds + '\'' +
+                "productIds=" + productIds +
                 ", userId=" + userId +
-                ", status='" + status + '\'' +
                 '}';
     }
 }

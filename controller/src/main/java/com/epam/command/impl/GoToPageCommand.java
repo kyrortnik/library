@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-import static com.epam.util.ControllerConstants.*;
+import static com.epam.util.ControllerConstants.ADDRESS;
 
 public class GoToPageCommand extends AbstractCommand implements Command {
 

@@ -5,11 +5,21 @@ import com.epam.exception.ServiceException;
 
 import java.util.List;
 
-
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 
-public class ServiceValidator {
+public final class ServiceValidator {
+
+    private ServiceValidator() {
+    }
+
+    private final static ServiceValidator INSTANCE = new ServiceValidator();
+
+    public static ServiceValidator getInstance() {
+        return INSTANCE;
+    }
+
 
     public void validation(User user) throws ServiceException {
         if (isNull(user) || ("".equals(user.getLogin()) && "".equals(user.getPassword()))) {
@@ -50,13 +60,17 @@ public class ServiceValidator {
         }
     }
 
-    public void validation(Page<Book> bookPageRequest) throws ServiceException {
+    public void validation(Page<?> bookPageRequest) throws ServiceException {
         if (isNull(bookPageRequest)) {
+            throw new ServiceException("BookPageRequest is null");
+        }
+        boolean isValidPage = nonNull(bookPageRequest.getPageNumber()) && nonNull(bookPageRequest.getSortBy()) && nonNull(bookPageRequest.getDirection());
+        if (!isValidPage) {
             throw new ServiceException("BookPageRequest is null");
         }
     }
 
-    public void validation(List parametersList) throws ServiceException {
+    public void validation(List<?> parametersList) throws ServiceException {
         if (isNull(parametersList) || parametersList.isEmpty()) {
             throw new ServiceException("Parameters list is null or empty");
         }

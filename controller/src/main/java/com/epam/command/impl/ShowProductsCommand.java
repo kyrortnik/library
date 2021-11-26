@@ -39,11 +39,11 @@ public class ShowProductsCommand extends AbstractCommand implements Command {
             String message;
             String pageForRedirect = "frontController?command=go_To_Page&address=main.jsp";
 
-            Page<Book> page = bookService.getAll(pageRequest);
+            Page<Book> page = bookService.getBooksPage(pageRequest);
 
             if (!page.getElements().isEmpty()) {
                 request.setAttribute(PAGEABLE, page);
-                successfulProcessForward(request, lastCommand, null);
+                successfulProcess(request, lastCommand, null);
             } else {
                 message = "No books in library yet";
                 unsuccessfulProcess(request, lastCommand, message);

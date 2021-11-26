@@ -38,16 +38,16 @@ public class DeleteBookFromOrderCommand extends AbstractCommand implements Comma
         String lastCommand;
         String message;
         try {
-            if (orderService.deleteFromOrder(userId,bookId)) {
+            if (orderService.deleteFromOrder(userId, bookId)) {
                 lastCommand = "frontController?command=go_To_Page&address=main.jsp";
                 message = "Book is deleted from order";
-                successfulProcessRedirect(request, lastCommand, message);
+                successfulProcess(request, lastCommand, message);
                 response.sendRedirect(lastCommand);
             } else {
                 lastCommand = "frontController?command=order_Info";
                 message = "Book wasn't deleted from order";
                 unsuccessfulProcess(request, lastCommand, message);
-                request.getRequestDispatcher(lastCommand).forward(request,response);
+                request.getRequestDispatcher(lastCommand).forward(request, response);
             }
         } catch (Exception e) {
             throw new ControllerException(e);

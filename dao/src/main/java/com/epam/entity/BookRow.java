@@ -12,56 +12,14 @@ public class BookRow extends ProductRow {
     public BookRow() {
     }
 
-    public BookRow(Long id) {
-        super(id);
-    }
 
     public BookRow(Long id, String title, String author, int publishingYear) {
         super(id, title, author);
         this.publishingYear = publishingYear;
     }
 
-    public BookRow(Long id, String title, String author, int publishingYear, String publisher) {
+    public BookRow(Long id, String title, String author, int publishingYear, String publisher,  String genre, int numberOfPages, boolean isHardCover, String description) {
         super(id, title, author);
-        this.publishingYear = publishingYear;
-        this.publisher = publisher;
-    }
-
-    public BookRow(Long id, String title, String author, int publishingYear, String publisher, String genre) {
-        super(id, title, author);
-        this.publishingYear = publishingYear;
-        this.publisher = publisher;
-        this.genre = genre;
-    }
-
-    public BookRow(Long id, String title, String author, int publishingYear, String publisher, String genre, int numberOfPages) {
-        super(id, title, author);
-        this.publishingYear = publishingYear;
-        this.publisher = publisher;
-        this.genre = genre;
-        this.numberOfPages = numberOfPages;
-    }
-
-    public BookRow(Long id, String title, String author, int publishingYear, String publisher, String genre, int numberOfPages, boolean isHardCover) {
-        super(id, title, author);
-        this.publishingYear = publishingYear;
-        this.publisher = publisher;
-        this.genre = genre;
-        this.numberOfPages = numberOfPages;
-        this.isHardCover = isHardCover;
-    }
-
-    public BookRow(Long id, String title, String author, int publishingYear, String publisher, boolean isReserved, String genre, int numberOfPages, boolean isHardCover) {
-        super(id,title,author,isReserved);
-        this.publishingYear = publishingYear;
-        this.publisher = publisher;
-        this.genre = genre;
-        this.numberOfPages = numberOfPages;
-        this.isHardCover = isHardCover;
-
-    }
-    public BookRow(Long id, String title, String author, int publishingYear, String publisher, boolean isReserved, String genre, int numberOfPages, boolean isHardCover,String description) {
-        super(id,title,author,isReserved);
         this.publishingYear = publishingYear;
         this.publisher = publisher;
         this.genre = genre;
@@ -71,16 +29,6 @@ public class BookRow extends ProductRow {
 
     }
 
-    public BookRow(Long id, String title, String author, int publishingYear, String publisher, String genre, int numberOfPages, boolean isHardCover,String description) {
-        super(id,title,author);
-        this.publishingYear = publishingYear;
-        this.publisher = publisher;
-        this.genre = genre;
-        this.numberOfPages = numberOfPages;
-        this.isHardCover = isHardCover;
-        this.description = description;
-
-    }
 
 
 

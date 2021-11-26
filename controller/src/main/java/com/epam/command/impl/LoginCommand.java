@@ -13,10 +13,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Objects;
 import java.util.logging.Logger;
 
 import static com.epam.util.ControllerConstants.*;
+import static java.util.Objects.nonNull;
 
 
 public class LoginCommand extends AbstractCommand implements Command {
@@ -40,19 +40,19 @@ public class LoginCommand extends AbstractCommand implements Command {
         try {
             LOG.info("Start in LoginCommand");
             UserDTO foundUser = userService.login(login, password);
-            if (Objects.nonNull(foundUser)) {
+            if (nonNull(foundUser)) {
                 lastCommand = "frontController?command=go_To_Page&address=main.jsp";
-                message = "Hello";
+                message = "Hello," + login + " !";
                 request.getSession().setAttribute(USER, foundUser.getLogin());
                 request.getSession().setAttribute(ROLE, foundUser.getRole());
                 request.getSession().setAttribute(ID, foundUser.getId());
-                successfulProcessRedirect(request, lastCommand, message);
+                successfulProcess(request, lastCommand, message);
                 response.sendRedirect(lastCommand);
             } else {
                 lastCommand = "frontController?command=go_To_Page&address=login.jsp";
                 message = "Incorrect login or password.Try again";
                 unsuccessfulProcess(request, lastCommand, message);
-                request.getRequestDispatcher(lastCommand).forward(request,response);
+                request.getRequestDispatcher(lastCommand).forward(request, response);
             }
         } catch (IOException | ServiceException | ServletException e) {
             throw new ControllerException(e);

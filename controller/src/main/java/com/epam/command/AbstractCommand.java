@@ -2,25 +2,18 @@ package com.epam.command;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
 import static com.epam.util.ControllerConstants.*;
-import static com.epam.util.ControllerConstants.MESSAGE;
 
 public abstract class AbstractCommand implements Command {
 
 
-    protected void successfulProcessRedirect(HttpServletRequest request, String lastCommand, String message) throws IOException {
+    protected void successfulProcess(HttpServletRequest request, String lastCommand, String message) throws IOException {
         request.getSession().setAttribute(LAST_COMMAND,lastCommand);
         request.getSession().setAttribute(MESSAGE,message);
     }
-    protected void successfulProcessForward(HttpServletRequest request,  String lastCommand, String message) throws IOException, ServletException {
-        request.getSession().setAttribute(LAST_COMMAND,lastCommand);
-        request.getSession().setAttribute(MESSAGE,message);
-    }
-
 
     protected void unsuccessfulProcess(HttpServletRequest request, String lastCommand,String message) throws IOException, ServletException {
         request.getSession().setAttribute(LAST_COMMAND,lastCommand);

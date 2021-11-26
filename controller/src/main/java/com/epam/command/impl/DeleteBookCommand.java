@@ -39,13 +39,13 @@ public class DeleteBookCommand extends AbstractCommand implements Command {
             if (bookService.delete(bookId)) {
                 lastCommand = "frontController?command=go_To_Page&address=main.jsp";
                 message = "Book is deleted";
-                successfulProcessRedirect(request,lastCommand, message);
+                successfulProcess(request, lastCommand, message);
                 response.sendRedirect(lastCommand);
             } else {
                 lastCommand = "frontController?command=product_Info?id=" + bookId;
                 message = "No such book exists";
                 unsuccessfulProcess(request, lastCommand, message);
-                request.getRequestDispatcher(lastCommand).forward(request,response);
+                request.getRequestDispatcher(lastCommand).forward(request, response);
             }
         } catch (IOException | ServiceException | ServletException e) {
             throw new ControllerException(e);

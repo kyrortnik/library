@@ -39,7 +39,7 @@ public class DeleteReserveCommand extends AbstractCommand implements Command {
         try{
             if (reserveService.delete(userId,bookId)){
                 message = "Reserve is deleted";
-                successfulProcessRedirect(request,lastCommand,message);
+                successfulProcess(request,lastCommand,message);
                 response.sendRedirect(lastCommand);
             }else{
                 message = "Such reserve does not exist!";

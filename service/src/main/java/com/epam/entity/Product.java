@@ -90,4 +90,14 @@ public class Product {
         result = 31 * result + (isReserved ? 1 : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", isReserved=" + isReserved +
+                '}';
+    }
 }

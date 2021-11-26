@@ -2,7 +2,7 @@ package com.epam.entity;
 
 public class User extends Entity {
 
-
+//TODO password to char[]
     private  String login;
     private  String password;
     private  String role;

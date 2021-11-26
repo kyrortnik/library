@@ -45,10 +45,10 @@ public class ShowUsersCommand extends AbstractCommand implements Command {
 
             if (!usersPage.getElements().isEmpty()) {
                 request.setAttribute(PAGEABLE_USERS, usersPage);
-                successfulProcessForward(request, lastCommand, null);
+                successfulProcess(request, lastCommand, null);
             } else {
                 message = "Users were not found";
-                successfulProcessForward(request, lastCommand, message);
+                successfulProcess(request, lastCommand, message);
             }
             request.getRequestDispatcher(pageForRedirect).forward(request, response);
 

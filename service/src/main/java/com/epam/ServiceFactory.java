@@ -5,6 +5,7 @@ import com.epam.impl.OrderServiceImpl;
 import com.epam.impl.ReserveServiceImpl;
 import com.epam.impl.UserServiceImpl;
 import com.epam.repository.DAOFactory;
+import com.epam.validator.ServiceValidator;
 
 public class ServiceFactory {
 
@@ -17,25 +18,30 @@ public class ServiceFactory {
 
     private ServiceFactory() {
         DAOFactory daoFactory = DAOFactory.getInstance();
-        this.userService = new UserServiceImpl(daoFactory.getUserDAO());
-        this.orderService = new OrderServiceImpl(daoFactory.getOrderDAO());
-        this.bookService = new BookServiceImpl(daoFactory.getBookDAO());
-        this.reserveService = new ReserveServiceImpl(daoFactory.getReserveDAO());
+        ServiceValidator serviceValidator = ServiceValidator.getInstance();
+        this.userService = new UserServiceImpl(daoFactory.getUserDAO(), serviceValidator);
+        this.orderService = new OrderServiceImpl(daoFactory.getOrderDAO(), serviceValidator);
+        this.bookService = new BookServiceImpl(daoFactory.getBookDAO(), serviceValidator);
+        this.reserveService = new ReserveServiceImpl(daoFactory.getReserveDAO(), serviceValidator);
     }
 
-    public UserService getUserService(){ return  userService; }
+    public UserService getUserService() {
+        return userService;
+    }
 
-    public OrderService getOrderService(){
+    public OrderService getOrderService() {
         return orderService;
     }
 
-    public BookService getBookService(){
+    public BookService getBookService() {
         return bookService;
     }
 
-    public ReserveService getReserveService(){return reserveService;}
+    public ReserveService getReserveService() {
+        return reserveService;
+    }
 
-    public static ServiceFactory getInstance(){
+    public static ServiceFactory getInstance() {
         return INSTANCE;
     }
 }

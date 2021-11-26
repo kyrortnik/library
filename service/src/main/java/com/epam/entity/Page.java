@@ -1,42 +1,24 @@
 package com.epam.entity;
 
+import static com.epam.repository.utils.DBConstants.*;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.epam.repository.utils.DBConstants;
 
 public class Page<T> {
 
 
     private Long pageNumber;
     private long totalElements;
-    private int limit;
+    private int limit = MAX_ROWS;
     private int offset;
     private List<T> elements = new ArrayList<>();
-//    private T filter;
     private String sortBy = "author";
     private String direction = "ASC";
 
     public Page() {
-        this.limit = DBConstants.MAX_ROWS;
     }
 
-    public Page(Long currentPage){
-        this.pageNumber = currentPage;
-        Long longOffset = calculateOffset(this.pageNumber,  DBConstants.MAX_ROWS);
-        this.offset = longOffset.intValue();
-        this.limit = DBConstants.MAX_ROWS;
-    }
-
-//    public Page(int pageNumber, long totalElements, int limit, List<T> elements,/* T filter,*/ String sortBy, String direction) {
-//        this.pageNumber = pageNumber;
-//        this.totalElements = totalElements;
-//        this.limit = limit;
-//        this.elements = elements;
-//        this.filter = filter;
-//        this.sortBy = sortBy;
-//        this.direction = direction;
-//    }
 
     public Page(Long pageNumber, long totalElements, int limit, List<T> elements, String sortBy, String direction) {
         this.pageNumber = pageNumber;
@@ -80,14 +62,6 @@ public class Page<T> {
         this.elements = elements;
     }
 
-//    public T getFilter() {
-//        return filter;
-//    }
-//
-//    public void setFilter(T filter) {
-//        this.filter = filter;
-//    }
-
     public String getSortBy() {
         return sortBy;
     }
@@ -111,56 +85,6 @@ public class Page<T> {
     public void setOffset(int offset) {
         this.offset = offset;
     }
-
-    private int calculateMaxPage(long countItems, int MAX_ROWS){
-        return (int) Math.ceil(((double) countItems) / MAX_ROWS);
-    }
-
-    private Long calculateOffset(Long currentPage, int _MAX_ROWS_AT_PAGE) {
-        return (currentPage - 1) * _MAX_ROWS_AT_PAGE;
-    }
-
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//
-//        Page<?> page = (Page<?>) o;
-//
-//        if (pageNumber != page.pageNumber) return false;
-//        if (totalElements != page.totalElements) return false;
-//        if (limit != page.limit) return false;
-//        if (elements != null ? !elements.equals(page.elements) : page.elements != null) return false;
-//        if (filter != null ? !filter.equals(page.filter) : page.filter != null) return false;
-//        if (sortBy != null ? !sortBy.equals(page.sortBy) : page.sortBy != null) return false;
-//        return direction != null ? direction.equals(page.direction) : page.direction == null;
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        int result = pageNumber;
-//        result = 31 * result + (int) (totalElements ^ (totalElements >>> 32));
-//        result = 31 * result + limit;
-//        result = 31 * result + (elements != null ? elements.hashCode() : 0);
-//        result = 31 * result + (filter != null ? filter.hashCode() : 0);
-//        result = 31 * result + (sortBy != null ? sortBy.hashCode() : 0);
-//        result = 31 * result + (direction != null ? direction.hashCode() : 0);
-//        return result;
-//    }
-//
-//    @Override
-//    public String toString() {
-//        return "Page{" +
-//                "pageNumber=" + pageNumber +
-//                ", totalElements=" + totalElements +
-//                ", limit=" + limit +
-//                ", elements=" + elements +
-//                ", filter=" + filter +
-//                ", sortBy='" + sortBy + '\'' +
-//                ", direction='" + direction + '\'' +
-//                '}';
-//    }
 
 
     @Override

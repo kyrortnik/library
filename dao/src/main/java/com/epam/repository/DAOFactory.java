@@ -8,14 +8,13 @@ public class DAOFactory {
 
     private static final DAOFactory INSTANCE = new DAOFactory();
 
-    private final ConnectionPool connectionPool = new ConnectionPoolImpl(new PropertyInitializer());
-
     private final BookDAO bookDAO;
     private final UserDAO userDAO;
     private final OrderDAO orderDAO;
     private final ReserveDAO reserveDAO;
 
     private DAOFactory() {
+        ConnectionPool connectionPool = new ConnectionPoolImpl(new PropertyInitializer());
         bookDAO = new BookDAOImpl(connectionPool);
         userDAO = new UserDAOImpl(connectionPool);
         orderDAO = new OrderDAOImpl(connectionPool);

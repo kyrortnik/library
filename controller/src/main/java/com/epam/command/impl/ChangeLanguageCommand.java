@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 import static com.epam.util.ControllerConstants.*;
+import static java.util.Objects.nonNull;
 
 public class ChangeLanguageCommand extends AbstractCommand implements Command {
 
@@ -22,11 +23,10 @@ public class ChangeLanguageCommand extends AbstractCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
         LOG.info("Start in ChangeLanguageCommand");
         String lastCommand = (String) request.getSession().getAttribute(LAST_COMMAND);
-        controllerValidator.stringParameterValidation(lastCommand);
         try {
             request.getSession().setAttribute(LOCAL, request.getParameter(LOCAL));
             request.getSession().setAttribute(MESSAGE, null);
-            String path = "null".equals(lastCommand) ? "/frontController?command=go_To_Page?address=error.jsp" : lastCommand;
+            String path = nonNull(lastCommand) ? lastCommand : "/frontController?command=go_To_Page&address=login.jsp";
             response.sendRedirect(path);
         } catch (IOException e) {
             throw new ControllerException(e);
