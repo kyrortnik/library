@@ -41,7 +41,8 @@ public class ControllerConstants {
             CURRENT_PAGE_RESERVE = "currentPageReserve",
             PAGEABLE_RESERVES = "pageableReserves",
             CURRENT_PAGE_USER = "currentPageUser",
-            PAGEABLE_USERS = "pageableUsers";
+            PAGEABLE_USERS = "pageableUsers",
+            PAGEABLE_ORDERS = "pageableOrders";
 
 
 

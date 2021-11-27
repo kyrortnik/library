@@ -81,16 +81,7 @@ public class BookServiceImpl implements BookService {
 
     }
 
-    //TODO replace with getBooksPage
-    @Override
-    public List<Book> getBooksFromOrder(Long userId) throws ServiceException {
-        serviceValidator.validation(userId);
-        try {
-            return convertToBooks(bookDAO.getBookFromOrder(userId));
-        } catch (DAOException e) {
-            throw new ServiceException(e);
-        }
-    }
+
 
     @Override
     public Page<Book> getBooksPage(Page<Book> page) throws ServiceException {
@@ -112,6 +103,19 @@ public class BookServiceImpl implements BookService {
         try {
             Pageable<BookRow> pageableBookRowsRequest = convertToPageableBook(pageRequest);
             Pageable<BookRow> foundPageable = bookDAO.getReservedBookRowsPage(pageableBookRowsRequest, userId);
+            return convertToServicePage(foundPageable);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public Page<Book> getOrderedBooksPage(Page<Book> pageOrder, Long userId) throws ServiceException {
+        serviceValidator.validation(userId);
+        serviceValidator.validation(pageOrder);
+        try {
+            Pageable<BookRow> pageableBookRowsRequest = convertToPageableBook(pageOrder);
+            Pageable<BookRow> foundPageable = bookDAO.getOrderedBookRowsPage(pageableBookRowsRequest, userId);
             return convertToServicePage(foundPageable);
         } catch (DAOException e) {
             throw new ServiceException(e);
