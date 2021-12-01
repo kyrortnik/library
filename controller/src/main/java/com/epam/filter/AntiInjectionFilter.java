@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
+import static com.epam.util.ControllerConstants.MESSAGE;
+
 public class AntiInjectionFilter implements Filter {
 
     private static final String DOES_NOT_CONTAIN = "^((?!<|>|script).)*$";
@@ -26,6 +28,7 @@ public class AntiInjectionFilter implements Filter {
         if (sb.toString().trim().matches(DOES_NOT_CONTAIN)) {
             chain.doFilter(req, res);
         } else {
+            ((HttpServletRequest) request).getSession().setAttribute(MESSAGE,"Injection attempt has been detected");
             request.getRequestDispatcher("frontController?command=go_To_Page&address=antiInjection.jsp").forward(request, response);
         }
     }

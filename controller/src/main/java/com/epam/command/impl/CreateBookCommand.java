@@ -48,7 +48,7 @@ public class CreateBookCommand extends AbstractCommand implements Command {
             }
         } catch (Exception e) {
             try {
-                request.getSession().setAttribute(MESSAGE, "Error: " + e.getMessage());
+                request.getSession().setAttribute(MESSAGE, "Duplicate for book with this title exists");
                 request.getSession().setAttribute(LAST_COMMAND, "frontController?command=go_To_Page&address=newBook.jsp");
                 request.getRequestDispatcher(lastCommand).forward(request, response);
                 LOG.error(e.getMessage());
@@ -68,7 +68,7 @@ public class CreateBookCommand extends AbstractCommand implements Command {
         String publisher = request.getParameter(PUBLISHER);
         String genre = request.getParameter(GENRE);
         String description = request.getParameter(DESCRIPTION);
-        boolean isHardCover = request.getParameter(IS_HARD_COVER).toUpperCase(Locale.ROOT).equals(YES);
+        boolean isHardCover = Boolean.parseBoolean(request.getParameter(IS_HARD_COVER));
         String pages = "".equals(request.getParameter(NUMBER_OF_PAGES)) ? "0" : request.getParameter(NUMBER_OF_PAGES);
         String publishYear = "".equals(request.getParameter(PUBLISHING_YEAR)) ? "0" : request.getParameter(PUBLISHING_YEAR);
 

@@ -45,12 +45,14 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
         BookRow bookRow = null;
         try {
             connection = connectionPool.getConnection();
+            connection.setAutoCommit(false);
             statement = connection.prepareStatement(FIND_BOOK_BY_ID);
             statement.setLong(1, id);
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 bookRow = getBookRowFormResultSet(resultSet);
             }
+            connection.commit();
             return bookRow;
         } catch (Exception e) {
             throw new DAOException(e);

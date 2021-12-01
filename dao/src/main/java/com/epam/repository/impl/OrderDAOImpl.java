@@ -126,22 +126,25 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
         Connection connection = null;
         PreparedStatement updateOrderStatement = null;
         List<Object> parameters;
-        boolean result;
+        boolean result = false;
         try {
             connection = connectionPool.getConnection();
             connection.setAutoCommit(false);
             Order orderToUpdate = getByUserId(order.getUserId());
+
             if (nonNull(orderToUpdate)) {
                 List<Long> productsInExistingOrder = orderToUpdate.getProductIds();
-                Array updatedProducts = connection.createArrayOf("bigint",
-                        getOrderWithAddedProducts(productsInExistingOrder, productsToAdd).toArray());
-                parameters = Arrays.asList(updatedProducts, order.getUserId());
-                updateOrderStatement = getPreparedStatement(UPDATE_ORDER, connection, parameters);
-                result = updateOrderStatement.executeUpdate() != 0;
-                connection.commit();
-            } else {
-                result = false;
+                boolean notOrdered = Collections.disjoint(productsInExistingOrder, productsToAdd);
+                if (notOrdered) {
+                    Array updatedProducts = connection.createArrayOf("bigint",
+                            getOrderWithAddedProducts(productsInExistingOrder, productsToAdd).toArray());
+                    parameters = Arrays.asList(updatedProducts, order.getUserId());
+
+                    updateOrderStatement = getPreparedStatement(UPDATE_ORDER, connection, parameters);
+                    result = updateOrderStatement.executeUpdate() != 0;
+                }
             }
+            connection.commit();
             return result;
 
         } catch (SQLException e) {
@@ -175,7 +178,7 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
             if (findOrderResultSet.next()) {
 //  -------------2. When order exists- updates it removing asked product --------------------
                 Array updatedProducts = getUpdatedProductsArray(bookId, connection, findOrderResultSet);
-                parameters = Arrays.asList(updatedProducts,userId);
+                parameters = Arrays.asList(updatedProducts, userId);
                 if (!productsAreEmpty(updatedProducts)) {
                     updateOrderStatement = getPreparedStatement(UPDATE_ORDER, connection, parameters);
                     result = updateOrderStatement.executeUpdate() != 0;

@@ -8,7 +8,6 @@
 <fmt:setBundle basename="localization.local" var="loc" />
 <fmt:message bundle="${loc}" key="local.locbutton.name.en" var="en_button" />
 <fmt:message bundle="${loc}" key="local.locbutton.name.ru" var="ru_button" />
-<fmt:message bundle="${loc}" key="local.locbutton.name.pl" var="pl_button" />
 <fmt:message bundle="${loc}" key="local.login" var="login" />
 <fmt:message bundle="${loc}" key="local.password" var="password" />
 <fmt:message bundle="${loc}" key="local.registration" var="registration" />
@@ -28,7 +27,6 @@
 <fmt:message bundle="${loc}" key="local.pages" var="pages" />
 <fmt:message bundle="${loc}" key="local.isHardCover" var="isHardCover" />
 <fmt:message bundle="${loc}" key="local.description" var="description" />
-<!---->
 <fmt:message bundle="${loc}" key="local.createBook" var="createBook" />
 <fmt:message bundle="${loc}" key="local.errorOccurred" var="errorOccurred" />
 <fmt:message bundle="${loc}" key="local.toIndexPage" var="toIndexPage" />
@@ -50,6 +48,12 @@
 <fmt:message bundle="${loc}" key="local.bookInformationPage" var="bookInformationPage" />
 <fmt:message bundle="${loc}" key="local.deleteBook" var="deleteBook" />
 <fmt:message bundle="${loc}" key="local.toPreviousPage" var="toPreviousPage" />
+<!---->
+<fmt:message bundle="${loc}" key="local.signIn" var="signIn" />
+<fmt:message bundle="${loc}" key="local.reserveBook" var="reserveBook" />
+<fmt:message bundle="${loc}" key="local.updateBook" var="updateBook" />
+<fmt:message bundle="${loc}" key="local.toMain" var="toMain" />
+
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
       integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">

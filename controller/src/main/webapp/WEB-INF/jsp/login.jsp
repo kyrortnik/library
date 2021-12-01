@@ -37,7 +37,7 @@
 <div class="container">
 
     <form class="form-signin" name="loginForm" method="POST" action="frontController">
-        <h2 class="form-signin-heading">Please sign in</h2>
+        <h2 class="form-signin-heading">${signIn}</h2>
         <input type="hidden" name="command" value="login"/>
         <label for="inputLogin" class="sr-only"></label>
         <input id="inputLogin" class="form-control" type="text" name="login" value="" placeholder="${login}"/>

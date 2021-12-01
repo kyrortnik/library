@@ -48,7 +48,7 @@ public class ShowReservesCommand extends AbstractCommand implements Command {
                 request.setAttribute(PAGEABLE_RESERVES, pageReserves);
                 successfulProcess(request, lastCommand, null);
             } else {
-                message = "No reserves for you yet.";
+                message = "No reserves for you yet";
                 unsuccessfulProcess(request, lastCommand, message);
             }
             request.getRequestDispatcher(pageForRedirect).forward(request, response);

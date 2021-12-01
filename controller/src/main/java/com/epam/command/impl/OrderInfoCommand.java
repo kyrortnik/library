@@ -47,7 +47,7 @@ public class OrderInfoCommand extends AbstractCommand implements Command {
                 request.setAttribute(PAGEABLE_ORDERS, pageOrder);
                 successfulProcess(request, lastCommand, null);
             } else {
-                message = "No ordered books for you yet.";
+                message = "No ordered books for you yet";
                 unsuccessfulProcess(request, lastCommand, message);
             }
             request.getRequestDispatcher(pageForRedirect).forward(request, response);

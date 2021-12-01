@@ -45,7 +45,7 @@ public class CreateOrderCommand extends AbstractCommand implements Command {
                 successfulProcess(request, lastCommand,message);
                 response.sendRedirect(lastCommand);
             } else {
-                message = "Couldn't create or update existing order";
+                message = "Some products are already ordered. Delete duplicates and try again";
                 unsuccessfulProcess(request, lastCommand, message);
                 request.getRequestDispatcher(lastCommand).forward(request,response);
             }
