@@ -12,7 +12,6 @@ public class DBConstants {
     //DB constants
     public static final int INITIAL_POOL_SIZE = 10;
     public static final int MAX_POOL_SIZE = 20;
-    public static final int MAX_TIMEOUT = 5;
     public static final int MAX_ROWS = 5;
 
 }

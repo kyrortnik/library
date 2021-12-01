@@ -7,18 +7,19 @@ import com.epam.command.Command;
 import com.epam.command.exception.ControllerException;
 import com.epam.exception.ServiceException;
 import com.epam.validator.ControllerValidator;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.logging.Logger;
+
 
 import static com.epam.util.ControllerConstants.*;
 
 public class DeleteReserveCommand extends AbstractCommand implements Command {
 
-    private static final Logger LOG = Logger.getLogger(DeleteReserveCommand.class.getName());
+    private static final Logger LOG = Logger.getLogger(DeleteReserveCommand.class);
 
     private final ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private final ReserveService reserveService = serviceFactory.getReserveService();
@@ -31,7 +32,7 @@ public class DeleteReserveCommand extends AbstractCommand implements Command {
         Long userId = (Long)request.getSession().getAttribute(ID);
         String bookIdString = request.getParameter(BOOK_ID);
 
-        controllerValidator.validation(userId);
+        controllerValidator.longValidation(userId);
         controllerValidator.numericParameterValidation(bookIdString);
         Long bookId = Long.valueOf(bookIdString);
         String lastCommand = "frontController?command=go_To_Page&address=main.jsp";

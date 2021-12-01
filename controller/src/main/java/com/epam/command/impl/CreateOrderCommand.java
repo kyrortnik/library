@@ -6,12 +6,13 @@ import com.epam.command.AbstractCommand;
 import com.epam.command.Command;
 import com.epam.command.exception.ControllerException;
 import com.epam.validator.ControllerValidator;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,7 +21,8 @@ import static com.epam.util.ControllerConstants.RESERVED_BOOKS;
 
 public class CreateOrderCommand extends AbstractCommand implements Command {
 
-    private static final Logger LOG = Logger.getLogger(CreateOrderCommand.class.getName());
+
+    private static final Logger LOG = Logger.getLogger(CreateOrderCommand.class);
     private static final String BOOK_ID_FINDER_PATTERN = "(?<=id=)\\d*(?=,)";
 
     private final ServiceFactory serviceFactory = ServiceFactory.getInstance();
@@ -34,7 +36,7 @@ public class CreateOrderCommand extends AbstractCommand implements Command {
         LOG.info("Start in CreateOrderCommand");
         try {
             Long userId = (Long) request.getSession().getAttribute(ID);
-            controllerValidator.validation(userId);
+            controllerValidator.longValidation(userId);
             List<Long> bookIds = getReservedBookIds(request);
             String message;
             String lastCommand = "frontController?command=go_To_Page&address=main.jsp";

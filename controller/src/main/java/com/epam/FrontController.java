@@ -3,6 +3,7 @@ package com.epam;
 import com.epam.command.Command;
 import com.epam.command.exception.ControllerException;
 import com.epam.command.factory.CommandFactory;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +13,8 @@ import java.io.IOException;
 
 
 public class FrontController extends HttpServlet {
+
+    private static final Logger LOG = Logger.getLogger(FrontController.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -30,6 +33,7 @@ public class FrontController extends HttpServlet {
         try {
             command.execute(request, response);
         } catch (ControllerException e) {
+            LOG.error(e.getMessage());
             request.getRequestDispatcher("frontController?command=goToPage&address=error.jsp").forward(request, response);
         }
 

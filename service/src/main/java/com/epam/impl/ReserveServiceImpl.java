@@ -9,13 +9,9 @@ import com.epam.repository.ReserveDAO;
 import com.epam.validator.ServiceValidator;
 
 import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 public class ReserveServiceImpl implements ReserveService {
-
-    private static final Logger LOG = Logger.getLogger(ReserveServiceImpl.class.getName());
 
     private final ReserveDAO reserveDAO;
     private final ServiceValidator serviceValidator;
@@ -33,7 +29,6 @@ public class ReserveServiceImpl implements ReserveService {
             ReserveRow reserveRow = convertToReserveRow(reserve);
             return reserveDAO.save(reserveRow);
         } catch (DAOException e) {
-            LOG.log(Level.SEVERE, "Exception: " + e);
             throw new ServiceException(e);
         }
     }
@@ -47,7 +42,6 @@ public class ReserveServiceImpl implements ReserveService {
             return reserveDAO.deleteByUserAndProduct(userId, bookId);
 
         } catch (Exception e) {
-            LOG.log(Level.SEVERE, "Exception: " + e);
             throw new ServiceException(e);
         }
 

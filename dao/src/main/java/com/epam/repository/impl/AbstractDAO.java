@@ -1,16 +1,17 @@
 package com.epam.repository.impl;
 
 import com.epam.repository.ConnectionPool;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.List;
 import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public abstract class AbstractDAO {
 
-    private static final Logger LOG = Logger.getLogger(AbstractDAO.class.getName());
+
+    private static final Logger LOG = Logger.getLogger(AbstractDAO.class);
 
     protected final ConnectionPool connectionPool;
 
@@ -57,7 +58,7 @@ public abstract class AbstractDAO {
                     try {
                         rs.close();
                     } catch (SQLException e) {
-                        LOG.log(Level.SEVERE, "Exception: " + e);
+                        LOG.error(e.getMessage());
                     }
                 }
             }
@@ -71,7 +72,7 @@ public abstract class AbstractDAO {
                     try {
                         statement.close();
                     } catch (SQLException e) {
-                        LOG.log(Level.SEVERE, "Exception: " + e);
+                        LOG.error(e.getMessage());
                     }
                 }
             }

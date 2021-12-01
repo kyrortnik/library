@@ -15,10 +15,11 @@ public class EncodingFilter implements Filter {
     public void init(FilterConfig config) {
         encoding = nonNull(config.getInitParameter(REQUEST_ENCODING)) ? config.getInitParameter(REQUEST_ENCODING) : UTF8;
 
+
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain next)
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
 
         if (isNull(request.getCharacterEncoding())) {
@@ -28,7 +29,7 @@ public class EncodingFilter implements Filter {
         response.setContentType(CONTENT_TYPE);
         response.setCharacterEncoding(UTF8);
 
-        next.doFilter(request, response);
+        chain.doFilter(request, response);
     }
 
     @Override

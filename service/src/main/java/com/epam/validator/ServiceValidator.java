@@ -33,12 +33,6 @@ public final class ServiceValidator {
         }
     }
 
-    public void validation(Order order) throws ServiceException {
-        if (isNull(order) || order.getProductIds().isEmpty()) {
-            throw new ServiceException("Invalid Reserve");
-        }
-    }
-
     public void validation(Book book) throws ServiceException {
         if (isNull(book)) {
             throw new ServiceException("Null Book");

@@ -11,21 +11,35 @@
 <div class="main-block">
     <h3>${message}</h3>
     <h1>${newBook}</h1>
-    <form id="createBook" action="frontController" method="POST">
-        <div class="info">
+    <form class="form-group" id="createBook" action="frontController" method="POST">
             <input type="hidden" name="command" value="create_Book"/>
             <input type="hidden" name="bookId" value="${id}">
-            <input type="text" name="title" placeholder="${bookTitle}"/>
-            <input type="text" name="author" placeholder="${author}"/>
-            <input type="text" name="publisher" placeholder="${publisher}"/>
-            <input type="text" name="publishingYear" placeholder="${publishingYear}"/>
-            <input type="text" name="isHardCover" placeholder="${isHardCover}"/>
-            <input type="text" name="numberOfPages" placeholder="${numberOfPages}"/>
-            <input type="text" name="genre" placeholder="${genre}"/>
-            <input type="text" name="description" placeholder="${description}"/>
+            <div class="form-group col-md-6">
+                <input class="form-control" type="text" name="title" placeholder="${bookTitle}"/>
+            </div>
+            <div class="form-group col-md-6">
+                <input class="form-control" type="text" name="author" placeholder="${author}"/>
+            </div>
+            <div class="form-group col-md-6">
+                <input class="form-control" type="text" name="publisher" placeholder="${publisher}"/>
+            </div>
+            <div class="form-group col-md-6">
+                <input class="form-control" type="text" name="publishingYear" placeholder="${publishingYear}"/>
+            </div>
+        <div class="form-group col-md-6">
+            <input class="form-control" type="text" name="isHardCover" placeholder="${isHardCover}"/>
         </div>
-        <button form="createBook" class="button">${submit}</button>
+        <div class="form-group col-md-6">
+            <input class="form-control" type="text" name="numberOfPages" placeholder="${numberOfPages}"/>
+        </div>
+        <div class="form-group col-md-6">
+            <input class="form-control" type="text" name="genre" placeholder="${genre}"/>
+        </div>
+        <div class="form-group col-md-6">
+            <input class="form-control" type="text" name="description" placeholder="${description}"/>
+        </div>
     </form>
 </div>
+<button form="createBook" class="button">${submit}</button>
 </body>
 </html>

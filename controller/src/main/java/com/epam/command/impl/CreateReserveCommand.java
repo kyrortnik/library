@@ -8,19 +8,19 @@ import com.epam.command.exception.ControllerException;
 import com.epam.entity.Reserve;
 import com.epam.exception.ServiceException;
 import com.epam.validator.ControllerValidator;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.logging.Logger;
 
 import static com.epam.util.ControllerConstants.BOOK_ID;
 import static com.epam.util.ControllerConstants.ID;
 
 public class CreateReserveCommand extends AbstractCommand implements Command {
 
-    private static final Logger LOG = Logger.getLogger(CreateReserveCommand.class.getName());
+    private static final Logger LOG = Logger.getLogger(CreateReserveCommand.class);
 
     private final ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private final ReserveService reserveService = serviceFactory.getReserveService();
@@ -32,7 +32,7 @@ public class CreateReserveCommand extends AbstractCommand implements Command {
         LOG.info("Start in CreateReserveCommand");
         try {
             Long userId = (Long) request.getSession().getAttribute(ID);
-            controllerValidator.validation(userId);
+            controllerValidator.longValidation(userId);
 
             String bookIdString = request.getParameter(BOOK_ID);
             controllerValidator.numericParameterValidation(bookIdString);
@@ -52,7 +52,6 @@ public class CreateReserveCommand extends AbstractCommand implements Command {
             }
 
         } catch (ServiceException | IOException | ServletException e) {
-            LOG.info("Error:" + e.getMessage());
             throw new ControllerException(e);
         }
     }

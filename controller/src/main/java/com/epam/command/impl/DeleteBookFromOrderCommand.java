@@ -6,17 +6,17 @@ import com.epam.command.AbstractCommand;
 import com.epam.command.Command;
 import com.epam.command.exception.ControllerException;
 import com.epam.validator.ControllerValidator;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.logging.Logger;
 
 import static com.epam.util.ControllerConstants.BOOK_ID;
 import static com.epam.util.ControllerConstants.ID;
 
 public class DeleteBookFromOrderCommand extends AbstractCommand implements Command {
 
-    private static final Logger LOG = Logger.getLogger(DeleteBookFromOrderCommand.class.getName());
+    private static final Logger LOG = Logger.getLogger(DeleteBookFromOrderCommand.class);
 
     private final ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private final OrderService orderService = serviceFactory.getOrderService();
@@ -31,7 +31,7 @@ public class DeleteBookFromOrderCommand extends AbstractCommand implements Comma
         Long userId = (Long) request.getSession().getAttribute(ID);
         String bookIdString = request.getParameter(BOOK_ID);
 
-        controllerValidator.validation(userId);
+        controllerValidator.longValidation(userId);
         controllerValidator.numericParameterValidation(bookIdString);
         Long bookId = Long.parseLong(bookIdString);
 

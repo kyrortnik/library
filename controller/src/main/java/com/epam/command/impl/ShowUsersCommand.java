@@ -8,20 +8,20 @@ import com.epam.command.exception.ControllerException;
 import com.epam.entity.Page;
 import com.epam.entity.UserDTO;
 import com.epam.exception.ServiceException;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Objects;
-import java.util.logging.Logger;
 
 import static com.epam.util.ControllerConstants.*;
 
 
 public class ShowUsersCommand extends AbstractCommand implements Command {
 
-    private static final Logger LOG = Logger.getLogger(ShowUsersCommand.class.getName());
+    private static final Logger LOG = Logger.getLogger(ShowUsersCommand.class);
 
     private final ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private final UserService userService = serviceFactory.getUserService();

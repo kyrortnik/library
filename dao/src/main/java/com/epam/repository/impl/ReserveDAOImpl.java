@@ -11,19 +11,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ReserveDAOImpl extends AbstractDAO implements ReserveDAO {
-
-    private static final Logger LOG = Logger.getLogger(ReserveDAOImpl.class.getName());
 
     private static final String FIND_RESERVE_BY_ID = "SELECT * FROM reserves WHERE reserve_id = ?";
     private static final String SAVE_RESERVE = "INSERT INTO reserves VALUES (DEFAULT,?,?)";
     private static final String DELETE_RESERVE = "DELETE FROM reserves WHERE reserve_id = ?";
     private static final String FIND_RESERVE_BY_USER_AND_PRODUCT = " SELECT * FROM reserves WHERE user_id = ? AND product_id = ?";
-    private static final String DELETE_BY_USER_AND_PRODUCT = "DELETE FROM reserves WHERE user_id= ? AND product_id = ?";
+//    private static final String DELETE_BY_USER_AND_PRODUCT = "DELETE FROM reserves WHERE user_id = ? AND product_id = ?";
 
 
     public ReserveDAOImpl(ConnectionPool connectionPool) {
@@ -50,7 +47,6 @@ public class ReserveDAOImpl extends AbstractDAO implements ReserveDAO {
             }
             return null;
         } catch (SQLException e) {
-            LOG.log(Level.SEVERE, "Exception: " + e);
             throw new DAOException(e);
         } finally {
             closeResultSet(resultSet);
@@ -81,7 +77,6 @@ public class ReserveDAOImpl extends AbstractDAO implements ReserveDAO {
             connection.commit();
             return result;
         } catch (SQLException e) {
-            LOG.log(Level.SEVERE, "Exception: " + e);
             try {
                 connection.rollback();
             } catch (SQLException ex) {
@@ -105,7 +100,6 @@ public class ReserveDAOImpl extends AbstractDAO implements ReserveDAO {
             statement.setLong(1, id);
             return statement.executeUpdate() > 0;
         } catch (Exception e) {
-            LOG.log(Level.SEVERE, "Exception: " + e);
             throw new DAOException(e);
         } finally {
             closeStatement(statement);
@@ -114,23 +108,64 @@ public class ReserveDAOImpl extends AbstractDAO implements ReserveDAO {
     }
 
 
-    @Override
+    /*@Override
     public boolean deleteByUserAndProduct(Long userId, Long bookId) throws DAOException {
         List<Object> parameters = Arrays.asList(userId, bookId);
         Connection connection = null;
         PreparedStatement statement = null;
         try {
             connection = connectionPool.getConnection();
+            connection.setAutoCommit(false);
             statement = getPreparedStatement(DELETE_BY_USER_AND_PRODUCT, connection, parameters);
-            return statement.executeUpdate() > 0;
-        } catch (Exception e) {
-            LOG.log(Level.SEVERE, "Exception: " + e);
+            connection.commit();
+            return statement.executeUpdate() != 0;
+        } catch (SQLException e) {
+            try{
+                connection.rollback();
+            }catch (SQLException ex){
+                throw new DAOException(ex);
+            }
             throw new DAOException(e);
         } finally {
             closeStatement(statement);
             connectionPool.releaseConnection(connection);
         }
 
+    }*/
+
+    @Override
+    public boolean deleteByUserAndProduct(Long userId, Long bookId) throws DAOException{
+        boolean result = false;
+        List<Object> parameters = Arrays.asList(userId, bookId);
+        long reserveId;
+        Connection connection = null;
+        PreparedStatement findReserveStatement = null;
+        PreparedStatement deleteStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = connectionPool.getConnection();
+            connection.setAutoCommit(false);
+            findReserveStatement = getPreparedStatement(FIND_RESERVE_BY_USER_AND_PRODUCT, connection, parameters);
+            resultSet = findReserveStatement.executeQuery();
+            if (resultSet.next()){
+                reserveId = resultSet.getLong(1);
+                deleteStatement = getPreparedStatement(DELETE_RESERVE,connection, Collections.singletonList(reserveId));
+                result = deleteStatement.executeUpdate() != 0;
+            }
+            connection.commit();
+            return result;
+        } catch (SQLException e) {
+            try{
+                connection.rollback();
+            }catch (SQLException ex){
+                throw new DAOException(ex);
+            }
+            throw new DAOException(e);
+        } finally {
+            closeResultSet(resultSet);
+            closeStatement(findReserveStatement,deleteStatement);
+            connectionPool.releaseConnection(connection);
+        }
     }
 
     @Override

@@ -7,16 +7,6 @@
 </head>
 <body style="">
 
-<hr/>
-<h1>
-    ${errorOccupied}
-</h1>
-<hr/>
-<h1>
-    ${injectionDetected}
-</h1>
-
-<hr/>
 
 <h3>
     <a href="FrontController?command=goToPage&address=index.jsp">

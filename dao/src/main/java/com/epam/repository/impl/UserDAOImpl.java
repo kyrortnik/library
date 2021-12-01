@@ -8,20 +8,20 @@ import com.epam.repository.ConnectionPool;
 import com.epam.repository.UserDAO;
 import com.epam.security.Salt;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import static com.epam.repository.utils.DBConstants.*;
+import static com.epam.repository.utils.DBConstants.MAX_ROWS;
 
 
 public class UserDAOImpl extends AbstractDAO implements UserDAO {
 
-    private static final Logger LOG = Logger.getLogger(UserDAOImpl.class.getName());
 
     private static final String FIND_USER_BY_ID = "SELECT * FROM users WHERE id = ? ";
     private static final String FIND_USER_BY_LOGIN = "SELECT * FROM users WHERE login = ?";
@@ -60,7 +60,6 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
             }
             return null;
         } catch (Exception e) {
-            LOG.log(Level.SEVERE, "Exception: " + e);
             throw new DAOException(e);
         } finally {
             closeResultSet(resultSet);
@@ -157,7 +156,6 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
             statement.setString(4, user.getSalt());
             return statement.executeUpdate() != 0;
         } catch (SQLException e) {
-            LOG.log(Level.SEVERE, "Exception: " + e);
             throw new DAOException(e);
         } finally {
             closeStatement(statement);
@@ -176,7 +174,6 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
             statement.setLong(1, id);
             return statement.executeUpdate() != 0;
         } catch (SQLException e) {
-            LOG.log(Level.SEVERE, "Exception: " + e);
             throw new DAOException(e);
         } finally {
             closeStatement(statement);
@@ -216,10 +213,8 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
             try {
                 connection.rollback();
             } catch (Exception ex) {
-                LOG.log(Level.SEVERE, "Exception:" + ex);
                 throw new DAOException(ex);
             }
-            LOG.log(Level.SEVERE, "Exception:" + e);
             throw new DAOException(e);
         } finally {
             closeResultSet(resultSet);
@@ -249,7 +244,6 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
             countResultSet = countStatement.executeQuery();
             queryResultSet = queryStatement.executeQuery();
             connection.commit();
-
             return getUserRowsPageable(daoProductPageable, countResultSet, queryResultSet);
         } catch (SQLException e) {
             e.printStackTrace();

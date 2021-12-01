@@ -1,6 +1,7 @@
-package com.epam.repository;
+package com.epam.repository.factory;
 
 
+import com.epam.repository.*;
 import com.epam.repository.impl.*;
 
 

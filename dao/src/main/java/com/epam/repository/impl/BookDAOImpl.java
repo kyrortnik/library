@@ -11,15 +11,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import static com.epam.repository.utils.DBConstants.MAX_ROWS;
 import static java.util.Objects.nonNull;
 
 public class BookDAOImpl extends AbstractDAO implements BookDAO {
-
-    private static final Logger LOG = Logger.getLogger(BookDAOImpl.class.getName());
 
     private static final String QUERY_ORDER = "ORDER BY %s %s LIMIT ? OFFSET ?";
     private static final String FIND_BOOK_BY_ID = "SELECT book_id, title, author, publishyear, publisher, genre, number_of_pages ,is_hard_cover, description FROM books WHERE book_id = ? ";
@@ -57,7 +53,6 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
             }
             return bookRow;
         } catch (Exception e) {
-            LOG.log(Level.SEVERE, "Exception: " + e);
             throw new DAOException(e);
         } finally {
             closeResultSet(resultSet);
@@ -76,8 +71,8 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
                 bookRow.getGenre(),
                 bookRow.getNumberOfPages(),
                 bookRow.isHardCover(),
-                bookRow.getDescription(),
-                bookRow.getId()
+                bookRow.getDescription()
+
         );
         Connection connection = null;
         PreparedStatement statement = null;
@@ -87,7 +82,6 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
             return (statement.executeUpdate() != 0);
 
         } catch (SQLException e) {
-            LOG.log(Level.SEVERE, "Exception: " + e);
             throw new DAOException(e);
         } finally {
             closeStatement(statement);
@@ -106,7 +100,6 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
             statement.setLong(1, id);
             return (statement.executeUpdate() != 0);
         } catch (Exception e) {
-            LOG.log(Level.SEVERE, "Exception: " + e);
             throw new DAOException(e);
         } finally {
             closeStatement(statement);
@@ -143,7 +136,6 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
             return result;
 
         } catch (Exception e) {
-            LOG.log(Level.SEVERE, "Exception: " + e);
             try {
                 connection.rollback();
             } catch (SQLException ex) {
@@ -183,7 +175,6 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
 
             return getBookRowPageable(daoProductPageable, totalElements, queryResultSet);
         } catch (SQLException e) {
-            LOG.log(Level.SEVERE, "Exception: " + e);
             try {
                 connection.rollback();
             } catch (SQLException ex) {
@@ -260,6 +251,7 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
                 foundBooksSet = foundBooksStatement.executeQuery();
                 pageable = getBookRowPageable(pageableBookRowsRequest, totalElements, foundBooksSet);
             }
+            connection.commit();
             return pageable;
         } catch (SQLException e) {
             throw new DAOException(e);

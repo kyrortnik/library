@@ -8,13 +8,10 @@ import com.epam.repository.OrderDAO;
 import com.epam.validator.ServiceValidator;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 public class OrderServiceImpl implements OrderService {
 
-    private static final Logger LOG = Logger.getLogger(OrderServiceImpl.class.getName());
 
     private final OrderDAO orderDAO;
     private final ServiceValidator serviceValidator;
@@ -50,7 +47,6 @@ public class OrderServiceImpl implements OrderService {
         try {
             return orderDAO.delete(id);
         } catch (DAOException e) {
-            LOG.log(Level.SEVERE, "Exception: " + e);
             throw new ServiceException(e);
         }
     }
@@ -61,7 +57,6 @@ public class OrderServiceImpl implements OrderService {
             return orderDAO.deleteFromOrder(userId, bookId);
 
         } catch (Exception e) {
-            LOG.log(Level.SEVERE, "Exception: " + e);
             throw new ServiceException(e);
         }
     }

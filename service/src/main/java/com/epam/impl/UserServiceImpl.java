@@ -10,15 +10,10 @@ import com.epam.exception.ServiceException;
 import com.epam.repository.UserDAO;
 import com.epam.validator.ServiceValidator;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class UserServiceImpl implements UserService {
 
-
-    private static final Logger LOG = Logger.getLogger(UserServiceImpl.class.getName());
     private final UserDAO userDAO;
-
     private final ServiceValidator serviceValidator;
 
     public UserServiceImpl(UserDAO userDAO, ServiceValidator serviceValidator) {
@@ -38,7 +33,6 @@ public class UserServiceImpl implements UserService {
             }
             return registeredUser;
         } catch (DAOException e) {
-            LOG.log(Level.SEVERE, "Exception: " + e);
             throw new ServiceException(e);
         }
 
@@ -48,12 +42,10 @@ public class UserServiceImpl implements UserService {
     public UserDTO login(String login, String enteredPassword) throws ServiceException {
         serviceValidator.validation(login);
         serviceValidator.validation(enteredPassword);
-        UserDTO foundUser;
         try {
-            foundUser = userDAO.login(login, enteredPassword);
-            return foundUser;
+            return userDAO.login(login, enteredPassword);
+
         } catch (DAOException e) {
-            LOG.log(Level.SEVERE, "Exception: " + e);
             throw new ServiceException(e);
         }
     }
@@ -67,7 +59,6 @@ public class UserServiceImpl implements UserService {
             Pageable<UserDTO> filteredDaoPageable = userDAO.findUsersPageByParameters(pageableDAO);
             return convertToServicePage(filteredDaoPageable);
         } catch (Exception e) {
-            LOG.log(Level.SEVERE, "Exception: " + e);
             throw new ServiceException(e);
         }
 

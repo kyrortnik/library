@@ -9,19 +9,19 @@ import com.epam.command.exception.ControllerException;
 import com.epam.entity.Book;
 import com.epam.entity.Page;
 import com.epam.exception.ServiceException;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.logging.Logger;
 
 import static com.epam.util.ControllerConstants.*;
 import static java.util.Objects.isNull;
 
 public class ShowProductsCommand extends AbstractCommand implements Command {
 
-    private static final Logger LOG = Logger.getLogger(ShowProductsCommand.class.getName());
+    private static final Logger LOG = Logger.getLogger(ShowProductsCommand.class);
 
     private final ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private final BookService bookService = serviceFactory.getBookService();

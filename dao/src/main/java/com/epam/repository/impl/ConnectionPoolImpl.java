@@ -3,19 +3,20 @@ package com.epam.repository.impl;
 import com.epam.exception.DAOException;
 import com.epam.repository.ConnectionPool;
 import com.epam.repository.PropertyInitializer;
+import org.apache.log4j.Logger;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Objects;
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import static com.epam.repository.utils.DBConstants.*;
 
 
 public class ConnectionPoolImpl implements ConnectionPool {
 
-    private static final Logger LOG = Logger.getLogger(ConnectionPoolImpl.class.getName());
+    private static final Logger LOG = Logger.getLogger(ConnectionPoolImpl.class);
 
     private final ArrayBlockingQueue<Connection> availableConnections = new ArrayBlockingQueue<>(INITIAL_POOL_SIZE);
     private final ArrayBlockingQueue<Connection> takenConnections = new ArrayBlockingQueue<>(INITIAL_POOL_SIZE);
@@ -43,7 +44,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
             LOG.info("init availableConnections.size() is " + availableConnections.size());
             LOG.info("init takenConnections.size() is " + takenConnections.size());
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage());
         }
 
     }
@@ -62,10 +63,6 @@ public class ConnectionPoolImpl implements ConnectionPool {
 
             Connection connection = availableConnections.take();
             LOG.info("=======take()");
-
-           /* if (!connection.isValid(MAX_TIMEOUT)) {
-                connection = createConnection(url, username, password);
-            }*/
             takenConnections.add(connection);
             LOG.info("=======availableConnections.size() is " + availableConnections.size());
             LOG.info("=======takenConnections.size() is " + takenConnections.size());
@@ -100,7 +97,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
                 driverIsLoaded = true;
                 LOG.info("================JDBC driver is loaded");
             } catch (ClassNotFoundException e) {
-                LOG.log(Level.SEVERE, "Exception: " + e);
+                LOG.error(e.getMessage());
             }
         }
     }

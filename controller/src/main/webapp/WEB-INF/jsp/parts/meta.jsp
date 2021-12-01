@@ -51,6 +51,11 @@
 <fmt:message bundle="${loc}" key="local.deleteBook" var="deleteBook" />
 <fmt:message bundle="${loc}" key="local.toPreviousPage" var="toPreviousPage" />
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://getbootstrap.com/docs/3.3/examples/signin/signin.css">
+<link rel="stylesheet" href="../../../my.css">
+
 
 
 

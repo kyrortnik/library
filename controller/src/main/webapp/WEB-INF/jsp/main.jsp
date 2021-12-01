@@ -7,133 +7,68 @@
     <%@ include file="parts/meta.jsp" %>
     <title>${mainPage}</title>
 </head>
-<body>
+<body style="padding-top : 0px">
 <%@ include file="parts/header.jsp" %>
+<br/>
 <c:if test="${sessionScope.role == 'admin'}">
     <div>
-        <form id="goToCreateBook" method="GET" action="frontController">
-            <input type="hidden" name="command" value="go_To_Page"/>
-            <input type="hidden" name="address" value="newBook.jsp"/>
-            <button form="goToCreateBook" type="submit">${createBook}</button>
+        <form action="frontController" id="goToCreateBook" method="GET">
+            <input name="command" type="hidden" value="go_To_Page"/>
+            <input name="address" type="hidden" value="newBook.jsp"/>
+            <button class="btn btn-primary" form="goToCreateBook" type="submit">${createBook}</button>
         </form>
     </div>
 </c:if>
 
-<form id="sessionMessageForm">
+<form class=id="sessionMessageForm">
     <h3>
-        <c:out value="${sessionScope.message}"/>
+        ${sessionScope.message}
     </h3>
 </form>
-
 
 <!----------   MAIN  ---------->
 <!----------   SHOW PRODUCTS  ---------->
 <c:if test="${sessionScope.role != null}">
     <div>
-        <form id="showProducts" method="GET" action="frontController">
-            <input type="hidden" name="command" value="show_Products"/>
-            <button form="showProducts" type="submit">${showProducts}</button>
+        <form action="frontController" id="showProducts" method="GET">
+            <input name="command" type="hidden" value="show_Products"/>
+            <button class="btn btn-primary " form="showProducts">${showProducts}</button>
         </form>
     </div>
     <div>
-        <table>
-            <!--                    <tr>-->
-            <!--                        <td></td>-->
-            <!--                        <td><h4><c:out value="${title}"/></h4></td>-->
-            <!--                        <td><h4><c:out value="${author}"/></h4></td>-->
-            <!--                        <td><h4><c:out value="${publishingYear}"/></h4></td>-->
-            <!--                    </tr>-->
-            <tbody>
-            <c:forEach items="${requestScope.pageable.elements}" var="bookRow">
+        <c:if test="${not empty requestScope.pageable.elements}">
+            <table class="table">
+                <thead class="light shown-thread-products">
                 <tr>
-                    <td>
-                        <form method="GET" action="frontController">
-                            <input type="hidden" name="command" value="book_Info"/>
-                            <input type="hidden" name="id" value="${bookRow.id}"/>
-                            <button type="submit">${productInfo}</button>
-                            <br/>
-                        </form>
-                    </td>
-                    <td>${bookRow.title}</td>
-                    <td>${bookRow.author}</td>
-                    <td>${bookRow.publisher}</td>
-                    <td>${bookRow.publishingYear}</td>
-                    <td>
-                        <!-- <form method = "POST" action="frontController">
-                             <input type = "hidden" name ="command" value ="createReserve"/>
-                             <input type = "hidden" name="productId" value="${bookRow.id}"/>
-                             <input type="submit" value ="Reserve this Book">
-                             <br/>
-                             ${message}
-                             <br/>
-                         </form>-->
-
-                    </td>
-                    <td>
-                        <form method="POST" action="frontController">
-                            <input type="hidden" name="command" value="create_Reserve"/>
-                            <input type="hidden" name="bookId" value="${bookRow.id}"/>
-                            <button type="submit">Create reserve</button>
-                            <br/>
-                        </form>
-                    </td>
+                    <th></th>
+                    <th scope="col">${title}</th>
+                    <th scope="col">${author}</th>
+                    <th scope="col">${publisher}</th>
+                    <th scope="col">${publishingYear}</th>
                 </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-        <div style="margin-left: center">
-            <c:forEach begin="1" end="${Math.ceil(pageable.totalElements / pageable.limit)}" var="i">
-                <c:if test="${i == pageable.pageNumber}">
-                            <span>
-                                <button style="color:red" form="showProducts" type="submit" name="currentPage"
-                                        value="${i}">${i}</button>
-                            </span>
-                </c:if>
-                <c:if test="${i != pageable.pageNumber}">
-                            <span>
-                                <button form="showProducts" type="submit" name="currentPage" value="${i}">${i}</button>
-                            </span>
-                </c:if>
-            </c:forEach>
-        </div>
-    </div>
-
-    <!----------   SHOW RESERVES  ---------->
-
-    <div>
-        <form id="showReserves" method="GET" action="frontController">
-            <input type="hidden" name="command" value="show_Reserves"/>
-            <button form="showReserves" type="submit">${showReservedProducts}</button>
-        </form>
-    </div>
-    <div>
-        <c:if test="${not empty requestScope.pageableReserves.elements}">
-
-            <table>
-                <!--   <thead>
-                   <tr>
-                       <td></td>
-                       <td><h4><c:out value="${title}"/></h4></td>
-                       <td><h4><c:out value="${author}"/></h4></td>
-                       <td><h4><c:out value="${publisher}"/></h4></td>
-                       <td><h4><c:out value="${publishingYear}"/></h4></td>
-                   </tr>
-                   </thead>-->
-
+                </thead>
                 <tbody>
-                <c:forEach items="${requestScope.pageableReserves.elements}" var="reserveRow">
+                <c:forEach items="${requestScope.pageable.elements}" var="bookRow">
                     <tr>
+                        <td class="marker-products">
+                            <form action="frontController" method="GET">
+                                <input name="command" type="hidden" value="book_Info"/>
+                                <input name="id" type="hidden" value="${bookRow.id}"/>
+                                <button class="btn btn-primary" type="submit">${productInfo}</button>
+                                <br/>
+                            </form>
+                        </td>
+                        <td>${bookRow.title}</td>
+                        <td>${bookRow.author}</td>
+                        <td>${bookRow.publisher}</td>
+                        <td>${bookRow.publishingYear}</td>
                         <td>
                         </td>
-                        <td>${reserveRow.title}</td>
-                        <td>${reserveRow.author}</td>
-                        <td>${reserveRow.publisher}</td>
-                        <td>${reserveRow.publishingYear}</td>
                         <td>
-                            <form method="POST" action="frontController">
-                                <input type="hidden" name="command" value="delete_Reserve"/>
-                                <input type="hidden" name="bookId" value="${reserveRow.id}"/>
-                                <button type="submit">${deleteReserve}</button>
+                            <form action="frontController" method="POST">
+                                <input name="command" type="hidden" value="create_Reserve"/>
+                                <input name="bookId" type="hidden" value="${bookRow.id}"/>
+                                <button class="btn btn-primary">Create reserve</button>
                                 <br/>
                             </form>
                         </td>
@@ -141,30 +76,92 @@
                 </c:forEach>
                 </tbody>
             </table>
-            <div>
-                <form id="createOrder" method="POST" action="frontController">
-                    <input type="hidden" name="command" value="create_Order"/>
-                    <input type="hidden" name="reservedBooks" value="${requestScope.pageableReserves.elements}"/>
-                    <button form="createOrder" type="submit">${createOrder}</button>
-                </form>
+            <div style="text-align: center">
+                <c:forEach begin="1" end="${Math.ceil(pageable.totalElements / pageable.limit)}" var="i">
+                    <c:if test="${i == pageable.pageNumber}">
+                            <span>
+                                <button class="counter" form="showProducts" name="currentPage" style="color:red"
+                                        type="submit"
+                                        value="${i}">${i}</button>
+                            </span>
+                    </c:if>
+                    <c:if test="${i != pageable.pageNumber}">
+                            <span>
+                                <button class="counter" form="showProducts" name="currentPage" type="submit"
+                                        value="${i}">${i}</button>
+                            </span>
+                    </c:if>
+                </c:forEach>
             </div>
+        </c:if>
+    </div>
 
-            <div style="margin-left: center">
+    <!----------   SHOW RESERVES  ---------->
+
+    <div>
+        <form action="frontController" id="showReserves" method="GET">
+            <input name="command" type="hidden" value="show_Reserves"/>
+            <button class="btn btn-primary" form="showReserves">${showReservedProducts}</button>
+        </form>
+    </div>
+    <div>
+        <c:if test="${not empty requestScope.pageableReserves.elements}">
+            <table class="table">
+                <thead class="light shown-thread-reserves">
+                <tr>
+                    <th></th>
+                    <th scope="col">${title}</th>
+                    <th scope="col">${author}</th>
+                    <th scope="col">${publisher}</th>
+                    <th scope="col">${publishingYear}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${requestScope.pageableReserves.elements}" var="reserveRow">
+                    <tr>
+                        <td class="marker-reserves">
+                        </td>
+                        <td>${reserveRow.title}</td>
+                        <td>${reserveRow.author}</td>
+                        <td>${reserveRow.publisher}</td>
+                        <td>${reserveRow.publishingYear}</td>
+                        <td>
+                            <form action="frontController" method="POST">
+                                <input name="command" type="hidden" value="delete_Reserve"/>
+                                <input name="bookId" type="hidden" value="${reserveRow.id}"/>
+                                <button class="btn btn-primary" type="submit">${deleteReserve}</button>
+                                <br/>
+                            </form>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+
+            <div style="text-align: center">
                 <c:forEach begin="1" end="${Math.ceil(pageableReserves.totalElements / pageableReserves.limit)}"
                            var="j">
                     <c:if test="${j == pageableReserves.pageNumber}">
                             <span>
-                                <button style="color:red" form="showReserves" type="submit" name="currentPageReserve"
+                                <button class="counter" form="showReserves" name="currentPageReserve" style="color:red"
+                                        type="submit"
                                         value="${j}">${j}</button>
                             </span>
                     </c:if>
                     <c:if test="${j != pageableReserves.pageNumber}">
                             <span>
-                                <button form="showReserves" type="submit" name="currentPageReserve"
+                                <button class="counter" form="showReserves" name="currentPageReserve" type="submit"
                                         value="${j}">${j}</button>
                             </span>
                     </c:if>
                 </c:forEach>
+            </div>
+            <div style="text-align: center">
+                <form action="frontController" id="createOrder" method="POST" style="">
+                    <input name="command" type="hidden" value="create_Order"/>
+                    <input name="reservedBooks" type="hidden" value="${requestScope.pageableReserves.elements}"/>
+                    <button class="btn btn-primary" form="createOrder" type="submit">${createOrder}</button>
+                </form>
             </div>
         </c:if>
         <c:if test="${empty requestScope.pageableReserves.elements}">
@@ -177,18 +174,30 @@
     <!----------   SHOW ORDER INFO  ---------->
 
     <div>
-        <form id="showOrderInfo" method="GET" action="frontController">
-            <input type="hidden" name="command" value="order_Info"/>
-            <button form="showOrderInfo" type="submit">${goToOrderList}</button>
+        <form action="frontController" id="showOrderInfo" method="GET">
+            <input name="command" type="hidden" value="order_Info"/>
+            <button class="btn btn-primary" form="showOrderInfo" type="submit">${goToOrderList}</button>
         </form>
     </div>
     <div>
         <c:if test="${not empty requestScope.pageableOrders.elements}">
-            <table>
+            <table class="table">
+                <thead class="light shown-thread-orders">
+                <tr>
+                    <th></th>
+                    <th scope="col">${title}</th>
+                    <th scope="col">${author}</th>
+                    <th scope="col">${publisher}</th>
+                    <th scope="col">${publishingYear}</th>
+                    <th scope="col">${genre}</th>
+                    <th scope="col">${description}</th>
+
+                </tr>
+                </thead>
                 <tbody>
                 <c:forEach items="${requestScope.pageableOrders.elements}" var="bookFromOrderRow">
                     <tr>
-                        <td>
+                        <td class="marker-orders">
                         </td>
                         <td>${bookFromOrderRow.title}</td>
                         <td>${bookFromOrderRow.author}</td>
@@ -197,10 +206,10 @@
                         <td>${bookFromOrderRow.genre}</td>
                         <td>${bookFromOrderRow.description}</td>
                         <td>
-                            <form method="POST" action="frontController">
-                                <input type="hidden" name="command" value="delete_Book_From_Order"/>
-                                <input type="hidden" name="bookId" value="${bookFromOrderRow.id}"/>
-                                <input type="submit" value="${deleteFromOrder}">
+                            <form action="frontController" method="POST">
+                                <input name="command" type="hidden" value="delete_Book_From_Order"/>
+                                <input name="bookId" type="hidden" value="${bookFromOrderRow.id}"/>
+                                <button class="btn btn-primary">${deleteFromOrder}</button>
                                 <br/>
                             </form>
                         </td>
@@ -209,17 +218,18 @@
                 </tbody>
             </table>
 
-            <div style="margin-left: center">
+            <div style="text-align: center">
                 <c:forEach begin="1" end="${Math.ceil(pageableOrders.totalElements / pageableOrders.limit)}" var="i">
                     <c:if test="${i == pageableOrders.pageNumber}">
                             <span>
-                                <button style="color:red" form="showOrderInfo" type="submit" name="currentPageOrder"
+                                <button class="counter" form="showOrderInfo" name="currentPageOrder" style="color:red"
+                                        type="submit"
                                         value="${i}">${i}</button>
                             </span>
                     </c:if>
                     <c:if test="${i != pageableOrders.pageNumber}">
                             <span>
-                                <button form="showOrderInfo" type="submit" name="currentPageUser"
+                                <button class="counter" form="showOrderInfo" name="currentPageUser" type="submit"
                                         value="${i}">${i}</button>
                             </span>
                     </c:if>
@@ -228,73 +238,30 @@
         </c:if>
     </div>
 
-    <!--
-      <div>
-          <table>
-              &lt;!&ndash; <thead>
-               <tr>
-                   <td></td>
-                   <td><h4><c:out value="${title}"/></h4></td>
-                   <td><h4><c:out value="${author}"/></h4></td>
-                   <td><h4><c:out value="${publisher}"/></h4></td>
-                   <td><h4><c:out value="${publishingYear}"/></h4></td>
-               </tr>
-               </thead>&ndash;&gt;
-
-              <tbody>
-
-              <c:forEach items="${requestScope.booksFromOrder}" var="bookFromOrder">
-                  <c:if test="${not empty requestScope.booksFromOrder}">
-                      <tr>
-                          <td>
-                              &lt;!&ndash; <form  method="GET" action="frontController" >
-                                   <input type="hidden" name="command" value="productInfo" />
-                                   <input type="hidden" name="id" value="${reserveRow.id}" />
-                                   <button type="submit" >Product info</button><br/>
-                               </form>&ndash;&gt;
-                          </td>
-                          <td>${bookFromOrder.title}</td>
-                          <td>${bookFromOrder.author}</td>
-                          <td>${bookFromOrder.publisher}</td>
-                          <td>${bookFromOrder.publishingYear}</td>
-                          <td>
-                              <form method="POST" action="frontController">
-                                  <input type="hidden" name="command" value="delete_Book_From_Order"/>
-                                  <input type="hidden" name="bookId" value="${bookFromOrder.id}"/>
-                                  <input type="submit" value="${deleteFromOrder}">
-                                  <br/>
-                              </form>
-                          </td>
-                      </tr>
-                  </c:if>
-
-              </c:forEach>
-              <c:if test="${empty requestScope.booksFromOrder}">
-                  <div>
-                      <h3>${orderMessage}</h3>
-                  </div>
-              </c:if>
-              </tbody>
-          </table>
-      </div>
-  </c:if>-->
-
     <!----------   ADMIN SHOW USERS  ---------->
 
     <c:if test="${sessionScope.role == 'admin'}">
         <div>
-            <form id="showUsers" method="GET" action="frontController">
-                <input type="hidden" name="command" value="show_Users"/>
-                <button form="showUsers" type="submit">${showUsers}</button>
+            <form action="frontController" id="showUsers" method="GET">
+                <input name="command" type="hidden" value="show_Users"/>
+                <button class="btn btn-primary" form="showUsers" type="submit">${showUsers}</button>
             </form>
         </div>
         <div>
             <c:if test="${not empty requestScope.pageableUsers.elements}">
-                <table>
+                <table class="table">
+                    <thead class="light shown-thread-users">
+                    <tr>
+                        <th></th>
+                        <th scope="col">${id}</th>
+                        <th scope="col">${login}</th>
+                        <th scope="col">${role}</th>
+                    </tr>
+                    </thead>
                     <tbody>
                     <c:forEach items="${requestScope.pageableUsers.elements}" var="userRow">
                         <tr>
-                            <td>
+                            <td class="marker-users">
                             </td>
                             <td>${userRow.id}</td>
                             <td>${userRow.login}</td>
@@ -304,17 +271,19 @@
                     </tbody>
                 </table>
 
-                <div style="margin-left: center">
+                <div style="text-align: center">
                     <c:forEach begin="1" end="${Math.ceil(pageableUsers.totalElements / pageableUsers.limit)}" var="i">
                         <c:if test="${i == pageableUsers.pageNumber}">
                             <span>
-                                <button style="color:red" form="showUsers" type="submit" name="currentPageUser"
+                                <button class="counter" form="showUsers" name="currentPageUser" style="color:red"
+                                        type="submit"
                                         value="${i}">${i}</button>
                             </span>
                         </c:if>
                         <c:if test="${i != pageableUsers.pageNumber}">
                             <span>
-                                <button form="showUsers" type="submit" name="currentPageUser" value="${i}">${i}</button>
+                                <button class="counter" form="showUsers" name="currentPageUser" type="submit"
+                                        value="${i}">${i}</button>
                             </span>
                         </c:if>
                     </c:forEach>
@@ -322,5 +291,6 @@
             </c:if>
         </div>
     </c:if>
+</c:if>
 </body>
 </html>

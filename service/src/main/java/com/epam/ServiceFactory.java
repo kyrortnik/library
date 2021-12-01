@@ -4,7 +4,7 @@ import com.epam.impl.BookServiceImpl;
 import com.epam.impl.OrderServiceImpl;
 import com.epam.impl.ReserveServiceImpl;
 import com.epam.impl.UserServiceImpl;
-import com.epam.repository.DAOFactory;
+import com.epam.repository.factory.DAOFactory;
 import com.epam.validator.ServiceValidator;
 
 public class ServiceFactory {

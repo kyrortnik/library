@@ -11,14 +11,10 @@ import com.epam.validator.ServiceValidator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 public class BookServiceImpl implements BookService {
 
-
-    private static final Logger LOG = Logger.getLogger(BookServiceImpl.class.getName());
 
     private final BookDAO bookDAO;
     private final ServiceValidator serviceValidator;
@@ -35,7 +31,6 @@ public class BookServiceImpl implements BookService {
             BookRow bookRow = convertToBookRow(book);
             return bookDAO.save(bookRow);
         } catch (DAOException e) {
-            LOG.log(Level.SEVERE, "Exception: " + e);
             throw new ServiceException(e);
         }
 
@@ -50,7 +45,6 @@ public class BookServiceImpl implements BookService {
             return bookDAO.update(bookRow);
 
         } catch (DAOException e) {
-            LOG.log(Level.SEVERE, "Exception: " + e);
             throw new ServiceException(e);
         }
 
@@ -62,7 +56,6 @@ public class BookServiceImpl implements BookService {
             return bookDAO.delete(id);
 
         } catch (DAOException e) {
-            LOG.log(Level.SEVERE, "Exception: " + e);
             throw new ServiceException(e);
         }
 
@@ -75,12 +68,10 @@ public class BookServiceImpl implements BookService {
         try {
             return convertToBook(bookDAO.findById(id));
         } catch (DAOException e) {
-            LOG.log(Level.SEVERE, "Exception: " + e);
             throw new ServiceException(e);
         }
 
     }
-
 
 
     @Override

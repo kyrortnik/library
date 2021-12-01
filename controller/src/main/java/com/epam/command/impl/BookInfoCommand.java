@@ -8,18 +8,20 @@ import com.epam.command.exception.ControllerException;
 import com.epam.entity.Book;
 import com.epam.exception.ServiceException;
 import com.epam.validator.ControllerValidator;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.logging.Logger;
+
 
 import static com.epam.util.ControllerConstants.*;
 
 public class BookInfoCommand extends AbstractCommand implements Command {
 
-    private static final Logger LOG = Logger.getLogger(BookInfoCommand.class.getName());
+
+    private static final Logger LOG = Logger.getLogger(BookInfoCommand.class);
 
     private final ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private final BookService bookService = serviceFactory.getBookService();
@@ -46,9 +48,6 @@ public class BookInfoCommand extends AbstractCommand implements Command {
                 message = "No such product was found";
                 unsuccessfulProcess(request, lastCommand, message);
             }
-
-            request.getSession().setAttribute(LAST_COMMAND, lastCommand);
-            request.getSession().setAttribute(MESSAGE, null);
             request.getRequestDispatcher("frontController?command=go_To_Page&address=productInfo.jsp").forward(request, response);
 
         } catch (ServiceException | IOException | ServletException e) {

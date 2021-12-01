@@ -7,18 +7,19 @@ import com.epam.command.Command;
 import com.epam.command.exception.ControllerException;
 import com.epam.entity.Book;
 import com.epam.validator.ControllerValidator;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Locale;
-import java.util.logging.Logger;
 
 import static com.epam.util.ControllerConstants.*;
 
 public class UpdateBookCommand extends AbstractCommand implements Command {
 
+    private static final Logger LOG = Logger.getLogger(UpdateBookCommand.class);
+
     private final BookService bookService = ServiceFactory.getInstance().getBookService();
-    private static final Logger LOG = Logger.getLogger(UpdateBookCommand.class.getName());
     private final ControllerValidator controllerValidator = new ControllerValidator();
 
     @Override
