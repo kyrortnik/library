@@ -198,11 +198,11 @@ public class BookServiceImplTest {
         Pageable<BookRow> pageableWithElements = new Pageable<>(pageNumber, totalElements, limit, rowElements, sortBy, direction);
         Page<Book> pageWithElements = new Page<>(pageNumber, totalElements, limit, elements, sortBy, direction);
 
-        when(bookDAO.findPageWithParameters(pageableEmptyElements)).thenReturn(pageableWithElements);
+        when(bookDAO.getBookRowsPage(pageableEmptyElements)).thenReturn(pageableWithElements);
 
         Page<Book> returnPage = bookService.getBooksPage(pageEmptyElements);
 
-        verify(bookDAO).findPageWithParameters(pageableEmptyElements);
+        verify(bookDAO).getBookRowsPage(pageableEmptyElements);
         assertEquals(pageWithElements, returnPage);
 
     }
@@ -215,7 +215,7 @@ public class BookServiceImplTest {
         Pageable<BookRow> pageableEmptyElements = new Pageable<>(pageNumber, 0, limit, emptyElementRows, sortBy, direction);
         Page<Book> pageEmptyElements = new Page<>(pageNumber, 0, limit, emptyElements, sortBy, direction);
 
-        when(bookDAO.findPageWithParameters(pageableEmptyElements)).thenThrow(daoException);
+        when(bookDAO.getBookRowsPage(pageableEmptyElements)).thenThrow(daoException);
         ServiceException actualException = new ServiceException();
 
         try {

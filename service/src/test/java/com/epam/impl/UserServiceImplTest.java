@@ -32,8 +32,8 @@ public class UserServiceImplTest {
     //parameters
     private final long userId = 1L;
     private final String login = "login";
-    private final String password = "password";
-    private final String secondPassword = "password";
+    private final char[] password = "password".toCharArray();
+    private final char[] secondPassword = "password".toCharArray();
     private final String role = "role";
 
     // Page parameters

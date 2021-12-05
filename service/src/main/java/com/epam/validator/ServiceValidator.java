@@ -1,6 +1,9 @@
 package com.epam.validator;
 
-import com.epam.entity.*;
+import com.epam.entity.Book;
+import com.epam.entity.Page;
+import com.epam.entity.Reserve;
+import com.epam.entity.User;
 import com.epam.exception.ServiceException;
 
 import java.util.List;
@@ -22,7 +25,7 @@ public final class ServiceValidator {
 
 
     public void validation(User user) throws ServiceException {
-        if (isNull(user) || ("".equals(user.getLogin()) && "".equals(user.getPassword()))) {
+        if (isNull(user) || ("".equals(user.getLogin()) && user.getPassword().length == 0)) {
             throw new ServiceException("Invalid User");
         }
     }
@@ -50,6 +53,12 @@ public final class ServiceValidator {
 
     public void validation(String string) throws ServiceException {
         if (isNull(string) || string.isEmpty()) {
+            throw new ServiceException("Invalid string.");
+        }
+    }
+
+    public void validation(char[] charArray) throws ServiceException {
+        if (isNull(charArray) || charArray.length == 0) {
             throw new ServiceException("Invalid string.");
         }
     }

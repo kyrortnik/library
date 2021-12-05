@@ -18,7 +18,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.epam.repository.utils.DBConstants.MAX_ROWS;
-
+import static java.util.Objects.nonNull;
 
 public class UserDAOImpl extends AbstractDAO implements UserDAO {
 
@@ -52,7 +52,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
             while (resultSet.next()) {
                 user.setId(resultSet.getLong(1));
                 user.setLogin(resultSet.getString(2));
-                user.setPassword(resultSet.getString(3));
+                user.setPassword(resultSet.getString(3).toCharArray());
                 user.setRole(resultSet.getString(4));
             }
             if (user.getLogin() != null) {
@@ -102,6 +102,13 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
             connection.commit();
             return registeredUser;
         } catch (SQLException | DAOException e) {
+            try {
+                if (nonNull(connection)) {
+                    connection.rollback();
+                }
+            } catch (SQLException ex) {
+                throw new DAOException(ex);
+            }
             throw new DAOException(e);
         } finally {
             closeResultSet(resultSet);
@@ -111,7 +118,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
     }
 
     @Override
-    public UserDTO login(String login, String enteredPassword) throws DAOException {
+    public UserDTO login(String login, char[] enteredPassword) throws DAOException {
         List<Object> parameters = Collections.singletonList(login);
         String saltFromDB;
         String passwordFromDB;
@@ -151,7 +158,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
             connection = connectionPool.getConnection();
             statement = connection.prepareStatement(SAVE_USER);
             statement.setString(1, user.getLogin());
-            statement.setString(2, user.getPassword());
+            statement.setString(2, String.valueOf(user.getPassword()));
             statement.setString(3, user.getRole());
             statement.setString(4, user.getSalt());
             return statement.executeUpdate() != 0;
@@ -203,7 +210,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
             if (userCheck.getId() != null && user.getId().equals(userCheck.getId())) {
                 statement = connection.prepareStatement(UPDATE_USER);
                 statement.setString(1, user.getLogin());
-                statement.setString(2, user.getPassword());
+                statement.setString(2, String.valueOf(user.getPassword()));
                 statement.setLong(3, user.getId());
                 result = statement.executeUpdate();
             }
@@ -211,7 +218,9 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
             return result > 0;
         } catch (Exception e) {
             try {
-                connection.rollback();
+                if (nonNull(connection)) {
+                    connection.rollback();
+                }
             } catch (Exception ex) {
                 throw new DAOException(ex);
             }
@@ -246,7 +255,13 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
             connection.commit();
             return getUserRowsPageable(daoProductPageable, countResultSet, queryResultSet);
         } catch (SQLException e) {
-            e.printStackTrace();
+            try {
+                if (connection != null) {
+                    connection.rollback();
+                }
+            } catch (SQLException ex) {
+                throw new DAOException(ex);
+            }
             throw new DAOException(e);
         } finally {
             closeResultSet(countResultSet, queryResultSet);

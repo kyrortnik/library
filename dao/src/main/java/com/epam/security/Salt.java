@@ -12,7 +12,7 @@ public class Salt {
     private final char[] hexArray = "0123456789ABCDEF".toCharArray();
 
 
-    public boolean verifyPassword(String providedPassword, String fromDatabase, String passwordSalt) throws DAOException {
+    public boolean verifyPassword(char[] providedPassword, String fromDatabase, String passwordSalt) throws DAOException {
         boolean isValid;
         try {
             String generate = generateEncryptedPassword(providedPassword, passwordSalt);
@@ -24,11 +24,12 @@ public class Salt {
 
     }
 
-    public String generateEncryptedPassword(String password, String salt) throws DAOException {
+    public String generateEncryptedPassword(char[] password, String salt) throws DAOException {
         try {
+            String passwordString = String.valueOf(password);
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             md.update(salt.getBytes(StandardCharsets.UTF_8));
-            byte[] hashedPassword = md.digest(password.getBytes(StandardCharsets.UTF_8));
+            byte[] hashedPassword = md.digest(passwordString.getBytes(StandardCharsets.UTF_8));
             return bytesToStringHex(hashedPassword);
         } catch (NoSuchAlgorithmException e) {
             throw new DAOException(e);

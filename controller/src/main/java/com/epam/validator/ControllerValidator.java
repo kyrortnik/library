@@ -1,8 +1,8 @@
 package com.epam.validator;
 
 import com.epam.command.exception.ControllerException;
-import com.epam.entity.*;
-
+import com.epam.entity.Book;
+import com.epam.entity.Page;
 
 import static java.util.Objects.isNull;
 
@@ -25,6 +25,7 @@ public class ControllerValidator {
         }
 
     }
+
     public void stringParameterValidationNonNull(String... parameters) throws ControllerException {
         for (String parameter : parameters) {
             if (isNull(parameter)) {

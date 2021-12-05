@@ -14,13 +14,14 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static java.util.Objects.nonNull;
+
 public class ReserveDAOImpl extends AbstractDAO implements ReserveDAO {
 
     private static final String FIND_RESERVE_BY_ID = "SELECT * FROM reserves WHERE reserve_id = ?";
     private static final String SAVE_RESERVE = "INSERT INTO reserves VALUES (DEFAULT,?,?)";
     private static final String DELETE_RESERVE = "DELETE FROM reserves WHERE reserve_id = ?";
     private static final String FIND_RESERVE_BY_USER_AND_PRODUCT = " SELECT * FROM reserves WHERE user_id = ? AND product_id = ?";
-//    private static final String DELETE_BY_USER_AND_PRODUCT = "DELETE FROM reserves WHERE user_id = ? AND product_id = ?";
 
 
     public ReserveDAOImpl(ConnectionPool connectionPool) {
@@ -78,7 +79,9 @@ public class ReserveDAOImpl extends AbstractDAO implements ReserveDAO {
             return result;
         } catch (SQLException e) {
             try {
-                connection.rollback();
+                if (nonNull(connection)) {
+                    connection.rollback();
+                }
             } catch (SQLException ex) {
                 throw new DAOException(ex);
             }
@@ -107,34 +110,8 @@ public class ReserveDAOImpl extends AbstractDAO implements ReserveDAO {
         }
     }
 
-
-    /*@Override
-    public boolean deleteByUserAndProduct(Long userId, Long bookId) throws DAOException {
-        List<Object> parameters = Arrays.asList(userId, bookId);
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try {
-            connection = connectionPool.getConnection();
-            connection.setAutoCommit(false);
-            statement = getPreparedStatement(DELETE_BY_USER_AND_PRODUCT, connection, parameters);
-            connection.commit();
-            return statement.executeUpdate() != 0;
-        } catch (SQLException e) {
-            try{
-                connection.rollback();
-            }catch (SQLException ex){
-                throw new DAOException(ex);
-            }
-            throw new DAOException(e);
-        } finally {
-            closeStatement(statement);
-            connectionPool.releaseConnection(connection);
-        }
-
-    }*/
-
     @Override
-    public boolean deleteByUserAndProduct(Long userId, Long bookId) throws DAOException{
+    public boolean deleteByUserAndProduct(Long userId, Long bookId) throws DAOException {
         boolean result = false;
         List<Object> parameters = Arrays.asList(userId, bookId);
         long reserveId;
@@ -147,23 +124,25 @@ public class ReserveDAOImpl extends AbstractDAO implements ReserveDAO {
             connection.setAutoCommit(false);
             findReserveStatement = getPreparedStatement(FIND_RESERVE_BY_USER_AND_PRODUCT, connection, parameters);
             resultSet = findReserveStatement.executeQuery();
-            if (resultSet.next()){
+            if (resultSet.next()) {
                 reserveId = resultSet.getLong(1);
-                deleteStatement = getPreparedStatement(DELETE_RESERVE,connection, Collections.singletonList(reserveId));
+                deleteStatement = getPreparedStatement(DELETE_RESERVE, connection, Collections.singletonList(reserveId));
                 result = deleteStatement.executeUpdate() != 0;
             }
             connection.commit();
             return result;
         } catch (SQLException e) {
-            try{
-                connection.rollback();
-            }catch (SQLException ex){
+            try {
+                if (nonNull(connection)) {
+                    connection.rollback();
+                }
+            } catch (SQLException ex) {
                 throw new DAOException(ex);
             }
             throw new DAOException(e);
         } finally {
             closeResultSet(resultSet);
-            closeStatement(findReserveStatement,deleteStatement);
+            closeStatement(findReserveStatement, deleteStatement);
             connectionPool.releaseConnection(connection);
         }
     }

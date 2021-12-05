@@ -6,7 +6,7 @@ public class ControllerConstants {
             PAGE = "page",
             COMMAND = "command",
             ID = "id",
-            BOOK_ID="bookId",
+            BOOK_ID = "bookId",
             LOGIN = "login",
             PASSWORD = "password",
             SECOND_PASSWORD = "secondPassword",
@@ -37,7 +37,5 @@ public class ControllerConstants {
             CURRENT_PAGE_USER = "currentPageUser",
             PAGEABLE_USERS = "pageableUsers",
             PAGEABLE_ORDERS = "pageableOrders";
-
-
 
 }

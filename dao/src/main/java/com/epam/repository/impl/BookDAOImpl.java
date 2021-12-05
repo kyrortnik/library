@@ -139,7 +139,9 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
 
         } catch (Exception e) {
             try {
-                connection.rollback();
+                if (nonNull(connection)) {
+                    connection.rollback();
+                }
             } catch (SQLException ex) {
                 throw new DAOException(ex);
             }
@@ -152,7 +154,7 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
 
 
     @Override
-    public Pageable<BookRow> findPageWithParameters(Pageable<BookRow> daoProductPageable) throws DAOException {
+    public Pageable<BookRow> getBookRowsPage(Pageable<BookRow> daoProductPageable) throws DAOException {
         Long offset = (daoProductPageable.getPageNumber() - 1) * MAX_ROWS;
         List<Object> parameters = Arrays.asList(MAX_ROWS, offset);
         Connection connection = null;
@@ -178,7 +180,9 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
             return getBookRowPageable(daoProductPageable, totalElements, queryResultSet);
         } catch (SQLException e) {
             try {
-                connection.rollback();
+                if (nonNull(connection)) {
+                    connection.rollback();
+                }
             } catch (SQLException ex) {
                 throw new DAOException(ex);
             }
@@ -216,7 +220,9 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
             return getBookRowPageable(daoBookPageable, totalElements, reservedBooksSet);
         } catch (SQLException e) {
             try {
-                connection.rollback();
+                if (nonNull(connection)) {
+                    connection.rollback();
+                }
             } catch (SQLException ex) {
                 throw new DAOException(ex);
             }
@@ -256,6 +262,13 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
             connection.commit();
             return pageable;
         } catch (SQLException e) {
+            try {
+                if (nonNull(connection)) {
+                    connection.rollback();
+                }
+            } catch (SQLException ex) {
+                throw new DAOException(ex);
+            }
             throw new DAOException(e);
 
         } finally {

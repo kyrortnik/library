@@ -35,8 +35,9 @@ public class RegistrationCommand extends AbstractCommand implements Command {
         request.getSession().setAttribute(LAST_COMMAND, "frontController?command=go_To_Page$address=login.jsp");
 
         String login = request.getParameter(LOGIN);
-        String password = request.getParameter(PASSWORD);
-        String secondPassword = request.getParameter(SECOND_PASSWORD);
+        char[] password = request.getParameter(PASSWORD).toCharArray();
+        char[] secondPassword = request.getParameter(SECOND_PASSWORD).toCharArray();
+
         User user = new User(login, password, USER);
 
         try {

@@ -79,7 +79,7 @@ public class BookServiceImpl implements BookService {
         serviceValidator.validation(page);
         try {
             Pageable<BookRow> bookRowPageable = convertToPageableBook(page);
-            Pageable<BookRow> bookRowsPageable = bookDAO.findPageWithParameters(bookRowPageable);
+            Pageable<BookRow> bookRowsPageable = bookDAO.getBookRowsPage(bookRowPageable);
             return convertToServicePage(bookRowsPageable);
         } catch (DAOException e) {
             throw new ServiceException(e);
@@ -88,11 +88,11 @@ public class BookServiceImpl implements BookService {
 
 
     @Override
-    public Page<Book> getReservedBooksPage(Page<Book> pageRequest, Long userId) throws ServiceException {
+    public Page<Book> getReservedBooksPage(Page<Book> pageReserve, Long userId) throws ServiceException {
         serviceValidator.validation(userId);
-        serviceValidator.validation(pageRequest);
+        serviceValidator.validation(pageReserve);
         try {
-            Pageable<BookRow> pageableBookRowsRequest = convertToPageableBook(pageRequest);
+            Pageable<BookRow> pageableBookRowsRequest = convertToPageableBook(pageReserve);
             Pageable<BookRow> foundPageable = bookDAO.getReservedBookRowsPage(pageableBookRowsRequest, userId);
             return convertToServicePage(foundPageable);
         } catch (DAOException e) {

@@ -22,13 +22,13 @@ public class AntiInjectionFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
         StringBuilder sb = new StringBuilder();
         Map<String, String[]> params = request.getParameterMap();
-        for (String [] v : params.values()) {
+        for (String[] v : params.values()) {
             sb.append(v[0]);
         }
         if (sb.toString().trim().matches(DOES_NOT_CONTAIN)) {
             chain.doFilter(req, res);
         } else {
-            ((HttpServletRequest) request).getSession().setAttribute(MESSAGE,"Injection attempt has been detected");
+            ((HttpServletRequest) request).getSession().setAttribute(MESSAGE, "Injection attempt has been detected");
             request.getRequestDispatcher("frontController?command=go_To_Page&address=antiInjection.jsp").forward(request, response);
         }
     }

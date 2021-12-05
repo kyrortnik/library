@@ -11,10 +11,9 @@ import static com.epam.util.ControllerConstants.COMMAND;
 import static com.epam.util.ControllerConstants.MESSAGE;
 import static java.util.Objects.nonNull;
 
-
 public class CommandFactory {
-    private static final Logger LOG = Logger.getLogger(CommandFactory.class);
 
+    private static final Logger LOG = Logger.getLogger(CommandFactory.class);
     private static final CommandFactory INSTANCE = new CommandFactory();
 
     private CommandFactory() {
@@ -24,6 +23,12 @@ public class CommandFactory {
         return INSTANCE;
     }
 
+    /**
+     * Method to define command which comes from client
+     *
+     * @param request, HttpServletRequest to be processed
+     * @return Command which will be executed in Front Controller
+     */
     public Command defineCommand(HttpServletRequest request) {
         LOG.info("Start in CommandFactory.defineCommand():");
 

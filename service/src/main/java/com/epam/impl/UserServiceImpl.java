@@ -10,6 +10,8 @@ import com.epam.exception.ServiceException;
 import com.epam.repository.UserDAO;
 import com.epam.validator.ServiceValidator;
 
+import java.util.Arrays;
+
 
 public class UserServiceImpl implements UserService {
 
@@ -22,13 +24,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO register(User user, String secondPassword) throws ServiceException {
+    public UserDTO register(User user, char[] secondPassword) throws ServiceException {
 
         serviceValidator.validation(user);
         serviceValidator.validation(secondPassword);
         UserDTO registeredUser = null;
+
         try {
-            if (user.getPassword().equals(secondPassword)) {
+            if (Arrays.equals(user.getPassword(),secondPassword)) {
                 registeredUser = userDAO.register(user);
             }
             return registeredUser;
@@ -39,11 +42,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO login(String login, String enteredPassword) throws ServiceException {
+    public UserDTO login(String login, char[] enteredPassword) throws ServiceException {
         serviceValidator.validation(login);
         serviceValidator.validation(enteredPassword);
         try {
-            return userDAO.login(login, enteredPassword);
+            return userDAO.login(login,enteredPassword);
 
         } catch (DAOException e) {
             throw new ServiceException(e);

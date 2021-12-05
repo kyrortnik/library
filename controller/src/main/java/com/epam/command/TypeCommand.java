@@ -2,6 +2,7 @@ package com.epam.command;
 
 import com.epam.command.impl.*;
 
+
 public enum TypeCommand {
 
     BASE(new BaseCommand()),

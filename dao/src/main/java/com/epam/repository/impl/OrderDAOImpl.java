@@ -89,7 +89,9 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
             return result;
         } catch (SQLException e) {
             try {
-                connection.rollback();
+                if (nonNull(connection)) {
+                    connection.rollback();
+                }
             } catch (SQLException ex) {
                 throw new DAOException(ex);
             }
@@ -149,7 +151,9 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
 
         } catch (SQLException e) {
             try {
-                connection.rollback();
+                if (nonNull(connection)) {
+                    connection.rollback();
+                }
             } catch (SQLException ex) {
                 throw new DAOException(ex);
             }
@@ -169,20 +173,20 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
         PreparedStatement updateOrderStatement = null;
         ResultSet findOrderResultSet = null;
         try {
-//   -------------1. Checks whether such order exists --------------------
+//   Checks whether such order exists 
             connection = connectionPool.getConnection();
             connection.setAutoCommit(false);
             parameters = Collections.singletonList(userId);
             findOrderStatement = getPreparedStatement(FIND_ORDER_BY_USER_ID, connection, parameters);
             findOrderResultSet = findOrderStatement.executeQuery();
             if (findOrderResultSet.next()) {
-//  -------------2. When order exists- updates it removing asked product --------------------
+//   When order exists- updates it removing asked product 
                 Array updatedProducts = getUpdatedProductsArray(bookId, connection, findOrderResultSet);
                 parameters = Arrays.asList(updatedProducts, userId);
                 if (!productsAreEmpty(updatedProducts)) {
                     updateOrderStatement = getPreparedStatement(UPDATE_ORDER, connection, parameters);
                     result = updateOrderStatement.executeUpdate() != 0;
-//  -------------If no products to update - deletes order --------------------
+//  If no products to update - deletes order 
                 } else {
                     long orderId = findOrderResultSet.getLong(1);
                     result = delete(orderId);
@@ -192,7 +196,10 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
             return result;
         } catch (SQLException e) {
             try {
-                connection.rollback();
+                if (nonNull(connection)){
+                    connection.rollback();
+                }
+               
             } catch (SQLException ex) {
                 throw new DAOException(ex);
             }

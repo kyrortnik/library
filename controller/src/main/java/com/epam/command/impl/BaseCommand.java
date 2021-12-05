@@ -13,6 +13,7 @@ public class BaseCommand implements Command {
 
     private static final Logger LOG = Logger.getLogger(BaseCommand.class);
 
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
         LOG.info("Start in Base Command");

@@ -29,7 +29,7 @@ public class LoginCommand extends AbstractCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
 
         String login = request.getParameter(LOGIN);
-        String password = request.getParameter(PASSWORD);
+        char[] password = request.getParameter(PASSWORD).toCharArray();
 
 
         String lastCommand;
