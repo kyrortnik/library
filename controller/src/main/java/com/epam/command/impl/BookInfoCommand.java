@@ -42,8 +42,9 @@ public class BookInfoCommand extends AbstractCommand implements Command {
             Book book = bookService.findById(Long.parseLong(userId));
 
             if (book != null) {
+                message = (String) request.getSession().getAttribute(MESSAGE);
                 request.setAttribute(BOOK, book);
-                successfulProcess(request, lastCommand, null);
+                successfulProcess(request, lastCommand, message);
             } else {
                 message = "No such product was found";
                 unsuccessfulProcess(request, lastCommand, message);

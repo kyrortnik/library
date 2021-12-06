@@ -34,7 +34,7 @@ public class FrontController extends HttpServlet {
             command.execute(request, response);
         } catch (ControllerException e) {
             LOG.error(e.getMessage());
-            request.getRequestDispatcher("frontController?command=goToPage&address=error.jsp").forward(request, response);
+            request.getRequestDispatcher("frontController?command=go_To_Page&address=error.jsp").forward(request, response);
         }
 
 

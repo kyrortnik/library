@@ -2,14 +2,15 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<html xmlns="http://www.w3.org/1999/html">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
     <%@ include file="parts/meta.jsp" %>
     <title>
         ${bookInformationPage}
     </title>
 </head>
-<body>
+<body style="padding-top : 0px ; text-align : start">
 <%@ include file="parts/header.jsp" %>
 </br>
 <div style="display: flex; justify-content :start ">
@@ -19,10 +20,21 @@
         <button class="btn btn-primary" form="toMainPage" type="submit">${toMain}</button>
     </form>
 </div>
-<c:if test="${ empty requestScope.book}">
-    <p><a href="frontController?command=show_Products">Back to Products</a></p>
-</c:if>
+
 <!----------   SHOW BOOK INFO  ---------->
+<div>
+    <c:if test="${empty requestScope.book}">
+        <p><a href="${sessionScope.lastCommand}">Back to Products</a></p>
+    </c:if>
+</div>
+
+<div>
+    <form style="text-align : center">
+        <a style="font-weight: bold ; font-size: 200%">
+            ${sessionScope.message}
+        </a>
+    </form>
+</div>
 <c:if test="${not empty requestScope.book}">
     <div>
 
@@ -60,6 +72,7 @@
         </table>
     </div>
 </c:if>
+
 <!----------   DELETE BOOK (ADMIN) ---------->
 <c:if test="${sessionScope.role == 'admin'}">
     <div style="text-align : center">
@@ -69,6 +82,7 @@
             <button class="btn btn-primary" form="deleteBook" type="submit">${deleteBook}</button>
         </form>
     </div>
+    </br>
     <!----------   UPDATE BOOK (ADMIN)  ---------->
     <div class="main-block">
         <form action="frontController" class="form-group" id="editBook" method="POST">
@@ -87,9 +101,6 @@
                 <input class="form-control" name="publishingYear" placeholder="${publishingYear}" type="text"/>
             </div>
             <div class="form-group col-md-6">
-                <input class="form-control" name="isHardCover" placeholder="${isHardCover}" type="text"/>
-            </div>
-            <div class="form-group col-md-6">
                 <input class="form-control" name="numberOfPages" placeholder="${numberOfPages}" type="text"/>
             </div>
             <div class="form-group col-md-6">
@@ -98,8 +109,11 @@
             <div class="form-group col-md-6">
                 <input class="form-control" name="description" placeholder="${description}" type="text"/>
             </div>
-            <div class="form-group col-md-6">
-                <input class="form-control" name="description" placeholder="${description}" type="text"/>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name ="isHardCover" value="true" id="isHard">
+                <label class="form-check-label" for="isHard">
+                    ${isHardCover}
+                </label>
             </div>
             <div style="text-align : center">
                 <button class="btn btn-primary" form="editBook" type="submit">${updateBook}</button>

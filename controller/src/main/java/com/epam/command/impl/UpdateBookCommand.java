@@ -31,11 +31,12 @@ public class UpdateBookCommand extends AbstractCommand implements Command {
         String bookIdString = request.getParameter(BOOK_ID);
         controllerValidator.numericParameterValidation(bookIdString);
         long bookId = Long.parseLong(bookIdString);
-        Book book = getBookClient(request);
-        String lastCommand = "frontController?command=productInfo&id=" + bookId;
+        String lastCommand = "frontController?command=book_Info&id=" + bookId;
+//        String lastCommand = "frontController?command=go_To_Page&address=productInfo.jsp&id=" + bookId;
         String message;
 
         try {
+            Book book = getBookClient(request);
             if (bookService.update(book)) {
                 lastCommand = "frontController?command=go_To_Page&address=main.jsp";
                 message = "Book is updated";
@@ -55,22 +56,21 @@ public class UpdateBookCommand extends AbstractCommand implements Command {
             } catch (IOException | ServletException ex) {
                 throw new ControllerException(ex);
             }
-
             throw new ControllerException(e);
         }
     }
 
     private Book getBookClient(HttpServletRequest request) throws ControllerException {
 
-        String idString = request.getParameter(BOOK_ID);
-        String title = request.getParameter(TITLE);
-        String author = request.getParameter(AUTHOR);
-        String publisher = request.getParameter(PUBLISHER);
-        String genre = request.getParameter(GENRE);
-        String description = request.getParameter(DESCRIPTION);
+        String idString = request.getParameter(BOOK_ID).trim();
+        String title = request.getParameter(TITLE).trim();
+        String author = request.getParameter(AUTHOR).trim();
+        String publisher = request.getParameter(PUBLISHER).trim();
+        String genre = request.getParameter(GENRE).trim();
+        String description = request.getParameter(DESCRIPTION).trim();
         boolean isHardCover = Boolean.parseBoolean(request.getParameter(IS_HARD_COVER));
-        String pages = request.getParameter(NUMBER_OF_PAGES);
-        String publishYear = request.getParameter(PUBLISHING_YEAR);
+        String pages = "".equals(request.getParameter(NUMBER_OF_PAGES)) ? "0" : request.getParameter(NUMBER_OF_PAGES).trim();
+        String publishYear = "".equals(request.getParameter(PUBLISHING_YEAR)) ? "0" : request.getParameter(PUBLISHING_YEAR).trim();
 
         controllerValidator.stringParameterValidation(title, author);
         controllerValidator.stringParameterValidationNonNull(publisher, genre, description);

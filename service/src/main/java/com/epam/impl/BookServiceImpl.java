@@ -31,7 +31,7 @@ public class BookServiceImpl implements BookService {
             BookRow bookRow = convertToBookRow(book);
             return bookDAO.save(bookRow);
         } catch (DAOException e) {
-            throw new ServiceException(e);
+            throw new ServiceException("Duplicate with this title already exists", e);
         }
 
     }
@@ -52,6 +52,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public boolean delete(Long id) throws ServiceException {
+        serviceValidator.validation(id);
         try {
             return bookDAO.delete(id);
 
@@ -143,6 +144,7 @@ public class BookServiceImpl implements BookService {
             book.setGenre(row.getGenre());
             book.setHardCover(row.isHardCover());
             book.setNumberOfPages(row.getNumberOfPages());
+            book.setDescription(row.getDescription());
 
         }
         return book;

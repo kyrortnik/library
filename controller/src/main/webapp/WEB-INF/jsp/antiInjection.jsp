@@ -13,7 +13,7 @@
     <div>
         <form style="text-align : center">
             <h style="font-weight: bold ; font-size: 200%">
-                ${sessionScope.message}
+                ${antiInjectionMessage}
             </h>
         </form>
     </div>

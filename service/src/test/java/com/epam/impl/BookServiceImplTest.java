@@ -82,10 +82,10 @@ public class BookServiceImplTest {
 
         Book book = new Book(id, title, author, publishingYear, publisher, genre, pages, isHardCover, description);
         BookRow bookRow = new BookRow(id, title, author, publishingYear, publisher, genre, pages, isHardCover, description);
-        DAOException daoException = new DAOException("testing message");
+        DAOException daoException = new DAOException();
 
         when(bookDAO.save(bookRow)).thenThrow(daoException);
-        ServiceException actualException = new ServiceException();
+        ServiceException actualException = new ServiceException(daoException);
 
         try {
             bookService.create(book);
@@ -93,7 +93,7 @@ public class BookServiceImplTest {
             actualException = e;
 
         }
-        assertEquals((new ServiceException(daoException)).getMessage(), actualException.getMessage());
+        assertEquals((new ServiceException("Duplicate with this title already exists")).getMessage(), actualException.getMessage());
 
     }
 

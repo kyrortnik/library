@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored = "false"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <fmt:setLocale value="${sessionScope.local}" />
@@ -48,11 +46,11 @@
 <fmt:message bundle="${loc}" key="local.bookInformationPage" var="bookInformationPage" />
 <fmt:message bundle="${loc}" key="local.deleteBook" var="deleteBook" />
 <fmt:message bundle="${loc}" key="local.toPreviousPage" var="toPreviousPage" />
-<!---->
 <fmt:message bundle="${loc}" key="local.signIn" var="signIn" />
 <fmt:message bundle="${loc}" key="local.reserveBook" var="reserveBook" />
 <fmt:message bundle="${loc}" key="local.updateBook" var="updateBook" />
 <fmt:message bundle="${loc}" key="local.toMain" var="toMain" />
+<fmt:message bundle="${loc}" key="local.hello" var="hello" />
 
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"

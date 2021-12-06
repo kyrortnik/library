@@ -29,14 +29,13 @@ public class DeleteBookCommand extends AbstractCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
 
         LOG.info("Start in DeleteBookCommand");
-
-        String bookIdString = request.getParameter(BOOK_ID);
-        controllerValidator.numericParameterValidation(bookIdString);
-        Long bookId = Long.valueOf(request.getParameter(BOOK_ID));
-
         String lastCommand;
         String message;
         try {
+            String bookIdString = request.getParameter(BOOK_ID);
+            Long bookId = Long.valueOf(request.getParameter(BOOK_ID));
+            controllerValidator.numericParameterValidation(bookIdString);
+
             if (bookService.delete(bookId)) {
                 lastCommand = "frontController?command=go_To_Page&address=main.jsp";
                 message = "Book is deleted";

@@ -61,7 +61,7 @@ public class RegistrationCommand extends AbstractCommand implements Command {
         } catch (ServiceException | IOException | ServletException e) {
             try {
                 lastCommand = "frontController?command=go_To_Page&address=login.jsp";
-                message = "Login and passwords can't be empty.";
+                message = "Login and passwords are empty or user already exists.";
                 unsuccessfulProcess(request, lastCommand, message);
                 request.getRequestDispatcher(lastCommand).forward(request, response);
             } catch (IOException | ServletException ex) {
