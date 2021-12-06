@@ -13,13 +13,20 @@
     <div>
         <form style="text-align : center">
             <h style="font-weight: bold ; font-size: 200%">
+                ${errorOccurred}
+            </h>
+        </form>
+    </div>
+    <div>
+        <form style="text-align : center">
+            <h style="font-weight: bold ; font-size: 200%">
                 ${sessionScope.message}
             </h>
         </form>
     </div>
     <div>
         <form style="text-align : center">
-            <a style="font-weight: bold ;font-size: 200%" href="FrontController?command=goToPage&address=index.jsp">
+            <a style="font-weight: bold ;font-size: 200%" href="frontController?command=go_To_Page&address=login.jsp">
                 ${toIndexPage}
             </a>
         </form>

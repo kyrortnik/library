@@ -70,7 +70,7 @@
                                 <form action="frontController" method="POST">
                                     <input name="command" type="hidden" value="create_Reserve"/>
                                     <input name="bookId" type="hidden" value="${bookRow.id}"/>
-                                    <button class="btn btn-primary">Create reserve</button>
+                                    <button class="btn btn-primary">${createReserve}</button>
                                     <br/>
                                 </form>
                             </td>

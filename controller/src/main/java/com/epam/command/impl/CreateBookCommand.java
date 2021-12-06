@@ -52,7 +52,6 @@ public class CreateBookCommand extends AbstractCommand implements Command {
                 request.getSession().setAttribute(LAST_COMMAND, "frontController?command=go_To_Page&address=newBook.jsp");
                 request.getRequestDispatcher(lastCommand).forward(request, response);
                 LOG.error(e.getMessage());
-
             } catch (ServletException | IOException ex) {
                 throw new ControllerException(ex);
             }

@@ -66,5 +66,6 @@
     </form>
 </div>
 <button class="btn btn-primary" form="createBook">${submit}</button>
+</div>
 </body>
 </html>

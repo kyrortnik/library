@@ -144,6 +144,7 @@ public class BookServiceImpl implements BookService {
             book.setGenre(row.getGenre());
             book.setHardCover(row.isHardCover());
             book.setNumberOfPages(row.getNumberOfPages());
+            book.setDescription(row.getDescription());
 
         }
         return book;

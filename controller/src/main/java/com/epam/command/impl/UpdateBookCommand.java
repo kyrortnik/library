@@ -31,11 +31,12 @@ public class UpdateBookCommand extends AbstractCommand implements Command {
         String bookIdString = request.getParameter(BOOK_ID);
         controllerValidator.numericParameterValidation(bookIdString);
         long bookId = Long.parseLong(bookIdString);
-        Book book = getBookClient(request);
-        String lastCommand = "frontController?command=productInfo&id=" + bookId;
+        String lastCommand = "frontController?command=book_Info&id=" + bookId;
+//        String lastCommand = "frontController?command=go_To_Page&address=productInfo.jsp&id=" + bookId;
         String message;
 
         try {
+            Book book = getBookClient(request);
             if (bookService.update(book)) {
                 lastCommand = "frontController?command=go_To_Page&address=main.jsp";
                 message = "Book is updated";
@@ -55,7 +56,6 @@ public class UpdateBookCommand extends AbstractCommand implements Command {
             } catch (IOException | ServletException ex) {
                 throw new ControllerException(ex);
             }
-
             throw new ControllerException(e);
         }
     }
