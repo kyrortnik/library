@@ -187,12 +187,12 @@
                     <thead class="light shown-thread-orders">
                     <tr>
                         <th></th>
-                        <th scope="col">${title}</th>
-                        <th scope="col">${author}</th>
-                        <th scope="col">${publisher}</th>
-                        <th scope="col">${publishingYear}</th>
-                        <th scope="col">${genre}</th>
-                        <th scope="col">${description}</th>
+                        <th>${title}</th>
+                        <th>${author}</th>
+                        <th>${publisher}</th>
+                        <th>${publishingYear}</th>
+                        <th>${genre}</th>
+                        <th>${description}</th>
 
                     </tr>
                     </thead>
@@ -256,9 +256,9 @@
                         <thead class="light shown-thread-users">
                         <tr>
                             <th></th>
-                            <th scope="col">${id}</th>
-                            <th scope="col">${login}</th>
-                            <th scope="col">${role}</th>
+                            <th>id</th>
+                            <th>${login}</th>
+                            <th>${role}</th>
                         </tr>
                         </thead>
                         <tbody>

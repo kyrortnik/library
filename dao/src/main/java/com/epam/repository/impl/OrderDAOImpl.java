@@ -105,14 +105,25 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
 
     @Override
     public boolean delete(Long id) throws DAOException {
+        boolean result;
         Connection connection = null;
         PreparedStatement statement = null;
         try {
             connection = connectionPool.getConnection();
+            connection.setAutoCommit(false);
             statement = connection.prepareStatement(DELETE_ORDER);
             statement.setLong(1, id);
-            return statement.executeUpdate() != 0;
+            result = statement.executeUpdate() != 0;
+            connection.commit();
+            return result;
         } catch (SQLException e) {
+            try {
+                if (nonNull(connection)) {
+                    connection.rollback();
+                }
+            } catch (SQLException ex) {
+                throw new DAOException(ex);
+            }
             throw new DAOException(e);
         } finally {
             closeStatement(statement);
@@ -196,10 +207,10 @@ public class OrderDAOImpl extends AbstractDAO implements OrderDAO {
             return result;
         } catch (SQLException e) {
             try {
-                if (nonNull(connection)){
+                if (nonNull(connection)) {
                     connection.rollback();
                 }
-               
+
             } catch (SQLException ex) {
                 throw new DAOException(ex);
             }

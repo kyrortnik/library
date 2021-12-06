@@ -48,7 +48,7 @@ public class CreateBookCommand extends AbstractCommand implements Command {
             }
         } catch (Exception e) {
             try {
-                request.getSession().setAttribute(MESSAGE, "Duplicate for book with this title exists");
+                request.getSession().setAttribute(MESSAGE, e.getMessage());
                 request.getSession().setAttribute(LAST_COMMAND, "frontController?command=go_To_Page&address=newBook.jsp");
                 request.getRequestDispatcher(lastCommand).forward(request, response);
                 LOG.error(e.getMessage());
@@ -63,14 +63,14 @@ public class CreateBookCommand extends AbstractCommand implements Command {
 
     private Book getBookFromClient(HttpServletRequest request) throws ControllerException {
 
-        String title = request.getParameter(TITLE);
-        String author = request.getParameter(AUTHOR);
-        String publisher = request.getParameter(PUBLISHER);
-        String genre = request.getParameter(GENRE);
-        String description = request.getParameter(DESCRIPTION);
+        String title = request.getParameter(TITLE).trim();
+        String author = request.getParameter(AUTHOR).trim();
+        String publisher = request.getParameter(PUBLISHER).trim();
+        String genre = request.getParameter(GENRE).trim();
+        String description = request.getParameter(DESCRIPTION).trim();
         boolean isHardCover = Boolean.parseBoolean(request.getParameter(IS_HARD_COVER));
-        String pages = "".equals(request.getParameter(NUMBER_OF_PAGES)) ? "0" : request.getParameter(NUMBER_OF_PAGES);
-        String publishYear = "".equals(request.getParameter(PUBLISHING_YEAR)) ? "0" : request.getParameter(PUBLISHING_YEAR);
+        String pages = "".equals(request.getParameter(NUMBER_OF_PAGES)) ? "0" : request.getParameter(NUMBER_OF_PAGES).trim();
+        String publishYear = "".equals(request.getParameter(PUBLISHING_YEAR)) ? "0" : request.getParameter(PUBLISHING_YEAR).trim();
 
         controllerValidator.stringParameterValidation(title, author);
         controllerValidator.stringParameterValidationNonNull(publisher, genre, description);

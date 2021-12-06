@@ -22,8 +22,8 @@ public class GoToPageCommand extends AbstractCommand implements Command {
 
         try {
             LOG.info("Start in GoToPageCommand");
-            String lastCommand = defineLastCommand(request,false);
-            request.getSession().setAttribute(LAST_COMMAND,lastCommand);
+//            String lastCommand = defineLastCommand(request,false);
+//            request.getSession().setAttribute(LAST_COMMAND,lastCommand);
             String goToPage = "/index.jsp".equals(request.getParameter(ADDRESS)) ? "/index.jsp" : "/WEB-INF/jsp/" + request.getParameter(ADDRESS);
             request.getRequestDispatcher(goToPage).forward(request, response);
         } catch (IOException | ServletException e) {

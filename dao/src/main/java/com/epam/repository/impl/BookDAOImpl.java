@@ -19,7 +19,7 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
 
     private static final String QUERY_ORDER = "ORDER BY %s %s LIMIT ? OFFSET ?";
     private static final String FIND_BOOK_BY_ID = "SELECT book_id, title, author, publishyear, publisher, genre, number_of_pages ,is_hard_cover, description FROM books WHERE book_id = ? ";
-    private static final String SAVE_BOOK = "INSERT INTO books (book_id,title,author,publishyear,publisher,genre,number_of_pages,is_hard_cover,description) VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String SAVE_BOOK = "INSERT INTO books VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String DELETE_BOOK = "DELETE FROM books WHERE book_id = ?";
     private static final String UPDATE_BOOK = "UPDATE books SET title = ?, author = ?,  publisher = ?, publishyear = ?, is_hard_cover = ? , number_of_pages = ?, genre = ?, description = ?  WHERE book_id = ?";
     private static final String COUNT_ALL = "SELECT count(book_id) FROM books";
@@ -65,6 +65,7 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
 
     @Override
     public boolean save(BookRow bookRow) throws DAOException {
+        boolean result;
         List<Object> parameters = Arrays.asList(
                 bookRow.getTitle(),
                 bookRow.getAuthor(),
@@ -80,10 +81,20 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
         PreparedStatement statement = null;
         try {
             connection = connectionPool.getConnection();
+            connection.setAutoCommit(false);
             statement = getPreparedStatement(SAVE_BOOK, connection, parameters);
-            return (statement.executeUpdate() != 0);
+            result = statement.executeUpdate() != 0;
+            connection.commit();
+            return result;
 
         } catch (SQLException e) {
+            try {
+                if (nonNull(connection)) {
+                    connection.rollback();
+                }
+            } catch (SQLException ex) {
+                throw new DAOException(ex);
+            }
             throw new DAOException(e);
         } finally {
             closeStatement(statement);
@@ -94,14 +105,25 @@ public class BookDAOImpl extends AbstractDAO implements BookDAO {
 
     @Override
     public boolean delete(Long id) throws DAOException {
+        boolean result;
         Connection connection = null;
         PreparedStatement statement = null;
         try {
             connection = connectionPool.getConnection();
+            connection.setAutoCommit(false);
             statement = connection.prepareStatement(DELETE_BOOK);
             statement.setLong(1, id);
-            return (statement.executeUpdate() != 0);
+            result = statement.executeUpdate() != 0;
+            connection.commit();
+            return result;
         } catch (Exception e) {
+            try {
+                if (nonNull(connection)) {
+                    connection.rollback();
+                }
+            } catch (SQLException ex) {
+                throw new DAOException(ex);
+            }
             throw new DAOException(e);
         } finally {
             closeStatement(statement);
