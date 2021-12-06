@@ -1,6 +1,6 @@
 package com.epam.entity;
 
-public class ReserveRow extends Entity{
+public class ReserveRow extends Entity {
 
     private Long userId;
     private Long productId;
@@ -8,14 +8,7 @@ public class ReserveRow extends Entity{
     public ReserveRow() {
     }
 
-    public ReserveRow(Long id){
-        super(id);
-    }
-    public ReserveRow(Long userId,Long productId){
-        this.userId = userId;
-        this.productId = productId;
-    }
-    public ReserveRow(Long id,Long userId,Long productId){
+    public ReserveRow(Long id, Long userId, Long productId) {
         super(id);
         this.userId = userId;
         this.productId = productId;

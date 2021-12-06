@@ -1,18 +1,13 @@
 package com.epam.entity;
 
-public class UserDTO extends Entity{
+public class UserDTO extends Entity {
 
-    private  String login;
-    private  String role;
+    private String login;
+    private String role;
 
-    public UserDTO(){}
-
-
-
-    public UserDTO(String login, String role) {
-        this.login = login;
-        this.role = role;
+    public UserDTO() {
     }
+
 
     public UserDTO(Long id, String login, String role) {
         super(id);
@@ -20,10 +15,9 @@ public class UserDTO extends Entity{
         this.role = role;
     }
 
-    public UserDTO(User user) {
-        super(user.getId());
-        this.login = user.getLogin();
-        this.role = user.getRole();
+    public UserDTO(String login, String role) {
+        this.login = login;
+        this.role = role;
     }
 
 

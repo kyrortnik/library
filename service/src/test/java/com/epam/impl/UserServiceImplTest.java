@@ -8,112 +8,143 @@ import com.epam.entity.UserDTO;
 import com.epam.exception.DAOException;
 import com.epam.exception.ServiceException;
 import com.epam.repository.UserDAO;
-import com.epam.repository.impl.UserDAOImpl;
+import com.epam.validator.ServiceValidator;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import static org.mockito.Mockito.when;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
+
 
 public class UserServiceImplTest {
 
     //mock
-    private final UserDAO userDAO = Mockito.mock(UserDAO.class);
+    private final UserDAO userDAO = Mockito.mock(UserDAO.class, withSettings().verboseLogging());
+    private final ServiceValidator serviceValidator = ServiceValidator.getInstance();
 
     //testing class
-    private final UserService userService = new UserServiceImpl(userDAO);
+    private final UserService userService = new UserServiceImpl(userDAO, serviceValidator);
 
     //parameters
     private final long userId = 1L;
     private final String login = "login";
-    private final String password = "password";
+    private final char[] password = "password".toCharArray();
+    private final char[] secondPassword = "password".toCharArray();
     private final String role = "role";
 
     // Page parameters
-    private int pageNumber = 1;
-    private long totalElements = 10;
-    private int limit = 10;
-    private String direction = "ASC";
-    private String sortBy = "login";
+    private final Long pageNumber = 1L;
+    private final long totalElements = 10;
+    private final int limit = 10;
+    private final String direction = "ASC";
+    private final String sortBy = "login";
 
-    //captures
+
+    private final List<UserDTO> emptyElements = new ArrayList<>();
+
+    private final List<UserDTO> elements = Arrays.asList(
+
+            new UserDTO(1L, "admin", "admin"),
+            new UserDTO(2L, "kanye", "user"),
+            new UserDTO(3L, "jim", "user")
+
+    );
+
 
     @Test
-    public void testRegistration_positive() throws DAOException, ServiceException {
+    public void testRegister_positive() throws DAOException, ServiceException {
+        User user = new User(login, password, role);
+        UserDTO actualUserDTO = new UserDTO(userId, login, role);
+        when(userDAO.register(user)).thenReturn(actualUserDTO);
 
-        User user = new User(userId,login,password,role);
-        when(userDAO.find(user)).thenReturn(null);
-        when(userDAO.save(user)).thenReturn(true);
-        assertTrue(userService.registration(user));
+        UserDTO foundUser = userService.register(user, secondPassword);
+
+        verify(userDAO).register(user);
+        assertEquals(actualUserDTO, foundUser);
+
     }
 
     @Test
-    public void testLogination_positive() throws ServiceException, DAOException {
-        User user = new User(userId,login,password,role);
-        when(userDAO.findByLogin(user)).thenReturn(user);
-        assertEquals(user,userService.logination(user));
+    public void testRegister_ServiceException() throws DAOException {
+        User user = new User(login, password, role);
+        DAOException daoException = new DAOException("testing message");
+        when(userDAO.register(user)).thenThrow(daoException);
+        ServiceException actualException = new ServiceException();
+
+        try {
+            userService.register(user, secondPassword);
+        } catch (ServiceException e) {
+            actualException = e;
+
+        }
+        assertEquals((new ServiceException(daoException)).getMessage(), actualException.getMessage());
+
     }
 
     @Test
-    public void testFind_positive() throws DAOException, ServiceException {
-        User user = new User(userId,login,password,role);
-        UserDTO userDTO = new UserDTO(userId,login,role);
-        when(userDAO.find(user)).thenReturn(user);
-        assertEquals(userDTO,userService.find(user));
+    public void testLogin_positive() throws DAOException, ServiceException {
+        UserDTO actualUserDTO = new UserDTO(userId, login, role);
+        when(userDAO.login(login, password)).thenReturn(actualUserDTO);
+
+        UserDTO foundUser = userService.login(login, password);
+
+        verify(userDAO).login(login, password);
+        assertEquals(foundUser, actualUserDTO);
     }
 
-    @Test
-    public void testFindById_positive() throws DAOException, ServiceException {
-        User user = new User(userId,login,password,role);
-        when(userDAO.findById(userId)).thenReturn(user);
-        assertEquals(user,userService.findById(userId));
-    }
 
     @Test
-    public void testUpdateUser_positive() throws ServiceException, DAOException {
-        User user = new User(userId,login,password,role);
-        when(userDAO.update(user)).thenReturn(true);
-        assertTrue(userService.updateUser(user));
-    }
+    public void testLogin_ServiceException() throws DAOException {
+        DAOException daoException = new DAOException("testing message");
+        when(userDAO.login(login, password)).thenThrow(daoException);
+        ServiceException actualException = new ServiceException();
 
-    @Test
-    public void testDeleteUser_positive() throws DAOException, ServiceException {
-        User user = new User(userId,login,password,role);
-        when(userDAO.delete(user)).thenReturn(true);
-        assertTrue(userService.deleteUser(user));
+        try {
+            userService.login(login, password);
+        } catch (ServiceException e) {
+            actualException = e;
+
+        }
+        assertEquals((new ServiceException(daoException)).getMessage(), actualException.getMessage());
 
     }
 
     @Test
     public void testGetUsersPage_positive() throws DAOException, ServiceException {
+        Pageable<UserDTO> pageableEmptyElements = new Pageable<>(pageNumber, 0, limit, emptyElements, sortBy, direction);
+        Page<UserDTO> pageEmptyElements = new Page<>(pageNumber, 0, limit, emptyElements, sortBy, direction);
+        Pageable<UserDTO> pageableElements = new Pageable<>(pageNumber, 0, limit, elements, sortBy, direction);
+        Page<UserDTO> pageWithElements = new Page<>(pageNumber, 0, limit, elements, sortBy, direction);
 
-        List<UserDTO> users = new ArrayList<>();
-        users.add(new UserDTO(userId,login,role));
-        users.add(new UserDTO(2L,"log","pass"));
-        users.add(new UserDTO(3L,"l","p"));
+        when(userDAO.findUsersPageByParameters(pageableEmptyElements)).thenReturn(pageableElements);
 
-        List<UserDTO> emptyElements = new ArrayList<>();
-        Page<UserDTO> userDTOPage = new Page<>(pageNumber, totalElements, limit, emptyElements, sortBy, direction);
-        Pageable<UserDTO> userDTOPageable = new Pageable<>(pageNumber,totalElements,limit,emptyElements,sortBy,direction);
-        Pageable<UserDTO> userPageableReturn = new Pageable<>(pageNumber,totalElements,limit,users,sortBy,direction);
-        Page<UserDTO> userDTOPageExpected = new Page<>(pageNumber, totalElements, limit, users, sortBy, direction);
-        when(userDAO.findPageByParameters(userDTOPageable)).thenReturn(userPageableReturn);
-        assertEquals(userService.getUsersPage(userDTOPage),userDTOPageExpected);
+        Page<UserDTO> returnPage = userService.getUsersPage(pageEmptyElements);
+
+        verify(userDAO).findUsersPageByParameters(pageableEmptyElements);
+        assertEquals(pageWithElements, returnPage);
     }
 
     @Test
-    public void testGetUsers() throws DAOException, ServiceException {
+    public void testGetUsersPage_ServiceException() throws DAOException {
+        DAOException daoException = new DAOException("testing message");
+        Pageable<UserDTO> pageableEmptyElements = new Pageable<>(pageNumber, 0, limit, emptyElements, sortBy, direction);
+        Page<UserDTO> pageEmptyElements = new Page<>(pageNumber, 0, limit, emptyElements, sortBy, direction);
 
-        List<User> users = new ArrayList<>();
-        users.add(new User(userId,login,role));
-        users.add(new User(2L,"log","pass"));
-        users.add(new User(3L,"l","p"));
+        when(userDAO.findUsersPageByParameters(pageableEmptyElements)).thenThrow(daoException);
+        ServiceException actualException = new ServiceException();
 
-        when(userDAO.getAll()).thenReturn(users);
-        assertEquals(users,userService.getUsers());
+        try {
+            userService.getUsersPage(pageEmptyElements);
+        } catch (ServiceException e) {
+            actualException = e;
+
+        }
+        assertEquals((new ServiceException(daoException)).getMessage(), actualException.getMessage());
 
     }
+
 }

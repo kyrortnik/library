@@ -2,39 +2,50 @@ package com.epam.command.factory;
 
 
 import com.epam.command.Command;
-import com.epam.command.BaseCommand;
 import com.epam.command.TypeCommand;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static com.epam.util.ControllerConstants.COMMAND;
+import static com.epam.util.ControllerConstants.MESSAGE;
+import static java.util.Objects.nonNull;
 
 public class CommandFactory {
 
+    private static final Logger LOG = Logger.getLogger(CommandFactory.class);
     private static final CommandFactory INSTANCE = new CommandFactory();
 
-    private CommandFactory(){
+    private CommandFactory() {
     }
 
-    public Command defineCommand(HttpServletRequest request){
+    public static CommandFactory getInstance() {
+        return INSTANCE;
+    }
 
-        Command current = new BaseCommand();
-        String command = request.getParameter("command");
-        if (command == null){
-            request.getSession().setAttribute("message","No such command was found");
-            return current;
+    /**
+     * Method to define command which comes from client
+     *
+     * @param request, HttpServletRequest to be processed
+     * @return Command which will be executed in Front Controller
+     */
+    public Command defineCommand(HttpServletRequest request) {
+        LOG.info("Start in CommandFactory.defineCommand():");
 
-        }else {
+        Command current = TypeCommand.BASE.getCurrentCommand();
+        String command = request.getParameter(COMMAND);
+        if (nonNull(command) && !command.isEmpty()) {
             try {
                 TypeCommand typeCommand = TypeCommand.valueOf(command.toUpperCase());
                 current = typeCommand.getCurrentCommand();
             } catch (IllegalArgumentException e) {
-                request.setAttribute("errorMessage", "Unknown command");
+                request.getSession().setAttribute(MESSAGE, "Error. Unknown command");
+                LOG.error("Unknown command");
             }
+
+        } else {
+            LOG.error("Null or Empty Command. Redirect to BaseCommand");
         }
         return current;
-    }
-
-    public static CommandFactory getInstance(){
-        return INSTANCE;
     }
 }

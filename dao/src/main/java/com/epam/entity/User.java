@@ -1,10 +1,11 @@
 package com.epam.entity;
 
+import java.util.Arrays;
+
 public class User extends Entity {
 
-
     private  String login;
-    private  String password;
+    private  char[] password;
     private  String role;
     private  String salt;
 
@@ -16,25 +17,25 @@ public class User extends Entity {
     public User(String login){
         this.login = login;
     }
-    public User(long id,String login,String password){
+    public User(long id,String login,char[] password){
         super(id);
         this.login = login;
         this.password = password;
     }
-    public User(String login,String password,String role){
+    public User(String login,char[] password,String role){
         this.login = login;
         this.password = password;
         this.role = role;
     }
 
-    public User(long id,String login,String password,String role){
+    public User(long id,String login,char[] password,String role){
        super(id);
         this.login = login;
         this.password = password;
         this.role = role;
     }
 
-    public User(String login, String password, String role, String salt) {
+    public User(String login, char[] password, String role, String salt) {
         this.login = login;
         this.password = password;
         this.role = role;
@@ -49,11 +50,11 @@ public class User extends Entity {
         this.login = login;
     }
 
-    public String getPassword() {
+    public char[] getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(char[] password) {
         this.password = password;
     }
 
@@ -83,7 +84,7 @@ public class User extends Entity {
         User user = (User) o;
 
         if (login != null ? !login.equals(user.login) : user.login != null) return false;
-        if (password != null ? !password.equals(user.password) : user.password != null) return false;
+        if (password != null ? !Arrays.equals(password, user.password) : user.password != null) return false;
         if (role != null ? !role.equals(user.role) : user.role != null) return false;
         return salt != null ? salt.equals(user.salt) : user.salt == null;
     }
@@ -92,7 +93,7 @@ public class User extends Entity {
     public int hashCode() {
         int result = super.hashCode();
         result = 31 * result + (login != null ? login.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (password != null ? Arrays.hashCode(password) : 0);
         result = 31 * result + (role != null ? role.hashCode() : 0);
         result = 31 * result + (salt != null ? salt.hashCode() : 0);
         return result;
@@ -102,7 +103,7 @@ public class User extends Entity {
     public String toString() {
         return "User{" +
                 "login='" + login + '\'' +
-                ", password='" + password + '\'' +
+                ", password='" + Arrays.toString(password) + '\'' +
                 ", role='" + role + '\'' +
                 ", salt='" + salt + '\'' +
                 '}';

@@ -2,105 +2,140 @@ package com.epam.impl;
 
 import com.epam.OrderService;
 import com.epam.entity.Order;
-import com.epam.entity.Reserve;
 import com.epam.exception.DAOException;
 import com.epam.exception.ServiceException;
 import com.epam.repository.OrderDAO;
+import com.epam.validator.ServiceValidator;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.*;
+
 
 public class OrderServiceImplTest {
 
     //mock
-    private final OrderDAO orderDAO = Mockito.mock(OrderDAO.class);
+    private final OrderDAO orderDAO = Mockito.mock(OrderDAO.class, withSettings().verboseLogging());
+    private final ServiceValidator serviceValidator = ServiceValidator.getInstance();
 
     //testing class
-    private final OrderService orderService = new OrderServiceImpl(orderDAO);
+    private final OrderService orderService = new OrderServiceImpl(orderDAO, serviceValidator);
 
-    // captors
-
-    //parameters
-//    private ArgumentCaptor<String> updatedProductCaptor = ArgumentCaptor.forClass(String.class);
-
-    private final Order order = new Order(1L,"2 3",1L);
-
+    // Order parameters
+    Long id = 1L;
+    List<Long> bookIds = Arrays.asList(2L, 3L);
+    Long userId = 1L;
+    Long bookId = 2L;
 
 
     @Test
     public void testCreate_positive() throws DAOException, ServiceException {
 
-        when(orderDAO.getByUserId(order.getUserId())).thenReturn(null);
+        Order order = new Order(bookIds, userId);
         when(orderDAO.save(order)).thenReturn(true);
-        assertTrue(orderService.create(order));
+
+        boolean result = orderService.create(userId, bookIds);
+
+        verify(orderDAO).save(order);
+        assertTrue(result);
 
     }
 
     @Test
-    public void testUpdate_positive() throws DAOException,ServiceException{
+    public void testCreate_updateCase() throws DAOException, ServiceException {
 
-        when(orderDAO.getByUserId(order.getUserId())).thenReturn(order);
+        Order order = new Order(bookIds, userId);
+        when(orderDAO.save(order)).thenReturn(false);
         when(orderDAO.update(order)).thenReturn(true);
-        assertTrue(orderService.update(order));
+
+        boolean result = orderService.create(userId, bookIds);
+
+        verify(orderDAO).save(order);
+        verify(orderDAO).update(order);
+        assertTrue(result);
 
     }
 
     @Test
-    public void testDelete_positive() throws DAOException,ServiceException {
+    public void testCreate_ServiceException() throws DAOException {
 
-        when(orderDAO.delete(order)).thenReturn(true);
-        assertTrue(orderService.delete(order));
+        Order order = new Order(bookIds, userId);
+        DAOException daoException = new DAOException("testing message");
 
+        when(orderDAO.save(order)).thenThrow(daoException);
+        ServiceException actualException = new ServiceException();
+
+        try {
+            orderService.create(userId, bookIds);
+        } catch (ServiceException e) {
+            actualException = e;
+
+        }
+        assertEquals((new ServiceException(daoException)).getMessage(), actualException.getMessage());
     }
+
+
+    @Test
+    public void testDelete_positive() throws DAOException, ServiceException {
+
+        when(orderDAO.delete(id)).thenReturn(true);
+
+        boolean result = orderService.delete(id);
+
+        verify(orderDAO).delete(id);
+        assertTrue(result);
+    }
+
+
+    @Test
+    public void testDelete_ServiceException() throws DAOException {
+
+        DAOException daoException = new DAOException("testing message");
+
+        when(orderDAO.delete(id)).thenThrow(daoException);
+        ServiceException actualException = new ServiceException();
+
+        try {
+            orderService.delete(id);
+        } catch (ServiceException e) {
+            actualException = e;
+
+        }
+        assertEquals((new ServiceException(daoException)).getMessage(), actualException.getMessage());
+    }
+
 
     @Test
     public void testDeleteFromOrder_positive() throws DAOException, ServiceException {
+        when(orderDAO.deleteFromOrder(id, bookId)).thenReturn(true);
 
-        Order originalOrder = new Order(1L,"34",1L);
-        Order existingOrder = new Order(1L,"2 3 34",1L);
+        boolean result = orderService.deleteFromOrder(userId, bookId);
 
-        when(orderDAO.find(originalOrder)).thenReturn(existingOrder);
-        when(orderDAO.deleteFromOrder(originalOrder,"2 3")).thenReturn(true);
-        when(orderDAO.find(existingOrder)).thenReturn(existingOrder);
-
-        assertTrue(orderService.deleteFromOrder(originalOrder));
+        verify(orderDAO).deleteFromOrder(id, bookId);
+        assertTrue(result);
     }
 
     @Test
-    public void testGetByUserId_positive() throws DAOException,ServiceException {
+    public void testDeleteFromOrder_ServiceException() throws DAOException {
 
-        when(orderDAO.getByUserId(order.getUserId())).thenReturn(order);
-        assertEquals(order,orderService.getByUserId(order.getUserId()));
+        DAOException daoException = new DAOException("testing message");
+
+        when(orderDAO.deleteFromOrder(id, bookId)).thenThrow(daoException);
+        ServiceException actualException = new ServiceException();
+
+        try {
+            orderService.deleteFromOrder(id, bookId);
+        } catch (ServiceException e) {
+            actualException = e;
+
+        }
+        assertEquals((new ServiceException(daoException)).getMessage(), actualException.getMessage());
     }
-
-    //Product is already in order == true
-    @Test
-    public void testProductAlreadyOrdered_positive() throws ServiceException {
-        Reserve reserve = new Reserve(1L,2L,3L);
-        when(orderService.getByUserId(reserve.getUserId())).thenReturn(order);
-        assertEquals(order,orderService.getByUserId(reserve.getUserId()));
-        assertTrue(orderService.productAlreadyOrdered(reserve));
-    }
-
-    @Test
-    public void testProductsAlreadyOrdered_positive() throws ServiceException{
-        List<Reserve> reserves = new ArrayList<>();
-
-        reserves.add(new Reserve(1L,1L,1L));
-        reserves.add(new Reserve(2L,2L,2L));
-        reserves.add(new Reserve(3L,3L,3L));
-
-        assertFalse(orderService.productsAlreadyOrdered(reserves));
-
-    }
-
-
 
 
 }

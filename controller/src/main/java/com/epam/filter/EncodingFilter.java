@@ -3,27 +3,36 @@ package com.epam.filter;
 import javax.servlet.*;
 import java.io.IOException;
 
+import static java.util.Objects.nonNull;
+import static java.util.Objects.isNull;
+
+import static com.epam.util.ControllerConstants.*;
+
 public class EncodingFilter implements Filter {
     private String encoding;
 
-    public void init(FilterConfig config) throws ServletException {
-        encoding = config.getInitParameter("requestEncoding");
-        if (encoding == null) encoding = "UTF-8";
+    @Override
+    public void init(FilterConfig config) {
+        encoding = nonNull(config.getInitParameter(REQUEST_ENCODING)) ? config.getInitParameter(REQUEST_ENCODING) : UTF8;
+
+
     }
 
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain next)
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
 
-        if (request.getCharacterEncoding()== null) {
+        if (isNull(request.getCharacterEncoding())) {
             request.setCharacterEncoding(encoding);
         }
 
-        response.setContentType("text/html; charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
+        response.setContentType(CONTENT_TYPE);
+        response.setCharacterEncoding(UTF8);
 
-        next.doFilter(request, response);
+        chain.doFilter(request, response);
     }
 
+    @Override
     public void destroy() {
     }
 

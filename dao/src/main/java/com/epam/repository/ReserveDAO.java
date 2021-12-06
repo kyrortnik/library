@@ -3,21 +3,16 @@ package com.epam.repository;
 import com.epam.entity.ReserveRow;
 import com.epam.exception.DAOException;
 
-import java.util.List;
-
 public interface ReserveDAO extends BaseDAO<ReserveRow> {
 
-    List<ReserveRow> getReservesForUser(Long userId) throws DAOException;
-
-    ReserveRow getByUserAndProductId(ReserveRow reserve) throws DAOException;
-
-    boolean deleteByUserId(Long userId) throws DAOException;
-
-    int countReservesForUser(long userId) throws DAOException;
-
-    List<ReserveRow> getReservesByUserId(long userId, int row) throws DAOException;
-
-    //    boolean orderForReserveExists(ReserveRow reserveRow) throws DAOException;
-
+    /**
+     * Deletes reserve by userId and productId - a user can have multiple reserves at a time
+     *
+     * @param userId, to delete reserve by
+     * @param bookId, to delete reserve by
+     * @return true if reserve is deleted, false if not
+     * @throws DAOException throws DAOException
+     */
+    boolean deleteByUserAndProduct(Long userId, Long bookId) throws DAOException;
 
 }
