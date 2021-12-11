@@ -4323,3 +4323,321 @@ Stacktrace:
 2021-12-07 01:58:39,486 INFO  GoToPageCommand:28 - Start in GoToPageCommand
 2021-12-07 01:58:42,334 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-07 01:58:42,334 INFO  LogoutCommand:22 - Start in Logout command
+2021-12-09 11:53:49,539 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-09 11:53:49,567 INFO  ConnectionPoolImpl:33 - =======================ConnectionPoolImpl is created
+2021-12-09 11:53:49,580 INFO  ConnectionPoolImpl:98 - ================JDBC driver is loaded
+2021-12-09 11:53:50,097 INFO  ConnectionPoolImpl:44 - init availableConnections.size() is 5
+2021-12-09 11:53:50,097 INFO  ConnectionPoolImpl:45 - init takenConnections.size() is 0
+2021-12-09 11:53:50,329 INFO  LoginCommand:39 - Start in LoginCommand
+2021-12-09 11:53:50,330 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-09 11:53:50,330 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-09 11:53:50,330 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-09 11:53:50,428 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-09 11:53:50,428 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-09 11:53:50,428 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-09 11:53:50,434 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-09 11:53:50,436 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-09 11:53:51,928 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-09 11:53:51,928 INFO  ShowProductsCommand:33 - Start in ShowProductsCommand
+2021-12-09 11:53:51,939 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-09 11:53:51,939 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-09 11:53:51,939 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-09 11:53:51,987 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-09 11:53:51,987 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-09 11:53:51,987 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-09 11:53:51,993 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-09 11:53:51,998 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-09 11:53:58,164 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-09 11:53:58,164 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-09 11:54:05,663 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-09 11:54:10,197 INFO  CreateBookCommand:33 - Start in CreateBookCommand
+2021-12-09 11:54:27,950 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-09 11:54:27,951 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-09 11:54:27,952 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-09 11:55:46,092 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-09 11:55:46,119 INFO  ConnectionPoolImpl:33 - =======================ConnectionPoolImpl is created
+2021-12-09 11:55:46,132 INFO  ConnectionPoolImpl:98 - ================JDBC driver is loaded
+2021-12-09 11:55:46,648 INFO  ConnectionPoolImpl:44 - init availableConnections.size() is 5
+2021-12-09 11:55:46,648 INFO  ConnectionPoolImpl:45 - init takenConnections.size() is 0
+2021-12-09 11:55:46,812 INFO  LoginCommand:39 - Start in LoginCommand
+2021-12-09 11:55:46,812 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-09 11:55:46,812 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-09 11:55:46,813 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-09 11:55:46,870 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-09 11:55:46,871 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-09 11:55:46,871 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-09 11:55:46,877 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-09 11:55:46,878 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-09 11:55:49,900 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-09 11:55:49,901 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-09 11:55:55,605 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-09 11:55:58,763 INFO  CreateBookCommand:33 - Start in CreateBookCommand
+2021-12-09 11:56:07,829 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-09 11:56:07,830 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-09 11:56:07,830 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-11 15:19:41,549 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:19:41,576 INFO  ConnectionPoolImpl:33 - =======================ConnectionPoolImpl is created
+2021-12-11 15:19:41,588 INFO  ConnectionPoolImpl:98 - ================JDBC driver is loaded
+2021-12-11 15:19:42,099 INFO  ConnectionPoolImpl:44 - init availableConnections.size() is 5
+2021-12-11 15:19:42,100 INFO  ConnectionPoolImpl:45 - init takenConnections.size() is 0
+2021-12-11 15:19:42,127 INFO  ChangeLanguageCommand:21 - Start in ChangeLanguageCommand
+2021-12-11 15:19:42,132 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:19:48,328 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:19:48,330 INFO  ChangeLanguageCommand:21 - Start in ChangeLanguageCommand
+2021-12-11 15:19:48,336 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:19:59,148 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:19:59,764 INFO  RegistrationCommand:32 - Start in RegistrationCommand
+2021-12-11 15:19:59,782 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:19:59,784 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-11 15:19:59,791 ERROR FrontController:36 - com.epam.exception.ServiceException: Invalid string.
+2021-12-11 15:20:16,714 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:20:16,716 INFO  RegistrationCommand:32 - Start in RegistrationCommand
+2021-12-11 15:20:16,717 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-11 15:20:16,718 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-11 15:20:16,718 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-11 15:20:16,836 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-11 15:20:16,837 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-11 15:20:16,837 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-11 15:20:16,843 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:20:16,844 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-11 15:20:19,892 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:20:19,893 INFO  ShowProductsCommand:33 - Start in ShowProductsCommand
+2021-12-11 15:20:19,896 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-11 15:20:19,897 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-11 15:20:19,897 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-11 15:20:19,920 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-11 15:20:19,921 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-11 15:20:19,921 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-11 15:20:19,924 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:20:19,924 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-11 15:20:30,308 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:20:30,309 INFO  ChangeLanguageCommand:21 - Start in ChangeLanguageCommand
+2021-12-11 15:20:30,317 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:20:30,317 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-11 15:20:32,082 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:20:32,083 INFO  ShowProductsCommand:33 - Start in ShowProductsCommand
+2021-12-11 15:20:32,084 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-11 15:20:32,084 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-11 15:20:32,084 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-11 15:20:32,088 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-11 15:20:32,089 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-11 15:20:32,089 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-11 15:20:32,089 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:20:32,090 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-11 15:20:35,978 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:20:35,979 INFO  ShowProductsCommand:33 - Start in ShowProductsCommand
+2021-12-11 15:20:35,980 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-11 15:20:35,980 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-11 15:20:35,980 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-11 15:20:35,985 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-11 15:20:35,985 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-11 15:20:35,985 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-11 15:20:35,986 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:20:35,986 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-11 15:20:37,247 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:20:37,248 INFO  ShowProductsCommand:33 - Start in ShowProductsCommand
+2021-12-11 15:20:37,248 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-11 15:20:37,248 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-11 15:20:37,248 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-11 15:20:37,253 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-11 15:20:37,253 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-11 15:20:37,253 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-11 15:20:37,254 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:20:37,254 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-11 15:20:39,462 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:20:39,463 INFO  ShowProductsCommand:33 - Start in ShowProductsCommand
+2021-12-11 15:20:39,463 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-11 15:20:39,463 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-11 15:20:39,463 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-11 15:20:39,466 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-11 15:20:39,466 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-11 15:20:39,467 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-11 15:20:39,467 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:20:39,468 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-11 15:20:46,514 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:20:46,515 INFO  ShowProductsCommand:33 - Start in ShowProductsCommand
+2021-12-11 15:20:46,515 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-11 15:20:46,515 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-11 15:20:46,516 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-11 15:20:46,517 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-11 15:20:46,518 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-11 15:20:46,518 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-11 15:20:46,519 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:20:46,519 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-11 15:20:50,721 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:20:50,722 INFO  BookInfoCommand:33 - Start in ProductInfoCommand
+2021-12-11 15:20:50,722 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-11 15:20:50,722 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-11 15:20:50,723 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-11 15:20:50,725 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-11 15:20:50,725 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-11 15:20:50,725 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-11 15:20:50,726 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:20:50,726 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-11 15:20:57,546 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:20:57,546 INFO  CreateReserveCommand:32 - Start in CreateReserveCommand
+2021-12-11 15:20:57,551 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-11 15:20:57,552 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-11 15:20:57,552 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-11 15:20:57,566 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-11 15:20:57,566 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-11 15:20:57,567 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-11 15:20:57,572 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:20:57,572 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-11 15:21:01,253 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:21:01,253 INFO  ShowReservesCommand:33 - Start in ShowReservesCommand
+2021-12-11 15:21:01,253 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-11 15:21:01,254 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-11 15:21:01,254 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-11 15:21:01,262 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-11 15:21:01,262 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-11 15:21:01,263 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-11 15:21:01,263 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:21:01,264 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-11 15:21:07,308 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:21:07,308 INFO  CreateOrderCommand:36 - Start in CreateOrderCommand
+2021-12-11 15:21:07,311 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-11 15:21:07,311 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-11 15:21:07,312 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-11 15:21:07,365 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-11 15:21:07,366 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-11 15:21:07,366 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-11 15:21:07,371 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:21:07,371 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-11 15:21:10,928 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:21:10,929 INFO  OrderInfoCommand:32 - Start in OrderInfoCommand
+2021-12-11 15:21:10,929 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-11 15:21:10,930 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-11 15:21:10,930 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-11 15:21:10,968 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-11 15:21:10,968 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-11 15:21:10,968 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-11 15:21:10,969 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:21:10,969 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-11 15:21:34,762 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:21:34,762 INFO  DeleteBookFromOrderCommand:29 - Start in DeleteProductFromOrder
+2021-12-11 15:21:34,762 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-11 15:21:34,762 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-11 15:21:34,763 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-11 15:21:34,765 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-11 15:21:34,765 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 3
+2021-12-11 15:21:34,766 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 2
+2021-12-11 15:21:34,768 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-11 15:21:34,768 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 4
+2021-12-11 15:21:34,768 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 1
+2021-12-11 15:21:34,769 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-11 15:21:34,769 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-11 15:21:34,769 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-11 15:21:34,774 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:21:34,775 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-11 15:21:37,140 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:21:37,140 INFO  OrderInfoCommand:32 - Start in OrderInfoCommand
+2021-12-11 15:21:37,141 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-11 15:21:37,141 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-11 15:21:37,141 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-11 15:21:37,143 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-11 15:21:37,143 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-11 15:21:37,143 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-11 15:21:37,144 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:21:37,144 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-11 15:21:38,783 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:21:38,783 INFO  ShowReservesCommand:33 - Start in ShowReservesCommand
+2021-12-11 15:21:38,784 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-11 15:21:38,784 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-11 15:21:38,784 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-11 15:21:38,786 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-11 15:21:38,787 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-11 15:21:38,787 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-11 15:21:38,787 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:21:38,788 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-11 15:21:40,182 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:21:40,183 INFO  ShowProductsCommand:33 - Start in ShowProductsCommand
+2021-12-11 15:21:40,183 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-11 15:21:40,183 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-11 15:21:40,183 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-11 15:21:40,185 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-11 15:21:40,185 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-11 15:21:40,185 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-11 15:21:40,186 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:21:40,186 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-11 15:21:42,051 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:21:42,051 INFO  ShowProductsCommand:33 - Start in ShowProductsCommand
+2021-12-11 15:21:42,052 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-11 15:21:42,052 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-11 15:21:42,052 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-11 15:21:42,054 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-11 15:21:42,054 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-11 15:21:42,055 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-11 15:21:42,055 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:21:42,056 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-11 15:21:43,203 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:21:43,204 INFO  ShowProductsCommand:33 - Start in ShowProductsCommand
+2021-12-11 15:21:43,204 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-11 15:21:43,204 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-11 15:21:43,205 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-11 15:21:43,206 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-11 15:21:43,206 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-11 15:21:43,206 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-11 15:21:43,207 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:21:43,207 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-11 15:21:44,917 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:21:44,918 INFO  LogoutCommand:22 - Start in Logout command
+2021-12-11 15:21:53,263 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:21:53,264 INFO  LoginCommand:39 - Start in LoginCommand
+2021-12-11 15:21:53,265 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-11 15:21:53,278 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-11 15:21:53,278 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-11 15:21:53,280 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-11 15:21:53,280 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-11 15:21:53,280 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-11 15:21:53,285 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:21:53,286 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-11 15:22:13,639 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:22:13,640 INFO  LogoutCommand:22 - Start in Logout command
+2021-12-11 15:43:51,945 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:43:51,974 INFO  ConnectionPoolImpl:33 - =======================ConnectionPoolImpl is created
+2021-12-11 15:43:51,988 INFO  ConnectionPoolImpl:98 - ================JDBC driver is loaded
+2021-12-11 15:43:52,471 INFO  ConnectionPoolImpl:44 - init availableConnections.size() is 5
+2021-12-11 15:43:52,473 INFO  ConnectionPoolImpl:45 - init takenConnections.size() is 0
+2021-12-11 15:43:55,954 INFO  ChangeLanguageCommand:21 - Start in ChangeLanguageCommand
+2021-12-11 15:44:24,677 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:48:03,805 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:48:03,833 INFO  ConnectionPoolImpl:33 - =======================ConnectionPoolImpl is created
+2021-12-11 15:48:03,845 INFO  ConnectionPoolImpl:98 - ================JDBC driver is loaded
+2021-12-11 15:48:04,336 INFO  ConnectionPoolImpl:44 - init availableConnections.size() is 5
+2021-12-11 15:48:04,337 INFO  ConnectionPoolImpl:45 - init takenConnections.size() is 0
+2021-12-11 15:48:09,647 INFO  ChangeLanguageCommand:21 - Start in ChangeLanguageCommand
+2021-12-11 15:48:19,537 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:48:22,860 INFO  GoToPageCommand:29 - Start in GoToPageCommand
+2021-12-11 15:48:38,365 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:48:42,185 INFO  ChangeLanguageCommand:21 - Start in ChangeLanguageCommand
+2021-12-11 15:48:42,193 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:48:45,857 INFO  GoToPageCommand:29 - Start in GoToPageCommand
+2021-12-11 15:48:48,661 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:48:48,662 INFO  ChangeLanguageCommand:21 - Start in ChangeLanguageCommand
+2021-12-11 15:48:48,671 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:48:48,671 INFO  GoToPageCommand:29 - Start in GoToPageCommand
+2021-12-11 15:48:49,458 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:48:49,458 INFO  ChangeLanguageCommand:21 - Start in ChangeLanguageCommand
+2021-12-11 15:48:49,463 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:48:49,464 INFO  GoToPageCommand:29 - Start in GoToPageCommand
+2021-12-11 15:48:50,991 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:48:50,991 INFO  ChangeLanguageCommand:21 - Start in ChangeLanguageCommand
+2021-12-11 15:48:50,997 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:48:50,997 INFO  GoToPageCommand:29 - Start in GoToPageCommand
+2021-12-11 15:48:53,465 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:48:53,478 INFO  LoginCommand:39 - Start in LoginCommand
+2021-12-11 15:48:53,479 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-11 15:48:53,479 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-11 15:48:53,480 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-11 15:48:53,554 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-11 15:48:53,554 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-11 15:48:53,555 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-11 15:48:53,559 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:48:53,560 INFO  GoToPageCommand:29 - Start in GoToPageCommand
+2021-12-11 15:48:55,227 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:48:55,228 INFO  GoToPageCommand:29 - Start in GoToPageCommand
+2021-12-11 15:48:56,970 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:48:56,971 INFO  GoToPageCommand:29 - Start in GoToPageCommand
+2021-12-11 15:48:58,539 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-11 15:48:58,540 INFO  LogoutCommand:22 - Start in Logout command

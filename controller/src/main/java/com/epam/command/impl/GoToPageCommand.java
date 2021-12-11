@@ -12,6 +12,7 @@ import java.io.IOException;
 
 import static com.epam.util.ControllerConstants.ADDRESS;
 import static com.epam.util.ControllerConstants.LAST_COMMAND;
+import static java.util.Objects.nonNull;
 
 public class GoToPageCommand extends AbstractCommand implements Command {
 
@@ -21,7 +22,7 @@ public class GoToPageCommand extends AbstractCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
 
         try {
-            if (needToAddLastCommand(request)) {
+            if (nonNull(request.getSession().getAttribute(LAST_COMMAND)) && needToAddLastCommand(request)) {
                 String lastCommand = defineLastCommand(request, false);
                 request.getSession().setAttribute(LAST_COMMAND, lastCommand);
             }
