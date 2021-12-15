@@ -9,9 +9,7 @@ import com.epam.validator.ServiceValidator;
 
 import java.util.List;
 
-
 public class OrderServiceImpl implements OrderService {
-
 
     private final OrderDAO orderDAO;
     private final ServiceValidator serviceValidator;
@@ -20,7 +18,6 @@ public class OrderServiceImpl implements OrderService {
         this.serviceValidator = serviceValidator;
         this.orderDAO = orderDAO;
     }
-
 
     @Override
     public boolean create(Long userId, List<Long> bookIds) throws ServiceException {
@@ -55,11 +52,8 @@ public class OrderServiceImpl implements OrderService {
     public boolean deleteFromOrder(Long userId, Long bookId) throws ServiceException {
         try {
             return orderDAO.deleteFromOrder(userId, bookId);
-
         } catch (Exception e) {
             throw new ServiceException(e);
         }
     }
-
-
 }

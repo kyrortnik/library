@@ -1,11 +1,10 @@
 package com.epam.command.impl;
 
 import com.epam.OrderService;
-import com.epam.ServiceFactory;
 import com.epam.command.AbstractCommand;
 import com.epam.command.Command;
-import com.epam.command.exception.ControllerException;
-import com.epam.validator.ControllerValidator;
+import com.epam.exception.ControllerException;
+import com.epam.factory.ServiceFactory;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,8 +19,6 @@ public class DeleteBookFromOrderCommand extends AbstractCommand implements Comma
 
     private final ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private final OrderService orderService = serviceFactory.getOrderService();
-    private final ControllerValidator controllerValidator = new ControllerValidator();
-
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
@@ -34,25 +31,24 @@ public class DeleteBookFromOrderCommand extends AbstractCommand implements Comma
         controllerValidator.longValidation(userId);
         controllerValidator.numericParameterValidation(bookIdString);
         Long bookId = Long.parseLong(bookIdString);
-
         String lastCommand;
         String message;
         try {
+            isValidUser(request);
             if (orderService.deleteFromOrder(userId, bookId)) {
                 lastCommand = "frontController?command=go_To_Page&address=main.jsp";
                 message = "Book is deleted from order";
-                successfulProcess(request, lastCommand, message);
+                processRequest(request, lastCommand, message);
                 response.sendRedirect(lastCommand);
             } else {
                 lastCommand = "frontController?command=order_Info";
                 message = "Book wasn't deleted from order";
-                unsuccessfulProcess(request, lastCommand, message);
+                processRequest(request, lastCommand, message);
                 request.getRequestDispatcher(lastCommand).forward(request, response);
             }
         } catch (Exception e) {
             throw new ControllerException(e);
         }
-
     }
 }
 

@@ -12,7 +12,7 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 
-public final class ServiceValidator {
+public class ServiceValidator {
 
     private ServiceValidator() {
     }
@@ -39,10 +39,9 @@ public final class ServiceValidator {
     public void validation(Book book) throws ServiceException {
         if (isNull(book)) {
             throw new ServiceException("Null Book");
-        } else if (book.getTitle().equals("") && book.getAuthor().equals("")) {
+        } else if ("".equals(book.getTitle()) && "".equals(book.getAuthor())) {
             throw new ServiceException("invalid book");
         }
-
     }
 
     public void validation(long id) throws ServiceException {
@@ -78,6 +77,5 @@ public final class ServiceValidator {
             throw new ServiceException("Parameters list is null or empty");
         }
     }
-
 
 }

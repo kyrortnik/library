@@ -2,7 +2,7 @@ package com.epam.command.impl;
 
 import com.epam.command.AbstractCommand;
 import com.epam.command.Command;
-import com.epam.command.exception.ControllerException;
+import com.epam.exception.ControllerException;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -18,8 +18,9 @@ public class LogoutCommand extends AbstractCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
 
+        LOG.info("Start in Logout command");
+
         try {
-            LOG.info("Start in Logout command");
             request.getSession().invalidate();
             request.getRequestDispatcher("/index.jsp").forward(request, response);
         } catch (IOException | ServletException e) {

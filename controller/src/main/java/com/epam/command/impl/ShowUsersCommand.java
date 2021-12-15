@@ -1,22 +1,22 @@
 package com.epam.command.impl;
 
-import com.epam.ServiceFactory;
 import com.epam.UserService;
 import com.epam.command.AbstractCommand;
 import com.epam.command.Command;
-import com.epam.command.exception.ControllerException;
 import com.epam.entity.Page;
 import com.epam.entity.UserDTO;
+import com.epam.exception.ControllerException;
 import com.epam.exception.ServiceException;
+import com.epam.factory.ServiceFactory;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Objects;
 
-import static com.epam.util.ControllerConstants.*;
+import static com.epam.util.ControllerConstants.LOGIN;
+import static com.epam.util.ControllerConstants.PAGEABLE_USERS;
 
 
 public class ShowUsersCommand extends AbstractCommand implements Command {
@@ -26,16 +26,17 @@ public class ShowUsersCommand extends AbstractCommand implements Command {
     private final ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private final UserService userService = serviceFactory.getUserService();
 
-
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
 
         LOG.info("Start in ShowUsersCommand");
 
         try {
+            isValidUser(request);
+            isValidAdminUser(request);
             Long currentPage = getCurrentPage(request);
             String lastCommand = defineLastCommand(request, true);
-            String message;
+            String message = null;
             String pageForRedirect = "frontController?command=go_To_Page&address=main.jsp";
             Page<UserDTO> pageableRequest = new Page<>();
 
@@ -45,23 +46,14 @@ public class ShowUsersCommand extends AbstractCommand implements Command {
 
             if (!usersPage.getElements().isEmpty()) {
                 request.setAttribute(PAGEABLE_USERS, usersPage);
-                successfulProcess(request, lastCommand, null);
             } else {
                 message = "Users were not found";
-                successfulProcess(request, lastCommand, message);
             }
+            processRequest(request,lastCommand,message);
             request.getRequestDispatcher(pageForRedirect).forward(request, response);
 
         } catch (IOException | ServletException | ServiceException e) {
             throw new ControllerException(e);
         }
-    }
-
-    private Long getCurrentPage(HttpServletRequest request) {
-        String currentPageParam = request.getParameter(CURRENT_PAGE_USER);
-        if (Objects.isNull(currentPageParam)) {
-            currentPageParam = DEFAULT_PAGE_NUMBER;
-        }
-        return Long.parseLong(currentPageParam);
     }
 }

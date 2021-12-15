@@ -1,8 +1,8 @@
-package com.epam.command.factory;
+package com.epam.factory;
 
 
 import com.epam.command.Command;
-import com.epam.command.TypeCommand;
+import com.epam.command.CommandEnum;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,12 +32,12 @@ public class CommandFactory {
     public Command defineCommand(HttpServletRequest request) {
         LOG.info("Start in CommandFactory.defineCommand():");
 
-        Command current = TypeCommand.BASE.getCurrentCommand();
+        Command current = CommandEnum.BASE.getCurrentCommand();
         String command = request.getParameter(COMMAND);
         if (nonNull(command) && !command.isEmpty()) {
             try {
-                TypeCommand typeCommand = TypeCommand.valueOf(command.toUpperCase());
-                current = typeCommand.getCurrentCommand();
+                CommandEnum commandEnum = CommandEnum.valueOf(command.toUpperCase());
+                current = commandEnum.getCurrentCommand();
             } catch (IllegalArgumentException e) {
                 request.getSession().setAttribute(MESSAGE, "Error. Unknown command");
                 LOG.error("Unknown command");

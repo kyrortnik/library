@@ -1,5 +1,9 @@
-package com.epam;
+package com.epam.factory;
 
+import com.epam.BookService;
+import com.epam.OrderService;
+import com.epam.ReserveService;
+import com.epam.UserService;
 import com.epam.impl.BookServiceImpl;
 import com.epam.impl.OrderServiceImpl;
 import com.epam.impl.ReserveServiceImpl;

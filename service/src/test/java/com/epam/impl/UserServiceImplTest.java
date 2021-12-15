@@ -79,7 +79,6 @@ public class UserServiceImplTest {
             userService.register(user, secondPassword);
         } catch (ServiceException e) {
             actualException = e;
-
         }
         assertEquals((new ServiceException(daoException)).getMessage(), actualException.getMessage());
 
@@ -107,7 +106,6 @@ public class UserServiceImplTest {
             userService.login(login, password);
         } catch (ServiceException e) {
             actualException = e;
-
         }
         assertEquals((new ServiceException(daoException)).getMessage(), actualException.getMessage());
 
@@ -141,7 +139,6 @@ public class UserServiceImplTest {
             userService.getUsersPage(pageEmptyElements);
         } catch (ServiceException e) {
             actualException = e;
-
         }
         assertEquals((new ServiceException(daoException)).getMessage(), actualException.getMessage());
 

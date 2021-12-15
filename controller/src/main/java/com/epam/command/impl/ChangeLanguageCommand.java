@@ -2,7 +2,7 @@ package com.epam.command.impl;
 
 import com.epam.command.AbstractCommand;
 import com.epam.command.Command;
-import com.epam.command.exception.ControllerException;
+import com.epam.exception.ControllerException;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +18,7 @@ public class ChangeLanguageCommand extends AbstractCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
+
         LOG.info("Start in ChangeLanguageCommand");
 
         String lastCommand = (String) request.getSession().getAttribute(LAST_COMMAND);
@@ -30,7 +31,5 @@ public class ChangeLanguageCommand extends AbstractCommand implements Command {
         } catch (IOException e) {
             throw new ControllerException(e);
         }
-
-
     }
 }
