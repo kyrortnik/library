@@ -21,6 +21,7 @@ public class GoToPageCommand extends AbstractCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
 
         try {
+            isValidUser(request);
             if (needToAddLastCommand(request)) {
                 String lastCommand = defineLastCommand(request, false);
                 request.getSession().setAttribute(LAST_COMMAND, lastCommand);

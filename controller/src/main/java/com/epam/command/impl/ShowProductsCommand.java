@@ -32,6 +32,7 @@ public class ShowProductsCommand extends AbstractCommand implements Command {
 
         LOG.info("Start in ShowProductsCommand");
         try {
+            isValidUser(request);
             Long currentPage = getCurrentPage(request);
             Page<Book> pageRequest = new Page<>();
             pageRequest.setPageNumber(currentPage);

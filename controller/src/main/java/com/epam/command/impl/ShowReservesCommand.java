@@ -33,6 +33,7 @@ public class ShowReservesCommand extends AbstractCommand implements Command {
         LOG.info("Start in ShowReservesCommand");
 
         try {
+            isValidUser(request);
             String lastCommand = defineLastCommand(request, true);
             String message = null;
             String pageForRedirect = "frontController?command=go_To_Page&address=main.jsp";

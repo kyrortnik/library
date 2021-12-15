@@ -30,11 +30,8 @@ public class LoginCommand extends AbstractCommand implements Command {
 
         String login = request.getParameter(LOGIN);
         char[] password = request.getParameter(PASSWORD).toCharArray();
-
-
         String lastCommand;
         String message;
-
         try {
             LOG.info("Start in LoginCommand");
             UserDTO foundUser = userService.login(login, password);

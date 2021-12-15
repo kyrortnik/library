@@ -35,6 +35,7 @@ public class CreateOrderCommand extends AbstractCommand implements Command {
 
         LOG.info("Start in CreateOrderCommand");
         try {
+            isValidUser(request);
             Long userId = (Long) request.getSession().getAttribute(ID);
             controllerValidator.longValidation(userId);
             List<Long> bookIds = getReservedBookIds(request);

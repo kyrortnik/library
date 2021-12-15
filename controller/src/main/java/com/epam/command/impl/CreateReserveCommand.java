@@ -31,6 +31,7 @@ public class CreateReserveCommand extends AbstractCommand implements Command {
 
         LOG.info("Start in CreateReserveCommand");
         try {
+            isValidUser(request);
             Long userId = (Long) request.getSession().getAttribute(ID);
             controllerValidator.longValidation(userId);
 

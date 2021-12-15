@@ -34,6 +34,7 @@ public class CreateBookCommand extends AbstractCommand implements Command {
         String lastCommand = "frontController?command=go_To_Page&address=newBook.jsp";
         String message;
         try {
+            isValidAdminUser(request);
             Book book = getBookFromClient(request);
             if (bookService.create(book)) {
                 lastCommand = "frontController?command=go_To_Page&address=main.jsp";

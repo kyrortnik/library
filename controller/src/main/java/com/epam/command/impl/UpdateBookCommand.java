@@ -36,6 +36,8 @@ public class UpdateBookCommand extends AbstractCommand implements Command {
         String message;
 
         try {
+            isValidUser(request);
+            isValidAdminUser(request);
             Book book = getBookClient(request);
             if (bookService.update(book)) {
                 lastCommand = "frontController?command=go_To_Page&address=main.jsp";

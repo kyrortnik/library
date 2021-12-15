@@ -38,6 +38,7 @@ public class DeleteBookFromOrderCommand extends AbstractCommand implements Comma
         String lastCommand;
         String message;
         try {
+            isValidUser(request);
             if (orderService.deleteFromOrder(userId, bookId)) {
                 lastCommand = "frontController?command=go_To_Page&address=main.jsp";
                 message = "Book is deleted from order";

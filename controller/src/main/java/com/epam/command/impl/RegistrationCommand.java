@@ -41,7 +41,6 @@ public class RegistrationCommand extends AbstractCommand implements Command {
         User user = new User(login, password, USER);
 
         try {
-
             UserDTO registeredUser = userService.register(user, secondPassword);
             if (nonNull(registeredUser)) {
                 lastCommand = "frontController?command=go_To_Page&address=main.jsp";

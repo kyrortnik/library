@@ -38,6 +38,7 @@ public class DeleteReserveCommand extends AbstractCommand implements Command {
         String lastCommand = "frontController?command=go_To_Page&address=main.jsp";
         String message;
         try {
+            isValidUser(request);
             if (reserveService.delete(userId, bookId)) {
                 message = "Reserve is deleted";
 //                successfulProcess(request,lastCommand,message);

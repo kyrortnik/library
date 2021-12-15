@@ -5870,3 +5870,1372 @@ Stacktrace:
 2021-12-15 16:26:50,777 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
 2021-12-15 16:26:50,777 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-15 16:26:50,777 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:28:04,442 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:04,502 INFO  ConnectionPoolImpl:33 - =======================ConnectionPoolImpl is created
+2021-12-15 16:28:04,550 INFO  ConnectionPoolImpl:98 - ================JDBC driver is loaded
+2021-12-15 16:28:05,550 INFO  ConnectionPoolImpl:44 - init availableConnections.size() is 5
+2021-12-15 16:28:05,550 INFO  ConnectionPoolImpl:45 - init takenConnections.size() is 0
+2021-12-15 16:28:05,878 INFO  LogoutCommand:22 - Start in Logout command
+2021-12-15 16:28:09,566 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:09,570 INFO  LoginCommand:39 - Start in LoginCommand
+2021-12-15 16:28:09,570 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-15 16:28:09,570 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-15 16:28:09,574 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-15 16:28:09,708 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-15 16:28:09,708 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-15 16:28:09,708 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-15 16:28:09,720 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:09,724 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:28:14,520 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:14,524 INFO  ShowUsersCommand:33 - Start in ShowUsersCommand
+2021-12-15 16:28:14,536 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-15 16:28:14,540 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-15 16:28:14,540 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-15 16:28:14,592 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-15 16:28:14,592 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-15 16:28:14,592 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-15 16:28:14,592 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:14,600 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:28:16,504 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:16,504 INFO  ShowUsersCommand:33 - Start in ShowUsersCommand
+2021-12-15 16:28:16,504 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-15 16:28:16,504 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-15 16:28:16,504 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-15 16:28:16,512 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-15 16:28:16,512 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-15 16:28:16,512 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-15 16:28:16,512 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:16,512 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:28:17,730 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:17,730 INFO  ShowUsersCommand:33 - Start in ShowUsersCommand
+2021-12-15 16:28:17,730 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-15 16:28:17,730 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-15 16:28:17,730 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-15 16:28:17,739 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-15 16:28:17,739 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-15 16:28:17,742 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-15 16:28:17,742 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:17,742 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:28:20,484 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:20,484 INFO  ShowUsersCommand:33 - Start in ShowUsersCommand
+2021-12-15 16:28:20,484 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-15 16:28:20,484 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-15 16:28:20,484 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-15 16:28:20,492 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-15 16:28:20,496 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-15 16:28:20,496 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-15 16:28:20,496 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:20,496 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:28:21,800 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:21,800 INFO  ShowUsersCommand:33 - Start in ShowUsersCommand
+2021-12-15 16:28:21,804 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-15 16:28:21,804 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-15 16:28:21,804 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-15 16:28:21,809 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-15 16:28:21,809 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-15 16:28:21,809 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-15 16:28:21,809 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:21,809 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:28:23,214 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:23,214 INFO  OrderInfoCommand:32 - Start in OrderInfoCommand
+2021-12-15 16:28:23,215 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-15 16:28:23,215 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-15 16:28:23,215 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-15 16:28:23,219 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-15 16:28:23,219 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-15 16:28:23,219 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-15 16:28:23,219 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:23,222 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:28:24,578 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:24,582 INFO  ShowReservesCommand:33 - Start in ShowReservesCommand
+2021-12-15 16:28:24,582 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-15 16:28:24,582 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-15 16:28:24,582 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-15 16:28:24,598 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-15 16:28:24,600 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-15 16:28:24,600 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-15 16:28:24,606 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:24,610 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:28:26,359 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:26,359 INFO  ShowReservesCommand:33 - Start in ShowReservesCommand
+2021-12-15 16:28:26,362 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-15 16:28:26,362 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-15 16:28:26,362 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-15 16:28:26,366 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-15 16:28:26,366 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-15 16:28:26,370 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-15 16:28:26,370 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:26,370 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:28:28,279 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:28,279 INFO  ShowReservesCommand:33 - Start in ShowReservesCommand
+2021-12-15 16:28:28,279 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-15 16:28:28,279 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-15 16:28:28,279 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-15 16:28:28,286 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-15 16:28:28,286 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-15 16:28:28,286 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-15 16:28:28,286 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:28,286 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:28:34,752 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:34,752 INFO  ShowReservesCommand:33 - Start in ShowReservesCommand
+2021-12-15 16:28:34,752 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-15 16:28:34,752 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-15 16:28:34,752 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-15 16:28:34,757 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-15 16:28:34,757 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-15 16:28:34,761 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-15 16:28:34,761 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:34,761 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:28:38,714 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:38,714 INFO  ShowReservesCommand:33 - Start in ShowReservesCommand
+2021-12-15 16:28:38,714 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-15 16:28:38,714 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-15 16:28:38,714 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-15 16:28:38,722 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-15 16:28:38,722 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-15 16:28:38,722 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-15 16:28:38,722 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:38,722 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:28:39,908 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:39,908 INFO  ShowProductsCommand:33 - Start in ShowProductsCommand
+2021-12-15 16:28:39,908 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-15 16:28:39,908 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-15 16:28:39,908 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-15 16:28:39,912 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-15 16:28:39,912 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-15 16:28:39,912 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-15 16:28:39,916 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:39,916 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:28:41,890 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:41,890 INFO  ShowProductsCommand:33 - Start in ShowProductsCommand
+2021-12-15 16:28:41,890 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-15 16:28:41,890 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-15 16:28:41,890 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-15 16:28:41,894 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-15 16:28:41,894 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-15 16:28:41,894 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-15 16:28:41,894 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:41,894 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:28:43,084 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:43,084 INFO  ShowProductsCommand:33 - Start in ShowProductsCommand
+2021-12-15 16:28:43,084 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-15 16:28:43,084 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-15 16:28:43,084 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-15 16:28:43,089 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-15 16:28:43,089 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-15 16:28:43,089 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-15 16:28:43,092 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:43,092 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:28:44,525 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:44,525 INFO  ShowProductsCommand:33 - Start in ShowProductsCommand
+2021-12-15 16:28:44,525 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-15 16:28:44,525 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-15 16:28:44,525 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-15 16:28:44,532 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-15 16:28:44,532 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-15 16:28:44,532 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-15 16:28:44,532 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:44,532 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:28:47,386 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:47,386 INFO  ShowProductsCommand:33 - Start in ShowProductsCommand
+2021-12-15 16:28:47,386 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-15 16:28:47,386 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-15 16:28:47,386 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-15 16:28:47,390 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-15 16:28:47,390 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-15 16:28:47,390 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-15 16:28:47,394 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:47,394 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:28:48,694 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:48,694 INFO  ShowReservesCommand:33 - Start in ShowReservesCommand
+2021-12-15 16:28:48,694 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-15 16:28:48,694 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-15 16:28:48,694 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-15 16:28:48,698 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-15 16:28:48,698 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-15 16:28:48,698 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-15 16:28:48,702 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:48,702 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:28:50,826 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:50,830 INFO  ShowReservesCommand:33 - Start in ShowReservesCommand
+2021-12-15 16:28:50,830 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-15 16:28:50,830 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-15 16:28:50,830 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-15 16:28:50,834 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-15 16:28:50,834 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-15 16:28:50,834 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-15 16:28:50,834 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:50,834 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:28:52,782 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:52,782 INFO  ShowProductsCommand:33 - Start in ShowProductsCommand
+2021-12-15 16:28:52,782 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-15 16:28:52,782 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-15 16:28:52,782 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-15 16:28:52,786 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-15 16:28:52,786 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-15 16:28:52,789 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-15 16:28:52,789 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:52,789 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:28:54,642 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:54,642 INFO  ShowProductsCommand:33 - Start in ShowProductsCommand
+2021-12-15 16:28:54,642 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-15 16:28:54,642 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-15 16:28:54,642 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-15 16:28:54,646 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-15 16:28:54,646 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-15 16:28:54,646 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-15 16:28:54,646 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:54,646 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:28:55,484 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:55,484 INFO  ShowProductsCommand:33 - Start in ShowProductsCommand
+2021-12-15 16:28:55,484 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-15 16:28:55,484 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-15 16:28:55,484 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-15 16:28:55,489 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-15 16:28:55,489 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-15 16:28:55,489 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-15 16:28:55,489 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:55,489 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:28:57,158 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:28:57,158 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:29:07,032 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:29:07,032 INFO  CreateBookCommand:32 - Start in CreateBookCommand
+2021-12-15 16:29:07,032 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-15 16:29:07,032 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-15 16:29:07,035 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-15 16:29:07,039 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-15 16:29:07,039 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-15 16:29:07,039 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-15 16:29:07,050 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:29:07,054 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:29:08,438 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:29:08,442 INFO  ShowProductsCommand:33 - Start in ShowProductsCommand
+2021-12-15 16:29:08,442 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-15 16:29:08,442 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-15 16:29:08,442 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-15 16:29:08,446 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-15 16:29:08,446 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-15 16:29:08,446 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-15 16:29:08,446 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:29:08,446 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:29:09,966 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:29:09,970 INFO  ShowProductsCommand:33 - Start in ShowProductsCommand
+2021-12-15 16:29:09,970 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-15 16:29:09,970 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-15 16:29:09,970 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-15 16:29:09,970 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-15 16:29:09,970 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-15 16:29:09,974 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-15 16:29:09,974 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:29:09,974 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:29:13,834 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:29:13,834 INFO  BookInfoCommand:34 - Start in ProductInfoCommand
+2021-12-15 16:29:13,834 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-15 16:29:13,834 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-15 16:29:13,834 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-15 16:29:13,834 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-15 16:29:13,838 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-15 16:29:13,838 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-15 16:29:13,838 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:29:13,838 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:29:15,420 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:29:20,146 INFO  DeleteBookCommand:31 - Start in DeleteBookCommand
+2021-12-15 16:29:20,146 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-15 16:29:20,146 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-15 16:29:20,146 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-15 16:29:20,150 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-15 16:29:20,150 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-15 16:29:20,150 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-15 16:29:20,162 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:29:20,162 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:29:22,916 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:29:22,916 INFO  ShowProductsCommand:33 - Start in ShowProductsCommand
+2021-12-15 16:29:22,916 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-15 16:29:22,916 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-15 16:29:22,916 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-15 16:29:22,920 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-15 16:29:22,920 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-15 16:29:22,920 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-15 16:29:22,920 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:29:22,920 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:29:24,358 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:29:24,358 INFO  ShowProductsCommand:33 - Start in ShowProductsCommand
+2021-12-15 16:29:24,358 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-15 16:29:24,358 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-15 16:29:24,358 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-15 16:29:24,362 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-15 16:29:24,362 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-15 16:29:24,362 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-15 16:29:24,362 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:29:24,362 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:29:26,204 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:29:26,204 INFO  ShowProductsCommand:33 - Start in ShowProductsCommand
+2021-12-15 16:29:26,208 INFO  ConnectionPoolImpl:65 - =======take()
+2021-12-15 16:29:26,208 INFO  ConnectionPoolImpl:67 - =======availableConnections.size() is 4
+2021-12-15 16:29:26,208 INFO  ConnectionPoolImpl:68 - =======takenConnections.size() is 1
+2021-12-15 16:29:26,208 INFO  ConnectionPoolImpl:80 - ======= releasing Connection)
+2021-12-15 16:29:26,208 INFO  ConnectionPoolImpl:83 - =======availableConnections.size() is 5
+2021-12-15 16:29:26,208 INFO  ConnectionPoolImpl:84 - =======takenConnections.size() is 0
+2021-12-15 16:29:26,212 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:29:26,212 INFO  GoToPageCommand:28 - Start in GoToPageCommand
+2021-12-15 16:29:28,808 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:29:28,808 INFO  LogoutCommand:22 - Start in Logout command
+2021-12-15 16:52:34,844 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:34,874 INFO  ConnectionPoolImpl:33 - =======================ConnectionPoolImpl is created
+2021-12-15 16:52:34,885 INFO  ConnectionPoolImpl:98 - ================JDBC driver is loaded
+2021-12-15 16:52:35,333 INFO  ConnectionPoolImpl:44 - init availableConnections.size() is 5
+2021-12-15 16:52:35,333 INFO  ConnectionPoolImpl:45 - init takenConnections.size() is 0
+2021-12-15 16:52:35,369 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,374 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,375 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,376 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,376 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,376 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,377 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,377 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,377 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,377 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,378 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,379 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,379 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,380 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,380 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,380 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,381 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,381 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,382 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,382 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,383 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,383 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,384 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,384 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,384 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,385 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,385 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,385 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,386 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,386 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,386 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,387 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,387 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,388 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,388 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,389 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,389 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,390 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,390 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,391 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,391 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,392 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,392 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,393 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,393 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,394 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,394 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,394 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,395 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,395 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,396 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,396 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,397 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,397 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,398 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,398 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,399 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,399 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,400 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,400 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,401 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,402 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,403 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,403 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,404 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,404 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,405 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,406 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,406 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,407 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,408 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,408 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,409 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,409 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,410 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,411 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,411 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,412 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,412 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,413 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,414 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,415 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,415 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,416 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,417 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,418 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,418 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,419 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,420 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,420 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,421 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,421 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,422 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,423 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,424 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,424 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,425 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,426 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,427 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,427 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,428 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,429 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,430 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,430 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,431 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,432 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,433 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,434 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,435 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,436 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,436 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,437 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,438 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,438 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,439 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,441 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,442 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,442 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,442 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,443 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,445 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,445 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,447 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,447 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,448 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,448 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,450 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,450 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,451 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,452 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,453 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,454 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,455 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,456 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,457 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,457 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,458 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,460 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,461 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,462 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,463 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,465 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,467 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,469 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,471 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,473 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,475 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,478 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,480 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,481 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,482 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,483 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,484 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,486 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,487 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,488 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,490 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,491 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,492 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,493 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,495 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,496 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,497 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,498 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,499 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,500 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,501 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,502 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,504 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,506 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,507 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,509 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,511 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,513 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,515 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,517 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,519 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,521 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,523 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,524 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,526 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,527 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,528 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,529 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,530 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,532 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,534 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,536 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,538 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,539 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,540 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,542 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,543 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,544 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,546 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,548 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,550 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,552 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,553 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,554 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,556 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,558 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,560 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,562 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,564 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,565 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,567 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,569 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,571 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,573 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,575 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,576 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,577 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,579 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,580 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,581 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,582 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,584 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,585 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,586 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,587 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,589 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,591 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,592 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,594 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,595 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,597 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,599 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,601 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,603 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,604 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,605 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,607 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,609 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,610 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,611 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,612 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,613 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,614 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,615 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,616 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,617 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,618 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,620 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,622 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,624 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,625 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,627 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,628 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,628 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,629 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,676 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,677 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,678 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,679 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,680 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,681 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,682 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,683 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,684 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,685 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,686 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,687 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,688 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,689 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,690 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,691 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,692 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,693 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,694 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,695 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,696 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,697 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,698 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,699 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,699 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,700 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,701 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,702 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,703 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,705 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,706 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,707 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,708 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,709 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,710 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,711 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,712 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,713 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,714 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,715 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,716 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,717 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,718 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,718 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,719 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,720 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,721 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,723 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,724 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,724 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,725 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,726 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,727 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,728 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,729 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,730 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,731 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,732 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,733 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,734 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,735 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,736 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,737 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,738 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,739 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,740 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,741 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,742 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,743 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,744 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,745 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,746 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,747 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,748 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,748 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,749 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,750 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,751 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,752 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,753 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,754 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,756 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,756 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,757 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,758 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,759 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,760 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,761 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,762 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,763 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,764 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,765 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,766 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,767 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,768 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,769 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,770 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,771 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,773 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,774 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,775 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,776 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,777 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,778 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,779 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,780 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,781 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,782 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,787 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,789 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,790 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,792 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,793 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,794 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,794 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,795 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,796 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,797 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,798 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,799 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,800 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,801 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,802 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,804 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,806 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,807 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,808 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,810 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,811 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,813 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,814 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,815 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,816 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,817 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,818 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,819 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,820 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,822 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,823 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,824 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,825 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,826 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,827 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,828 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,829 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,830 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,831 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,832 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,833 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,834 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,835 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,836 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,838 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,839 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,840 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,841 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,842 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,843 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,844 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,845 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,846 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,847 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,848 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,849 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,850 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,851 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,852 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,853 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,854 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,855 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,856 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,857 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,858 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,859 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,860 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,861 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,862 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,863 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,864 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,865 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,866 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,867 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,868 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,869 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,869 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,871 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,873 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,874 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,876 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,877 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,879 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,881 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,883 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,884 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,886 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,888 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,890 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,891 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,893 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,895 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,896 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,898 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,899 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,901 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,903 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,905 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,906 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,908 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,910 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,911 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,913 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,914 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,915 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,916 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,917 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,918 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,919 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,920 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,921 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,922 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,923 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,924 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,925 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,926 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,927 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,928 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,929 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,930 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,931 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,933 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,934 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,935 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,936 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,937 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,938 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,939 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,940 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,941 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,943 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,944 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,945 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,946 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,947 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,948 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,949 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,950 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,951 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,953 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,954 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,955 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,956 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,957 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,958 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,959 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,961 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,963 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,964 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,965 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,966 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,967 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,968 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,969 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,971 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,973 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,974 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,975 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,976 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,977 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,978 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,979 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,980 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,981 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,982 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,983 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,984 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,985 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,986 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,988 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,989 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,990 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,991 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,992 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,993 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,995 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,996 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,997 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:35,998 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:35,999 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,000 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,002 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,003 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,005 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,007 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,009 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,011 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,013 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,014 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,015 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,016 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,018 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,019 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,020 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,021 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,023 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,024 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,025 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,026 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,027 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,028 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,029 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,030 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,031 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,032 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,033 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,034 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,036 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,038 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,039 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,040 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,041 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,043 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,044 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,045 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,047 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,049 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,050 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,051 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,052 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,053 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,055 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,056 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,057 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,058 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,059 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,060 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,061 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,062 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,063 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,064 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,064 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,065 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,066 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,067 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,068 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,069 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,070 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,071 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,072 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,073 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,074 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,075 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,076 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,077 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,078 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,079 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,080 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,081 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,082 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,083 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,084 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,084 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,085 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,086 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,087 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,088 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,089 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,090 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,091 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,092 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,093 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,094 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,095 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,096 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,097 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,098 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,099 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,099 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,100 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,101 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,102 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,103 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,104 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,105 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,107 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,107 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,108 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,109 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,110 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,111 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,112 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,113 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,114 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,115 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,116 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,117 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,118 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,119 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,120 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,121 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,122 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,123 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,124 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,125 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,126 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,127 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,128 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,129 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,130 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,131 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,132 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,133 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,134 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,134 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,135 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,136 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,137 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,138 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,139 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,140 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,141 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,142 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,143 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,144 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,145 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,146 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,147 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,148 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,149 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,150 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,151 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,152 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,154 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,155 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,156 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,157 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,158 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,159 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,160 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,161 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,162 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,163 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,164 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,165 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,166 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,167 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,168 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,169 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,170 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,172 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,173 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,174 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,176 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,178 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,179 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,181 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,182 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,183 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,184 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,185 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,186 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,187 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,188 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,189 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,190 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,191 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,192 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,192 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,193 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,195 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,196 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,197 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,198 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,199 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,200 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,201 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,202 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,202 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,204 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,205 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,206 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,207 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,208 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,209 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,210 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,211 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,212 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,213 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,215 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,216 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,217 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,218 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,219 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,220 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,221 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,223 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,224 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,225 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,226 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,227 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,228 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,229 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,230 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,231 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,232 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,233 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,234 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,235 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,236 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,238 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,239 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,241 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,242 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,243 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,244 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,245 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,247 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,247 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,249 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,250 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,251 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,252 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,254 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,256 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,257 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,258 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,259 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,260 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,261 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,262 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,263 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,264 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,265 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,265 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,266 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,267 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,268 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,269 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,270 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,271 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,272 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,273 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,274 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,275 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,276 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,277 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,278 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,279 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,280 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,281 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,282 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,282 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,283 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,284 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,285 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,286 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,287 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,288 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,289 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,290 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,291 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,292 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,293 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,294 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,295 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,296 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,296 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,297 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,298 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,299 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,300 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,301 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,302 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,303 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,304 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,305 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,307 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,308 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,310 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,312 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,314 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,315 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,317 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,317 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,318 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,319 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,320 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,321 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,323 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,323 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,324 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,325 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,326 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,327 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,328 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,329 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,330 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,331 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,332 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,333 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,334 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,335 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,335 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,336 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,338 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,339 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,340 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,340 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,341 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,342 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,343 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,344 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,345 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,346 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,347 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,348 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,349 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,350 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,351 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,352 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,353 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,355 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,356 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,357 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,358 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,359 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,359 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,360 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,361 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,362 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,363 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,364 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,365 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,366 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,367 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,368 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,369 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,371 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,372 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,373 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,374 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,375 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,376 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,377 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,378 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,379 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,380 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,381 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,383 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,384 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,385 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,386 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,386 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,388 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,389 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,390 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,391 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,392 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,393 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,394 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,395 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,396 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,397 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,398 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,399 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,400 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,401 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,402 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,403 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,405 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,406 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,407 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,408 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,409 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,410 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,411 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,412 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,413 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,414 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,415 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,416 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,417 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,418 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,419 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,420 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,422 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,423 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,424 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,425 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,426 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,427 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,428 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,429 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,430 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,431 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,432 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,433 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,434 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,435 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,436 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,437 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,438 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,440 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,441 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,442 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,443 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,444 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,445 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,447 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,448 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,449 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,450 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,451 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,453 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,455 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,457 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,458 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,459 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,460 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,461 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,462 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,463 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,464 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,465 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,467 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,468 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,471 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,472 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,474 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,476 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,477 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,478 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,480 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,481 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,482 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,484 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,485 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,486 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,488 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,490 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,491 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,493 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,494 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,495 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,496 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,497 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,499 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,500 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,501 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,502 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,503 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,505 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,506 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,507 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,508 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,509 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,511 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,512 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,514 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,515 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,516 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,517 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,518 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,519 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,520 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,521 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,523 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,524 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,526 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,528 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,530 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,531 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,533 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,535 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,538 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,539 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,540 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,541 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,542 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,543 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,545 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,546 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,547 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,548 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,549 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,550 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,552 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,554 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,555 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,557 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,558 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,560 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,561 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,562 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,563 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,565 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,576 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,596 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,598 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,600 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,602 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,604 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 16:52:36,606 ERROR FrontController:36 - Only Users and Admin van perform this action
+2021-12-15 16:52:36,608 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():

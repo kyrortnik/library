@@ -21,6 +21,7 @@ public class ChangeLanguageCommand extends AbstractCommand implements Command {
         LOG.info("Start in ChangeLanguageCommand");
         String lastCommand = (String) request.getSession().getAttribute(LAST_COMMAND);
         try {
+            isValidUser(request);
             request.getSession().setAttribute(LOCAL, request.getParameter(LOCAL));
             request.getSession().setAttribute(MESSAGE, null);
             String path = nonNull(lastCommand) ? lastCommand : "/frontController?command=go_To_Page&address=login.jsp";

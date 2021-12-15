@@ -33,6 +33,8 @@ public class ShowUsersCommand extends AbstractCommand implements Command {
         LOG.info("Start in ShowUsersCommand");
 
         try {
+            isValidUser(request);
+            isValidAdminUser(request);
             Long currentPage = getCurrentPage(request);
             String lastCommand = defineLastCommand(request, true);
             String message = null;

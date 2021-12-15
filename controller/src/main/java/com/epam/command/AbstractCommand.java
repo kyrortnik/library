@@ -1,5 +1,6 @@
 package com.epam.command;
 
+import com.epam.exception.ControllerException;
 import com.epam.validator.ControllerValidator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,6 +8,7 @@ import java.util.Map;
 
 import static com.epam.util.ControllerConstants.*;
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 public abstract class AbstractCommand implements Command {
 
@@ -70,7 +72,12 @@ public abstract class AbstractCommand implements Command {
         return lastCommand;
     }
 
-
+    /**
+     * Sets page number for request with multiple entities
+     *
+     * @param request, request to get page number from
+     * @return page number
+     */
     protected Long getCurrentPage(HttpServletRequest request) {
         String currentPageParam = request.getParameter(CURRENT_PAGE);
         if (isNull(currentPageParam) || currentPageParam.isEmpty()) {
@@ -79,5 +86,21 @@ public abstract class AbstractCommand implements Command {
         return Long.parseLong(currentPageParam);
     }
 
+
+    protected void isValidAdminUser(HttpServletRequest request) throws ControllerException {
+        String role = (String) request.getSession().getAttribute(ROLE);
+        boolean isValidAdmin = nonNull(role) && role.equalsIgnoreCase("admin");
+        if (!isValidAdmin) {
+            throw new ControllerException("Only Admin has permission for this action");
+        }
+    }
+
+    protected void isValidUser(HttpServletRequest request) throws ControllerException {
+        String role = (String) request.getSession().getAttribute(ROLE);
+        boolean isValidUser = nonNull(role) && (role.equalsIgnoreCase("user") || role.equalsIgnoreCase("admin"));
+        if (!isValidUser) {
+            throw new ControllerException("Only Users and Admin van perform this action");
+        }
+    }
 
 }

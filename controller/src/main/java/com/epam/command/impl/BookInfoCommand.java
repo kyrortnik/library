@@ -40,6 +40,7 @@ public class BookInfoCommand extends AbstractCommand implements Command {
         String message;
 
         try {
+            isValidUser(request);
             Book book = bookService.findById(Long.parseLong(userId));
 
             if (nonNull(book)) {

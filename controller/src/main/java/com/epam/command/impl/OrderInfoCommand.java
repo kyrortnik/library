@@ -41,6 +41,7 @@ public class OrderInfoCommand extends AbstractCommand implements Command {
         pageOrder.setPageNumber(currentPage);
 
         try {
+            isValidUser(request);
             pageOrder = bookService.getOrderedBooksPage(pageOrder, userId);
             controllerValidator.pageValidation(pageOrder);
             if (!pageOrder.getElements().isEmpty()) {
