@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface OrderService {
 
-
     /**
      * Validated params from client and passes them to DAO layer in order to create Order
      *

@@ -48,14 +48,12 @@ public class RegistrationCommand extends AbstractCommand implements Command {
                 request.getSession().setAttribute(USER, registeredUser.getLogin());
                 request.getSession().setAttribute(ROLE, registeredUser.getRole());
                 request.getSession().setAttribute(ID, registeredUser.getId());
-//                successfulProcess(request, lastCommand, message);
-                processRequest(request,lastCommand,message);
+                processRequest(request, lastCommand, message);
                 response.sendRedirect(lastCommand);
             } else {
                 lastCommand = "frontController?command=go_To_Page&address=login.jsp";
                 message = "Registration failed. Check that login is not empty and two passwords match.";
-//                unsuccessfulProcess(request, lastCommand, message);
-                processRequest(request,lastCommand,message);
+                processRequest(request, lastCommand, message);
                 request.getRequestDispatcher(lastCommand).forward(request, response);
 
             }
@@ -63,13 +61,11 @@ public class RegistrationCommand extends AbstractCommand implements Command {
             try {
                 lastCommand = "frontController?command=go_To_Page&address=login.jsp";
                 message = "Login and passwords are empty or user already exists.";
-//                unsuccessfulProcess(request, lastCommand, message);
-                processRequest(request,lastCommand,message);
+                processRequest(request, lastCommand, message);
                 request.getRequestDispatcher(lastCommand).forward(request, response);
             } catch (IOException | ServletException ex) {
                 throw new ControllerException(ex);
             }
-
             throw new ControllerException(e);
         }
     }

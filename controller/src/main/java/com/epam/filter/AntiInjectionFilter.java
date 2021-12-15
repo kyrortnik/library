@@ -6,12 +6,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
-import static com.epam.util.ControllerConstants.MESSAGE;
 import static com.epam.util.ControllerConstants.ANTI_INJECTION_MESSAGE;
+import static com.epam.util.ControllerConstants.MESSAGE;
 
 public class AntiInjectionFilter implements Filter {
 
-    private static final String JS_INJECTION_PATTERN = "^<script>.*<\\/script>$";
+    private static final String JS_INJECTION_PATTERN = ".*<.*script>.*";
 
     @Override
     public void init(FilterConfig filterConfig) {

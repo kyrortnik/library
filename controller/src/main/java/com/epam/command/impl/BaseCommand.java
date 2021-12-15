@@ -14,7 +14,6 @@ public class BaseCommand extends AbstractCommand implements Command {
 
     private static final Logger LOG = Logger.getLogger(BaseCommand.class);
 
-
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
         LOG.info("Start in Base Command");
@@ -25,7 +24,5 @@ public class BaseCommand extends AbstractCommand implements Command {
         } catch (ServletException | IOException e) {
             throw new ControllerException(e);
         }
-
-
     }
 }

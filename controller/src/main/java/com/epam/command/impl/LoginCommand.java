@@ -1,12 +1,12 @@
 package com.epam.command.impl;
 
-import com.epam.factory.ServiceFactory;
 import com.epam.UserService;
 import com.epam.command.AbstractCommand;
 import com.epam.command.Command;
-import com.epam.exception.ControllerException;
 import com.epam.entity.UserDTO;
+import com.epam.exception.ControllerException;
 import com.epam.exception.ServiceException;
+import com.epam.factory.ServiceFactory;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -41,28 +41,24 @@ public class LoginCommand extends AbstractCommand implements Command {
                 request.getSession().setAttribute(USER, foundUser.getLogin());
                 request.getSession().setAttribute(ROLE, foundUser.getRole());
                 request.getSession().setAttribute(ID, foundUser.getId());
-//                successfulProcess(request, lastCommand, message);
-                processRequest(request,lastCommand,message);
+                processRequest(request, lastCommand, message);
                 response.sendRedirect(lastCommand);
             } else {
                 lastCommand = "frontController?command=go_To_Page&address=login.jsp";
                 message = "Incorrect login or password.Try again";
-//                unsuccessfulProcess(request, lastCommand, message);
-                processRequest(request,lastCommand,message);
+                processRequest(request, lastCommand, message);
                 request.getRequestDispatcher(lastCommand).forward(request, response);
             }
         } catch (IOException | ServiceException | ServletException e) {
             try {
                 lastCommand = "frontController?command=go_To_Page&address=login.jsp";
                 message = "Login and password can`t be empty!";
-//                unsuccessfulProcess(request, lastCommand, message);
-                processRequest(request,lastCommand,message);
+                processRequest(request, lastCommand, message);
                 request.getRequestDispatcher(lastCommand).forward(request, response);
             } catch (IOException | ServletException ex) {
                 throw new ControllerException(ex);
             }
             throw new ControllerException(e);
         }
-
     }
 }

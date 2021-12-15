@@ -1,12 +1,11 @@
 package com.epam.command.impl;
 
 import com.epam.BookService;
-import com.epam.factory.ServiceFactory;
 import com.epam.command.AbstractCommand;
 import com.epam.command.Command;
-import com.epam.exception.ControllerException;
 import com.epam.entity.Book;
-import com.epam.validator.ControllerValidator;
+import com.epam.exception.ControllerException;
+import com.epam.factory.ServiceFactory;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -18,13 +17,10 @@ import static com.epam.util.ControllerConstants.*;
 
 public class CreateBookCommand extends AbstractCommand implements Command {
 
-
     private static final Logger LOG = Logger.getLogger(CreateBookCommand.class);
 
     private final ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private final BookService bookService = serviceFactory.getBookService();
-//    private final ControllerValidator controllerValidator = ControllerValidator.getInstance();
-
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
@@ -38,12 +34,10 @@ public class CreateBookCommand extends AbstractCommand implements Command {
             if (bookService.create(book)) {
                 lastCommand = "frontController?command=go_To_Page&address=main.jsp";
                 message = "Book is created";
-//                successfulProcess(request, lastCommand, message);
                 processRequest(request, lastCommand, message);
                 response.sendRedirect(lastCommand);
             } else {
                 message = "Book with such title already exists!";
-//                unsuccessfulProcess(request, lastCommand, message);
                 processRequest(request, lastCommand, message);
                 request.getRequestDispatcher(lastCommand).forward(request, response);
             }

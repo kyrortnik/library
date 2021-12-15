@@ -21,7 +21,6 @@ public class DeleteBookCommand extends AbstractCommand implements Command {
 
     private final ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private final BookService bookService = serviceFactory.getBookService();
-//    private final ControllerValidator controllerValidator = ControllerValidator.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
@@ -38,14 +37,12 @@ public class DeleteBookCommand extends AbstractCommand implements Command {
             if (bookService.delete(bookId)) {
                 lastCommand = "frontController?command=go_To_Page&address=main.jsp";
                 message = "Book is deleted";
-//                successfulProcess(request, lastCommand, message);
-                processRequest(request,lastCommand,message);
+                processRequest(request, lastCommand, message);
                 response.sendRedirect(lastCommand);
             } else {
                 lastCommand = "frontController?command=product_Info?id=" + bookId;
                 message = "No such book exists";
-//                unsuccessfulProcess(request, lastCommand, message);
-                processRequest(request,lastCommand,message);
+                processRequest(request, lastCommand, message);
                 request.getRequestDispatcher(lastCommand).forward(request, response);
             }
         }  catch (IOException | ServiceException | ServletException e) {
