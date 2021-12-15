@@ -25,7 +25,7 @@ public abstract class AbstractCommand implements Command {
     }
 
     /**
-     * Defines incoming url (command) as a String. Needed in order to perform language change from any application page
+     * Defines incoming url (command) as a String. It's needed in order to perform language change from any application page
      *
      * @param request,  which comes from web
      * @param withPage, required when the command is pageable
@@ -87,6 +87,12 @@ public abstract class AbstractCommand implements Command {
     }
 
 
+    /**
+     * Check if user is the Admin
+     *
+     * @param request, request to get role from
+     * @throws ControllerException throws ControllerException
+     */
     protected void isValidAdminUser(HttpServletRequest request) throws ControllerException {
         String role = (String) request.getSession().getAttribute(ROLE);
         boolean isValidAdmin = nonNull(role) && role.equalsIgnoreCase("admin");
@@ -95,6 +101,12 @@ public abstract class AbstractCommand implements Command {
         }
     }
 
+    /**
+     * Check if user is a User
+     *
+     * @param request, request to get role from
+     * @throws ControllerException throws ControllerException
+     */
     protected void isValidUser(HttpServletRequest request) throws ControllerException {
         String role = (String) request.getSession().getAttribute(ROLE);
         boolean isValidUser = nonNull(role) && (role.equalsIgnoreCase("user") || role.equalsIgnoreCase("admin"));

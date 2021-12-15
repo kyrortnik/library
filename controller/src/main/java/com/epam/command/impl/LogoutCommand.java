@@ -18,8 +18,9 @@ public class LogoutCommand extends AbstractCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
 
+        LOG.info("Start in Logout command");
+
         try {
-            LOG.info("Start in Logout command");
             request.getSession().invalidate();
             request.getRequestDispatcher("/index.jsp").forward(request, response);
         } catch (IOException | ServletException e) {

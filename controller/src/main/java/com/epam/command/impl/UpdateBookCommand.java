@@ -1,12 +1,11 @@
 package com.epam.command.impl;
 
 import com.epam.BookService;
-import com.epam.factory.ServiceFactory;
 import com.epam.command.AbstractCommand;
 import com.epam.command.Command;
-import com.epam.exception.ControllerException;
 import com.epam.entity.Book;
-import com.epam.validator.ControllerValidator;
+import com.epam.exception.ControllerException;
+import com.epam.factory.ServiceFactory;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -21,7 +20,6 @@ public class UpdateBookCommand extends AbstractCommand implements Command {
     private static final Logger LOG = Logger.getLogger(UpdateBookCommand.class);
 
     private final BookService bookService = ServiceFactory.getInstance().getBookService();
-//    private final ControllerValidator controllerValidator = ControllerValidator.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
@@ -32,7 +30,6 @@ public class UpdateBookCommand extends AbstractCommand implements Command {
         controllerValidator.numericParameterValidation(bookIdString);
         long bookId = Long.parseLong(bookIdString);
         String lastCommand = "frontController?command=book_Info&id=" + bookId;
-//        String lastCommand = "frontController?command=go_To_Page&address=productInfo.jsp&id=" + bookId;
         String message;
 
         try {
@@ -42,18 +39,16 @@ public class UpdateBookCommand extends AbstractCommand implements Command {
             if (bookService.update(book)) {
                 lastCommand = "frontController?command=go_To_Page&address=main.jsp";
                 message = "Book is updated";
-//                successfulProcess(request, lastCommand, message);
-                processRequest(request,lastCommand,message);
+                processRequest(request, lastCommand, message);
                 response.sendRedirect(lastCommand);
             } else {
                 message = "No such book exists";
-//                unsuccessfulProcess(request, lastCommand, message);
-                processRequest(request,lastCommand,message);
+                processRequest(request, lastCommand, message);
                 request.getRequestDispatcher(lastCommand).forward(request, response);
             }
         } catch (Exception e) {
             try {
-                request.getSession().setAttribute(MESSAGE,e.getMessage());
+                request.getSession().setAttribute(MESSAGE, e.getMessage());
                 request.getSession().setAttribute(LAST_COMMAND, "frontController?command=go_To_Page&address=productInfo.jsp&id=" + bookId);
                 request.getRequestDispatcher(lastCommand).forward(request, response);
                 LOG.error(e.getMessage());

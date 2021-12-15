@@ -32,10 +32,8 @@ public class ControllerConstants {
             RESERVED_BOOKS = "reservedBooks",
             DEFAULT_PAGE_NUMBER = "1",
             PAGEABLE = "pageable",
-            CURRENT_PAGE_RESERVE = "currentPageReserve",
             PAGEABLE_RESERVES = "pageableReserves",
-            CURRENT_PAGE_USER = "currentPageUser",
             PAGEABLE_USERS = "pageableUsers",
-            PAGEABLE_ORDERS = "pageableOrders";
-
+            PAGEABLE_ORDERS = "pageableOrders",
+            ANTI_INJECTION_MESSAGE = "antiInjectionMessage";
 }

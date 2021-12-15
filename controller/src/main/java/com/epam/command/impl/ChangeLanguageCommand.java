@@ -18,10 +18,10 @@ public class ChangeLanguageCommand extends AbstractCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
+
         LOG.info("Start in ChangeLanguageCommand");
         String lastCommand = (String) request.getSession().getAttribute(LAST_COMMAND);
         try {
-            isValidUser(request);
             request.getSession().setAttribute(LOCAL, request.getParameter(LOCAL));
             request.getSession().setAttribute(MESSAGE, null);
             String path = nonNull(lastCommand) ? lastCommand : "/frontController?command=go_To_Page&address=login.jsp";
@@ -29,7 +29,5 @@ public class ChangeLanguageCommand extends AbstractCommand implements Command {
         } catch (IOException e) {
             throw new ControllerException(e);
         }
-
-
     }
 }
