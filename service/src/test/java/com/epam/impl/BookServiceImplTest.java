@@ -37,13 +37,13 @@ public class BookServiceImplTest {
     private final List<Book> emptyElements = new ArrayList<>();
     private final List<BookRow> emptyElementRows = new ArrayList<>();
 
-    private List<Book> elements = Arrays.asList(
+    private final List<Book> elements = Arrays.asList(
             new Book(1L, "Harry Potter and Chamber of Secrets", "J.K. Rowling", 1998),
             new Book(2L, "Harry Potter and Prisoner of Azkaban", "J.K. Rowling", 1999),
             new Book(3L, "Harry Potter and Goblet of Fire", "J.K. Rowling", 2000)
     );
 
-    private List<BookRow> rowElements = Arrays.asList(
+    private final List<BookRow> rowElements = Arrays.asList(
             new BookRow(1L, "Harry Potter and Chamber of Secrets", "J.K. Rowling", 1998),
             new BookRow(2L, "Harry Potter and Prisoner of Azkaban", "J.K. Rowling", 1999),
             new BookRow(3L, "Harry Potter and Goblet of Fire", "J.K. Rowling", 2000)
@@ -78,7 +78,7 @@ public class BookServiceImplTest {
 
 
     @Test
-    public void testCreate_ServiceException_ServiceException() throws DAOException {
+    public void testCreate_ServiceException() throws DAOException {
 
         Book book = new Book(id, title, author, publishingYear, publisher, genre, pages, isHardCover, description);
         BookRow bookRow = new BookRow(id, title, author, publishingYear, publisher, genre, pages, isHardCover, description);

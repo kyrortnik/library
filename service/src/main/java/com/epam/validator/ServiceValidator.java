@@ -42,7 +42,6 @@ public class ServiceValidator {
         } else if ("".equals(book.getTitle()) && "".equals(book.getAuthor())) {
             throw new ServiceException("invalid book");
         }
-
     }
 
     public void validation(long id) throws ServiceException {
@@ -78,6 +77,5 @@ public class ServiceValidator {
             throw new ServiceException("Parameters list is null or empty");
         }
     }
-
 
 }

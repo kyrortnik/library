@@ -57,7 +57,6 @@ public class ReserveServiceImplTest {
             reserveService.save(reserve);
         } catch (ServiceException e) {
             actualException = e;
-
         }
         assertEquals((new ServiceException(daoException)).getMessage(), actualException.getMessage());
 
@@ -86,10 +85,8 @@ public class ReserveServiceImplTest {
             reserveService.delete(id, productId);
         } catch (ServiceException e) {
             actualException = e;
-
         }
         assertEquals((new ServiceException(daoException)).getMessage(), actualException.getMessage());
-
     }
 
 }

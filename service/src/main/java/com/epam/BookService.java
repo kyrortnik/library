@@ -51,7 +51,6 @@ public interface BookService {
      */
     Page<Book> getBooksPage(Page<Book> pageRequest) throws ServiceException;
 
-
     /**
      * Validates params from client and passes them to DAO layer in order to get Page<Book> with reserved books for current user
      *

@@ -15,7 +15,6 @@ import java.util.Objects;
 
 public class BookServiceImpl implements BookService {
 
-
     private final BookDAO bookDAO;
     private final ServiceValidator serviceValidator;
 
@@ -33,21 +32,17 @@ public class BookServiceImpl implements BookService {
         } catch (DAOException e) {
             throw new ServiceException("Duplicate with this title already exists", e);
         }
-
     }
 
     @Override
     public boolean update(Book book) throws ServiceException {
         serviceValidator.validation(book);
         try {
-
             BookRow bookRow = convertToBookRow(book);
             return bookDAO.update(bookRow);
-
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
-
     }
 
     @Override
@@ -55,11 +50,9 @@ public class BookServiceImpl implements BookService {
         serviceValidator.validation(id);
         try {
             return bookDAO.delete(id);
-
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
-
     }
 
 
@@ -71,7 +64,6 @@ public class BookServiceImpl implements BookService {
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
-
     }
 
 
@@ -145,11 +137,9 @@ public class BookServiceImpl implements BookService {
             book.setHardCover(row.isHardCover());
             book.setNumberOfPages(row.getNumberOfPages());
             book.setDescription(row.getDescription());
-
         }
         return book;
     }
-
 
     private Pageable<BookRow> convertToPageableBook(Page<Book> pageableRequest) {
         final Pageable<BookRow> pageable = new Pageable<>();
@@ -162,7 +152,6 @@ public class BookServiceImpl implements BookService {
         return pageable;
     }
 
-
     private List<BookRow> convertToBookRows(List<Book> elements) {
         final List<BookRow> list = new ArrayList<>();
         for (Book book : elements) {
@@ -170,7 +159,6 @@ public class BookServiceImpl implements BookService {
         }
         return list;
     }
-
 
     private BookRow convertToBookRow(Book book) {
         BookRow row = null;

@@ -40,11 +40,9 @@ public class ReserveServiceImpl implements ReserveService {
         serviceValidator.validation(bookId);
         try {
             return reserveDAO.deleteByUserAndProduct(userId, bookId);
-
         } catch (Exception e) {
             throw new ServiceException(e);
         }
-
     }
 
 
@@ -58,5 +56,4 @@ public class ReserveServiceImpl implements ReserveService {
         }
         return row;
     }
-
 }

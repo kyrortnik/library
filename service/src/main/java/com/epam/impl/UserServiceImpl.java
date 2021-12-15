@@ -53,7 +53,6 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-
     @Override
     public Page<UserDTO> getUsersPage(Page<UserDTO> page) throws ServiceException {
         serviceValidator.validation(page);
@@ -67,7 +66,6 @@ public class UserServiceImpl implements UserService {
 
     }
 
-
     private Page<UserDTO> convertToServicePage(Pageable<UserDTO> pageableDAO) {
         Page<UserDTO> page = new Page<>();
         page.setPageNumber(pageableDAO.getPageNumber());
@@ -79,7 +77,6 @@ public class UserServiceImpl implements UserService {
         return page;
     }
 
-
     private Pageable<UserDTO> convertToPageableUserDTO(Page<UserDTO> page) {
         final Pageable<UserDTO> pageableDAO = new Pageable<>();
         pageableDAO.setPageNumber(page.getPageNumber());
@@ -90,6 +87,5 @@ public class UserServiceImpl implements UserService {
         pageableDAO.setDirection(page.getDirection());
         return pageableDAO;
     }
-
 
 }
