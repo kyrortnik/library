@@ -1,19 +1,17 @@
 package com.epam.command.impl;
 
 import com.epam.BookService;
-import com.epam.factory.ServiceFactory;
 import com.epam.command.AbstractCommand;
 import com.epam.command.Command;
 import com.epam.exception.ControllerException;
 import com.epam.exception.ServiceException;
-import com.epam.validator.ControllerValidator;
+import com.epam.factory.ServiceFactory;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
 
 import static com.epam.util.ControllerConstants.BOOK_ID;
 

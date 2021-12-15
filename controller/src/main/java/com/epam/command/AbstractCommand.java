@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 import static com.epam.util.ControllerConstants.*;
+import static java.util.Objects.isNull;
 
 public abstract class AbstractCommand implements Command {
 
@@ -69,6 +70,14 @@ public abstract class AbstractCommand implements Command {
         return lastCommand;
     }
 
+
+    protected Long getCurrentPage(HttpServletRequest request) {
+        String currentPageParam = request.getParameter(CURRENT_PAGE);
+        if (isNull(currentPageParam) || currentPageParam.isEmpty()) {
+            currentPageParam = DEFAULT_PAGE_NUMBER;
+        }
+        return Long.parseLong(currentPageParam);
+    }
 
 
 }

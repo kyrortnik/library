@@ -56,11 +56,11 @@ public class ShowProductsCommand extends AbstractCommand implements Command {
 
     }
 
-    private Long getCurrentPage(HttpServletRequest request) {
+   /* private Long getCurrentPage(HttpServletRequest request) {
         String currentPageParam = request.getParameter(CURRENT_PAGE);
         if (isNull(currentPageParam) || currentPageParam.isEmpty()) {
             currentPageParam = DEFAULT_PAGE_NUMBER;
         }
         return Long.parseLong(currentPageParam);
-    }
+    }*/
 }

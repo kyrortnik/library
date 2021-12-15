@@ -58,11 +58,11 @@ public class ShowUsersCommand extends AbstractCommand implements Command {
         }
     }
 
-    private Long getCurrentPage(HttpServletRequest request) {
+   /* private Long getCurrentPage(HttpServletRequest request) {
         String currentPageParam = request.getParameter(CURRENT_PAGE_USER);
         if (Objects.isNull(currentPageParam)) {
             currentPageParam = DEFAULT_PAGE_NUMBER;
         }
         return Long.parseLong(currentPageParam);
-    }
+    }*/
 }
