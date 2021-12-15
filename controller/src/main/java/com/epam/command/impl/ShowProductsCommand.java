@@ -2,10 +2,10 @@ package com.epam.command.impl;
 
 
 import com.epam.BookService;
-import com.epam.ServiceFactory;
+import com.epam.factory.ServiceFactory;
 import com.epam.command.AbstractCommand;
 import com.epam.command.Command;
-import com.epam.command.exception.ControllerException;
+import com.epam.exception.ControllerException;
 import com.epam.entity.Book;
 import com.epam.entity.Page;
 import com.epam.exception.ServiceException;
@@ -32,22 +32,24 @@ public class ShowProductsCommand extends AbstractCommand implements Command {
 
         LOG.info("Start in ShowProductsCommand");
         try {
+            isValidUser(request);
             Long currentPage = getCurrentPage(request);
             Page<Book> pageRequest = new Page<>();
             pageRequest.setPageNumber(currentPage);
             String lastCommand = defineLastCommand(request, true);
-            String message;
+            String message = null;
             String pageForRedirect = "frontController?command=go_To_Page&address=main.jsp";
 
             Page<Book> page = bookService.getBooksPage(pageRequest);
 
             if (!page.getElements().isEmpty()) {
                 request.setAttribute(PAGEABLE, page);
-                successfulProcess(request, lastCommand, null);
+//                successfulProcess(request, lastCommand, null);
             } else {
                 message = "No books in library yet";
-                unsuccessfulProcess(request, lastCommand, message);
+//                unsuccessfulProcess(request, lastCommand, message);
             }
+            processRequest(request,lastCommand,message);
             request.getRequestDispatcher(pageForRedirect).forward(request, response);
         } catch (IOException | ServletException | ServiceException e) {
             throw new ControllerException(e);
@@ -55,11 +57,11 @@ public class ShowProductsCommand extends AbstractCommand implements Command {
 
     }
 
-    private Long getCurrentPage(HttpServletRequest request) {
+   /* private Long getCurrentPage(HttpServletRequest request) {
         String currentPageParam = request.getParameter(CURRENT_PAGE);
         if (isNull(currentPageParam) || currentPageParam.isEmpty()) {
             currentPageParam = DEFAULT_PAGE_NUMBER;
         }
         return Long.parseLong(currentPageParam);
-    }
+    }*/
 }

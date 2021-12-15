@@ -2,7 +2,7 @@ package com.epam.command.impl;
 
 import com.epam.command.AbstractCommand;
 import com.epam.command.Command;
-import com.epam.command.exception.ControllerException;
+import com.epam.exception.ControllerException;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;

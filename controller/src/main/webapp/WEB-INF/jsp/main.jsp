@@ -146,14 +146,14 @@
                                var="i">
                         <c:if test="${i == pageableReserves.pageNumber}">
                             <span>
-                                <button class="counter" form="showReserves" name="currentPageReserve" style="color:red"
+                                <button class="counter" form="showReserves" name="currentPage" style="color:red"
                                         type="submit"
                                         value="${i}">${i}</button>
                             </span>
                         </c:if>
                         <c:if test="${i != pageableReserves.pageNumber}">
                             <span>
-                                <button class="counter" form="showReserves" name="currentPageReserve" type="submit"
+                                <button class="counter" form="showReserves" name="currentPage" type="submit"
                                         value="${i}">${i}</button>
                             </span>
                         </c:if>
@@ -226,14 +226,14 @@
                                var="i">
                         <c:if test="${i == pageableOrders.pageNumber}">
                             <span>
-                                <button class="counter" form="showOrderInfo" name="currentPageOrder" style="color:red"
+                                <button class="counter" form="showOrderInfo" name="currentPage" style="color:red"
                                         type="submit"
                                         value="${i}">${i}</button>
                             </span>
                         </c:if>
                         <c:if test="${i != pageableOrders.pageNumber}">
                             <span>
-                                <button class="counter" form="showOrderInfo" name="currentPageUser" type="submit"
+                                <button class="counter" form="showOrderInfo" name="currentPage" type="submit"
                                         value="${i}">${i}</button>
                             </span>
                         </c:if>
@@ -280,14 +280,14 @@
                                    var="i">
                             <c:if test="${i == pageableUsers.pageNumber}">
                             <span>
-                                <button class="counter" form="showUsers" name="currentPageUser" style="color:red"
+                                <button class="counter" form="showUsers" name="currentPage" style="color:red"
                                         type="submit"
                                         value="${i}">${i}</button>
                             </span>
                             </c:if>
                             <c:if test="${i != pageableUsers.pageNumber}">
                             <span>
-                                <button class="counter" form="showUsers" name="currentPageUser" type="submit"
+                                <button class="counter" form="showUsers" name="currentPage" type="submit"
                                         value="${i}">${i}</button>
                             </span>
                             </c:if>

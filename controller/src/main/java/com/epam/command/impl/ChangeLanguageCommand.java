@@ -2,7 +2,7 @@ package com.epam.command.impl;
 
 import com.epam.command.AbstractCommand;
 import com.epam.command.Command;
-import com.epam.command.exception.ControllerException;
+import com.epam.exception.ControllerException;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +23,7 @@ public class ChangeLanguageCommand extends AbstractCommand implements Command {
         String lastCommand = (String) request.getSession().getAttribute(LAST_COMMAND);
 
         try {
+            isValidUser(request);
             request.getSession().setAttribute(LOCAL, request.getParameter(LOCAL));
             request.getSession().setAttribute(MESSAGE, null);
             String path = nonNull(lastCommand) ? lastCommand : "/frontController?command=go_To_Page&address=login.jsp";

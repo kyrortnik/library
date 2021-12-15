@@ -2,7 +2,7 @@ package com.epam.command.impl;
 
 import com.epam.command.AbstractCommand;
 import com.epam.command.Command;
-import com.epam.command.exception.ControllerException;
+import com.epam.exception.ControllerException;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -22,7 +22,8 @@ public class GoToPageCommand extends AbstractCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
 
         try {
-            if (nonNull(request.getSession().getAttribute(LAST_COMMAND)) && needToAddLastCommand(request)) {
+            isValidUser(request);
+            if (needToAddLastCommand(request)) {
                 String lastCommand = defineLastCommand(request, false);
                 request.getSession().setAttribute(LAST_COMMAND, lastCommand);
             }

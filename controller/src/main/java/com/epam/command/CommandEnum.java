@@ -3,7 +3,7 @@ package com.epam.command;
 import com.epam.command.impl.*;
 
 
-public enum TypeCommand {
+public enum CommandEnum {
 
     BASE(new BaseCommand()),
     LOGIN(new LoginCommand()),
@@ -30,7 +30,7 @@ public enum TypeCommand {
 
     Command command;
 
-    TypeCommand(Command command) {
+    CommandEnum(Command command) {
         this.command = command;
     }
 }

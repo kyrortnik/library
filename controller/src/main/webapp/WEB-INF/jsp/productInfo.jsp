@@ -95,6 +95,9 @@
                 <input class="form-control" name="author" placeholder="${author}" type="text"/>
             </div>
             <div class="form-group col-md-6">
+                <input class="form-control" name="genre" placeholder="${genre}" type="text"/>
+            </div>
+            <div class="form-group col-md-6">
                 <input class="form-control" name="publisher" placeholder="${publisher}" type="text"/>
             </div>
             <div class="form-group col-md-6">
@@ -102,9 +105,6 @@
             </div>
             <div class="form-group col-md-6">
                 <input class="form-control" name="numberOfPages" placeholder="${numberOfPages}" type="text"/>
-            </div>
-            <div class="form-group col-md-6">
-                <input class="form-control" name="genre" placeholder="${genre}" type="text"/>
             </div>
             <div class="form-group col-md-6">
                 <input class="form-control" name="description" placeholder="${description}" type="text"/>
