@@ -11512,3 +11512,25 @@ ommandFactory.defineCommand():
 2021-12-15 20:00:21,215 INFO  GoToPageCommand:22 - Start in GoToPageCommand
 2021-12-15 20:00:36,534 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-15 20:00:36,534 INFO  LogoutCommand:21 - Start in Logout command
+2021-12-15 20:04:27,001 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 20:04:27,064 INFO  ConnectionPoolImpl:33 - =======================ConnectionPoolImpl is created
+2021-12-15 20:04:27,090 INFO  ConnectionPoolImpl:91 - ================JDBC driver is loaded
+2021-12-15 20:04:27,875 INFO  ConnectionPoolImpl:44 - init availableConnections.size() is 5
+2021-12-15 20:04:27,876 INFO  ConnectionPoolImpl:45 - init takenConnections.size() is 0
+2021-12-15 20:04:27,906 INFO  LogoutCommand:21 - Start in Logout command
+2021-12-15 20:04:31,231 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 20:04:31,234 INFO  LoginCommand:36 - Start in LoginCommand
+2021-12-15 20:04:31,235 INFO  ConnectionPoolImpl:58 - =======take()
+2021-12-15 20:04:31,235 INFO  ConnectionPoolImpl:60 - =======availableConnections.size() is 4
+2021-12-15 20:04:31,236 INFO  ConnectionPoolImpl:61 - =======takenConnections.size() is 1
+2021-12-15 20:04:31,353 INFO  ConnectionPoolImpl:73 - ======= releasing Connection)
+2021-12-15 20:04:31,353 INFO  ConnectionPoolImpl:76 - =======availableConnections.size() is 5
+2021-12-15 20:04:31,353 INFO  ConnectionPoolImpl:77 - =======takenConnections.size() is 0
+2021-12-15 20:04:31,366 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 20:04:31,367 INFO  GoToPageCommand:22 - Start in GoToPageCommand
+2021-12-15 20:04:39,717 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 20:04:39,717 INFO  GoToPageCommand:22 - Start in GoToPageCommand
+2021-12-15 20:04:40,850 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 20:04:40,850 INFO  GoToPageCommand:22 - Start in GoToPageCommand
+2021-12-15 20:04:42,245 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
+2021-12-15 20:04:42,246 INFO  GoToPageCommand:22 - Start in GoToPageCommand

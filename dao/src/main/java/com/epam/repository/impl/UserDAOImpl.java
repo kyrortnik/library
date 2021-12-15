@@ -4,6 +4,7 @@ import com.epam.entity.Pageable;
 import com.epam.entity.User;
 import com.epam.entity.UserDTO;
 import com.epam.exception.DAOException;
+import com.epam.repository.AbstractDAO;
 import com.epam.repository.ConnectionPool;
 import com.epam.repository.UserDAO;
 import com.epam.security.Salt;

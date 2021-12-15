@@ -3,6 +3,7 @@ package com.epam.repository.impl;
 
 import com.epam.entity.Order;
 import com.epam.exception.DAOException;
+import com.epam.repository.AbstractDAO;
 import com.epam.repository.ConnectionPool;
 import com.epam.repository.OrderDAO;
 

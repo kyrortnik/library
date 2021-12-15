@@ -3,6 +3,7 @@ package com.epam.repository.impl;
 import com.epam.entity.BookRow;
 import com.epam.entity.Pageable;
 import com.epam.exception.DAOException;
+import com.epam.repository.AbstractDAO;
 import com.epam.repository.BookDAO;
 import com.epam.repository.ConnectionPool;
 

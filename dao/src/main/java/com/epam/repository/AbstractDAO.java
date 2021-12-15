@@ -1,6 +1,5 @@
-package com.epam.repository.impl;
+package com.epam.repository;
 
-import com.epam.repository.ConnectionPool;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
