@@ -1,11 +1,15 @@
 package com.epam.command;
 
+import com.epam.validator.ControllerValidator;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 import static com.epam.util.ControllerConstants.*;
 
 public abstract class AbstractCommand implements Command {
+
+    protected static final ControllerValidator controllerValidator = ControllerValidator.getInstance();
 
     /**
      * @param request,     which comes from web
@@ -64,4 +68,7 @@ public abstract class AbstractCommand implements Command {
         }
         return lastCommand;
     }
+
+
+
 }

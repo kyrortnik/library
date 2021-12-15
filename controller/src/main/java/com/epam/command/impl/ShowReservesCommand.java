@@ -26,7 +26,7 @@ public class ShowReservesCommand extends AbstractCommand implements Command {
 
     private final ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private final BookService bookService = serviceFactory.getBookService();
-    private final ControllerValidator controllerValidator = new ControllerValidator();
+//    private final ControllerValidator controllerValidator = ControllerValidator.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {

@@ -23,13 +23,13 @@ public class DeleteReserveCommand extends AbstractCommand implements Command {
 
     private final ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private final ReserveService reserveService = serviceFactory.getReserveService();
-    private final ControllerValidator controllerValidator = new ControllerValidator();
+//    private final ControllerValidator controllerValidator = ControllerValidator.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
         LOG.info("Start in DeleteReserveCommand");
 
-        Long userId = (Long)request.getSession().getAttribute(ID);
+        Long userId = (Long) request.getSession().getAttribute(ID);
         String bookIdString = request.getParameter(BOOK_ID);
 
         controllerValidator.longValidation(userId);
@@ -37,19 +37,19 @@ public class DeleteReserveCommand extends AbstractCommand implements Command {
         Long bookId = Long.valueOf(bookIdString);
         String lastCommand = "frontController?command=go_To_Page&address=main.jsp";
         String message;
-        try{
-            if (reserveService.delete(userId,bookId)){
+        try {
+            if (reserveService.delete(userId, bookId)) {
                 message = "Reserve is deleted";
 //                successfulProcess(request,lastCommand,message);
-                processRequest(request,lastCommand,message);
+                processRequest(request, lastCommand, message);
                 response.sendRedirect(lastCommand);
-            }else{
+            } else {
                 message = "Such reserve does not exist!";
 //               unsuccessfulProcess(request,lastCommand,message);
-                processRequest(request,lastCommand,message);
-               request.getRequestDispatcher(lastCommand).forward(request,response);
+                processRequest(request, lastCommand, message);
+                request.getRequestDispatcher(lastCommand).forward(request, response);
             }
-        }catch(ServiceException | ServletException | IOException e){
+        } catch (ServiceException | ServletException | IOException e) {
             throw new ControllerException(e);
         }
     }

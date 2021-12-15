@@ -21,7 +21,7 @@ public class UpdateBookCommand extends AbstractCommand implements Command {
     private static final Logger LOG = Logger.getLogger(UpdateBookCommand.class);
 
     private final BookService bookService = ServiceFactory.getInstance().getBookService();
-    private final ControllerValidator controllerValidator = new ControllerValidator();
+//    private final ControllerValidator controllerValidator = ControllerValidator.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {

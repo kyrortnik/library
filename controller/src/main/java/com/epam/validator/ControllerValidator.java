@@ -8,6 +8,15 @@ import static java.util.Objects.isNull;
 
 public class ControllerValidator {
 
+    private static final ControllerValidator INSTANCE = new ControllerValidator();
+
+    private ControllerValidator(){
+    }
+
+    public static ControllerValidator getInstance(){
+        return INSTANCE;
+    }
+
     public void numericParameterValidation(String... numericParameters) throws ControllerException {
         for (String numericParameter : numericParameters) {
             if (!isNumeric(numericParameter)) {

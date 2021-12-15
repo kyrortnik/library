@@ -24,7 +24,7 @@ public class CreateReserveCommand extends AbstractCommand implements Command {
 
     private final ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private final ReserveService reserveService = serviceFactory.getReserveService();
-    private final ControllerValidator controllerValidator = new ControllerValidator();
+//    private final ControllerValidator controllerValidator = ControllerValidator.getInstance();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {

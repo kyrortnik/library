@@ -20,7 +20,7 @@ public class DeleteBookFromOrderCommand extends AbstractCommand implements Comma
 
     private final ServiceFactory serviceFactory = ServiceFactory.getInstance();
     private final OrderService orderService = serviceFactory.getOrderService();
-    private final ControllerValidator controllerValidator = new ControllerValidator();
+//    private final ControllerValidator controllerValidator = ControllerValidator.getInstance();
 
 
     @Override
