@@ -19,7 +19,9 @@ public class ChangeLanguageCommand extends AbstractCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
         LOG.info("Start in ChangeLanguageCommand");
+
         String lastCommand = (String) request.getSession().getAttribute(LAST_COMMAND);
+
         try {
             isValidUser(request);
             request.getSession().setAttribute(LOCAL, request.getParameter(LOCAL));

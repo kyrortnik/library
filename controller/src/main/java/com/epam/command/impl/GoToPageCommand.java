@@ -12,6 +12,7 @@ import java.io.IOException;
 
 import static com.epam.util.ControllerConstants.ADDRESS;
 import static com.epam.util.ControllerConstants.LAST_COMMAND;
+import static java.util.Objects.nonNull;
 
 public class GoToPageCommand extends AbstractCommand implements Command {
 
