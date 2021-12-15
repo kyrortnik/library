@@ -46,7 +46,7 @@ public class ControllerValidator {
 
     public void pageValidation(Page<Book> bookPageRequest) throws ControllerException {
         boolean isValidPage =
-                bookPageRequest.getPageNumber() != 0
+                bookPageRequest.getPageNumber() > 0
                         && !bookPageRequest.getDirection().isEmpty()
                         && !bookPageRequest.getSortBy().isEmpty();
         if (!isValidPage) {
@@ -57,7 +57,7 @@ public class ControllerValidator {
     private boolean isNumeric(String parameter) {
         boolean isNumeric = true;
         try {
-            Integer.parseInt(parameter);
+            Long.parseLong(parameter);
         } catch (NumberFormatException e) {
             isNumeric = false;
         }

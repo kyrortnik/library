@@ -29,7 +29,7 @@ public class DeleteReserveCommand extends AbstractCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ControllerException {
         LOG.info("Start in DeleteReserveCommand");
 
-        Long userId = (Long)request.getSession().getAttribute(ID);
+        Long userId = (Long) request.getSession().getAttribute(ID);
         String bookIdString = request.getParameter(BOOK_ID);
 
         controllerValidator.longValidation(userId);
