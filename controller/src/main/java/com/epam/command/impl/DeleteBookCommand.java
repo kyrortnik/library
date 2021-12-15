@@ -32,9 +32,9 @@ public class DeleteBookCommand extends AbstractCommand implements Command {
         String lastCommand;
         String message;
         try {
-            String bookIdString = request.getParameter(BOOK_ID);
+
             Long bookId = Long.valueOf(request.getParameter(BOOK_ID));
-            controllerValidator.numericParameterValidation(bookIdString);
+            controllerValidator.longValidation(bookId);
 
             if (bookService.delete(bookId)) {
                 lastCommand = "frontController?command=go_To_Page&address=main.jsp";

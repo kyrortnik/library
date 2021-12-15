@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import static com.epam.util.ControllerConstants.MESSAGE;
+import static com.epam.util.ControllerConstants.ANTI_INJECTION_MESSAGE;
 
 public class AntiInjectionFilter implements Filter {
 
@@ -29,7 +30,7 @@ public class AntiInjectionFilter implements Filter {
         if (!toMatch.matches(JS_INJECTION_PATTERN)) {
             chain.doFilter(req, res);
         } else {
-            ((HttpServletRequest) request).getSession().setAttribute("antiInjectionMessage", "Injection attempt has been detected");
+            ((HttpServletRequest) request).getSession().setAttribute(ANTI_INJECTION_MESSAGE, "Injection attempt has been detected");
             ((HttpServletRequest) request).getSession().setAttribute(MESSAGE, null);
             request.getRequestDispatcher("frontController?command=go_To_Page&address=antiInjection.jsp").forward(request, response);
         }

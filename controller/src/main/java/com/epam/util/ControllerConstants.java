@@ -36,6 +36,7 @@ public class ControllerConstants {
             PAGEABLE_RESERVES = "pageableReserves",
             CURRENT_PAGE_USER = "currentPageUser",
             PAGEABLE_USERS = "pageableUsers",
-            PAGEABLE_ORDERS = "pageableOrders";
+            PAGEABLE_ORDERS = "pageableOrders",
+            ANTI_INJECTION_MESSAGE = "antiInjectionMessage";
 
 }
