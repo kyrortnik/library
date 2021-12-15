@@ -45,7 +45,7 @@ public class DeleteBookCommand extends AbstractCommand implements Command {
                 processRequest(request, lastCommand, message);
                 request.getRequestDispatcher(lastCommand).forward(request, response);
             }
-        } catch (IOException | ServiceException | ServletException e) {
+        }  catch (IOException | ServiceException | ServletException e) {
             throw new ControllerException(e);
         }
     }

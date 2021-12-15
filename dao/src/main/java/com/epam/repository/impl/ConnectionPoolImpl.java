@@ -51,15 +51,8 @@ public class ConnectionPoolImpl implements ConnectionPool {
 
 
     @Override
-    public Connection getConnection() throws SQLException, DAOException {
+    public Connection getConnection() throws  DAOException {
         try {
-            if (availableConnections.isEmpty()) {
-                if (takenConnections.size() < MAX_POOL_SIZE) {
-                    availableConnections.add(createConnection(url, username, password));
-                } else {
-                    throw new DAOException("Maximum pool size reached, no available connections!");
-                }
-            }
 
             Connection connection = availableConnections.take();
             LOG.info("=======take()");
@@ -97,7 +90,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
                 driverIsLoaded = true;
                 LOG.info("================JDBC driver is loaded");
             } catch (ClassNotFoundException e) {
-                LOG.error(e.getMessage());
+                LOG.error("Error while loading JDBC Driver");
             }
         }
     }

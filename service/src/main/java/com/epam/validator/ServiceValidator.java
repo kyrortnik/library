@@ -39,7 +39,7 @@ public class ServiceValidator {
     public void validation(Book book) throws ServiceException {
         if (isNull(book)) {
             throw new ServiceException("Null Book");
-        } else if (book.getTitle().equals("") && book.getAuthor().equals("")) {
+        } else if ("".equals(book.getTitle()) && "".equals(book.getAuthor())) {
             throw new ServiceException("invalid book");
         }
 

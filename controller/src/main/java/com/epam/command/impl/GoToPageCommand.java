@@ -12,7 +12,6 @@ import java.io.IOException;
 
 import static com.epam.util.ControllerConstants.ADDRESS;
 
-
 public class GoToPageCommand extends AbstractCommand implements Command {
 
     private static final Logger LOG = Logger.getLogger(GoToPageCommand.class);
