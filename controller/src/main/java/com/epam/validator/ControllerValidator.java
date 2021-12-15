@@ -1,6 +1,6 @@
 package com.epam.validator;
 
-import com.epam.command.exception.ControllerException;
+import com.epam.exception.ControllerException;
 import com.epam.entity.Book;
 import com.epam.entity.Page;
 

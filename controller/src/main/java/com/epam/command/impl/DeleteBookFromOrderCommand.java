@@ -1,10 +1,10 @@
 package com.epam.command.impl;
 
 import com.epam.OrderService;
-import com.epam.ServiceFactory;
+import com.epam.factory.ServiceFactory;
 import com.epam.command.AbstractCommand;
 import com.epam.command.Command;
-import com.epam.command.exception.ControllerException;
+import com.epam.exception.ControllerException;
 import com.epam.validator.ControllerValidator;
 import org.apache.log4j.Logger;
 
@@ -41,12 +41,14 @@ public class DeleteBookFromOrderCommand extends AbstractCommand implements Comma
             if (orderService.deleteFromOrder(userId, bookId)) {
                 lastCommand = "frontController?command=go_To_Page&address=main.jsp";
                 message = "Book is deleted from order";
-                successfulProcess(request, lastCommand, message);
+//                successfulProcess(request, lastCommand, message);
+                processRequest(request,lastCommand,message);
                 response.sendRedirect(lastCommand);
             } else {
                 lastCommand = "frontController?command=order_Info";
                 message = "Book wasn't deleted from order";
-                unsuccessfulProcess(request, lastCommand, message);
+//                unsuccessfulProcess(request, lastCommand, message);
+                processRequest(request,lastCommand,message);
                 request.getRequestDispatcher(lastCommand).forward(request, response);
             }
         } catch (Exception e) {

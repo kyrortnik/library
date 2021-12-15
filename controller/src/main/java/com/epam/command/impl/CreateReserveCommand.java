@@ -1,10 +1,10 @@
 package com.epam.command.impl;
 
 import com.epam.ReserveService;
-import com.epam.ServiceFactory;
+import com.epam.factory.ServiceFactory;
 import com.epam.command.AbstractCommand;
 import com.epam.command.Command;
-import com.epam.command.exception.ControllerException;
+import com.epam.exception.ControllerException;
 import com.epam.entity.Reserve;
 import com.epam.exception.ServiceException;
 import com.epam.validator.ControllerValidator;
@@ -43,11 +43,13 @@ public class CreateReserveCommand extends AbstractCommand implements Command {
             String message;
             if (reserveService.save(reserve)) {
                 message = "Book is reserved";
-                successfulProcess(request,lastCommand, message);
+//                successfulProcess(request,lastCommand, message);
+                processRequest(request,lastCommand,message);
                 response.sendRedirect(lastCommand);
             } else {
                 message = "Product is not added to Reserve list! Reserve for this product already exists.";
-                unsuccessfulProcess(request, lastCommand, message);
+//                unsuccessfulProcess(request, lastCommand, message);
+                processRequest(request,lastCommand,message);
                 request.getRequestDispatcher(lastCommand).forward(request,response);
             }
 

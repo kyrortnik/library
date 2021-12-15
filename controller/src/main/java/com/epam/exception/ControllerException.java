@@ -1,4 +1,4 @@
-package com.epam.command.exception;
+package com.epam.exception;
 
 public class ControllerException extends Exception {
 

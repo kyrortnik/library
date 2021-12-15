@@ -1,10 +1,10 @@
 package com.epam.command.impl;
 
 import com.epam.OrderService;
-import com.epam.ServiceFactory;
+import com.epam.factory.ServiceFactory;
 import com.epam.command.AbstractCommand;
 import com.epam.command.Command;
-import com.epam.command.exception.ControllerException;
+import com.epam.exception.ControllerException;
 import com.epam.validator.ControllerValidator;
 import org.apache.log4j.Logger;
 
@@ -42,13 +42,16 @@ public class CreateOrderCommand extends AbstractCommand implements Command {
             String lastCommand = "frontController?command=go_To_Page&address=main.jsp";
             if (orderService.create(userId, bookIds)) {
                 message =  "Products ordered! To see the click to Order List";
-                successfulProcess(request, lastCommand,message);
+//                successfulProcess(request, lastCommand,message);
+                processRequest(request,lastCommand,message);
                 response.sendRedirect(lastCommand);
             } else {
                 message = "Some products are already ordered. Delete duplicates and try again";
-                unsuccessfulProcess(request, lastCommand, message);
+//                unsuccessfulProcess(request, lastCommand, message);
+                processRequest(request,lastCommand,message);
                 request.getRequestDispatcher(lastCommand).forward(request,response);
             }
+
         } catch (Exception e) {
             throw new ControllerException(e);
         }

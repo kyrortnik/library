@@ -1,10 +1,10 @@
 package com.epam.command.impl;
 
-import com.epam.ServiceFactory;
+import com.epam.factory.ServiceFactory;
 import com.epam.UserService;
 import com.epam.command.AbstractCommand;
 import com.epam.command.Command;
-import com.epam.command.exception.ControllerException;
+import com.epam.exception.ControllerException;
 import com.epam.entity.Page;
 import com.epam.entity.UserDTO;
 import com.epam.exception.ServiceException;
@@ -35,7 +35,7 @@ public class ShowUsersCommand extends AbstractCommand implements Command {
         try {
             Long currentPage = getCurrentPage(request);
             String lastCommand = defineLastCommand(request, true);
-            String message;
+            String message = null;
             String pageForRedirect = "frontController?command=go_To_Page&address=main.jsp";
             Page<UserDTO> pageableRequest = new Page<>();
 
@@ -45,11 +45,12 @@ public class ShowUsersCommand extends AbstractCommand implements Command {
 
             if (!usersPage.getElements().isEmpty()) {
                 request.setAttribute(PAGEABLE_USERS, usersPage);
-                successfulProcess(request, lastCommand, null);
+//                successfulProcess(request, lastCommand, null);
             } else {
                 message = "Users were not found";
-                successfulProcess(request, lastCommand, message);
+//                successfulProcess(request, lastCommand, message);
             }
+            processRequest(request,lastCommand,message);
             request.getRequestDispatcher(pageForRedirect).forward(request, response);
 
         } catch (IOException | ServletException | ServiceException e) {

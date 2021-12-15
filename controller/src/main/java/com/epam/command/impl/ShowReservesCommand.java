@@ -1,10 +1,10 @@
 package com.epam.command.impl;
 
 import com.epam.BookService;
-import com.epam.ServiceFactory;
+import com.epam.factory.ServiceFactory;
 import com.epam.command.AbstractCommand;
 import com.epam.command.Command;
-import com.epam.command.exception.ControllerException;
+import com.epam.exception.ControllerException;
 import com.epam.entity.Book;
 import com.epam.entity.Page;
 import com.epam.exception.ServiceException;
@@ -34,7 +34,7 @@ public class ShowReservesCommand extends AbstractCommand implements Command {
 
         try {
             String lastCommand = defineLastCommand(request, true);
-            String message;
+            String message = null;
             String pageForRedirect = "frontController?command=go_To_Page&address=main.jsp";
             Long userId = (Long) request.getSession().getAttribute(ID);
             controllerValidator.longValidation(userId);
@@ -46,11 +46,12 @@ public class ShowReservesCommand extends AbstractCommand implements Command {
             controllerValidator.pageValidation(pageReserves);
             if (!pageReserves.getElements().isEmpty()) {
                 request.setAttribute(PAGEABLE_RESERVES, pageReserves);
-                successfulProcess(request, lastCommand, null);
+//                successfulProcess(request, lastCommand, null);
             } else {
                 message = "No reserves for you yet";
-                unsuccessfulProcess(request, lastCommand, message);
+//                unsuccessfulProcess(request, lastCommand, message);
             }
+            processRequest(request,lastCommand,message);
             request.getRequestDispatcher(pageForRedirect).forward(request, response);
         } catch (IOException | ServiceException | ServletException e) {
             throw new ControllerException(e);

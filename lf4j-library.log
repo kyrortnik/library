@@ -1128,7 +1128,7 @@ Stacktrace:
 2021-12-06 21:42:33,300 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 21:42:33,303 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 21:42:34,024 ERROR CreateBookCommand:54 - Title and author can't be empty
-2021-12-06 21:42:40,026 ERROR FrontController:36 - com.epam.command.exception.ControllerException: Title and author can't be empty
+2021-12-06 21:42:40,026 ERROR FrontController:36 - com.epam.exception.ControllerException: Title and author can't be empty
 2021-12-06 21:43:15,103 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 21:43:15,103 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 21:43:16,141 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
@@ -1197,7 +1197,7 @@ Stacktrace:
 2021-12-06 21:44:45,421 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 21:44:45,423 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 21:44:46,193 ERROR UpdateBookCommand:54 - Title and author can't be empty
-2021-12-06 21:44:49,468 ERROR FrontController:36 - com.epam.command.exception.ControllerException: Title and author can't be empty
+2021-12-06 21:44:49,468 ERROR FrontController:36 - com.epam.exception.ControllerException: Title and author can't be empty
 2021-12-06 21:45:07,906 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 21:45:07,906 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 21:45:10,768 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
@@ -1243,7 +1243,7 @@ Stacktrace:
 2021-12-06 21:48:23,326 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 21:48:23,328 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 21:48:33,948 ERROR UpdateBookCommand:54 - Title and author can't be empty
-2021-12-06 21:48:39,975 ERROR FrontController:36 - com.epam.command.exception.ControllerException: Title and author can't be empty
+2021-12-06 21:48:39,975 ERROR FrontController:36 - com.epam.exception.ControllerException: Title and author can't be empty
 2021-12-06 21:52:55,822 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 21:52:55,822 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 21:52:58,690 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
@@ -1370,7 +1370,7 @@ Stacktrace:
 2021-12-06 21:56:43,263 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 21:56:43,266 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 21:56:44,193 ERROR UpdateBookCommand:55 - Title and author can't be empty
-2021-12-06 21:56:47,831 ERROR FrontController:36 - com.epam.command.exception.ControllerException: Title and author can't be empty
+2021-12-06 21:56:47,831 ERROR FrontController:36 - com.epam.exception.ControllerException: Title and author can't be empty
 2021-12-06 21:58:00,429 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 21:58:00,431 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 21:58:01,627 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
@@ -1380,7 +1380,7 @@ Stacktrace:
 2021-12-06 21:58:19,797 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 21:58:19,800 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 21:58:20,687 ERROR CreateBookCommand:54 - Title and author can't be empty
-2021-12-06 21:58:23,363 ERROR FrontController:36 - com.epam.command.exception.ControllerException: Title and author can't be empty
+2021-12-06 21:58:23,363 ERROR FrontController:36 - com.epam.exception.ControllerException: Title and author can't be empty
 2021-12-06 21:59:59,424 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 21:59:59,425 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 22:00:00,800 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
@@ -1452,7 +1452,7 @@ Stacktrace:
 2021-12-06 22:01:15,675 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:01:15,678 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 22:01:16,284 ERROR UpdateBookCommand:55 - Title and author can't be empty
-2021-12-06 22:01:18,396 ERROR FrontController:36 - com.epam.command.exception.ControllerException: Title and author can't be empty
+2021-12-06 22:01:18,396 ERROR FrontController:36 - com.epam.exception.ControllerException: Title and author can't be empty
 2021-12-06 22:02:41,900 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:02:44,169 INFO  UpdateBookCommand:29 - Start in UpdateBookCommand
 2021-12-06 22:03:38,569 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
@@ -1466,7 +1466,7 @@ Stacktrace:
 2021-12-06 22:03:38,592 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:03:38,596 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 22:03:40,768 ERROR UpdateBookCommand:55 - Title and author can't be empty
-2021-12-06 22:04:04,530 ERROR FrontController:36 - com.epam.command.exception.ControllerException: Title and author can't be empty
+2021-12-06 22:04:04,530 ERROR FrontController:36 - com.epam.exception.ControllerException: Title and author can't be empty
 2021-12-06 22:04:40,431 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:04:40,432 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 22:04:42,665 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
@@ -1476,13 +1476,13 @@ Stacktrace:
 2021-12-06 22:04:49,037 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:04:49,041 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 22:04:49,951 ERROR CreateBookCommand:54 - Title and author can't be empty
-2021-12-06 22:04:54,561 ERROR FrontController:36 - com.epam.command.exception.ControllerException: Title and author can't be empty
+2021-12-06 22:04:54,561 ERROR FrontController:36 - com.epam.exception.ControllerException: Title and author can't be empty
 2021-12-06 22:05:41,269 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:05:44,065 INFO  CreateBookCommand:33 - Start in CreateBookCommand
 2021-12-06 22:07:09,007 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:07:09,010 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 22:07:10,220 ERROR CreateBookCommand:54 - Title and author can't be empty
-2021-12-06 22:07:30,196 ERROR FrontController:36 - com.epam.command.exception.ControllerException: Title and author can't be empty
+2021-12-06 22:07:30,196 ERROR FrontController:36 - com.epam.exception.ControllerException: Title and author can't be empty
 2021-12-06 22:07:42,902 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:07:42,903 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 22:07:44,435 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
@@ -1519,7 +1519,7 @@ Stacktrace:
 2021-12-06 22:08:34,041 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:08:34,043 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 22:08:35,284 ERROR UpdateBookCommand:55 - Title and author can't be empty
-2021-12-06 22:08:45,447 ERROR FrontController:36 - com.epam.command.exception.ControllerException: Title and author can't be empty
+2021-12-06 22:08:45,447 ERROR FrontController:36 - com.epam.exception.ControllerException: Title and author can't be empty
 2021-12-06 22:09:19,715 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:09:19,716 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 22:09:21,498 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
@@ -1529,7 +1529,7 @@ Stacktrace:
 2021-12-06 22:09:41,586 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:09:41,589 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 22:09:42,417 ERROR CreateBookCommand:54 - Title and author can't be empty
-2021-12-06 22:09:45,137 ERROR FrontController:36 - com.epam.command.exception.ControllerException: Title and author can't be empty
+2021-12-06 22:09:45,137 ERROR FrontController:36 - com.epam.exception.ControllerException: Title and author can't be empty
 2021-12-06 22:17:09,730 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:17:09,798 INFO  ConnectionPoolImpl:33 - =======================ConnectionPoolImpl is created
 2021-12-06 22:17:09,825 INFO  ConnectionPoolImpl:98 - ================JDBC driver is loaded
@@ -1577,7 +1577,7 @@ Stacktrace:
 2021-12-06 22:17:26,216 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:17:26,220 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 22:17:28,288 ERROR UpdateBookCommand:54 - Title and author can't be empty
-2021-12-06 22:17:31,242 ERROR FrontController:36 - com.epam.command.exception.ControllerException: Title and author can't be empty
+2021-12-06 22:17:31,242 ERROR FrontController:36 - com.epam.exception.ControllerException: Title and author can't be empty
 2021-12-06 22:19:31,519 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:19:31,520 INFO  LogoutCommand:22 - Start in Logout command
 2021-12-06 22:19:33,854 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
@@ -1597,7 +1597,7 @@ Stacktrace:
 2021-12-06 22:19:44,932 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:19:44,935 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 22:19:45,941 ERROR CreateBookCommand:54 - Title and author can't be empty
-2021-12-06 22:19:49,295 ERROR FrontController:36 - com.epam.command.exception.ControllerException: Title and author can't be empty
+2021-12-06 22:19:49,295 ERROR FrontController:36 - com.epam.exception.ControllerException: Title and author can't be empty
 2021-12-06 22:22:39,611 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:22:39,683 INFO  ConnectionPoolImpl:33 - =======================ConnectionPoolImpl is created
 2021-12-06 22:22:39,720 INFO  ConnectionPoolImpl:98 - ================JDBC driver is loaded
@@ -1629,7 +1629,7 @@ Stacktrace:
 2021-12-06 22:22:46,192 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:22:46,192 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 22:22:46,197 ERROR CreateBookCommand:54 - Title and author can't be empty
-2021-12-06 22:22:46,198 ERROR FrontController:36 - com.epam.command.exception.ControllerException: Title and author can't be empty
+2021-12-06 22:22:46,198 ERROR FrontController:36 - com.epam.exception.ControllerException: Title and author can't be empty
 2021-12-06 22:23:06,986 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:23:06,986 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 22:23:09,265 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
@@ -1665,7 +1665,7 @@ Stacktrace:
 2021-12-06 22:23:12,695 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:23:12,695 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 22:23:12,700 ERROR UpdateBookCommand:54 - Title and author can't be empty
-2021-12-06 22:23:12,700 ERROR FrontController:36 - com.epam.command.exception.ControllerException: Title and author can't be empty
+2021-12-06 22:23:12,700 ERROR FrontController:36 - com.epam.exception.ControllerException: Title and author can't be empty
 2021-12-06 22:24:05,419 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:24:05,480 INFO  ConnectionPoolImpl:33 - =======================ConnectionPoolImpl is created
 2021-12-06 22:24:05,507 INFO  ConnectionPoolImpl:98 - ================JDBC driver is loaded
@@ -1753,7 +1753,7 @@ Stacktrace:
 2021-12-06 22:27:01,250 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:27:01,254 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 22:27:01,964 ERROR UpdateBookCommand:55 - Title and author can't be empty
-2021-12-06 22:27:04,331 ERROR FrontController:36 - com.epam.command.exception.ControllerException: Title and author can't be empty
+2021-12-06 22:27:04,331 ERROR FrontController:36 - com.epam.exception.ControllerException: Title and author can't be empty
 2021-12-06 22:42:04,693 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:42:04,695 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 22:42:06,742 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
@@ -1781,7 +1781,7 @@ Stacktrace:
 2021-12-06 22:42:27,985 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:42:27,990 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 22:42:28,508 ERROR UpdateBookCommand:55 - Title and author can't be empty
-2021-12-06 22:42:30,814 ERROR FrontController:36 - com.epam.command.exception.ControllerException: Title and author can't be empty
+2021-12-06 22:42:30,814 ERROR FrontController:36 - com.epam.exception.ControllerException: Title and author can't be empty
 2021-12-06 22:42:47,302 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:42:47,303 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 22:42:49,541 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
@@ -1809,7 +1809,7 @@ Stacktrace:
 2021-12-06 22:42:53,308 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:42:53,309 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 22:42:53,311 ERROR UpdateBookCommand:55 - Title and author can't be empty
-2021-12-06 22:42:53,312 ERROR FrontController:36 - com.epam.command.exception.ControllerException: Title and author can't be empty
+2021-12-06 22:42:53,312 ERROR FrontController:36 - com.epam.exception.ControllerException: Title and author can't be empty
 2021-12-06 22:43:39,487 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:43:39,488 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 22:43:40,911 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
@@ -1837,7 +1837,7 @@ Stacktrace:
 2021-12-06 22:43:45,704 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:43:45,705 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 22:43:45,707 ERROR UpdateBookCommand:55 - Title and author can't be empty
-2021-12-06 22:43:45,707 ERROR FrontController:36 - com.epam.command.exception.ControllerException: Title and author can't be empty
+2021-12-06 22:43:45,707 ERROR FrontController:36 - com.epam.exception.ControllerException: Title and author can't be empty
 2021-12-06 22:44:00,684 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:44:00,684 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 22:44:03,476 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
@@ -1875,7 +1875,7 @@ Stacktrace:
 2021-12-06 22:45:14,264 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:45:14,267 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 22:45:16,524 ERROR UpdateBookCommand:55 - Title and author can't be empty
-2021-12-06 22:45:20,216 ERROR FrontController:36 - com.epam.command.exception.ControllerException: Title and author can't be empty
+2021-12-06 22:45:20,216 ERROR FrontController:36 - com.epam.exception.ControllerException: Title and author can't be empty
 2021-12-06 22:47:10,195 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:47:10,196 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 22:47:12,397 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
@@ -1913,7 +1913,7 @@ Stacktrace:
 2021-12-06 22:47:31,321 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:47:31,323 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 22:47:31,659 ERROR UpdateBookCommand:55 - Title and author can't be empty
-2021-12-06 22:47:32,915 ERROR FrontController:36 - com.epam.command.exception.ControllerException: Title and author can't be empty
+2021-12-06 22:47:32,915 ERROR FrontController:36 - com.epam.exception.ControllerException: Title and author can't be empty
 2021-12-06 22:50:10,783 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:50:10,843 INFO  ConnectionPoolImpl:33 - =======================ConnectionPoolImpl is created
 2021-12-06 22:50:10,870 INFO  ConnectionPoolImpl:98 - ================JDBC driver is loaded
@@ -1955,19 +1955,19 @@ Stacktrace:
 2021-12-06 22:50:29,093 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:50:29,098 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 22:50:29,387 ERROR UpdateBookCommand:55 - Title and author can't be empty
-2021-12-06 22:50:31,012 ERROR FrontController:36 - com.epam.command.exception.ControllerException: Title and author can't be empty
+2021-12-06 22:50:31,012 ERROR FrontController:36 - com.epam.exception.ControllerException: Title and author can't be empty
 2021-12-06 22:52:27,222 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:52:33,858 INFO  UpdateBookCommand:29 - Start in UpdateBookCommand
 2021-12-06 22:52:33,859 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:52:33,860 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 22:52:34,894 ERROR UpdateBookCommand:55 - Title and author can't be empty
-2021-12-06 22:52:34,894 ERROR FrontController:36 - com.epam.command.exception.ControllerException: Title and author can't be empty
+2021-12-06 22:52:34,894 ERROR FrontController:36 - com.epam.exception.ControllerException: Title and author can't be empty
 2021-12-06 22:53:24,621 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:53:30,471 INFO  UpdateBookCommand:29 - Start in UpdateBookCommand
 2021-12-06 22:53:30,472 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:53:30,473 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 22:53:31,293 ERROR UpdateBookCommand:55 - Title and author can't be empty
-2021-12-06 22:53:31,294 ERROR FrontController:36 - com.epam.command.exception.ControllerException: Title and author can't be empty
+2021-12-06 22:53:31,294 ERROR FrontController:36 - com.epam.exception.ControllerException: Title and author can't be empty
 2021-12-06 22:55:16,294 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:55:16,354 INFO  ConnectionPoolImpl:33 - =======================ConnectionPoolImpl is created
 2021-12-06 22:55:16,383 INFO  ConnectionPoolImpl:98 - ================JDBC driver is loaded
@@ -2007,7 +2007,7 @@ Stacktrace:
 2021-12-06 22:55:34,086 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:55:34,090 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 22:55:35,402 ERROR UpdateBookCommand:55 - Title and author can't be empty
-2021-12-06 22:55:35,403 ERROR FrontController:36 - com.epam.command.exception.ControllerException: Title and author can't be empty
+2021-12-06 22:55:35,403 ERROR FrontController:36 - com.epam.exception.ControllerException: Title and author can't be empty
 2021-12-06 22:55:55,914 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 22:55:55,915 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 22:56:00,775 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
@@ -2059,7 +2059,7 @@ Stacktrace:
 2021-12-06 23:01:36,547 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 23:01:36,550 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 23:01:37,507 ERROR UpdateBookCommand:55 - Title and author can't be empty
-2021-12-06 23:01:41,377 ERROR FrontController:36 - com.epam.command.exception.ControllerException: Title and author can't be empty
+2021-12-06 23:01:41,377 ERROR FrontController:36 - com.epam.exception.ControllerException: Title and author can't be empty
 2021-12-06 23:01:49,397 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 23:01:49,397 INFO  ChangeLanguageCommand:21 - Start in ChangeLanguageCommand
 2021-12-06 23:01:49,413 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
@@ -2109,7 +2109,7 @@ Stacktrace:
 2021-12-06 23:02:04,760 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 23:02:04,761 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 23:02:04,774 ERROR UpdateBookCommand:55 - Title and author can't be empty
-2021-12-06 23:02:04,775 ERROR FrontController:36 - com.epam.command.exception.ControllerException: Title and author can't be empty
+2021-12-06 23:02:04,775 ERROR FrontController:36 - com.epam.exception.ControllerException: Title and author can't be empty
 2021-12-06 23:02:07,221 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 23:02:07,222 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 23:02:12,178 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
@@ -2145,7 +2145,7 @@ Stacktrace:
 2021-12-06 23:02:17,038 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 23:02:17,039 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 23:02:17,042 ERROR UpdateBookCommand:55 - Title and author can't be empty
-2021-12-06 23:02:17,043 ERROR FrontController:36 - com.epam.command.exception.ControllerException: Title and author can't be empty
+2021-12-06 23:02:17,043 ERROR FrontController:36 - com.epam.exception.ControllerException: Title and author can't be empty
 2021-12-06 23:02:21,860 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 23:02:21,860 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 23:02:37,883 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
@@ -2285,7 +2285,7 @@ Stacktrace:
 2021-12-06 23:04:14,792 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 23:04:14,792 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 23:04:14,801 ERROR UpdateBookCommand:55 - Title and author can't be empty
-2021-12-06 23:04:14,802 ERROR FrontController:36 - com.epam.command.exception.ControllerException: Title and author can't be empty
+2021-12-06 23:04:14,802 ERROR FrontController:36 - com.epam.exception.ControllerException: Title and author can't be empty
 2021-12-06 23:04:17,182 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 23:04:17,183 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 23:04:18,878 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
@@ -2295,7 +2295,7 @@ Stacktrace:
 2021-12-06 23:04:22,069 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 23:04:22,070 INFO  GoToPageCommand:24 - Start in GoToPageCommand
 2021-12-06 23:04:22,074 ERROR CreateBookCommand:54 - Title and author can't be empty
-2021-12-06 23:04:22,075 ERROR FrontController:36 - com.epam.command.exception.ControllerException: Title and author can't be empty
+2021-12-06 23:04:22,075 ERROR FrontController:36 - com.epam.exception.ControllerException: Title and author can't be empty
 2021-12-06 23:48:10,103 INFO  CommandFactory:33 - Start in CommandFactory.defineCommand():
 2021-12-06 23:48:10,172 INFO  ConnectionPoolImpl:33 - =======================ConnectionPoolImpl is created
 2021-12-06 23:48:10,203 INFO  ConnectionPoolImpl:98 - ================JDBC driver is loaded

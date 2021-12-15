@@ -1,10 +1,10 @@
 package com.epam.command.impl;
 
 import com.epam.BookService;
-import com.epam.ServiceFactory;
+import com.epam.factory.ServiceFactory;
 import com.epam.command.AbstractCommand;
 import com.epam.command.Command;
-import com.epam.command.exception.ControllerException;
+import com.epam.exception.ControllerException;
 import com.epam.entity.Book;
 import com.epam.exception.ServiceException;
 import com.epam.validator.ControllerValidator;
@@ -17,6 +17,7 @@ import java.io.IOException;
 
 
 import static com.epam.util.ControllerConstants.*;
+import static java.util.Objects.nonNull;
 
 public class BookInfoCommand extends AbstractCommand implements Command {
 
@@ -41,14 +42,15 @@ public class BookInfoCommand extends AbstractCommand implements Command {
         try {
             Book book = bookService.findById(Long.parseLong(userId));
 
-            if (book != null) {
+            if (nonNull(book)) {
                 message = (String) request.getSession().getAttribute(MESSAGE);
                 request.setAttribute(BOOK, book);
-                successfulProcess(request, lastCommand, message);
+//                successfulProcess(request, lastCommand, message);
             } else {
                 message = "No such product was found";
-                unsuccessfulProcess(request, lastCommand, message);
+//                unsuccessfulProcess(request, lastCommand, message);
             }
+            processRequest(request,lastCommand,message);
             request.getRequestDispatcher("frontController?command=go_To_Page&address=productInfo.jsp").forward(request, response);
 
         } catch (ServiceException | IOException | ServletException e) {

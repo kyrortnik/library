@@ -1,10 +1,10 @@
 package com.epam.command.impl;
 
 import com.epam.BookService;
-import com.epam.ServiceFactory;
+import com.epam.factory.ServiceFactory;
 import com.epam.command.AbstractCommand;
 import com.epam.command.Command;
-import com.epam.command.exception.ControllerException;
+import com.epam.exception.ControllerException;
 import com.epam.entity.Book;
 import com.epam.validator.ControllerValidator;
 import org.apache.log4j.Logger;
@@ -40,11 +40,13 @@ public class UpdateBookCommand extends AbstractCommand implements Command {
             if (bookService.update(book)) {
                 lastCommand = "frontController?command=go_To_Page&address=main.jsp";
                 message = "Book is updated";
-                successfulProcess(request, lastCommand, message);
+//                successfulProcess(request, lastCommand, message);
+                processRequest(request,lastCommand,message);
                 response.sendRedirect(lastCommand);
             } else {
                 message = "No such book exists";
-                unsuccessfulProcess(request, lastCommand, message);
+//                unsuccessfulProcess(request, lastCommand, message);
+                processRequest(request,lastCommand,message);
                 request.getRequestDispatcher(lastCommand).forward(request, response);
             }
         } catch (Exception e) {

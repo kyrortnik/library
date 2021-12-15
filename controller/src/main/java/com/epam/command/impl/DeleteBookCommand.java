@@ -1,10 +1,10 @@
 package com.epam.command.impl;
 
 import com.epam.BookService;
-import com.epam.ServiceFactory;
+import com.epam.factory.ServiceFactory;
 import com.epam.command.AbstractCommand;
 import com.epam.command.Command;
-import com.epam.command.exception.ControllerException;
+import com.epam.exception.ControllerException;
 import com.epam.exception.ServiceException;
 import com.epam.validator.ControllerValidator;
 import org.apache.log4j.Logger;
@@ -39,12 +39,14 @@ public class DeleteBookCommand extends AbstractCommand implements Command {
             if (bookService.delete(bookId)) {
                 lastCommand = "frontController?command=go_To_Page&address=main.jsp";
                 message = "Book is deleted";
-                successfulProcess(request, lastCommand, message);
+//                successfulProcess(request, lastCommand, message);
+                processRequest(request,lastCommand,message);
                 response.sendRedirect(lastCommand);
             } else {
                 lastCommand = "frontController?command=product_Info?id=" + bookId;
                 message = "No such book exists";
-                unsuccessfulProcess(request, lastCommand, message);
+//                unsuccessfulProcess(request, lastCommand, message);
+                processRequest(request,lastCommand,message);
                 request.getRequestDispatcher(lastCommand).forward(request, response);
             }
         } catch (IOException | ServiceException | ServletException e) {

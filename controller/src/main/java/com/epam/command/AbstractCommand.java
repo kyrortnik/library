@@ -1,45 +1,24 @@
 package com.epam.command;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.Map;
 
 import static com.epam.util.ControllerConstants.*;
 
 public abstract class AbstractCommand implements Command {
 
-
     /**
-     * Prepares request after service layer returned true
-     *
      * @param request,     which comes from web
      * @param lastCommand, url of last performed command
      * @param message,     message to show on web page
-     * @throws IOException throws IOException
      */
-    protected void successfulProcess(HttpServletRequest request, String lastCommand, String message) throws IOException {
+    protected void processRequest(HttpServletRequest request, String lastCommand, String message) {
         request.getSession().setAttribute(LAST_COMMAND, lastCommand);
         request.getSession().setAttribute(MESSAGE, message);
     }
 
     /**
-     * Processes command when service layer returned false
-     *
-     * @param request,     which comes from web
-     * @param lastCommand, url of last performed command
-     * @param message,     message to show on web page
-     * @throws IOException      throws IOException
-     * @throws ServletException throws ServletException
-     */
-    protected void unsuccessfulProcess(HttpServletRequest request, String lastCommand, String message) throws IOException, ServletException {
-        request.getSession().setAttribute(LAST_COMMAND, lastCommand);
-        request.getSession().setAttribute(MESSAGE, message);
-    }
-
-
-    /**
-     * Defines incoming url (command) as a String
+     * Defines incoming url (command) as a String. Needed in order to perform language change from any application page
      *
      * @param request,  which comes from web
      * @param withPage, required when the command is pageable

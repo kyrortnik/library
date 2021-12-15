@@ -1,10 +1,10 @@
 package com.epam.command.impl;
 
 import com.epam.ReserveService;
-import com.epam.ServiceFactory;
+import com.epam.factory.ServiceFactory;
 import com.epam.command.AbstractCommand;
 import com.epam.command.Command;
-import com.epam.command.exception.ControllerException;
+import com.epam.exception.ControllerException;
 import com.epam.exception.ServiceException;
 import com.epam.validator.ControllerValidator;
 import org.apache.log4j.Logger;
@@ -40,11 +40,13 @@ public class DeleteReserveCommand extends AbstractCommand implements Command {
         try{
             if (reserveService.delete(userId,bookId)){
                 message = "Reserve is deleted";
-                successfulProcess(request,lastCommand,message);
+//                successfulProcess(request,lastCommand,message);
+                processRequest(request,lastCommand,message);
                 response.sendRedirect(lastCommand);
             }else{
                 message = "Such reserve does not exist!";
-               unsuccessfulProcess(request,lastCommand,message);
+//               unsuccessfulProcess(request,lastCommand,message);
+                processRequest(request,lastCommand,message);
                request.getRequestDispatcher(lastCommand).forward(request,response);
             }
         }catch(ServiceException | ServletException | IOException e){
