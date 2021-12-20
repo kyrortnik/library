@@ -11,6 +11,7 @@
 <body style="padding-top : 0px ; text-align : start">
 <%@ include file="parts/header.jsp" %>
 <br/>
+
 <!----------   ADMIN - BOOK CREATION  ---------->
 <div>
     <c:if test="${sessionScope.role == 'admin'}">
